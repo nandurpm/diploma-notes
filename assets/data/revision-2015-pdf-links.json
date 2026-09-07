@@ -259,61 +259,61 @@
     "AU|1001": {
       "department": "automobile-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "AU|1002": {
       "department": "automobile-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "AU|1003": {
       "department": "automobile-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "AU|1004": {
       "department": "automobile-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "AU|1008": {
       "department": "automobile-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "AU|1009": {
       "department": "automobile-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "AU|2001": {
       "department": "automobile-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "AU|2002": {
       "department": "automobile-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "AU|2003": {
       "department": "automobile-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "AU|2004": {
       "department": "automobile-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "AU|2009": {
       "department": "automobile-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "AU|2051": {
       "department": "automobile-engineering",
@@ -329,8 +329,8 @@
     "AU|3001": {
       "department": "automobile-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "AU|3021": {
       "department": "automobile-engineering",
@@ -424,7 +424,7 @@
     "AU|5009": {
       "department": "automobile-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "AU|5051": {
       "department": "automobile-engineering",
@@ -516,61 +516,61 @@
     "BM|1001": {
       "department": "biomedical-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "BM|1002": {
       "department": "biomedical-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "BM|1003": {
       "department": "biomedical-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "BM|1004": {
       "department": "biomedical-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "BM|1008": {
       "department": "biomedical-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "BM|1009": {
       "department": "biomedical-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "BM|2001": {
       "department": "biomedical-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "BM|2002": {
       "department": "biomedical-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "BM|2003": {
       "department": "biomedical-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "BM|2004": {
       "department": "biomedical-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "BM|2009": {
       "department": "biomedical-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "BM|2041": {
       "department": "biomedical-engineering",
@@ -586,8 +586,8 @@
     "BM|3001": {
       "department": "biomedical-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "BM|3042": {
       "department": "biomedical-engineering",
@@ -675,13 +675,13 @@
     "BM|5001": {
       "department": "biomedical-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "BM|5009": {
       "department": "biomedical-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "BM|5041": {
       "department": "biomedical-engineering",
@@ -772,27 +772,27 @@
     "CB|1001": {
       "department": "computer-application-business-management",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CB|1008": {
       "department": "computer-application-business-management",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CB|1009": {
       "department": "computer-application-business-management",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CB|1142": {
       "department": "computer-application-business-management",
       "code": "1142",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/1142-business-studies.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/1142-business-studies.pdf"
     },
     "CB|1143": {
       "department": "computer-application-business-management",
       "code": "1143",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/1143-economics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/1143-economics.pdf"
     },
     "CB|1251": {
       "department": "computer-application-business-management",
@@ -812,13 +812,13 @@
     "CB|2001": {
       "department": "computer-application-business-management",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-application-business-management/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CB|2009": {
       "department": "computer-application-business-management",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CB|2251": {
       "department": "computer-application-business-management",
@@ -852,14 +852,14 @@
     "CB|3001": {
       "department": "computer-application-business-management",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-application-business-management/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CB|3143": {
       "department": "computer-application-business-management",
       "code": "3143",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/3143-mercantile-law.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-application-business-management/semester-unspecified/3143-mercantile-law.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/3143-mercantile-law.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/commercial-practice/semester-unspecified/3143-mercantile-law.pdf"
     },
     "CB|3251": {
       "department": "computer-application-business-management",
@@ -932,7 +932,7 @@
     "CB|5009": {
       "department": "computer-application-business-management",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-application-business-management/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CB|5251": {
       "department": "computer-application-business-management",
@@ -1027,61 +1027,61 @@
     "CE|1001": {
       "department": "civil-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CE|1002": {
       "department": "civil-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "CE|1003": {
       "department": "civil-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "CE|1004": {
       "department": "civil-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "CE|1008": {
       "department": "civil-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CE|1009": {
       "department": "civil-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CE|2001": {
       "department": "civil-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CE|2002": {
       "department": "civil-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "CE|2003": {
       "department": "civil-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "CE|2004": {
       "department": "civil-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "CE|2009": {
       "department": "civil-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CE|2011": {
       "department": "civil-engineering",
@@ -1097,14 +1097,14 @@
     "CE|3001": {
       "department": "civil-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CE|3011": {
       "department": "civil-engineering",
       "code": "3011",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/3011-construction-materials-and-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/3011-construction-materials-and-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3011-construction-materials-and-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3011-construction-materials-and-engineering.pdf"
     },
     "CE|3012": {
       "department": "civil-engineering",
@@ -1115,8 +1115,8 @@
     "CE|3013": {
       "department": "civil-engineering",
       "code": "3013",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/3013-theory-of-structures-i.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/3013-theory-of-structures-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3013-theory-of-structures-i.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3013-theory-of-structures-i.pdf"
     },
     "CE|3014": {
       "department": "civil-engineering",
@@ -1160,8 +1160,8 @@
     "CE|4014": {
       "department": "civil-engineering",
       "code": "4014",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/4014-theory-of-structures-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/4014-theory-of-structures-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/4014-theory-of-structures-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/4014-theory-of-structures-ii.pdf"
     },
     "CE|4017": {
       "department": "civil-engineering",
@@ -1181,7 +1181,7 @@
     "CE|5009": {
       "department": "civil-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CE|5011": {
       "department": "civil-engineering",
@@ -1192,8 +1192,8 @@
     "CE|5012": {
       "department": "civil-engineering",
       "code": "5012",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/5012-construction-management-safety-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/5012-construction-management-safety-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5012-construction-management-safety-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/5012-construction-management-safety-engineering.pdf"
     },
     "CE|5013": {
       "department": "civil-engineering",
@@ -1209,13 +1209,13 @@
     "CE|5015": {
       "department": "civil-engineering",
       "code": "5015",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/5015-structural-design-i.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/5015-structural-design-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5015-structural-design-i.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/5015-structural-design-i.pdf"
     },
     "CE|5016": {
       "department": "civil-engineering",
       "code": "5016",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/5016-cost-effective-construction-green-building.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5016-cost-effective-construction-green-building.pdf"
     },
     "CE|5017": {
       "department": "civil-engineering",
@@ -1248,8 +1248,8 @@
     "CE|6013": {
       "department": "civil-engineering",
       "code": "6013",
-      "syllabus": "sitttr/revision-2015/syllabus/civil-engineering/semester-unspecified/6013-structural-design-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/civil-engineering/semester-unspecified/6013-structural-design-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/6013-structural-design-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/6013-structural-design-ii.pdf"
     },
     "CE|6014": {
       "department": "civil-engineering",
@@ -1285,61 +1285,61 @@
     "CH|1001": {
       "department": "chemical-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CH|1002": {
       "department": "chemical-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "CH|1003": {
       "department": "chemical-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "CH|1004": {
       "department": "chemical-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "CH|1008": {
       "department": "chemical-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CH|1009": {
       "department": "chemical-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CH|2001": {
       "department": "chemical-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CH|2002": {
       "department": "chemical-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "CH|2003": {
       "department": "chemical-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "CH|2004": {
       "department": "chemical-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "CH|2009": {
       "department": "chemical-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CH|2071": {
       "department": "chemical-engineering",
@@ -1355,8 +1355,8 @@
     "CH|3001": {
       "department": "chemical-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CH|3071": {
       "department": "chemical-engineering",
@@ -1399,7 +1399,7 @@
     "CH|4009": {
       "department": "chemical-engineering",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "CH|4071": {
       "department": "chemical-engineering",
@@ -1442,13 +1442,13 @@
     "CH|5001": {
       "department": "chemical-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/chemical-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "CH|5009": {
       "department": "chemical-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/chemical-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CH|5071": {
       "department": "chemical-engineering",
@@ -1540,106 +1540,106 @@
     "CM|1001": {
       "department": "computer-hardware-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CM|1002": {
       "department": "computer-hardware-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "CM|1003": {
       "department": "computer-hardware-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "CM|1004": {
       "department": "computer-hardware-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "CM|1008": {
       "department": "computer-hardware-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CM|1009": {
       "department": "computer-hardware-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CM|2001": {
       "department": "computer-hardware-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CM|2002": {
       "department": "computer-hardware-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "CM|2003": {
       "department": "computer-hardware-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "CM|2004": {
       "department": "computer-hardware-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "CM|2009": {
       "department": "computer-hardware-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CM|2131": {
       "department": "computer-hardware-engineering",
       "code": "2131",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2131-programming-in-c.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/2131-programming-in-c.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2131-programming-in-c.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2131-programming-in-c.pdf"
     },
     "CM|2139": {
       "department": "computer-hardware-engineering",
       "code": "2139",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/2139-programming-in-c-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2139-programming-in-c-lab.pdf"
     },
     "CM|3001": {
       "department": "computer-hardware-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CM|3131": {
       "department": "computer-hardware-engineering",
       "code": "3131",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3131-computer-architecture.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/3131-computer-architecture.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3131-computer-architecture.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/3131-computer-architecture.pdf"
     },
     "CM|3133": {
       "department": "computer-hardware-engineering",
       "code": "3133",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3133-digital-computer-principles.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/3133-digital-computer-principles.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3133-digital-computer-principles.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/3133-digital-computer-principles.pdf"
     },
     "CM|3134": {
       "department": "computer-hardware-engineering",
       "code": "3134",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3134-object-oriented-programming-through-c.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/3134-object-oriented-programming-through-c.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3134-object-oriented-programming-through-c.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/3134-object-oriented-programming-through-c.pdf"
     },
     "CM|3137": {
       "department": "computer-hardware-engineering",
       "code": "3137",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3137-object-oriented-programming-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3137-object-oriented-programming-lab.pdf"
     },
     "CM|3138": {
       "department": "computer-hardware-engineering",
       "code": "3138",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/3138-digital-computer-principles-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3138-digital-computer-principles-lab.pdf"
     },
     "CM|3151": {
       "department": "computer-hardware-engineering",
@@ -1655,35 +1655,35 @@
     "CM|4131": {
       "department": "computer-hardware-engineering",
       "code": "4131",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4131-computer-system-hardware.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/4131-computer-system-hardware.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4131-computer-system-hardware.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/4131-computer-system-hardware.pdf"
     },
     "CM|4133": {
       "department": "computer-hardware-engineering",
       "code": "4133",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4133-data-structures.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/4133-data-structures.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4133-data-structures.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/4133-data-structures.pdf"
     },
     "CM|4134": {
       "department": "computer-hardware-engineering",
       "code": "4134",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4134-operating-systems.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/4134-operating-systems.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4134-operating-systems.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/4134-operating-systems.pdf"
     },
     "CM|4137": {
       "department": "computer-hardware-engineering",
       "code": "4137",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4137-computer-system-hardware-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4137-computer-system-hardware-lab.pdf"
     },
     "CM|4138": {
       "department": "computer-hardware-engineering",
       "code": "4138",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4138-data-structures-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4138-data-structures-lab.pdf"
     },
     "CM|4139": {
       "department": "computer-hardware-engineering",
       "code": "4139",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/4139-system-administration-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/4139-system-administration-lab.pdf"
     },
     "CM|4151": {
       "department": "computer-hardware-engineering",
@@ -1694,38 +1694,38 @@
     "CM|5009": {
       "department": "computer-hardware-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CM|5132": {
       "department": "computer-hardware-engineering",
       "code": "5132",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5132-project-management-software-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5132-project-management-software-engineering.pdf"
     },
     "CM|5134": {
       "department": "computer-hardware-engineering",
       "code": "5134",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5134-cloud-computing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5134-cloud-computing.pdf"
     },
     "CM|5135": {
       "department": "computer-hardware-engineering",
       "code": "5135",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5135-ethical-hacking.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/5135-ethical-hacking.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5135-ethical-hacking.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/5135-ethical-hacking.pdf"
     },
     "CM|5136": {
       "department": "computer-hardware-engineering",
       "code": "5136",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5136-information-security.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5136-information-security.pdf"
     },
     "CM|5137": {
       "department": "computer-hardware-engineering",
       "code": "5137",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5137-computer-network-engineering-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5137-computer-network-engineering-lab.pdf"
     },
     "CM|5138": {
       "department": "computer-hardware-engineering",
       "code": "5138",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/5138-microprocessor-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5138-microprocessor-lab.pdf"
     },
     "CM|5151": {
       "department": "computer-hardware-engineering",
@@ -1746,13 +1746,13 @@
     "CM|6132": {
       "department": "computer-hardware-engineering",
       "code": "6132",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/6132-microcontrollers.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-hardware-engineering/semester-unspecified/6132-microcontrollers.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/6132-microcontrollers.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/6132-microcontrollers.pdf"
     },
     "CM|6139": {
       "department": "computer-hardware-engineering",
       "code": "6139",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-hardware-engineering/semester-unspecified/6139-microcontroller-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/6139-microcontroller-lab.pdf"
     },
     "CM|6151": {
       "department": "computer-hardware-engineering",
@@ -1778,17 +1778,17 @@
     "CP|1001": {
       "department": "commercial-practice",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CP|1008": {
       "department": "commercial-practice",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CP|1009": {
       "department": "commercial-practice",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CP|1142": {
       "department": "commercial-practice",
@@ -1808,13 +1808,13 @@
     "CP|2001": {
       "department": "commercial-practice",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/commercial-practice/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CP|2009": {
       "department": "commercial-practice",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CP|2141": {
       "department": "commercial-practice",
@@ -1848,8 +1848,8 @@
     "CP|3001": {
       "department": "commercial-practice",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/commercial-practice/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CP|3141": {
       "department": "commercial-practice",
@@ -1912,7 +1912,7 @@
     "CP|5009": {
       "department": "commercial-practice",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/commercial-practice/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CP|5141": {
       "department": "commercial-practice",
@@ -1968,61 +1968,61 @@
     "CT|1001": {
       "department": "computer-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "CT|1002": {
       "department": "computer-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "CT|1003": {
       "department": "computer-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "CT|1004": {
       "department": "computer-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "CT|1008": {
       "department": "computer-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "CT|1009": {
       "department": "computer-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "CT|2001": {
       "department": "computer-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "CT|2002": {
       "department": "computer-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "CT|2003": {
       "department": "computer-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "CT|2004": {
       "department": "computer-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "CT|2009": {
       "department": "computer-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "CT|2131": {
       "department": "computer-engineering",
@@ -2038,8 +2038,8 @@
     "CT|3001": {
       "department": "computer-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "CT|3131": {
       "department": "computer-engineering",
@@ -2127,7 +2127,7 @@
     "CT|5009": {
       "department": "computer-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "CT|5131": {
       "department": "computer-engineering",
@@ -2225,78 +2225,78 @@
     "EC|1001": {
       "department": "electronics-and-communication",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "EC|1002": {
       "department": "electronics-and-communication",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "EC|1003": {
       "department": "electronics-and-communication",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "EC|1004": {
       "department": "electronics-and-communication",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "EC|1008": {
       "department": "electronics-and-communication",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "EC|1009": {
       "department": "electronics-and-communication",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "EC|2001": {
       "department": "electronics-and-communication",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "EC|2002": {
       "department": "electronics-and-communication",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "EC|2003": {
       "department": "electronics-and-communication",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "EC|2004": {
       "department": "electronics-and-communication",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "EC|2009": {
       "department": "electronics-and-communication",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "EC|2041": {
       "department": "electronics-and-communication",
       "code": "2041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2041-basic-electronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/2041-basic-electronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2041-basic-electronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2041-basic-electronics.pdf"
     },
     "EC|2049": {
       "department": "electronics-and-communication",
       "code": "2049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/2049-basic-electronics-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2049-basic-electronics-lab.pdf"
     },
     "EC|3001": {
       "department": "electronics-and-communication",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "EC|3041": {
       "department": "electronics-and-communication",
@@ -2307,30 +2307,30 @@
     "EC|3042": {
       "department": "electronics-and-communication",
       "code": "3042",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3042-digital-electronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/3042-digital-electronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3042-digital-electronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3042-digital-electronics.pdf"
     },
     "EC|3043": {
       "department": "electronics-and-communication",
       "code": "3043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3043-electrical-technology.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/3043-electrical-technology.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3043-electrical-technology.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3043-electrical-technology.pdf"
     },
     "EC|3044": {
       "department": "electronics-and-communication",
       "code": "3044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3044-electronic-devices-circuits.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/3044-electronic-devices-circuits.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf"
     },
     "EC|3047": {
       "department": "electronics-and-communication",
       "code": "3047",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3047-electronics-circuits-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3047-electronics-circuits-lab.pdf"
     },
     "EC|3048": {
       "department": "electronics-and-communication",
       "code": "3048",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3048-digital-electronics-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3048-digital-electronics-lab.pdf"
     },
     "EC|3049": {
       "department": "electronics-and-communication",
@@ -2340,7 +2340,7 @@
     "EC|4009": {
       "department": "electronics-and-communication",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "EC|4041": {
       "department": "electronics-and-communication",
@@ -2351,52 +2351,52 @@
     "EC|4042": {
       "department": "electronics-and-communication",
       "code": "4042",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4042-linear-integrated-circuits.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/4042-linear-integrated-circuits.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf"
     },
     "EC|4043": {
       "department": "electronics-and-communication",
       "code": "4043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4043-microcontroller-and-interfacing.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/4043-microcontroller-and-interfacing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf"
     },
     "EC|4044": {
       "department": "electronics-and-communication",
       "code": "4044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4044-programming-in-c.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/4044-programming-in-c.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4044-programming-in-c.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4044-programming-in-c.pdf"
     },
     "EC|4047": {
       "department": "electronics-and-communication",
       "code": "4047",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4047-linear-integrated-circuits-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4047-linear-integrated-circuits-lab.pdf"
     },
     "EC|4048": {
       "department": "electronics-and-communication",
       "code": "4048",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4048-microcontroller-interfacing-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4048-microcontroller-interfacing-lab.pdf"
     },
     "EC|4049": {
       "department": "electronics-and-communication",
       "code": "4049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4049-programming-in-c-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4049-programming-in-c-lab.pdf"
     },
     "EC|5001": {
       "department": "electronics-and-communication",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "EC|5009": {
       "department": "electronics-and-communication",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "EC|5041": {
       "department": "electronics-and-communication",
       "code": "5041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5041-embedded-system.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/5041-embedded-system.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5041-embedded-system.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/5041-embedded-system.pdf"
     },
     "EC|5043": {
       "department": "electronics-and-communication",
@@ -2424,7 +2424,7 @@
     "EC|5049": {
       "department": "electronics-and-communication",
       "code": "5049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5049-embedded-system-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5049-embedded-system-lab.pdf"
     },
     "EC|5201": {
       "department": "electronics-and-communication",
@@ -2457,7 +2457,7 @@
     "EC|6044": {
       "department": "electronics-and-communication",
       "code": "6044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6044-digital-signal-processing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/6044-digital-signal-processing.pdf"
     },
     "EC|6045": {
       "department": "electronics-and-communication",
@@ -2479,66 +2479,66 @@
     "EC|6049": {
       "department": "electronics-and-communication",
       "code": "6049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6049-computer-hardware-and-networking-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/6049-computer-hardware-and-networking-lab.pdf"
     },
     "EE|1001": {
       "department": "electrical-electronics-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "EE|1002": {
       "department": "electrical-electronics-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "EE|1003": {
       "department": "electrical-electronics-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "EE|1004": {
       "department": "electrical-electronics-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "EE|1008": {
       "department": "electrical-electronics-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "EE|1009": {
       "department": "electrical-electronics-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "EE|2001": {
       "department": "electrical-electronics-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "EE|2002": {
       "department": "electrical-electronics-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "EE|2003": {
       "department": "electrical-electronics-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "EE|2004": {
       "department": "electrical-electronics-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "EE|2009": {
       "department": "electrical-electronics-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "EE|2031": {
       "department": "electrical-electronics-engineering",
@@ -2554,8 +2554,8 @@
     "EE|3001": {
       "department": "electrical-electronics-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "EE|3031": {
       "department": "electrical-electronics-engineering",
@@ -2599,7 +2599,7 @@
     "EE|4009": {
       "department": "electrical-electronics-engineering",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "EE|4031": {
       "department": "electrical-electronics-engineering",
@@ -2649,13 +2649,13 @@
     "EE|5001": {
       "department": "electrical-electronics-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electrical-electronics-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "EE|5009": {
       "department": "electrical-electronics-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/electrical-electronics-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "EE|5031": {
       "department": "electrical-electronics-engineering",
@@ -2743,178 +2743,178 @@
     "EL|1001": {
       "department": "electronics-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "EL|1002": {
       "department": "electronics-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "EL|1003": {
       "department": "electronics-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "EL|1004": {
       "department": "electronics-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "EL|1008": {
       "department": "electronics-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "EL|1009": {
       "department": "electronics-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "EL|2001": {
       "department": "electronics-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "EL|2002": {
       "department": "electronics-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "EL|2003": {
       "department": "electronics-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "EL|2004": {
       "department": "electronics-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "EL|2009": {
       "department": "electronics-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "EL|2041": {
       "department": "electronics-engineering",
       "code": "2041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2041-basic-electronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/2041-basic-electronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2041-basic-electronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/2041-basic-electronics.pdf"
     },
     "EL|2049": {
       "department": "electronics-engineering",
       "code": "2049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/2049-basic-electronics-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/2049-basic-electronics-lab.pdf"
     },
     "EL|3001": {
       "department": "electronics-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "EL|3041": {
       "department": "electronics-engineering",
       "code": "3041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3041-communication-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/3041-communication-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3041-communication-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/3041-communication-engineering.pdf"
     },
     "EL|3042": {
       "department": "electronics-engineering",
       "code": "3042",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3042-digital-electronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/3042-digital-electronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3042-digital-electronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3042-digital-electronics.pdf"
     },
     "EL|3043": {
       "department": "electronics-engineering",
       "code": "3043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3043-electrical-technology.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/3043-electrical-technology.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3043-electrical-technology.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3043-electrical-technology.pdf"
     },
     "EL|3044": {
       "department": "electronics-engineering",
       "code": "3044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/3044-electronic-devices-circuits.pdf"
     },
     "EL|3047": {
       "department": "electronics-engineering",
       "code": "3047",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3047-electronics-circuits-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3047-electronics-circuits-lab.pdf"
     },
     "EL|3048": {
       "department": "electronics-engineering",
       "code": "3048",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3048-digital-electronics-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/3048-digital-electronics-lab.pdf"
     },
     "EL|3049": {
       "department": "electronics-engineering",
       "code": "3049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/3049-analogue-communication-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/3049-analogue-communication-lab.pdf"
     },
     "EL|4009": {
       "department": "electronics-engineering",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "EL|4041": {
       "department": "electronics-engineering",
       "code": "4041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4041-electronics-instruments-measurements.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/4041-electronics-instruments-measurements.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/4041-electronics-instruments-measurements.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/4041-electronics-instruments-measurements.pdf"
     },
     "EL|4042": {
       "department": "electronics-engineering",
       "code": "4042",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4042-linear-integrated-circuits.pdf"
     },
     "EL|4043": {
       "department": "electronics-engineering",
       "code": "4043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4043-microcontroller-and-interfacing.pdf"
     },
     "EL|4044": {
       "department": "electronics-engineering",
       "code": "4044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4044-programming-in-c.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/4044-programming-in-c.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4044-programming-in-c.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/4044-programming-in-c.pdf"
     },
     "EL|4047": {
       "department": "electronics-engineering",
       "code": "4047",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4047-linear-integrated-circuits-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4047-linear-integrated-circuits-lab.pdf"
     },
     "EL|4048": {
       "department": "electronics-engineering",
       "code": "4048",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4048-microcontroller-interfacing-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4048-microcontroller-interfacing-lab.pdf"
     },
     "EL|4049": {
       "department": "electronics-engineering",
       "code": "4049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/4049-programming-in-c-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4049-programming-in-c-lab.pdf"
     },
     "EL|5001": {
       "department": "electronics-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "EL|5009": {
       "department": "electronics-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "EL|5041": {
       "department": "electronics-engineering",
       "code": "5041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5041-embedded-system.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/5041-embedded-system.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5041-embedded-system.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/biomedical-engineering/semester-unspecified/5041-embedded-system.pdf"
     },
     "EL|5042": {
       "department": "electronics-engineering",
@@ -2925,25 +2925,25 @@
     "EL|5043": {
       "department": "electronics-engineering",
       "code": "5043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5043-control-system.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/5043-control-system.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5043-control-system.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/5043-control-system.pdf"
     },
     "EL|5044": {
       "department": "electronics-engineering",
       "code": "5044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5044-medical-electronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/5044-medical-electronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5044-medical-electronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/5044-medical-electronics.pdf"
     },
     "EL|5045": {
       "department": "electronics-engineering",
       "code": "5045",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5045-optical-fibre-communication.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/5045-optical-fibre-communication.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5045-optical-fibre-communication.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/5045-optical-fibre-communication.pdf"
     },
     "EL|5047": {
       "department": "electronics-engineering",
       "code": "5047",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5047-pcb-spice-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/5047-pcb-spice-lab.pdf"
     },
     "EL|5048": {
       "department": "electronics-engineering",
@@ -2953,111 +2953,111 @@
     "EL|5049": {
       "department": "electronics-engineering",
       "code": "5049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/5049-embedded-system-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/5049-embedded-system-lab.pdf"
     },
     "EL|6041": {
       "department": "electronics-engineering",
       "code": "6041",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6041-advanced-microprocessors.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/6041-advanced-microprocessors.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6041-advanced-microprocessors.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/6041-advanced-microprocessors.pdf"
     },
     "EL|6042": {
       "department": "electronics-engineering",
       "code": "6042",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6042-communication-systems.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/6042-communication-systems.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6042-communication-systems.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/6042-communication-systems.pdf"
     },
     "EL|6043": {
       "department": "electronics-engineering",
       "code": "6043",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6043-computer-hardware-networking.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/6043-computer-hardware-networking.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6043-computer-hardware-networking.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/6043-computer-hardware-networking.pdf"
     },
     "EL|6044": {
       "department": "electronics-engineering",
       "code": "6044",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6044-digital-signal-processing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/6044-digital-signal-processing.pdf"
     },
     "EL|6045": {
       "department": "electronics-engineering",
       "code": "6045",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6045-radar-and-navigation.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/6045-radar-and-navigation.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6045-radar-and-navigation.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/6045-radar-and-navigation.pdf"
     },
     "EL|6046": {
       "department": "electronics-engineering",
       "code": "6046",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6046-television-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-engineering/semester-unspecified/6046-television-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6046-television-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/electronics-and-communication/semester-unspecified/6046-television-engineering.pdf"
     },
     "EL|6048": {
       "department": "electronics-engineering",
       "code": "6048",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6048-hdl-and-simulation-software-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/electronics-and-communication/semester-unspecified/6048-hdl-and-simulation-software-lab.pdf"
     },
     "EL|6049": {
       "department": "electronics-engineering",
       "code": "6049",
-      "syllabus": "sitttr/revision-2015/syllabus/electronics-engineering/semester-unspecified/6049-computer-hardware-and-networking-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/6049-computer-hardware-and-networking-lab.pdf"
     },
     "IE|1001": {
       "department": "instrumentation-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "IE|1002": {
       "department": "instrumentation-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "IE|1003": {
       "department": "instrumentation-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "IE|1004": {
       "department": "instrumentation-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "IE|1008": {
       "department": "instrumentation-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "IE|1009": {
       "department": "instrumentation-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "IE|2001": {
       "department": "instrumentation-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "IE|2002": {
       "department": "instrumentation-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "IE|2003": {
       "department": "instrumentation-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "IE|2004": {
       "department": "instrumentation-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "IE|2009": {
       "department": "instrumentation-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "IE|2211": {
       "department": "instrumentation-engineering",
@@ -3073,8 +3073,8 @@
     "IE|3001": {
       "department": "instrumentation-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "IE|3211": {
       "department": "instrumentation-engineering",
@@ -3118,7 +3118,7 @@
     "IE|4009": {
       "department": "instrumentation-engineering",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "IE|4211": {
       "department": "instrumentation-engineering",
@@ -3162,13 +3162,13 @@
     "IE|5001": {
       "department": "instrumentation-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/instrumentation-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "IE|5009": {
       "department": "instrumentation-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/instrumentation-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "IE|5211": {
       "department": "instrumentation-engineering",
@@ -3260,89 +3260,89 @@
     "IF|1001": {
       "department": "information-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "IF|1002": {
       "department": "information-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "IF|1003": {
       "department": "information-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "IF|1004": {
       "department": "information-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "IF|1008": {
       "department": "information-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "IF|1009": {
       "department": "information-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "IF|2001": {
       "department": "information-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "IF|2002": {
       "department": "information-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "IF|2003": {
       "department": "information-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "IF|2004": {
       "department": "information-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "IF|2009": {
       "department": "information-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "IF|2131": {
       "department": "information-technology",
       "code": "2131",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2131-programming-in-c.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/2131-programming-in-c.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2131-programming-in-c.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/2131-programming-in-c.pdf"
     },
     "IF|2139": {
       "department": "information-technology",
       "code": "2139",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/2139-programming-in-c-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/2139-programming-in-c-lab.pdf"
     },
     "IF|3001": {
       "department": "information-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "IF|3132": {
       "department": "information-technology",
       "code": "3132",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/3132-database-management-system.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/3132-database-management-system.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3132-database-management-system.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/3132-database-management-system.pdf"
     },
     "IF|3139": {
       "department": "information-technology",
       "code": "3139",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/3139-database-management-system-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/3139-database-management-system-lab.pdf"
     },
     "IF|3261": {
       "department": "information-technology",
@@ -3375,7 +3375,7 @@
     "IF|4261": {
       "department": "information-technology",
       "code": "4261",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/4261-project-management-software-engineering.pdf",
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5132-project-management-software-engineering.pdf",
       "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/4261-project-management-software-engineering.pdf"
     },
     "IF|4262": {
@@ -3418,24 +3418,24 @@
     "IF|5001": {
       "department": "information-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "IF|5009": {
       "department": "information-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "IF|5134": {
       "department": "information-technology",
       "code": "5134",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/5134-cloud-computing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5134-cloud-computing.pdf"
     },
     "IF|5135": {
       "department": "information-technology",
       "code": "5135",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/5135-ethical-hacking.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/5135-ethical-hacking.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/5135-ethical-hacking.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/5135-ethical-hacking.pdf"
     },
     "IF|5261": {
       "department": "information-technology",
@@ -3471,8 +3471,8 @@
     "IF|6135": {
       "department": "information-technology",
       "code": "6135",
-      "syllabus": "sitttr/revision-2015/syllabus/information-technology/semester-unspecified/6135-network-infrastructure-mangagement.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/information-technology/semester-unspecified/6135-network-infrastructure-mangagement.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/computer-engineering/semester-unspecified/6135-network-infrastructure-mangagement.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/computer-engineering/semester-unspecified/6135-network-infrastructure-mangagement.pdf"
     },
     "IF|6261": {
       "department": "information-technology",
@@ -3513,61 +3513,61 @@
     "ME|1001": {
       "department": "mechanical-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "ME|1002": {
       "department": "mechanical-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "ME|1003": {
       "department": "mechanical-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "ME|1004": {
       "department": "mechanical-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "ME|1008": {
       "department": "mechanical-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "ME|1009": {
       "department": "mechanical-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "ME|2001": {
       "department": "mechanical-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "ME|2002": {
       "department": "mechanical-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "ME|2003": {
       "department": "mechanical-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "ME|2004": {
       "department": "mechanical-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "ME|2009": {
       "department": "mechanical-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "ME|2021": {
       "department": "mechanical-engineering",
@@ -3583,20 +3583,20 @@
     "ME|3001": {
       "department": "mechanical-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "ME|3021": {
       "department": "mechanical-engineering",
       "code": "3021",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf"
     },
     "ME|3022": {
       "department": "mechanical-engineering",
       "code": "3022",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf"
     },
     "ME|3023": {
       "department": "mechanical-engineering",
@@ -3607,8 +3607,8 @@
     "ME|3024": {
       "department": "mechanical-engineering",
       "code": "3024",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/3024-machine-drawing.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/3024-machine-drawing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3024-machine-drawing.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3024-machine-drawing.pdf"
     },
     "ME|3027": {
       "department": "mechanical-engineering",
@@ -3618,7 +3618,7 @@
     "ME|3028": {
       "department": "mechanical-engineering",
       "code": "3028",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/3028-electrical-technology-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3028-electrical-technology-lab.pdf"
     },
     "ME|3029": {
       "department": "mechanical-engineering",
@@ -3628,8 +3628,8 @@
     "ME|4021": {
       "department": "mechanical-engineering",
       "code": "4021",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
     },
     "ME|4022": {
       "department": "mechanical-engineering",
@@ -3652,8 +3652,8 @@
     "ME|4026": {
       "department": "mechanical-engineering",
       "code": "4026",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/4026-production-drawing.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/4026-production-drawing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4026-production-drawing.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4026-production-drawing.pdf"
     },
     "ME|4027": {
       "department": "mechanical-engineering",
@@ -3663,7 +3663,7 @@
     "ME|4028": {
       "department": "mechanical-engineering",
       "code": "4028",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/4028-material-testing-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4028-material-testing-lab.pdf"
     },
     "ME|4029": {
       "department": "mechanical-engineering",
@@ -3673,13 +3673,13 @@
     "ME|5001": {
       "department": "mechanical-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "ME|5009": {
       "department": "mechanical-engineering",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "ME|5021": {
       "department": "mechanical-engineering",
@@ -3690,8 +3690,8 @@
     "ME|5022": {
       "department": "mechanical-engineering",
       "code": "5022",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/5022-industrial-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/5022-industrial-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5022-industrial-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/5022-industrial-engineering.pdf"
     },
     "ME|5023": {
       "department": "mechanical-engineering",
@@ -3707,13 +3707,13 @@
     "ME|5025": {
       "department": "mechanical-engineering",
       "code": "5025",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/5025-material-handling.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/5025-material-handling.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5025-material-handling.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/5025-material-handling.pdf"
     },
     "ME|5027": {
       "department": "mechanical-engineering",
       "code": "5027",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/5027-cadd-lab-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5027-cadd-lab-i.pdf"
     },
     "ME|5028": {
       "department": "mechanical-engineering",
@@ -3746,14 +3746,14 @@
     "ME|6024": {
       "department": "mechanical-engineering",
       "code": "6024",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/6024-cad-cam.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/6024-cad-cam.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/6024-cad-cam.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/6024-cad-cam.pdf"
     },
     "ME|6025": {
       "department": "mechanical-engineering",
       "code": "6025",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/mechanical-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
     },
     "ME|6026": {
       "department": "mechanical-engineering",
@@ -3768,7 +3768,7 @@
     "ME|6028": {
       "department": "mechanical-engineering",
       "code": "6028",
-      "syllabus": "sitttr/revision-2015/syllabus/mechanical-engineering/semester-unspecified/6028-cadd-lab-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/6028-cadd-lab-ii.pdf"
     },
     "ME|6029": {
       "department": "mechanical-engineering",
@@ -3778,61 +3778,61 @@
     "MT|1001": {
       "department": "manufacturing-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "MT|1002": {
       "department": "manufacturing-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "MT|1003": {
       "department": "manufacturing-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "MT|1004": {
       "department": "manufacturing-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "MT|1008": {
       "department": "manufacturing-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "MT|1009": {
       "department": "manufacturing-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "MT|2001": {
       "department": "manufacturing-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "MT|2002": {
       "department": "manufacturing-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "MT|2003": {
       "department": "manufacturing-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "MT|2004": {
       "department": "manufacturing-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "MT|2009": {
       "department": "manufacturing-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "MT|2111": {
       "department": "manufacturing-technology",
@@ -3848,14 +3848,14 @@
     "MT|3001": {
       "department": "manufacturing-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "MT|3021": {
       "department": "manufacturing-technology",
       "code": "3021",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3021-electrical-electronics-engg.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3021-electrical-electronics-engg.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf"
     },
     "MT|3022": {
       "department": "manufacturing-technology",
@@ -3866,8 +3866,8 @@
     "MT|3024": {
       "department": "manufacturing-technology",
       "code": "3024",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3024-machine-drawing.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3024-machine-drawing.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3024-machine-drawing.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3024-machine-drawing.pdf"
     },
     "MT|3028": {
       "department": "manufacturing-technology",
@@ -3933,13 +3933,13 @@
     "MT|5001": {
       "department": "manufacturing-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "MT|5009": {
       "department": "manufacturing-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "MT|5022": {
       "department": "manufacturing-technology",
@@ -3987,8 +3987,8 @@
     "MT|6025": {
       "department": "manufacturing-technology",
       "code": "6025",
-      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
     },
     "MT|6028": {
       "department": "manufacturing-technology",
@@ -4018,61 +4018,61 @@
     "PL|1001": {
       "department": "polymer-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "PL|1002": {
       "department": "polymer-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "PL|1003": {
       "department": "polymer-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "PL|1004": {
       "department": "polymer-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "PL|1008": {
       "department": "polymer-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "PL|1009": {
       "department": "polymer-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "PL|2001": {
       "department": "polymer-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "PL|2002": {
       "department": "polymer-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "PL|2003": {
       "department": "polymer-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "PL|2004": {
       "department": "polymer-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "PL|2009": {
       "department": "polymer-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "PL|2091": {
       "department": "polymer-technology",
@@ -4088,8 +4088,8 @@
     "PL|3001": {
       "department": "polymer-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "PL|3091": {
       "department": "polymer-technology",
@@ -4133,7 +4133,7 @@
     "PL|4009": {
       "department": "polymer-technology",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "PL|4091": {
       "department": "polymer-technology",
@@ -4177,13 +4177,13 @@
     "PL|5001": {
       "department": "polymer-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/polymer-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "PL|5009": {
       "department": "polymer-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/polymer-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "PL|5091": {
       "department": "polymer-technology",
@@ -4276,61 +4276,61 @@
     "PT|1001": {
       "department": "printing-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "PT|1002": {
       "department": "printing-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "PT|1003": {
       "department": "printing-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "PT|1004": {
       "department": "printing-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "PT|1008": {
       "department": "printing-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "PT|1009": {
       "department": "printing-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "PT|2001": {
       "department": "printing-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "PT|2002": {
       "department": "printing-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "PT|2003": {
       "department": "printing-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "PT|2004": {
       "department": "printing-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "PT|2009": {
       "department": "printing-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "PT|2101": {
       "department": "printing-technology",
@@ -4346,8 +4346,8 @@
     "PT|3001": {
       "department": "printing-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "PT|3101": {
       "department": "printing-technology",
@@ -4430,13 +4430,13 @@
     "PT|5001": {
       "department": "printing-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/printing-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "PT|5009": {
       "department": "printing-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/printing-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "PT|5101": {
       "department": "printing-technology",
@@ -4520,67 +4520,67 @@
     "TD|1001": {
       "department": "tool-die-engineering",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "TD|1002": {
       "department": "tool-die-engineering",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "TD|1003": {
       "department": "tool-die-engineering",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "TD|1004": {
       "department": "tool-die-engineering",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "TD|1008": {
       "department": "tool-die-engineering",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "TD|1009": {
       "department": "tool-die-engineering",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "TD|2001": {
       "department": "tool-die-engineering",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "TD|2002": {
       "department": "tool-die-engineering",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "TD|2003": {
       "department": "tool-die-engineering",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "TD|2004": {
       "department": "tool-die-engineering",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "TD|2009": {
       "department": "tool-die-engineering",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "TD|2111": {
       "department": "tool-die-engineering",
       "code": "2111",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/2111-production-engineering-i.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/2111-production-engineering-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/2111-production-engineering-i.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/2111-production-engineering-i.pdf"
     },
     "TD|2119": {
       "department": "tool-die-engineering",
@@ -4590,26 +4590,26 @@
     "TD|3001": {
       "department": "tool-die-engineering",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "TD|3021": {
       "department": "tool-die-engineering",
       "code": "3021",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/3021-electrical-electronics-engg.pdf"
     },
     "TD|3022": {
       "department": "tool-die-engineering",
       "code": "3022",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3022-fluid-mechanics-pneumatics.pdf"
     },
     "TD|3111": {
       "department": "tool-die-engineering",
       "code": "3111",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/3111-engineering-metrology.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/3111-engineering-metrology.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/3111-engineering-metrology.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/3111-engineering-metrology.pdf"
     },
     "TD|3112": {
       "department": "tool-die-engineering",
@@ -4635,31 +4635,31 @@
     "TD|4021": {
       "department": "tool-die-engineering",
       "code": "4021",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
     },
     "TD|4028": {
       "department": "tool-die-engineering",
       "code": "4028",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/4028-material-testing-lab.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4028-material-testing-lab.pdf"
     },
     "TD|4111": {
       "department": "tool-die-engineering",
       "code": "4111",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/4111-material-technology-heat-treatment.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/4111-material-technology-heat-treatment.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4111-material-technology-heat-treatment.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4111-material-technology-heat-treatment.pdf"
     },
     "TD|4112": {
       "department": "tool-die-engineering",
       "code": "4112",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/4112-moulds-dies-technology.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/4112-moulds-dies-technology.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4112-moulds-dies-technology.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4112-moulds-dies-technology.pdf"
     },
     "TD|4113": {
       "department": "tool-die-engineering",
       "code": "4113",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/4113-production-engineering-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/4113-production-engineering-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4113-production-engineering-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4113-production-engineering-ii.pdf"
     },
     "TD|4117": {
       "department": "tool-die-engineering",
@@ -4679,14 +4679,14 @@
     "TD|5001": {
       "department": "tool-die-engineering",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "TD|5022": {
       "department": "tool-die-engineering",
       "code": "5022",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/5022-industrial-engineering.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/5022-industrial-engineering.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/5022-industrial-engineering.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/5022-industrial-engineering.pdf"
     },
     "TD|5111": {
       "department": "tool-die-engineering",
@@ -4723,14 +4723,14 @@
     "TD|6024": {
       "department": "tool-die-engineering",
       "code": "6024",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/6024-cad-cam.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/6024-cad-cam.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/6024-cad-cam.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/6024-cad-cam.pdf"
     },
     "TD|6025": {
       "department": "tool-die-engineering",
       "code": "6025",
-      "syllabus": "sitttr/revision-2015/syllabus/tool-die-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/tool-die-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/6025-industrial-automation-mechatronics.pdf"
     },
     "TD|6111": {
       "department": "tool-die-engineering",
@@ -4762,61 +4762,61 @@
     "TT|1001": {
       "department": "textile-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "TT|1002": {
       "department": "textile-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "TT|1003": {
       "department": "textile-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "TT|1004": {
       "department": "textile-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "TT|1008": {
       "department": "textile-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "TT|1009": {
       "department": "textile-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "TT|2001": {
       "department": "textile-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "TT|2002": {
       "department": "textile-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "TT|2003": {
       "department": "textile-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "TT|2004": {
       "department": "textile-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "TT|2009": {
       "department": "textile-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "TT|2061": {
       "department": "textile-technology",
@@ -4832,8 +4832,8 @@
     "TT|3001": {
       "department": "textile-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "TT|3061": {
       "department": "textile-technology",
@@ -4877,7 +4877,7 @@
     "TT|4009": {
       "department": "textile-technology",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "TT|4061": {
       "department": "textile-technology",
@@ -4920,13 +4920,13 @@
     "TT|5001": {
       "department": "textile-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/textile-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "TT|5009": {
       "department": "textile-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/textile-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "TT|5061": {
       "department": "textile-technology",
@@ -5020,61 +5020,61 @@
     "WP|1001": {
       "department": "wood-and-paper-technology",
       "code": "1001",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1001-english-for-communication-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1001-english-for-communication-i.pdf"
     },
     "WP|1002": {
       "department": "wood-and-paper-technology",
       "code": "1002",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1002-engineering-mathematics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1002-engineering-mathematics-i.pdf"
     },
     "WP|1003": {
       "department": "wood-and-paper-technology",
       "code": "1003",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1003-engineering-physics-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1003-engineering-physics-i.pdf"
     },
     "WP|1004": {
       "department": "wood-and-paper-technology",
       "code": "1004",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1004-engineering-chemistry-i.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1004-engineering-chemistry-i.pdf"
     },
     "WP|1008": {
       "department": "wood-and-paper-technology",
       "code": "1008",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1008-computing-fundamentals.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1008-computing-fundamentals.pdf"
     },
     "WP|1009": {
       "department": "wood-and-paper-technology",
       "code": "1009",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/1009-health-physical-education.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/1009-health-physical-education.pdf"
     },
     "WP|2001": {
       "department": "wood-and-paper-technology",
       "code": "2001",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/2001-english-for-communication-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/2001-english-for-communication-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2001-english-for-communication-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2001-english-for-communication-ii.pdf"
     },
     "WP|2002": {
       "department": "wood-and-paper-technology",
       "code": "2002",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/2002-engineering-mathematics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2002-engineering-mathematics-ii.pdf"
     },
     "WP|2003": {
       "department": "wood-and-paper-technology",
       "code": "2003",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/2003-engineering-physics-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/2003-engineering-physics-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2003-engineering-physics-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2003-engineering-physics-ii.pdf"
     },
     "WP|2004": {
       "department": "wood-and-paper-technology",
       "code": "2004",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/2004-engineering-chemistry-ii.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/2004-engineering-chemistry-ii.pdf"
     },
     "WP|2009": {
       "department": "wood-and-paper-technology",
       "code": "2009",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/2009-life-skill.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/2009-life-skill.pdf"
     },
     "WP|2121": {
       "department": "wood-and-paper-technology",
@@ -5090,8 +5090,8 @@
     "WP|3001": {
       "department": "wood-and-paper-technology",
       "code": "3001",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/3001-environmental-science-disaster-management.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/architecture/semester-unspecified/3001-environmental-science-disaster-management.pdf"
     },
     "WP|3121": {
       "department": "wood-and-paper-technology",
@@ -5135,13 +5135,13 @@
     "WP|4009": {
       "department": "wood-and-paper-technology",
       "code": "4009",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/4009-mini-project.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/biomedical-engineering/semester-unspecified/4009-mini-project.pdf"
     },
     "WP|4021": {
       "department": "wood-and-paper-technology",
       "code": "4021",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/manufacturing-technology/semester-unspecified/4021-applied-mechanics-and-strength-of-materials.pdf"
     },
     "WP|4121": {
       "department": "wood-and-paper-technology",
@@ -5179,13 +5179,13 @@
     "WP|5001": {
       "department": "wood-and-paper-technology",
       "code": "5001",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/5001-industrial-management-safety.pdf",
-      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/wood-and-paper-technology/semester-unspecified/5001-industrial-management-safety.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf",
+      "modelQuestionPaper": "sitttr/revision-2015/model-question-papers/automobile-engineering/semester-unspecified/5001-industrial-management-safety.pdf"
     },
     "WP|5009": {
       "department": "wood-and-paper-technology",
       "code": "5009",
-      "syllabus": "sitttr/revision-2015/syllabus/wood-and-paper-technology/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
+      "syllabus": "sitttr/revision-2015/syllabus/architecture/semester-unspecified/5009-industrial-training-industrial-visit-collaborative-work.pdf"
     },
     "WP|5121": {
       "department": "wood-and-paper-technology",
