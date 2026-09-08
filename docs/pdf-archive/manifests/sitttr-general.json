@@ -73,7 +73,8 @@
       "pages": 2,
       "sha256": "3061d79c37b2766fe359dfc9d0c6c9f418dc1cc5d1c804d5ce90cb638ad34945",
       "status": "published",
-      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/diploma-semester-5.pdf"
+      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/diploma-semester-3.pdf",
+      "canonicalPath": "sitttr/_general/academic-calendar/diploma-semester-3.pdf"
     },
     {
       "revision": "general",
@@ -88,7 +89,8 @@
       "pages": 2,
       "sha256": "25e076319c195fccc12d603b0ef6169e9065067e0003594ecfefb65846357507",
       "status": "published",
-      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/diploma-semester-6.pdf"
+      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/diploma-semester-4.pdf",
+      "canonicalPath": "sitttr/_general/academic-calendar/diploma-semester-4.pdf"
     },
     {
       "revision": "general",
@@ -133,7 +135,8 @@
       "pages": 2,
       "sha256": "c35d8607d48a169637db28eb2285400b19358e0f381e9ba718229db40a4cdb19",
       "status": "published",
-      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/dca-sp-semester-3.pdf"
+      "pdfUrl": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/sitttr/_general/academic-calendar/dca-sp-semester-1.pdf",
+      "canonicalPath": "sitttr/_general/academic-calendar/dca-sp-semester-1.pdf"
     }
   ],
   "schemaVersion": 1,
