@@ -2,6 +2,18 @@
 
 Internal documentation, audit reports, and developer notes for the POLY PMNA project.
 
+## Start here
+
+| Need | Guide |
+|---|---|
+| Understand the repository | [Repository map](REPOSITORY-MAP.md) |
+| Make a safe change | [Contribution guide](../CONTRIBUTING.md) |
+| Investigate past Ask POLY issues | [Diagnostics](diagnostics/README.md) |
+| Understand backend boundaries | [Architecture](architecture/backend-boundaries.md) |
+| Publish lesson PDFs | [PDF automation](lesson-pdf-automation.md) |
+| Locate canonical PDF manifests | [PDF archive](pdf-archive/README.md) |
+| Review historical design notes | [Archive](archive/) |
+
 ## Contents
 
 This directory contains key architecture documentation, project standards, and master prompt templates used to build and maintain the POLY PMNA digital learning platform.

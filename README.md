@@ -24,6 +24,14 @@ Revision 2026 &middot; Revision 2021 &middot; Revision 2015 &middot; Ask Poly AI
 
 ---
 
+## Find your way
+
+- [Features](#key-features)
+- [Repository structure](#repository-structure)
+- [Getting started](#getting-started)
+- [Documentation](#documentation)
+- [PDF archive](#canonical-pdf-archive-integration)
+
 ## About POLY PMNA
 
 POLY PMNA is a comprehensive digital learning platform developed to support **Kerala Polytechnic students** throughout their academic journey. The platform provides syllabus-based study materials, structured lesson notes, AI-powered learning assistance, daily quizzes, engineering tools, model question papers, and other educational resources through a modern, responsive web application.
@@ -83,44 +91,19 @@ Its primary objective is to make quality learning resources accessible from a si
 
 ## Repository Structure
 
-```
-diploma-notes/
-├── assets/                      # Static assets (JS, CSS, data, media)
-│   ├── css/                     # Stylesheets
-│   ├── data/                    # JSON data files
-│   ├── icons/                   # UI icons
-│   ├── images/                  # Root-level images
-│   ├── js/                      # JavaScript modules
-│   ├── lesson-content/          # Shared lesson content fragments
-│   ├── media/                   # Images, logos, department artwork
-│   ├── popup/                   # Visitor popup media
-│   └── vendor/                  # Third-party libraries
-├── lessons/                     # Revision 2021 lesson HTML pages
-├── notes/                       # Revision 2021 downloadable PDF notes
-├── revision-2021/               # Revision 2021 department pages
-├── revision-2026/               # Revision 2026 department pages
-├── revision-2026-content/       # Revision 2026 lessons and notes
-│   ├── lessons/                 # Revision 2026 lesson HTML pages
-│   └── notes/                   # Revision 2026 downloadable PDF notes
-├── tools/                       # Engineering tools pages
-├── maintenance/                 # Maintenance page
-├── functions/                   # Cloudflare Pages Functions (middleware)
-├── workers/                     # Cloudflare Workers (Ask POLY AI)
-├── supabase/                    # Supabase backend (auth, quiz, DB)
-│   ├── functions/               # Supabase Edge Functions
-│   └── migrations/              # Database migration files
-├── docs/                        # Internal documentation
-├── downloads/                   # Standalone downloadable resources
-├── reports/                     # Generated analytics reports
-├── notifications/               # Notification configuration
-├── images/                      # Legacy images and guide screenshots
-├── android-app/                 # Android app source
-├── automation/                  # Automated scripts
-├── data/                        # Root-level data files
-├── .github/workflows/           # GitHub Actions CI/CD
-├── .jules/                      # Jules automation agent config
-└── .well-known/                 # Standard web well-known files
-```
+Start with the **[repository map](docs/REPOSITORY-MAP.md)** for a grouped guide to every top-level folder and the files that must stay in place.
+
+| Area | Where to look |
+|------|---------------|
+| Website entry pages | Root HTML files, including `index.html`, `revision-2026.html`, `ask-poly.html`, and `daily-quiz.html` |
+| Academic content | [2021 departments](revision-2021/), [2021 lessons](lessons/), [2026 departments](revision-2026/), [2026 content](revision-2026-content/) |
+| Shared appearance and behaviour | [assets](assets/) — CSS, JavaScript, data, and media |
+| Backend and mobile | [functions](functions/), [workers](workers/), [database migrations](supabase/migrations/), [Android app](android-app/) |
+| Maintenance and checks | [tools](tools/), [scripts](scripts/), [tests](tests/), [workflows](.github/workflows/) |
+| Documentation and evidence | [docs](docs/), [Ask POLY investigations](docs/diagnostics/), [reports](reports/), [previews](previews/) |
+
+The root HTML files are public URLs. Keep their names and locations stable so bookmarks, search results, app navigation, and offline caching continue to work.
+
 
 ---
 
@@ -134,7 +117,7 @@ diploma-notes/
 | Backend | Supabase (PostgreSQL, Auth, Edge Functions) |
 | CI/CD | GitHub Actions |
 | AI | OpenAI API (via Cloudflare Worker) |
-| Mobile | Expo / React Native (Android app) |
+| Mobile | Native Android / Gradle |
 
 ---
 
@@ -148,14 +131,14 @@ Visit [https://polypmna.dpdns.org/](https://polypmna.dpdns.org/) and navigate us
 
 1. Fork this repository
 2. Read the documentation in `docs/` for architecture details
-3. Each directory has a `README.md` explaining its purpose
+3. Use the [repository map](docs/REPOSITORY-MAP.md) to find the correct folder
 4. Test changes locally before submitting a pull request
 
 ### Adding a New Lesson (Revision 2026)
 
 1. Create a new HTML file in `revision-2026-content/lessons/` named `lessons-[COURSE_CODE].html`
 2. The GitHub Actions workflow will detect the new file and activate the "View Lessons" button on the matching subject card
-3. Optionally add a notes PDF in `revision-2026-content/notes/` named `downloadable-notes-[COURSE_CODE].pdf`
+3. Follow [lesson PDF automation](docs/lesson-pdf-automation.md) for published PDFs. The canonical archive stores PDF binaries; do not add duplicate binaries here. Students can also save the lesson using its print mode.
 
 See `revision-2026-content/README.md` for full instructions.
 
@@ -163,7 +146,7 @@ See `revision-2026-content/README.md` for full instructions.
 
 ## Documentation
 
-Each directory contains a `README.md` file with detailed documentation:
+Use the [documentation index](docs/README.md) and [repository map](docs/REPOSITORY-MAP.md) to navigate the project:
 
 | Directory | Documentation |
 |-----------|--------------|
@@ -269,4 +252,4 @@ Made with care for Kerala Polytechnic Students
 
 The published lesson PDFs and their manifests live in [`nandurpm/poly-pmna-pdf-files`](https://github.com/nandurpm/poly-pmna-pdf-files), which is the single source of truth for downloadable PDF files. This repository generates lesson PDFs and publishes them there; it does not maintain a second binary copy.
 
-The `sync-pdf-archive-reference.yml` workflow listens for the `pdf-archive-updated` event and refreshes [`docs/pdf-archive-sync.json`](pdf-archive-sync.json). The public site continues to use the canonical raw archive URLs, so changes to a published manifest or PDF are reflected without manual copying. Run the workflow manually when checking the integration or recovering a missed dispatch.
+The `sync-pdf-archive-reference.yml` workflow listens for the `pdf-archive-updated` event and refreshes [`docs/pdf-archive-sync.json`](docs/pdf-archive-sync.json). The public site continues to use the canonical raw archive URLs, so changes to a published manifest or PDF are reflected without manual copying. Run the workflow manually when checking the integration or recovering a missed dispatch.
