@@ -44,3 +44,15 @@ test("comments endpoint rejects non-POST methods", async () => {
   const response = await handleComments(request({}, "GET"), {}, "https://polypmna.dpdns.org");
   assert.equal(response.status, 405);
 });
+
+test("comments endpoint rejects invalid or non-object payloads safely", async () => {
+  const nullResponse = await handleComments(request(null), {}, "https://polypmna.dpdns.org");
+  assert.equal(nullResponse.status, 400);
+
+  const arrayResponse = await handleComments(request(["pageId"]), {}, "https://polypmna.dpdns.org");
+  assert.equal(arrayResponse.status, 400);
+
+  const protoPayload = JSON.parse('{"pageId":"help","author":"Student","message":"Test","__proto__":{"polluted":true}}');
+  const protoResponse = await handleComments(request(protoPayload), {}, "https://polypmna.dpdns.org");
+  assert.equal(protoResponse.status, 400);
+});

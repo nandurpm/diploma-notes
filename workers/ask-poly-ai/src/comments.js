@@ -93,7 +93,8 @@ function validatePayload(value) {
   if (pageId !== "help") throw new TypeError("pageId is invalid.");
   const author = strictText(body.author, "author", { min: 2, max: 40 });
   const message = strictText(body.message, "message", { min: 1, max: 1500 });
-  const parentId = body.parentId === undefined || body.parentId === null
+  const hasParentId = Object.prototype.hasOwnProperty.call(body, "parentId") && body.parentId !== null && body.parentId !== undefined;
+  const parentId = !hasParentId
     ? ""
     : strictText(body.parentId, "parentId", { max: 160, pattern: /^[A-Za-z0-9_-]*$/ });
   if ((message.match(/https?:\/\/|www\./gi) || []).length > MAX_LINKS) throw new TypeError("Please limit links to two per message.");
