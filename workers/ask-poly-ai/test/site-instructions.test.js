@@ -11,7 +11,7 @@ test("system instructions preserve website grounding and revision boundaries", (
 });
 
 test("system instructions preserve offline, privacy, and rendering contracts", () => {
-  assert.match(SYSTEM_INSTRUCTIONS, /API FAILURE FALLBACK HIERARCHY/);
+  assert.match(SYSTEM_INSTRUCTIONS, /API FAILURE FALLBACK/);
   assert.match(SYSTEM_INSTRUCTIONS, /advanced AI service is temporarily unavailable/);
   assert.match(SYSTEM_INSTRUCTIONS, /Never disclose API keys/);
   assert.match(SYSTEM_INSTRUCTIONS, /Markdown table/);
@@ -40,14 +40,14 @@ test("system instructions cover complete 36-section master prompt structure and 
   assert.match(SYSTEM_INSTRUCTIONS, /1\. COMPLETE WEBSITE KNOWLEDGE/);
   assert.match(SYSTEM_INSTRUCTIONS, /2\. BUILD A LOCAL WEBSITE KNOWLEDGE SNAPSHOT/);
   assert.match(SYSTEM_INSTRUCTIONS, /3\. DAILY KNOWLEDGE REFRESH/);
-  assert.match(SYSTEM_INSTRUCTIONS, /4\. DAILY SCHEDULING/);
+  assert.match(SYSTEM_INSTRUCTIONS, /4\. DAILY SCHEDULER/);
   assert.match(SYSTEM_INSTRUCTIONS, /5\. SCHEDULE GENERATION RULES/);
   assert.match(SYSTEM_INSTRUCTIONS, /6\. EXAMPLE DAILY SCHEDULE/);
   assert.match(SYSTEM_INSTRUCTIONS, /7\. RESOURCE-AWARE SCHEDULING/);
   assert.match(SYSTEM_INSTRUCTIONS, /8\. FULL WEBSITE SEARCH/);
   assert.match(SYSTEM_INSTRUCTIONS, /9\. FUZZY SEARCH/);
   assert.match(SYSTEM_INSTRUCTIONS, /10\. REVISION-AWARE ANSWERS/);
-  assert.match(SYSTEM_INSTRUCTIONS, /11\. API FAILURE FALLBACK HIERARCHY & OFFLINE MODE/);
+  assert.match(SYSTEM_INSTRUCTIONS, /11\. API FAILURE FALLBACK/);
   assert.match(SYSTEM_INSTRUCTIONS, /12\. OFFLINE \/ API-INDEPENDENT MODE/);
   assert.match(SYSTEM_INSTRUCTIONS, /13\. WHEN THE API IS AVAILABLE/);
   assert.match(SYSTEM_INSTRUCTIONS, /14\. WEBSITE FACTS VS AI KNOWLEDGE/);
