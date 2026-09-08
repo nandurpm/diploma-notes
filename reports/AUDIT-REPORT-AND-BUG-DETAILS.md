@@ -44,7 +44,7 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 | **Root Cause** | The `RETRYABLE_STATUS` set in the recovery script did not include `400`, only `429` and `5xx` codes. |
 | **Impact** | Users could not receive AI responses when the primary Worker returned a validation error, even though the Supabase relay was fully operational. |
 | **Fix** | Added HTTP 400 and 404 to the retryable status set, so the recovery wrapper falls back to the Supabase relay on validation or stale-route errors. |
-| **Evidence** | `ask-poly-repair-findings.md` — fetch probe confirmed primary returned 400, fallback returned 200 SSE. |
+| **Evidence** | [Ask POLY repair findings](../docs/diagnostics/ask-poly-repair-findings.md) — fetch probe confirmed primary returned 400, fallback returned 200 SSE. |
 
 ---
 
@@ -58,7 +58,7 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 | **Root Cause** | The Cloudflare Pages/GitHub Pages deployment pipeline served an older version of `_headers` that did not include the custom domain in the CSP allowlist. |
 | **Impact** | All browser-based Ask POLY requests failed silently, falling back to local math-only answers. |
 | **Fix** | Patched `_headers` to include both `https://api.polypmna.dpdns.org` and `https://ask-poly-ai.nandakumardpm.workers.dev` in `connect-src`. |
-| **Evidence** | `ask-poly-repair-findings.md` — direct shell curl succeeded; browser fetch failed with `TypeError: Failed to fetch`. |
+| **Evidence** | [Ask POLY repair findings](../docs/diagnostics/ask-poly-repair-findings.md) — direct shell curl succeeded; browser fetch failed with `TypeError: Failed to fetch`. |
 
 ---
 
@@ -319,7 +319,7 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 | `reports/SECURITY-SIGNOFF-CHECKLIST.md` | August 2026 | Production sign-off checklist |
 | `reports/SECURITY-SIGNOFF-FINAL.md` | August 20, 2026 | Final production security sign-off |
 | `reports/daily-quiz-screenshot-audit.md` | August 21, 2026 | Quiz UI data model mismatch analysis |
-| `ask-poly-repair-findings.md` | August 2026 | Ask POLY CSP and recovery wrapper investigation |
+| [Ask POLY repair findings](../docs/diagnostics/ask-poly-repair-findings.md) | August 2026 | Ask POLY CSP and recovery wrapper investigation |
 
 ---
 
