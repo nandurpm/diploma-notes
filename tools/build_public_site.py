@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Directories that should not be included in the public build
 EXCLUDED_ROOTS = {
     ".git", ".github", "android", "android-app", "docs", "reports", "supabase",
-    "tools", "workers", "node_modules", "_site", "previews",
+    "tools", "tests", "workers", "node_modules", "_site", "previews",
 }
 
 # File extensions considered source code and excluded by default

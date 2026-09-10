@@ -43,6 +43,10 @@ jobs:
           python tools/verify_mock_exam_public.py
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
+      - name: Test frontend calculator regressions
+        run: node --test tests/frontend/*.test.cjs
+      - name: Test Worker including adaptive context
+        run: npm test --prefix workers/ask-poly-ai
       - name: Validate critical JavaScript
         run: |
           node --check assets/js/ask-poly-config.js
@@ -78,3 +82,37 @@ jobs:
               raise SystemExit('\n'.join(failures))
           print('No committed server secrets detected.')
           PY
+
+  browser-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Build public site
+        run: python tools/build_public_site.py
+      - name: Install browser test dependencies
+        working-directory: tests/frontend
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
+      - name: Test desktop and mobile with production headers
+        working-directory: tests/frontend
+        run: npm test
+      - name: Upload browser regression results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontend-browser-regressions
+          path: |
+            tests/frontend/playwright-report
+            tests/frontend/test-results
+          if-no-files-found: ignore
