@@ -6,7 +6,7 @@
   if (!document.querySelector('script[data-canonical-pdf-resolver]')) {
     const resolver = document.createElement("script");
     resolver.dataset.canonicalPdfResolver = "true";
-    resolver.src = new URL("lesson-availability-hotfix.js?v=20260905-canonical-pdf-manifests", document.currentScript.src).href;
+    resolver.src = new URL("lesson-availability-hotfix.js?v=20260910-audit1", document.currentScript.src).href;
     document.head.append(resolver);
   }
 
@@ -110,7 +110,7 @@
   };
   const revisionYear = revision => revisionTag(revision).replace(/^REV/, "");
   const makeCourseKey = subject => `${revisionTag(subject.revision)}-${norm(subject.code)}`;
-  const key = s => `${makeCourseKey(s)}|${s.department}`;
+  const key = s => `${makeCourseKey(s)}|${s.department}|${s.semester}`;
   const directCourseUrl = (code, revision) => {
     const tag = revisionTag(revision);
     return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
@@ -132,6 +132,7 @@
     return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
   };
   const questionPaperUrl = subject => {
+    if (subject.questionPaperUrl) return subject.questionPaperUrl;
     const tag = revisionTag(subject.revision);
     if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
     return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
@@ -139,19 +140,13 @@
   const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
   const questionPaperAction = (subject, label) => {
     const href = questionPaperUrl(subject);
-    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${subject.questionPaperUrl ? "Open Model Question Paper PDF" : `Browse all Revision ${esc(revisionYear(subject.revision))} papers`}</a>`;
     return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
   };
 
   function unique(list) {
     const seen = new Set();
     return list.filter(subject => { const id = key(subject); if (seen.has(id)) return false; seen.add(id); return true; });
-  }
-
-  function parseSubjectsText(text) {
-    const match = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
-    if (!match) return [];
-    try { return Function(`"use strict";return (${match[1]});`)(); } catch { return []; }
   }
 
   function normalize2026(subject) {
@@ -173,18 +168,26 @@
   }
 
   async function getSubjects() {
-    let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2026Payload] = await Promise.all([
-      // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
-      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
-      // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
-      // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
-      // and heavy scheme/evaluation metadata that browsing pages never render.
-      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null)
-    ]);
-    if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
-    const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
-    return unique([...revision2021, ...MANUAL, ...revision2026]);
+    const archiveRequest = fetch(`${root()}assets/data/sitttr-pdf-links.json`).then(response => response.ok ? response.json() : null).catch(() => null);
+    const payloads = await Promise.all(['revision-2021-subjects.json', 'revision-2026-subjects-lite.json'].map(async file => {
+      const response = await fetch(`${root()}assets/data/${file}?v=20260910-audit1`);
+      if (!response.ok) throw new Error('Unable to load the subject catalogue.');
+      const data = await response.json();
+      if (!Array.isArray(data.subjects) || !data.subjects.length) throw new Error('The subject catalogue is empty or invalid.');
+      return data.subjects;
+    }));
+    const subjects = unique([...payloads[0], ...payloads[1].map(normalize2026)]);
+    const archive = await archiveRequest;
+    const archiveBase = 'https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/';
+    if (archive?.base === archiveBase) {
+      subjects.forEach(subject => {
+        const slug = subject.department.toLowerCase().replaceAll('&', ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const links = archive.links?.[subject.revision]?.[`${subject.revision}|${slug}|${norm(subject.code)}`];
+        const path = links?.modelQuestionPaper;
+        if (typeof path === 'string' && path.startsWith(`sitttr/revision-${subject.revision}/model-question-papers/`) && path.endsWith('.pdf') && !path.includes('..')) subject.questionPaperUrl = archiveBase + path;
+      });
+    }
+    return subjects;
   }
 
   function hasLesson(subject) {
@@ -220,17 +223,19 @@
     if (mode === "papers") {
       // Question-papers page: show only the sample question paper link,
       // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.departmentLabel || subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
     const notesAvailable = hasNotes(subject);
-    const downloadHref = notesAvailable ? notesHref : `${lessonHref}?autoPrintNotes=1`;
+    const printUrl = new URL(lessonHref, location.href);
+    printUrl.searchParams.set('autoPrintNotes', '1');
+    const downloadHref = notesAvailable ? notesHref : printUrl.href;
     const downloadAttributes = notesAvailable ? " download" : ' target="_blank" rel="noopener noreferrer"';
     const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>${notesAvailable ? "Download PDF" : "Print / Save as PDF"}</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.departmentLabel || subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>${subject.sharedDepartments ? `<details><summary>View programmes</summary><p>${esc(subject.sharedDepartments.join(", "))}</p></details>` : ""}<div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
@@ -331,21 +336,26 @@
     // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
     // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
     list.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
+    let totalMatches = list.length;
     if (mode === "home") {
       // PERFORMANCE OPTIMIZATION: Replacing O(n^2) array.findIndex loop with O(n) Set lookups.
       // This is crucial on the homepage where 1800+ elements would otherwise trigger millions of iterations.
-      const seenHomeCodes = new Set();
-      const uniqueHomeList = [];
-      for (let i = 0; i < list.length; i++) {
-        const subject = list[i];
-        const uniqueKey = norm(subject.code) + "::" + String(subject.revision || "");
-        if (!seenHomeCodes.has(uniqueKey)) {
-          seenHomeCodes.add(uniqueKey);
-          uniqueHomeList.push(subject);
-        }
+      const groups = new Map();
+      for (const subject of list) {
+        const uniqueKey = `${norm(subject.code)}::${subject.revision}::${subject.semester}`;
+        if (!groups.has(uniqueKey)) groups.set(uniqueKey, []);
+        groups.get(uniqueKey).push(subject);
       }
-      list = uniqueHomeList.slice(0, HOME_LIMIT);
+      const uniqueHomeList = [...groups.values()].map(items => {
+        const departments = [...new Set(items.map(item => item.department))];
+        return departments.length > 1
+          ? {...items[0], departmentLabel: `Shared across ${departments.length} programmes`, sharedDepartments: departments}
+          : items[0];
+      });
+      totalMatches = uniqueHomeList.length;
+      list = uniqueHomeList.slice(0, visibleLimit);
     }
+
     grid.innerHTML = list.length ? (mode === "home" ? list.map(s => cachedCard(s, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
 
     // PERFORMANCE OPTIMIZATION: create the announcer only once and keep it in a
@@ -353,17 +363,37 @@
     if (!renderAnnouncer && grid.parentNode) {
       renderAnnouncer = document.createElement("div");
       renderAnnouncer.id = "subjectBrowserAnnouncer";
-      renderAnnouncer.className = "sr-only";
+      renderAnnouncer.className = "subject-results-count";
       renderAnnouncer.setAttribute("role", "status");
       renderAnnouncer.setAttribute("aria-live", "polite");
       grid.parentNode.insertBefore(renderAnnouncer, grid);
     }
+    if (mode === 'home') {
+      if (!showMore) {
+        showMore = document.createElement('button');
+        showMore.type = 'button';
+        showMore.className = 'btn';
+        showMore.textContent = 'Show more subjects';
+        showMore.setAttribute('aria-controls', 'subjectGrid');
+        grid.after(showMore);
+      }
+      showMore.hidden = list.length >= totalMatches;
+      showMore.onclick = () => {
+        const previousCount = list.length;
+        visibleLimit += HOME_LIMIT;
+        render(all, grid, mode, fixedRevision, department);
+        const firstNew = grid.querySelectorAll('.subject-card')[previousCount];
+        if (firstNew) { firstNew.tabIndex = -1; firstNew.focus(); }
+      };
+    }
     if (renderAnnouncer) {
-      renderAnnouncer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+      renderAnnouncer.textContent = totalMatches === 0 ? "No subjects found." : `Showing ${list.length} of ${totalMatches} matching subjects.`;
     }
   }
 
   let renderAnnouncer = null;
+  let visibleLimit = HOME_LIMIT;
+  let showMore = null;
 
   async function init() {
     const grid = $("subjectGrid");
@@ -373,7 +403,13 @@
     const fixedRevision = grid.dataset.revision;
     const department = grid.dataset.department;
     const preferredRevision = grid.dataset.defaultRevision || $("revisionFilter")?.value || (mode === "lessons" ? "2021" : "2026");
-    const all = await getSubjects();
+    let all;
+    try { all = await getSubjects(); }
+    catch (error) {
+      grid.innerHTML = '<div class="empty-state" role="alert">Subject data could not be loaded. Check your connection and retry. <button type="button" class="btn" id="retrySubjectLoad">Retry</button></div>';
+      $('retrySubjectLoad').addEventListener('click', init, { once: true });
+      return;
+    }
 
     // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject
     // to avoid redundant string joins and lowercase conversions on every keystroke.
@@ -411,7 +447,7 @@
     fillSemester($("semesterFilter"), activeSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
 
     let timer = 0;
-    const rerender = () => { clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 120); };
+    const rerender = () => { visibleLimit = HOME_LIMIT; clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 120); };
     $("revisionFilter")?.addEventListener("change", () => {
       const revision = $("revisionFilter").value;
       const revisionSubjects = all.filter(subject => String(subject.revision) === revision);

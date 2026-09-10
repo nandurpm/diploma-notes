@@ -13,7 +13,7 @@
   const fmt = v => Number.isFinite(Number(v)) ? new Intl.NumberFormat('en-IN',{maximumFractionDigits:6}).format(Number(v)) : '—';
   
   /* Validates that a value is a finite number */
-  const n = (v,l='Value') => { const x = Number(String(v).trim()); if(!Number.isFinite(x)) throw new Error(l + ' must be a valid number.'); return x; };
+  const n = (v,l='Value') => { const text = String(v ?? '').trim(); const x = Number(text); if(!text || !Number.isFinite(x)) throw new Error(l + ' must be a valid number.'); return x; };
   
   /* Validates that a value is a positive number greater than zero */
   const p = (v,l='Value') => { const x = n(v,l); if(x <= 0) throw new Error(l + ' must be greater than zero.'); return x; };
@@ -91,25 +91,59 @@
   }
   /* Parses and evaluates mathematical expressions securely */
   function evaluateExpression(raw){
-    /* Pre-process the expression: handle pi, power operator, and percentages */
-    let expression=String(raw||'').trim().toLowerCase().replace(/π/g,'pi').replace(/\^/g,'**').replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
-    if(!expression) throw new Error('Enter an expression.');
-    
-    /* Security check: allow only specific mathematical characters and symbols */
-    if(/[^0-9+\-*/%().,\sA-Za-z_]/.test(expression)) throw new Error('Unsupported character.');
-    
-    /* Define available mathematical functions and constants (trig in degrees) */
-    const scope={pi:Math.PI,e:Math.E,sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),asin:x=>Math.asin(x)*180/Math.PI,acos:x=>Math.acos(x)*180/Math.PI,atan:x=>Math.atan(x)*180/Math.PI,sqrt:Math.sqrt,cbrt:Math.cbrt,log:Math.log10,ln:Math.log,abs:Math.abs,pow:Math.pow,min:Math.min,max:Math.max,round:Math.round,floor:Math.floor,ceil:Math.ceil};
-    
-    /* Ensure only allowed functions are called in the expression */
-    const allowed=new Set(Object.keys(scope));
-    for(const token of expression.match(/[A-Za-z_]\w*/g)||[]){if(!allowed.has(token)) throw new Error('Unsupported function: '+token);}
-    
-    /* Execute the expression within the restricted scope */
-    const value=Function(...Object.keys(scope),'"use strict";return ('+expression+');')(...Object.values(scope));
-    if(!Number.isFinite(value)) throw new Error('Result is not finite.');
+    const input = String(raw || '').trim().toLowerCase().replace(/π/g, 'pi').replace(/×/g, '*').replace(/[÷]/g, '/').replace(/−/g, '-');
+    if (!input) throw new Error('Enter an expression.');
+    if (input.length > 1000) throw new Error('Expression is too long (maximum 1000 characters).');
+    const tokens = input.match(/(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?|[a-z]+|\*\*|[+*/^%(),-]|\S/g) || [];
+    const functions = {sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),asin:x=>Math.asin(x)*180/Math.PI,acos:x=>Math.acos(x)*180/Math.PI,atan:x=>Math.atan(x)*180/Math.PI,sqrt:Math.sqrt,cbrt:Math.cbrt,log:Math.log10,ln:Math.log,abs:Math.abs,pow:Math.pow,min:Math.min,max:Math.max,round:Math.round,floor:Math.floor,ceil:Math.ceil};
+    let position = 0;
+    const take = token => tokens[position] === token && (++position, true);
+    const expect = token => { if (!take(token)) throw new Error('Expected ' + token + '.'); };
+    // Recursive descent: unary signs bind less tightly than right-associative powers.
+    // No generated code, property access, assignments, or JavaScript evaluation.
+    function primary() {
+      const token = tokens[position++];
+      let value;
+      if (token === '(') { value = sum(); expect(')'); }
+      else if (token === 'pi' || token === 'e') value = token === 'pi' ? Math.PI : Math.E;
+      else if (Object.hasOwn(functions, token)) {
+        expect('(');
+        const args = [sum()];
+        while (take(',')) args.push(sum());
+        expect(')');
+        const arity = token === 'pow' ? 2 : ['min', 'max'].includes(token) ? args.length : 1;
+        if (args.length !== arity) throw new Error(token + ' expects ' + arity + ' argument(s).');
+        value = functions[token](...args);
+      } else if (token && /^(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/.test(token)) value = Number(token);
+      else throw new Error('Expected a number, constant or supported function.');
+      while (take('%')) value /= 100;
+      return value;
+    }
+    function power() { const left = primary(); return take('^') || take('**') ? left ** unary() : left; }
+    function unary() { return take('+') ? unary() : take('-') ? -unary() : power(); }
+    function product() {
+      let value = unary();
+      while (true) {
+        if (take('*')) value *= unary();
+        else if (take('/')) value /= unary();
+        else return value;
+      }
+    }
+    function sum() {
+      let value = product();
+      while (true) {
+        if (take('+')) value += product();
+        else if (take('-')) value -= product();
+        else return value;
+      }
+    }
+    const value = sum();
+    if (position !== tokens.length) throw new Error('Unexpected token: ' + tokens[position]);
+    if (!Number.isFinite(value)) throw new Error('Result is not finite. Check the domain and divisors.');
     return value;
   }
+  const numberList = (value, label='Values') => String(value ?? '').split(',').map(part => n(part, label));
+
   function expression(){ $('#body').innerHTML = `<label class='sr-only' for='expr'>Expression</label><textarea id='expr' rows='5' placeholder='Example: sin(30)+sqrt(16)+2^3'></textarea><div class='notice'>Allowed: + - * / ^ %, brackets, sqrt(), cbrt(), sin(), cos(), tan(), inverse trigonometry, log(), ln(), pi and e. Trigonometry uses degrees.</div><div class='tool-actions'><button class='btn primary' id='calcBtn' type='button'>Calculate</button><button class='btn' id='clearBtn' type='button'>Clear</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#clearBtn').onclick=()=>{$('#expr').value='';$('#res').textContent='Cleared.'}; $('#calcBtn').onclick=()=>{try{const value=evaluateExpression($('#expr').value);$('#res').className='result';$('#res').innerHTML=`<b>${fmt(value)}</b>`;}catch(err){$('#res').className='result err';$('#res').textContent=err.message||'Invalid expression.'}}; }
   const gcd=(a,b)=>{a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));while(b)[a,b]=[b,a%b];return a||1};
   const unitMaps={length:{mm:.001,cm:.01,m:1,km:1000,in:.0254,ft:.3048},mass:{g:.001,kg:1,tonne:1000,lb:.453592},area:{sqm:1,sqmm:1e-6,sqcm:1e-4,sqft:.092903},volume:{ml:.001,l:1,m3:1000,ft3:28.3168},pressure:{pa:1,kpa:1000,bar:100000,psi:6894.76,atm:101325}};
@@ -120,12 +154,12 @@
     unit:()=>fields([['value','Value','1'],['type','Type','length','length/mass/area/volume/pressure'],['from','From unit','m'],['to','To unit','cm']], f=>{const m=unitMaps[String(f.get('type')).toLowerCase()]; if(!m) throw new Error('Supported types: length, mass, area, volume, pressure.'); const from=String(f.get('from')).toLowerCase(), to=String(f.get('to')).toLowerCase(); if(!m[from]||!m[to]) throw new Error('Invalid unit.'); return `<b>${fmt(n(f.get('value'),'Value')*m[from]/m[to])} ${esc(to)}</b>`;}, 'Linear speed and RPM are not directly interchangeable. Use Rotational to Linear Speed when diameter is known.'),
     percent:()=>fields([['value','Value','200'],['percent','Percent','10'],['old','Old value for change',''],['new','New value for change','']], f=>{let out=`${fmt(n(f.get('percent'),'Percent')/100*n(f.get('value'),'Value'))}`; if(f.get('old')&&f.get('new')) out += `<br>Change = ${fmt((n(f.get('new'),'New')-n(f.get('old'),'Old'))/p(f.get('old'),'Old')*100)}%`; return `<b>${out}</b>`;}),
     ratio:()=>fields([['a','First number','12'],['b','Second number','18']], f=>{const a=n(f.get('a'),'First'),b=n(f.get('b'),'Second'),g=gcd(a,b);return `<b>${fmt(a/g)} : ${fmt(b/g)}</b>`;}),
-    avg:()=>fields([['values','Numbers separated by comma','10,20,30']], f=>{const a=String(f.get('values')).split(',').map(Number).filter(Number.isFinite); if(!a.length) throw new Error('Enter numbers separated by comma.'); return `<b>Average = ${fmt(a.reduce((s,x)=>s+x,0)/a.length)}</b><br>Sum = ${fmt(a.reduce((s,x)=>s+x,0))}, Count = ${a.length}`;}),
+    avg:()=>fields([['values','Numbers separated by comma','10,20,30']], f=>{const a=numberList(f.get('values')); if(!a.length) throw new Error('Enter numbers separated by comma.'); return `<b>Average = ${fmt(a.reduce((s,x)=>s+x,0)/a.length)}</b><br>Sum = ${fmt(a.reduce((s,x)=>s+x,0))}, Count = ${a.length}`;}),
     ohm:()=>fields([['v','Voltage V',''],['i','Current A',''],['r','Resistance Ω','']], f=>{const V=f.get('v'),I=f.get('i'),R=f.get('r'); if(!V&&I&&R)return`<b>V = ${fmt(n(I,'Current')*n(R,'Resistance'))} V</b>`; if(V&&!I&&R)return`<b>I = ${fmt(n(V,'Voltage')/p(R,'Resistance'))} A</b>`; if(V&&I&&!R)return`<b>R = ${fmt(n(V,'Voltage')/p(I,'Current'))} Ω</b>`; throw new Error('Fill any two values and leave one blank.');}),
     power:()=>fields([['v','Voltage V','230'],['i','Current A','2']], f=>`<b>P = ${fmt(n(f.get('v'),'Voltage')*n(f.get('i'),'Current'))} W</b>`),
     divider:()=>fields([['vin','Input voltage','12'],['r1','R1 Ω','1000'],['r2','R2 Ω','1000']], f=>`<b>Vout = ${fmt(n(f.get('vin'),'Input')*p(f.get('r2'),'R2')/(p(f.get('r1'),'R1')+p(f.get('r2'),'R2')))} V</b>`),
     color:()=>fields([['b1','Band 1','brown'],['b2','Band 2','black'],['mul','Multiplier','red'],['tol','Tolerance','gold']], f=>{const b1=colors[String(f.get('b1')).toLowerCase()],b2=colors[String(f.get('b2')).toLowerCase()],m=colors[String(f.get('mul')).toLowerCase()]; if(!b1||!b2||!m||b1[0]===null||b2[0]===null) throw new Error('Invalid color.'); return `<b>${fmt(((b1[0]*10)+b2[0])*m[1])} Ω</b><br>Tolerance: ${esc(f.get('tol'))}`;}, 'Valid colors: black, brown, red, orange, yellow, green, blue, violet, grey, white, gold, silver'),
-    res:()=>fields([['mode','Mode','series','series or parallel'],['values','Resistance values Ω','100,200,300']], f=>{const a=String(f.get('values')).split(',').map(Number).filter(x=>Number.isFinite(x)&&x>0); if(!a.length) throw new Error('Enter resistor values.'); const mode=String(f.get('mode')).toLowerCase(); const r=mode.includes('parallel')?1/a.reduce((s,x)=>s+1/x,0):a.reduce((s,x)=>s+x,0); return `<b>Req = ${fmt(r)} Ω</b>`;}),
+    res:()=>fields([['mode','Mode','series','series or parallel'],['values','Resistance values Ω','100,200,300']], f=>{const a=numberList(f.get('values'), 'Resistance'); if(!a.every(x=>x>0)) throw new Error('Every resistance must be greater than zero.'); const mode=String(f.get('mode')).trim().toLowerCase(); if(!['series','parallel'].includes(mode)) throw new Error('Mode must be series or parallel.'); const r=mode.includes('parallel')?1/a.reduce((s,x)=>s+1/x,0):a.reduce((s,x)=>s+x,0); return `<b>Req = ${fmt(r)} Ω</b>`;}),
     cap:()=>fields([['code','3-digit code','104']], f=>{const c=String(f.get('code')).trim(); if(!/^\d{3}$/.test(c)) throw new Error('Enter 3 digit code like 104.'); const pf=Number(c.slice(0,2))*Math.pow(10,Number(c[2])); return `<b>${fmt(pf)} pF</b><br>${fmt(pf/1000)} nF | ${fmt(pf/1000000)} µF`; }),
     led:()=>fields([['vs','Supply V','12'],['vf','LED Vf','2'],['i','Current mA','20']], f=>`<b>R = ${fmt((n(f.get('vs'),'Supply')-n(f.get('vf'),'LED Vf'))/(p(f.get('i'),'Current')/1000))} Ω</b>`),
     tr:()=>fields([['vp','Primary voltage','230'],['np','Primary turns','1000'],['ns','Secondary turns','100']], f=>`<b>Vs = ${fmt(n(f.get('vp'),'Vp')*p(f.get('ns'),'Ns')/p(f.get('np'),'Np'))} V</b><br>Ratio Np:Ns = ${fmt(p(f.get('np'),'Np')/p(f.get('ns'),'Ns'))}:1`),
@@ -148,9 +182,9 @@
     energy:()=>fields([['m','Mass (kg)','2'],['u','Initial speed u (m/s)','3'],['v','Final speed v (m/s)','8'],['h','Height above reference h (m)','5'],['t','Time interval (s)','2'],['g','Gravity g (m/s²)','9.80665']], f=>{const m=p(f.get('m'),'Mass'),u=n(f.get('u'),'Initial speed'),v=n(f.get('v'),'Final speed'),h=n(f.get('h'),'Height'),t=p(f.get('t'),'Time'),g=p(f.get('g'),'Gravity'),kei=0.5*m*u*u,kef=0.5*m*v*v,work=kef-kei,pe=m*g*h,power=work/t;return `<b>Net work = ${fmt(work)} J</b><br>Initial KE = ${fmt(kei)} J<br>Final KE = ${fmt(kef)} J<br>Potential energy = ${fmt(pe)} J<br>Average power = ${fmt(power)} W<br><small>Wnet = ΔKE; PE = mgh.</small>`;}),
     circular:()=>fields([['m','Mass (kg)','2'],['v','Tangential speed (m/s)','10'],['r','Radius (m)','4']], f=>{const m=p(f.get('m'),'Mass'),v=p(f.get('v'),'Speed'),r=p(f.get('r'),'Radius'),a=v*v/r,force=m*a,omega=v/r,period=2*Math.PI*r/v;return `<b>Centripetal force = ${fmt(force)} N</b><br>Centripetal acceleration = ${fmt(a)} m/s²<br>Angular speed = ${fmt(omega)} rad/s<br>Period = ${fmt(period)} s<br><small>Fc = mv²/r; ω = v/r.</small>`;}),
     heat:()=>fields([['m','Mass (kg)','1'],['c','Specific heat capacity c (J/kg·°C)','4186'],['ti','Initial temperature (°C)','20'],['tf','Final temperature (°C)','80']], f=>{const m=p(f.get('m'),'Mass'),c=p(f.get('c'),'Specific heat capacity'),ti=n(f.get('ti'),'Initial temperature'),tf=n(f.get('tf'),'Final temperature'),dt=tf-ti,q=m*c*dt;return `<b>Heat energy Q = ${fmt(q)} J</b><br>Temperature change ΔT = ${fmt(dt)} °C<br>${q>=0?'Heat absorbed':'Heat released'} = ${fmt(Math.abs(q)/1000)} kJ<br><small>Q = mcΔT; phase changes are not included.</small>`;}),
-    cgpa:()=>fields([['gp','Grade points','8,9,7'],['cr','Credits','4,4,3']], f=>{const gp=String(f.get('gp')).split(',').map(Number),cr=String(f.get('cr')).split(',').map(Number); if(gp.length!==cr.length||!gp.every(Number.isFinite)||!cr.every(Number.isFinite)) throw new Error('Grade points and credits must match.'); const total=cr.reduce((s,x)=>s+x,0); return `<b>SGPA / CGPA = ${fmt(gp.reduce((s,x,i)=>s+x*cr[i],0)/total)}</b>`;}),
-    att:()=>fields([['att','Attended classes','36'],['total','Total classes','45'],['target','Target %','75']], f=>{const a=n(f.get('att'),'Attended'),t=p(f.get('total'),'Total'),target=n(f.get('target'),'Target')/100; const need=Math.max(0,Math.ceil((target*t-a)/(1-target))); return `<b>${fmt(a/t*100)}%</b><br>Classes needed for target if no absence: ${need}`;}),
-    internal:()=>fields([['marks','Marks separated by comma','8,9,7,10']], f=>{const a=String(f.get('marks')).split(',').map(Number).filter(Number.isFinite); if(!a.length) throw new Error('Enter marks.'); return `<b>Total = ${fmt(a.reduce((s,x)=>s+x,0))}</b>`;}),
+    cgpa:()=>fields([['gp','Grade points','8,9,7'],['cr','Credits','4,4,3']], f=>{const gp=numberList(f.get('gp'), 'Grade points'),cr=numberList(f.get('cr'), 'Credits'); if(gp.length!==cr.length||!gp.every(Number.isFinite)||!cr.every(Number.isFinite)) throw new Error('Grade points and credits must match.'); if(!gp.every(x=>x>=0&&x<=10)||!cr.every(x=>x>0)) throw new Error('Grade points must be 0–10 and credits greater than zero.'); const total=cr.reduce((s,x)=>s+x,0); return `<b>SGPA / CGPA = ${fmt(gp.reduce((s,x,i)=>s+x*cr[i],0)/total)}</b>`;}),
+    att:()=>fields([['att','Attended classes','36'],['total','Total classes','45'],['target','Target %','75']], f=>{const a=n(f.get('att'),'Attended'),t=p(f.get('total'),'Total'),target=n(f.get('target'),'Target')/100; if(!Number.isSafeInteger(a)||!Number.isSafeInteger(t)||a<0||a>t) throw new Error('Use whole class counts with 0 ≤ attended ≤ total.'); if(target<0||target>1) throw new Error('Target must be between 0 and 100%.'); const need=target===1 ? (a===t ? 0 : '100% cannot be reached after a missed class') : Math.max(0,Math.ceil((target*t-a)/(1-target))); return `<b>${fmt(a/t*100)}%</b><br>Classes needed for target if no absence: ${need}`;}),
+    internal:()=>fields([['marks','Marks separated by comma','8,9,7,10']], f=>{const a=numberList(f.get('marks'), 'Marks'); if(!a.length) throw new Error('Enter marks.'); return `<b>Total = ${fmt(a.reduce((s,x)=>s+x,0))}</b>`;}),
     pass:()=>fields([['max','Maximum marks','100'],['pass','Pass %','40'],['scored','Already scored','25']], f=>`<b>Need ${fmt(Math.max(0,p(f.get('max'),'Max')*n(f.get('pass'),'Pass')/100-n(f.get('scored'),'Scored')))} more marks</b>`),
     plan:()=>fields([['topics','Number of topics','20'],['days','Available days','5']], f=>`<b>${Math.ceil(p(f.get('topics'),'Topics')/p(f.get('days'),'Days'))} topics/day</b>`),
     timer:()=>timer(), grammar:()=>textTool('grammar'), words:()=>textTool('words'), case:()=>textTool('case'), clean:()=>textTool('clean'), letter:()=>letter(), lab:()=>lab()

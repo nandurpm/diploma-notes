@@ -88,6 +88,19 @@ def bundle_home(root: Path) -> str | None:
     return output.relative_to(root).as_posix()
 
 
+def version_assets(root: Path) -> None:
+    """Refresh HTML references to immutable scripts/styles when their contents change."""
+    hashes = {"/" + file.relative_to(root).as_posix(): hashlib.sha256(file.read_bytes()).hexdigest()[:16]
+              for folder in ("assets/js", "assets/css") for file in (root / folder).glob("*") if file.is_file()}
+    pattern = re.compile(r'(?P<path>/assets/(?:js|css)/[^\s"\'<>?]+)(?:\?[^\s"\'<>]*)?')
+    for page in root.rglob("*.html"):
+        original = page.read_text(encoding="utf-8")
+        updated = pattern.sub(lambda match: match["path"] + "?v=" + hashes[match["path"]]
+                              if match["path"] in hashes else match[0], original)
+        if updated != original:
+            page.write_text(updated, encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
@@ -95,6 +108,7 @@ def main() -> int:
     root = args.root.resolve()
     if not root.is_dir():
         raise SystemExit(f"Public directory does not exist: {root}")
+    version_assets(root)
     output = bundle_home(root)
     report = {
         "homepageCssBundle": output,

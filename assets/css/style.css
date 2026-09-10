@@ -358,8 +358,8 @@ p { color: var(--muted); line-height: 1.68; }
 .subject-card::after {
   content: "";
   position: absolute;
-  right: -70px;
-  bottom: -70px;
+  right: 0;
+  bottom: 0;
   width: 180px;
   height: 180px;
   border-radius: 50%;
@@ -459,14 +459,15 @@ p { color: var(--muted); line-height: 1.68; }
   flex: 1 1 130px;
   min-height: 43px;
   color: #fff;
-  font-size: .84rem;
-  line-height: 1.15;
+  font-size: .875rem;
+  line-height: 1.35;
   text-align: center;
   box-shadow: 0 11px 24px rgba(20,45,90,.12);
 }
 .action.syllabus { background: linear-gradient(135deg, var(--blue), var(--sky)); }
 .action.lessons { background: linear-gradient(135deg, var(--green), var(--cyan)); }
-.action.qp { background: linear-gradient(135deg, var(--amber), var(--rose)); }
+/* Stable darker brand hues keep white paper labels readable in seasonal themes. */
+.action.qp { color: #fff; background: linear-gradient(135deg, #92400e, #9f1239); }
 .action.download { background: linear-gradient(135deg, #047857, #0284c7); }
 .action.ask-poly { color: #fff; background: linear-gradient(135deg, #7c3aed, #db2777); }
 .action.ask-poly:hover { filter: brightness(1.06); }
