@@ -54,7 +54,7 @@ body::before {
 body::after {
   content: "";
   position: fixed;
-  inset: auto 0 -20% 0;
+  inset: auto -8% -20% -8%;
   height: 38vh;
   z-index: -1;
   pointer-events: none;
@@ -358,8 +358,8 @@ p { color: var(--muted); line-height: 1.68; }
 .subject-card::after {
   content: "";
   position: absolute;
-  right: -70px;
-  bottom: -70px;
+  right: 0;
+  bottom: 0;
   width: 180px;
   height: 180px;
   border-radius: 50%;
