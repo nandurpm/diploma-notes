@@ -6,7 +6,7 @@
   if (!document.querySelector('script[data-canonical-pdf-resolver]')) {
     const resolver = document.createElement("script");
     resolver.dataset.canonicalPdfResolver = "true";
-    resolver.src = new URL("lesson-availability-hotfix.js?v=20260905-canonical-pdf-manifests", document.currentScript.src).href;
+    resolver.src = new URL("lesson-availability-hotfix.js?v=20260910-audit1", document.currentScript.src).href;
     document.head.append(resolver);
   }
 
@@ -132,6 +132,7 @@
     return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
   };
   const questionPaperUrl = subject => {
+    if (subject.questionPaperUrl) return subject.questionPaperUrl;
     const tag = revisionTag(subject.revision);
     if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
     return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
@@ -139,7 +140,7 @@
   const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
   const questionPaperAction = (subject, label) => {
     const href = questionPaperUrl(subject);
-    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Browse all Revision ${esc(revisionYear(subject.revision))} papers</a>`;
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${subject.questionPaperUrl ? "Open Model Question Paper PDF" : `Browse all Revision ${esc(revisionYear(subject.revision))} papers`}</a>`;
     return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
   };
 
@@ -167,6 +168,7 @@
   }
 
   async function getSubjects() {
+    const archiveRequest = fetch(`${root()}assets/data/sitttr-pdf-links.json`).then(response => response.ok ? response.json() : null).catch(() => null);
     const payloads = await Promise.all(['revision-2021-subjects.json', 'revision-2026-subjects-lite.json'].map(async file => {
       const response = await fetch(`${root()}assets/data/${file}?v=20260910-audit1`);
       if (!response.ok) throw new Error('Unable to load the subject catalogue.');
@@ -174,7 +176,18 @@
       if (!Array.isArray(data.subjects) || !data.subjects.length) throw new Error('The subject catalogue is empty or invalid.');
       return data.subjects;
     }));
-    return unique([...payloads[0], ...payloads[1].map(normalize2026)]);
+    const subjects = unique([...payloads[0], ...payloads[1].map(normalize2026)]);
+    const archive = await archiveRequest;
+    const archiveBase = 'https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/';
+    if (archive?.base === archiveBase) {
+      subjects.forEach(subject => {
+        const slug = subject.department.toLowerCase().replaceAll('&', ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const links = archive.links?.[subject.revision]?.[`${subject.revision}|${slug}|${norm(subject.code)}`];
+        const path = links?.modelQuestionPaper;
+        if (typeof path === 'string' && path.startsWith(`sitttr/revision-${subject.revision}/model-question-papers/`) && path.endsWith('.pdf') && !path.includes('..')) subject.questionPaperUrl = archiveBase + path;
+      });
+    }
+    return subjects;
   }
 
   function hasLesson(subject) {

@@ -70,7 +70,12 @@ def main() -> int:
     check("tools use one calculator implementation", "tools-expression-hotfix.js" not in tools_html, "The duplicate calculator override must not be loaded.")
     check("generic converter excludes RPM", "speed:{" not in tools_js and "rpm:1" not in tools_js, "RPM is angular speed and cannot be directly converted to linear speed.")
     check("RPM calculator requires diameter", "Diameter mm" in tools_js and "Math.PI*diameterM*rpm/60" in tools_js, "Linear speed must use v = pi*D*N/60.")
-    check("scientific parser validates function tokens", "Unsupported function:" in tools_js and "evaluateExpression" in tools_js, "Scientific expressions must use one validated parser.")
+    check(
+        "scientific parser prohibits string code generation",
+        count(r"function\s+evaluateExpression\s*\(", tools_js) == 1
+        and not re.search(r"\b(?:eval|Function)\s*\(", tools_js),
+        "Scientific expressions must use one CSP-safe parser. Behaviour and token rejection are exercised by tests/frontend/audit.test.cjs.",
+    )
 
     rev21_count = programme_card_count(rev21)
     rev26_count = programme_card_count(rev26)

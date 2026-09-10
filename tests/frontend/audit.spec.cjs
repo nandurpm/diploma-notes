@@ -41,7 +41,8 @@ test('complete catalogue, shared labels, pagination and no horizontal overflow',
   await expect(page.locator('#subjectGrid .subject-card')).toHaveCount(36);
   await page.getByRole('button',{name:'Show more subjects'}).click();
   await expect(page.locator('#subjectGrid .subject-card')).toHaveCount(72);
-  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+  const overflow = await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,elements:[...document.querySelectorAll('body *')].map(el=>({tag:el.tagName,id:el.id,cls:el.className,right:el.getBoundingClientRect().right})).filter(el=>el.right>innerWidth+1).slice(0,10)}));
+  expect(overflow.scroll, JSON.stringify(overflow)).toBeLessThanOrEqual(overflow.width+1);
 });
 test('catalogue errors offer retry rather than partial data',async({page})=>{
   let failed=true;
