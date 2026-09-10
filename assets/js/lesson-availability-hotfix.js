@@ -7,7 +7,7 @@
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const VALIDATION_VERSION = "20260905-canonical-pdf-manifests";
+  const VALIDATION_VERSION = "20260910-audit1";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -34,10 +34,13 @@
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           return response.json();
         })
-        .then(data => new Map((data.subjects || [])
+        .then(data => {
+          if (!Array.isArray(data.subjects)) throw new Error('Invalid PDF catalogue.');
+          return new Map(data.subjects
           .filter(item => item.status === "published" && typeof item.pdfUrl === "string" && item.pdfUrl.startsWith(PDF_BASE))
-          .map(item => [norm(item.code), item.pdfUrl])))
-        .catch(() => new Map()));
+          .map(item => [norm(item.code), item.pdfUrl]));
+        })
+        .catch(error => { manifests.delete(year); throw error; }));
     }
     return (await manifests.get(year)).get(code) || "";
   }
@@ -77,7 +80,12 @@
 
   function normalizeQuestionPaperLink(card, row, code, revision) {
     const link = row.querySelector(".action.qp");
-    if (!link || !code) return link;
+    if (!link || !code || link.dataset.modelPaperUnavailable === 'true' || link.getAttribute('aria-disabled') === 'true') return link;
+    // Preserve course-specific PDFs and verified links from the page renderer.
+    const href = link.getAttribute('href');
+    if (!href) return link;
+    const route = new URL(href, location.href).searchParams.get('r');
+    if (route !== 'site/diploma-modelqp') return link;
     link.dataset.courseCode = code;
     link.dataset.modelPaperCourse = code;
     link.dataset.modelPaperRevision = revision;
@@ -87,31 +95,9 @@
     return configureOfficialLink(
       link,
       questionPaperUrlFor(code, revision),
-      "Open Model Question Paper",
-      `Open the official SITTTR Revision ${revisionLabel} model-question-paper page for course ${code}.`
+      `Browse all Revision ${revisionLabel} papers`,
+      `Browse the official Revision ${revisionLabel} paper index; a paper for this course is not guaranteed.`
     );
-  }
-
-  function rebuildModelPaperNotice(notice) {
-    if (!notice) return;
-    let label = notice.querySelector("strong");
-    if (!label) {
-      label = document.createElement("strong");
-      notice.prepend(label);
-    }
-    label.textContent = "Official Revision 2026 model question papers:";
-    [...notice.childNodes].forEach(node => { if (node !== label) node.remove(); });
-    notice.append(label, document.createTextNode(" Not available on the official SITTTR model-question-paper pages yet."));
-  }
-
-  async function enhanceDepartmentPaperAccess() {
-    const slug = document.body?.dataset?.programmeSlug;
-    const revision = String(document.body?.dataset?.revision || "");
-    const notice = document.getElementById("rev2026-model-qp-access");
-    if (revision !== "2026" || !notice) return;
-    if (!slug) return;
-
-    rebuildModelPaperNotice(notice);
   }
 
   async function headOk(url, rejectHtml = false) {
@@ -189,13 +175,13 @@
     download.className = "action download";
     const downloadHref = notesAvailable ? notesHref : printHref;
     if (download.getAttribute("href") !== downloadHref) download.setAttribute("href", downloadHref);
-    if (download.textContent !== "Download Notes") download.textContent = "Download Notes";
+    download.textContent = notesAvailable ? "Download PDF" : "Print / Save as PDF";
     download.removeAttribute("aria-disabled");
 
     if (notesAvailable) {
-      download.setAttribute("download", "");
-      download.removeAttribute("target");
-      download.removeAttribute("rel");
+      download.removeAttribute("download");
+      download.target = "_blank";
+      download.rel = "noopener noreferrer";
     } else {
       download.removeAttribute("download");
       download.target = "_blank";
@@ -210,6 +196,8 @@
     const validationKey = `${VALIDATION_VERSION}:${revision}:${code}`;
     if (!row || !code || checking.has(card) || card.dataset.availabilityValidated === validationKey) return;
     checking.add(card);
+    let failed = false;
+    row.querySelector(".pdf-load-retry")?.remove();
 
     try {
       const qp = normalizeQuestionPaperLink(card, row, code, revision);
@@ -230,7 +218,7 @@
           const download = document.createElement("a");
           download.className = "action download";
           download.href = notesHref;
-          download.textContent = "Download Notes";
+          download.textContent = "Download PDF";
           download.target = "_blank";
           download.rel = "noopener noreferrer";
           row.querySelector(".notes-status")?.replaceWith(download);
@@ -248,8 +236,18 @@
       if (!card.isConnected) return;
       ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
       card.dataset.notesAvailable = String(notesAvailable);
+    } catch (error) {
+      failed = true;
+      if (!card.isConnected) return;
+      // A network failure is not evidence that notes are unpublished.
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'btn pdf-load-retry';
+      retry.textContent = 'PDF availability could not be checked. Retry';
+      retry.addEventListener('click', () => validateCard(card), { once: true });
+      row.append(retry);
     } finally {
-      if (card.isConnected) card.dataset.availabilityValidated = validationKey;
+      if (!failed && card.isConnected) card.dataset.availabilityValidated = validationKey;
       checking.delete(card);
     }
   }
@@ -258,7 +256,6 @@
   function run() {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      enhanceDepartmentPaperAccess();
       const grid = document.getElementById("subjectGrid");
       if (grid?.dataset.mode === "papers") return;
       document.querySelectorAll(".subject-card").forEach(validateCard);
