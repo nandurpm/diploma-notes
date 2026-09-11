@@ -7,7 +7,7 @@
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const VALIDATION_VERSION = "20260910-audit1";
+  const VALIDATION_VERSION = "20260910-local-catalogue2";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -25,24 +25,49 @@
 
   const PDF_BASE = "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/";
   const manifests = new Map();
+  // Resolve relative to the script, not the page: nested department pages and
+  // project-path deployments must use the same published catalogue.
+  const catalogueRoot = new URL("../../docs/pdf-archive/manifests/", document.currentScript.src);
+
+  async function loadNotesCatalogue(year) {
+    const sources = [
+      new URL(`notes-${year}.json`, catalogueRoot).href,
+      `${PDF_BASE}manifests/notes-${year}.json`,
+    ];
+    let lastError;
+    for (const url of sources) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(url, { cache: "no-cache", signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (String(data.revision) !== year || !Array.isArray(data.subjects)) {
+          throw new Error("Invalid PDF catalogue.");
+        }
+        return new Map(data.subjects
+          .filter(item => item && item.status === "published" && typeof item.pdfUrl === "string" && item.pdfUrl.startsWith(`${PDF_BASE}notes/${year}/`))
+          .map(item => [norm(item.code), item.pdfUrl]));
+      } catch (error) {
+        lastError = error;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+    throw lastError;
+  }
+
   async function notesUrlFor(code, revision) {
     const year = revision.replace(/^REV/, "");
     if (!["2021", "2026"].includes(year)) return "";
     if (!manifests.has(year)) {
-      manifests.set(year, fetch(`${PDF_BASE}manifests/notes-${year}.json`, { cache: "no-store" })
-        .then(response => {
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          return response.json();
-        })
-        .then(data => {
-          if (!Array.isArray(data.subjects)) throw new Error('Invalid PDF catalogue.');
-          return new Map(data.subjects
-          .filter(item => item.status === "published" && typeof item.pdfUrl === "string" && item.pdfUrl.startsWith(PDF_BASE))
-          .map(item => [norm(item.code), item.pdfUrl]));
-        })
-        .catch(error => { manifests.delete(year); throw error; }));
+      const pending = loadNotesCatalogue(year).catch(error => {
+        manifests.delete(year); // A user retry must make a fresh request.
+        throw error;
+      });
+      manifests.set(year, pending);
     }
-    return (await manifests.get(year)).get(code) || "";
+    return (await manifests.get(year)).get(norm(code)) || "";
   }
 
   const lessonUrlFor = (code, revision, printMode = false) => {

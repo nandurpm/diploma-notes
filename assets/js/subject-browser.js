@@ -6,7 +6,7 @@
   if (!document.querySelector('script[data-canonical-pdf-resolver]')) {
     const resolver = document.createElement("script");
     resolver.dataset.canonicalPdfResolver = "true";
-    resolver.src = new URL("lesson-availability-hotfix.js?v=20260910-audit1", document.currentScript.src).href;
+    resolver.src = new URL("lesson-availability-hotfix.js?v=20260910-local-catalogue2", document.currentScript.src).href;
     document.head.append(resolver);
   }
 

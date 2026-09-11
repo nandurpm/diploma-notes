@@ -29,12 +29,20 @@ EXPLICIT = {
     "build-info.json", "site.webmanifest",
 }
 
+# These synchronized JSON catalogues are public runtime data, not internal docs.
+PUBLIC_PDF_CATALOGUES = {
+    "docs/pdf-archive/manifests/notes-2021.json",
+    "docs/pdf-archive/manifests/notes-2026.json",
+}
+
 # Critical files that must exist for a successful deployment
 REQUIRED = {
     "index.html", "revision-2026.html", "revision-2021.html", "ask-poly.html",
     "daily-quiz.html", "tools.html", "privacy.html", "sitemap.xml",
     "build-info.json", "site.webmanifest",
 }
+
+REQUIRED.update(PUBLIC_PDF_CATALOGUES)
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
@@ -120,6 +128,8 @@ def should_copy(relative: str) -> bool:
     path = Path(relative)
     if not path.parts:
         return False
+    if relative in PUBLIC_PDF_CATALOGUES:
+        return True
     # Skip excluded directories and hidden files
     if path.parts[0] in EXCLUDED_ROOTS or path.name.startswith("."):
         return False

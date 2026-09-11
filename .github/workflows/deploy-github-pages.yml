@@ -26,6 +26,10 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+      - name: Test PDF catalogue loading and packaging
+        run: |
+          node --test tests/pdf-catalogue.test.mjs
+          python -m unittest discover -s tests -p test_public_pdf_catalogues.py
       - name: Generate, validate and optimize public artifact
         run: |
           GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
