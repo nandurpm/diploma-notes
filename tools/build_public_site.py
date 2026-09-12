@@ -31,6 +31,7 @@ EXPLICIT = {
 
 # These synchronized JSON catalogues are public runtime data, not internal docs.
 PUBLIC_PDF_CATALOGUES = {
+    "docs/pdf-archive/manifests/archive-index.json",
     "docs/pdf-archive/manifests/notes-2021.json",
     "docs/pdf-archive/manifests/notes-2026.json",
 }
@@ -192,4 +193,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

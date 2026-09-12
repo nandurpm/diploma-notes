@@ -17,9 +17,10 @@ class PublicPdfCataloguesTest(unittest.TestCase):
         for path in build.PUBLIC_PDF_CATALOGUES:
             self.assertTrue(build.should_copy(path))
             data = json.loads((ROOT / path).read_text())
-            self.assertIsInstance(data['subjects'], list)
+            collection = 'documents' if path.endswith('/archive-index.json') else 'subjects'
+            self.assertIsInstance(data[collection], list)
         self.assertFalse(build.should_copy('docs/internal.json'))
-        self.assertFalse(build.should_copy('docs/pdf-archive/manifests/archive-index.json'))
+        self.assertFalse(build.should_copy('docs/pdf-archive/manifests/internal.json'))
 
     def test_build_copies_catalogues_and_fails_when_one_is_missing(self):
         with tempfile.TemporaryDirectory() as temp:
