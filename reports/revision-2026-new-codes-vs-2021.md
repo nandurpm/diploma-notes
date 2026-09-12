@@ -403,8 +403,8 @@
 - **6149C** — Advanced Excel with AI — Semester 6 — Commercial Practice
 - **6149D** — Applied GST and E-Filing — Semester 6 — Commercial Practice
 - **6181** — Project Management in Architecture — Semester 6 — Architecture, Interior Design
-- **6182P** — Landscape Design &Drafting — Semester 6 — Architecture
-- **6182T** — Landscape Design &Drafting — Semester 6 — Architecture
+- **6182P** — Landscape Design & Drafting — Semester 6 — Architecture
+- **6182T** — Landscape Design & Drafting — Semester 6 — Architecture
 - **6183A** — Interior Art and Accessories — Semester 6 — Architecture, Interior Design
 - **6183B** — Inclusive Design and Ergonomics — Semester 6 — Architecture, Interior Design
 - **6183C** — Disaster Resilient buildings — Semester 6 — Architecture
@@ -498,8 +498,8 @@
 - **6389B** — Mobile Application Development Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
 - **6389C** — Virtual Reality Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
 - **6389D** — Full Stack Development Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
-- **6391P** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
-- **6391T** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6391P** — Soil Mechanics & Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6391T** — Soil Mechanics & Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
 - **6392A** — Building Bye Laws and Statutory Drawings — Semester 6 — Civil Engineering & Planning
 - **6392B** — Water Proofing Protection and Repairs — Semester 6 — Civil Engineering & Planning
 - **6411** — Electric Vehicle Technology & Design Consideration — Semester 6 — Electrical Engineering & Electric Vehicles Technology
