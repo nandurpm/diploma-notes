@@ -55,7 +55,11 @@ test('catalogue errors offer retry rather than partial data',async({page})=>{
 });
 test('PDF failures can be retried and do not mean unavailable',async({page})=>{
   let failed=true;
-  await page.route(PDF_BASE+'manifests/**',route=>route.fulfill(failed?{status:503,body:'unavailable',headers:{'access-control-allow-origin':'*'}}:{json:{subjects:[{code:'1131',status:'published',pdfUrl:PDF_BASE+'notes/2026/1131/v1/1131.pdf'}]},headers:{'access-control-allow-origin':'*'}}));
+  const manifestResponse = () => failed
+    ? route => route.fulfill({status:503,body:'unavailable',headers:{'access-control-allow-origin':'*'}})
+    : route => route.fulfill({json:{revision:'2026',subjects:[{code:'1131',status:'published',pdfUrl:PDF_BASE+'notes/2026/1131/v1/1131.pdf'}]},headers:{'access-control-allow-origin':'*'}});
+  await page.route('**/docs/pdf-archive/manifests/notes-2026.json*', route => manifestResponse()(route));
+  await page.route(PDF_BASE+'manifests/**', route => manifestResponse()(route));
   await page.goto('/?revision=2026&code=1131');
   const card=page.locator('#subjectGrid .subject-card').first();
   await expect(card.locator('.pdf-load-retry')).toBeVisible();
