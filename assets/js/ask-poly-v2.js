@@ -563,7 +563,7 @@
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
     if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
-    return /\b(?:subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock exam|quiz|student tools?|calculator|converter|materials|2015|2021|2026|broken link|website|web\s*page|home\s*page|about\s+(?:poly|the\s+website)|help\s+(?:page|section)|download\s+(?:notes?|syllabus|papers?|lessons?)|(?:available|find|search)\s+(?:subjects?|notes?|lessons?|papers?|links?|pages?))\b/i.test(value);
+    return /\b(?:subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock exams?|quiz|student tools?|calculator|converter|materials|2015|2021|2026|broken link|website|web\s*page|home\s*page|about\s+(?:poly|the\s+website)|help\s+(?:page|section)|download\s+(?:notes?|syllabus|papers?|lessons?)|(?:available|find|search)\s+(?:subjects?|notes?|lessons?|papers?|links?|pages?))\b/i.test(value);
   }
 
   function preferredResponseLanguage(message) {
