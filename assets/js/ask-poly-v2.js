@@ -745,7 +745,11 @@
         await addMessage("assistant", "Generation stopped. Your message remains saved.", { stopped: true });
         return;
       }
-      const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
+      // Website-index records are valid fallbacks only for website-oriented
+      // questions. Never display weak lexical subject matches for a general
+      // essay or knowledge request when the live AI provider is unavailable.
+      const safeRetrieval = usesWebsite ? retrieval : null;
+      const offline = window.AskPolyOffline?.answer?.(clean, safeRetrieval);
       if (offline) {
         await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
           provider: "local-offline-assistant",
@@ -755,7 +759,7 @@
           diagram: diagramIntent || undefined
         });
       } else {
-        const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
+        const fallback = usesWebsite ? (retrieval?.fallbackAnswer || retrieval?.answer) : null;
         if (fallback) {
           await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
             provider: "local-knowledge-fallback",
@@ -765,7 +769,10 @@
             diagram: diagramIntent || undefined
           });
         } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", {
+          const unavailableMessage = usesWebsite
+            ? "I could not reach the AI service right now. Your chat is saved. Please try the website question again."
+            : "I could not reach the AI service right now. Your chat is saved, but I will not show unrelated website records for this general question. Please try again in a moment.";
+          await addMessage("assistant", unavailableMessage, {
             error: error.message,
             diagramIntent,
             diagram: diagramIntent || undefined
