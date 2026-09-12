@@ -440,7 +440,11 @@
   let printPrepared = false;
   let autoPrintTriggered = false;
 
-  fution freezeAnimations() {
+  function allDetails(open) {
+    document.querySelectorAll("details").forEach(detail => { detail.open = open; });
+  }
+
+  function freezeAnimations() {
     document.querySelectorAll(".animation-card").forEach((card) => card.classList.add("paused"));
   }
 

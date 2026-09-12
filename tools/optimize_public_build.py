@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit, urlunsplit
 
@@ -20,6 +21,47 @@ DEFERRED_HOMEPAGE_CSS = {
     "assets/css/independence-day-theme.css",
     "assets/css/learning-sprint-theme.css",
 }
+
+
+def externalize_inline_scripts(root: Path) -> int:
+    """Keep executable scripts compatible with script-src 'self'.
+
+    Preserve parser order: a formerly inline classic script must not acquire
+    defer/async semantics. JSON and other non-executable script data stay inline.
+    Inline event-handler attributes require separate source-level migration.
+    """
+    class Attributes(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            self.attrs = dict(attrs)
+
+    count = 0
+    pattern = re.compile(r'<script\b(?P<attrs>[^>]*)>(?P<body>.*?)</script\s*>', re.I | re.S)
+    executable = {'', 'text/javascript', 'application/javascript', 'text/ecmascript', 'application/ecmascript', 'module'}
+    for page in root.rglob('*.html'):
+        original = page.read_text(encoding='utf-8')
+
+        def replace(match):
+            nonlocal count
+            parser = Attributes()
+            parser.feed('<script' + match['attrs'] + '>')
+            attrs = parser.attrs
+            if 'src' in attrs or (attrs.get('type') or '').strip().lower() not in executable or not match['body'].strip():
+                return match[0]
+            payload = match['body'].encode('utf-8')
+            digest = hashlib.sha256(payload).hexdigest()[:20]
+            output = root / 'assets' / 'build' / f'inline.{digest}.js'
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(payload)
+            raw_attrs = match['attrs']
+            if (attrs.get('type') or '').strip().lower() != 'module':
+                raw_attrs = re.sub(r'\s+(?:async|defer)(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?', '', raw_attrs, flags=re.I)
+            count += 1
+            return f'<script{raw_attrs} src="/assets/build/{output.name}"></script>'
+
+        updated = pattern.sub(replace, original)
+        if updated != original:
+            page.write_text(updated, encoding='utf-8')
+    return count
 
 
 def clean_asset_path(value: str) -> str:
@@ -108,9 +150,11 @@ def main() -> int:
     root = args.root.resolve()
     if not root.is_dir():
         raise SystemExit(f"Public directory does not exist: {root}")
+    externalized = externalize_inline_scripts(root)
     version_assets(root)
     output = bundle_home(root)
     report = {
+        "externalizedInlineScripts": externalized,
         "homepageCssBundle": output,
         "homepageStylesheetCount": len(CSS_LINK_RE.findall((root / "index.html").read_text(encoding="utf-8"))),
     }
