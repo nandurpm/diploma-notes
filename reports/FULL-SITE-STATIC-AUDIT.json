@@ -6,7 +6,96 @@
   "views": 2,
   "missingLocalReferences": {},
   "duplicateIds": {},
-  "metadataIssues": [],
+  "metadataIssues": [
+    [
+      "lessons/lessons-2101.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2089.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2129.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2059.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2142.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2008.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2009.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2069.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2079.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2091.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2078.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2109.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2072.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2051.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2099.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2061.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2121.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2141.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2019.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2071.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2081.html",
+      "canonical count=0"
+    ],
+    [
+      "lessons/lessons-2111.html",
+      "canonical count=0"
+    ]
+  ],
   "headingIssues": [],
   "sitttrPolicyViolations": [],
   "cacheVersionConflicts": {
@@ -87,6 +176,6 @@
       "20260827-footer-consistency1"
     ]
   },
-  "externalReferencesCounted": 14495,
+  "externalReferencesCounted": 14473,
   "queryOnlyRefsAccepted": 13
 }

@@ -51,7 +51,7 @@
     if (retry) retry.hidden = true;
     if (status) status.textContent = 'Loading the PDF archive…';
     try {
-      const response = await fetch(base + 'manifests/archive-index.json', { cache: 'no-store' });
+      const response = await fetch('/docs/pdf-archive/manifests/archive-index.json', { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data.documents)) throw new Error('Invalid archive index');

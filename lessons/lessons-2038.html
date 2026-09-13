@@ -512,7 +512,10 @@ const panels=[...document.querySelectorAll('.panel')];
 const tabs=[...document.querySelectorAll('.tab-btn')];
 const progress=document.getElementById('progress');
 function showPanel(id,updateHash=true){
-  const target=document.getElementById(id)||document.getElemsList.toggle('active',b.dataset.panel===target.id));
+  const target=document.getElementById(id)||document.getElementById('overview');
+  if(!target)return;
+  panels.forEach(panel=>panel.classList.toggle('active',panel===target));
+  tabs.forEach(b=>b.classList.toggle('active',b.dataset.panel===target.id));
   document.title=`${target.dataset.title} | Engineering Graphics Using CAD Software 2038`;
   if(updateHash) history.replaceState(null,'','#'+target.id);
   window.scrollTo({top:0,behavior:'smooth'});

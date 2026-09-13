@@ -383,6 +383,15 @@
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
+    if (message.role === "assistant" && message.meta?.incomplete) {
+      const notice = document.createElement("p");
+      notice.className = "ask-answer-notice";
+      notice.setAttribute("role", "status");
+      notice.textContent = message.meta.stopped
+        ? "Generation stopped. The answer above is incomplete and has been saved."
+        : "The connection was interrupted. The answer above is incomplete and has been saved. You can retry the question.";
+      div.append(notice);
+    }
     const diagramIntent = message.meta?.diagram || message.meta?.diagramIntent;
     const staleSavedDiagram = diagramIntent?.type === "flowchart" && diagramIntent?.variant === "odd_even" && /current generation/i.test(String(message.content || ""));
     if (message.role === "assistant" && diagramIntent && !staleSavedDiagram && window.AskPolyDiagrams?.render) {
@@ -592,7 +601,7 @@
     };
   }
 
-  async function readSseAnswer(response, onDelta) {
+  async function readSseAnswer(response, onDelta, onActivity = () => {}) {
     if (!response.body) throw new Error("Streaming response body is missing.");
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -604,29 +613,38 @@
         .map((line) => line.slice(5).trimStart())
         .join("\n").trim();
       if (!data || data === "[DONE]") return data === "[DONE]";
-      try {
-        const payload = JSON.parse(data);
-        const delta = payload?.delta?.content
-          || payload?.choices?.[0]?.delta?.content
-          || payload?.response
-          || payload?.text
-          || "";
-        if (delta) { answer += delta; await onDelta(delta); }
-      } catch (_) {
-        // Ignore malformed keep-alive/event fragments.
+      let payload;
+      try { payload = JSON.parse(data); } catch (_) { return false; }
+      if (payload?.error) throw new Error("The AI stream reported an error.");
+      const delta = payload?.delta?.content
+        || payload?.choices?.[0]?.delta?.content
+        || payload?.response
+        || payload?.text
+        || "";
+      if (delta) { answer += delta; await onDelta(delta); }
+      const reason = payload?.choices?.[0]?.finish_reason;
+      if (reason === "length" || reason === "content_filter") {
+        throw new Error("The AI stream ended before completing the answer.");
       }
-      return false;
+      return reason === "stop" || payload?.done === true;
     };
-    while (true) {
-      const { value, done } = await reader.read();
-      buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
-      const events = buffer.split(/\r?\n\r?\n/);
-      buffer = events.pop() || "";
-      for (const event of events) if (await consume(event)) return answer;
-      if (done) {
-        if (buffer.trim()) await consume(buffer);
-        return answer;
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (value?.byteLength) onActivity();
+        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+        const events = buffer.split(/\r?\n\r?\n/);
+        buffer = events.pop() || "";
+        for (const event of events) if (await consume(event)) return answer;
+        if (done) {
+          if (buffer.trim() && await consume(buffer)) return answer;
+          throw new Error("The AI stream closed before completion.");
+        }
       }
+    } finally {
+      // Close the transport after [DONE], errors or EOF; do not leave it running.
+      await reader.cancel().catch(() => {});
+      reader.releaseLock();
     }
   }
 
@@ -643,10 +661,17 @@
         : solarRequest
           ? `${message}\n\nExplain the photovoltaic effect precisely. Light creates electron–hole pairs in the semiconductor, and the p–n junction's built-in electric field separates the charges. Electrons move toward the n-type side and holes toward the p-type side inside the cell. Distinguish this microscopic electron movement from conventional current: conventional current is defined in the direction positive charge would move, opposite to electron flow in the external circuit. State that a solar cell produces DC, and mention the inverter only when discussing conversion to AC.`
           : message;
-    const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+    const configuredTimeout = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+    const timeoutMs = Number.isFinite(configuredTimeout) ? Math.max(5000, configuredTimeout) : 30000;
     const controller = new AbortController();
     activeController = controller;
-    const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
+    let timer;
+    const resetIdleTimeout = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => controller.abort(), timeoutMs);
+    };
+    // Limit time without network activity, not the total length of an essay.
+    resetIdleTimeout();
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -668,8 +693,15 @@
       }
       if ((response.headers.get("content-type") || "").includes("text/event-stream")) {
         const smooth = createSmoothDeltaHandler(onDelta);
-        const answer = await readSseAnswer(response, smooth.push);
-        await smooth.flush();
+        resetIdleTimeout();
+        let answer;
+        try {
+          answer = await readSseAnswer(response, smooth.push, resetIdleTimeout);
+        } finally {
+          // Keep even the final short token when a connection is interrupted.
+          await smooth.flush();
+        }
+        if (!answer.trim()) throw new Error("The AI returned an empty answer.");
         return {
           answer: answer || "No answer received.",
           provider: response.headers.get("X-Ask-Poly-Provider") || "ai",
@@ -708,6 +740,7 @@
     addTyping(usesWebsite ? "website" : "thinking");
 
     let retrieval = null;
+    let streamedAnswer = "";
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
     // matching SVG figure renders next to the AI's answer.
     let diagramIntent = null;
@@ -728,7 +761,10 @@
         }))
         .filter((m) => m.content.trim());
       retrieval = usesWebsite ? await knowledgeSearch(clean) : null;
-      const result = await callAI(clean, history, retrieval?.context || "", updateStreamingAnswer);
+      const result = await callAI(clean, history, retrieval?.context || "", (answer) => {
+        streamedAnswer = answer;
+        updateStreamingAnswer(answer);
+      });
       removeTyping();
       removeStreamingAnswer();
       await addMessage("assistant", result.answer, {
@@ -741,6 +777,17 @@
       });
     } catch (error) {
       removeTyping();
+      if (streamedAnswer.trim()) {
+        // Never replace useful streamed content with an offline/error response.
+        await addMessage("assistant", streamedAnswer, {
+          incomplete: true,
+          stopped: stopRequested,
+          error: stopRequested ? undefined : error.message,
+          websiteKnowledge: Boolean(retrieval?.context),
+          knowledgeVersion: retrieval?.version || ""
+        });
+        return;
+      }
       if (stopRequested) {
         await addMessage("assistant", "Generation stopped. Your message remains saved.", { stopped: true });
         return;
