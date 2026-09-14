@@ -398,6 +398,16 @@
   async function init() {
     const grid = $("subjectGrid");
     if (!grid) return;
+
+    if (!renderAnnouncer && grid.parentNode) {
+      renderAnnouncer = document.createElement("div");
+      renderAnnouncer.id = "subjectBrowserAnnouncer";
+      renderAnnouncer.className = "subject-results-count";
+      renderAnnouncer.setAttribute("role", "status");
+      renderAnnouncer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(renderAnnouncer, grid);
+    }
+
     grid.innerHTML = `<div class="empty-state">Loading Revision 2021 and Revision 2026 subjects...</div>`;
     const mode = grid.dataset.mode || "home";
     const fixedRevision = grid.dataset.revision;
