@@ -99,7 +99,7 @@ jobs:
 
       - name: Prepare signed release
         run: |
-          set -e
+          set -euo pipefail
           mkdir -p release-output reports downloads
           RELEASE_APK=$(find android-app/app/build/outputs/apk/release -name '*.apk' | head -n 1)
           test -n "$RELEASE_APK"
@@ -109,13 +109,23 @@ jobs:
           echo "RELEASE_SHA=$RELEASE_SHA" >> "$GITHUB_ENV"
           echo "RELEASE_BYTES=$RELEASE_BYTES" >> "$GITHUB_ENV"
 
-      - name: Publish signed APK as GitHub Release asset
+      - name: Publish signed APK as immutable GitHub Release asset
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -e
+          set -euo pipefail
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" "release-output/$APK_NAME" --clobber
+            EXISTING_DIGEST=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" \
+              --jq ".assets[] | select(.name == \"${APK_NAME}\") | .digest" | head -n 1)
+            if [ -n "$EXISTING_DIGEST" ]; then
+              if [ "$EXISTING_DIGEST" != "sha256:${RELEASE_SHA}" ]; then
+                echo "::error::Release ${RELEASE_TAG}/${APK_NAME} already exists with digest ${EXISTING_DIGEST}, but this build produced sha256:${RELEASE_SHA}. Published APKs are immutable; bump versionName/versionCode before releasing a different binary."
+                exit 1
+              fi
+              echo "Release asset already exists with the same digest; reusing immutable ${APK_NAME}."
+            else
+              gh release upload "$RELEASE_TAG" "release-output/$APK_NAME"
+            fi
           else
             gh release create "$RELEASE_TAG" "release-output/$APK_NAME" \
               --title "POLY PMNA Android $VERSION_NAME" \
@@ -131,7 +141,7 @@ jobs:
 
       - name: Update website manifest and build reports
         run: |
-          set -e
+          set -euo pipefail
           export APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
           echo "APK_URL=$APK_URL" >> "$GITHUB_ENV"
           export PUBLISHED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
@@ -192,7 +202,7 @@ jobs:
 
       - name: Commit website update metadata
         run: |
-          set -e
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html downloads/app-update.json reports/android-v3-build-status.json reports/android-v3-publication.json
@@ -203,4 +213,3 @@ jobs:
           git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
-
