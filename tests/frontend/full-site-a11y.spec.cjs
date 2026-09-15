@@ -67,7 +67,10 @@ for (const [name, path] of routes) {
         .filter(value => Number.isFinite(value) && value > 0);
       const targetSelector = [
         '.menu-toggle', '.navlinks a', '.hero-actions a', '.btn', '.action',
-        'button', '[role="button"]', 'input:not([type="hidden"])', 'select', 'textarea'
+        'button', '[role="button"]',
+        'input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"])',
+        'label:has(input[type="checkbox"])', 'label:has(input[type="radio"])',
+        'select', 'textarea'
       ].join(',');
       const smallTargets = [...document.querySelectorAll(targetSelector)]
         .filter(visible)
