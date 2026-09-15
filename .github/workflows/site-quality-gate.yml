@@ -43,6 +43,8 @@ jobs:
           python tools/verify_mock_exam_public.py
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
+      - name: Run all-document static audit
+        run: python tools/full_site_static_audit.py
       - name: Test frontend calculator regressions
         run: node --test tests/frontend/*.test.cjs
       - name: Test Worker including adaptive context

@@ -4,8 +4,14 @@
       "staticDistDir": "./_site",
       "url": [
         "http://localhost/",
+        "http://localhost/about.html",
         "http://localhost/revision-2026.html",
-        "http://localhost/tools.html"
+        "http://localhost/revision-2021.html",
+        "http://localhost/daily-quiz.html",
+        "http://localhost/ask-poly.html",
+        "http://localhost/materials-2015.html",
+        "http://localhost/tools.html",
+        "http://localhost/contact.html"
       ],
       "numberOfRuns": 1,
       "settings": {

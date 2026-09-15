@@ -28,3 +28,29 @@ for (const complete of [false,true]) {
     await expect(saved.locator('.ask-answer-notice')).toHaveCount(complete?0:1);
   });
 }
+
+test('empty Ask POLY submissions are ignored and input length is bounded',async({page})=>{
+  await page.route('https://**/*',route=>route.abort());
+  await page.goto('/ask-poly.html');
+  const input=page.locator('#chatInput');
+  await expect(input).toHaveAttribute('maxlength','2200');
+  await input.fill('   ');
+  await page.getByRole('button',{name:'Send',exact:true}).click();
+  await expect(page.locator('#chatMessages .ask-bubble.user')).toHaveCount(0);
+  await expect(input).toHaveValue('   ');
+});
+
+test('Ask POLY saves a useful failure state when the AI network is unavailable',async({page})=>{
+  await page.route('https://**/*',route=>route.abort());
+  await page.goto('/ask-poly.html');
+  await page.evaluate(()=>{
+    if(window.AskPolyOffline) window.AskPolyOffline.answer=()=>null;
+  });
+  await page.locator('#chatInput').fill('Explain an unfamiliar general topic without using website records.');
+  await page.getByRole('button',{name:'Send',exact:true}).click();
+  const saved=page.locator('#chatMessages .ask-bubble.ai:not(#streamingAnswerBubble)').last();
+  await expect(saved).toContainText('I could not reach the AI service right now.');
+  await expect(saved).toContainText('Your chat is saved');
+  await page.reload();
+  await expect(saved).toContainText('Your chat is saved');
+});

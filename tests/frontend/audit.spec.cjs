@@ -44,6 +44,31 @@ test('complete catalogue, shared labels, pagination and no horizontal overflow',
   const overflow = await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,elements:[...document.querySelectorAll('body *')].map(el=>({tag:el.tagName,id:el.id,cls:el.className,right:el.getBoundingClientRect().right})).filter(el=>el.right>innerWidth+1).slice(0,10)}));
   expect(overflow.scroll, JSON.stringify(overflow)).toBeLessThanOrEqual(overflow.width+1);
 });
+test('subject finder survives rapid switching, no results and special characters',async({page})=>{
+  const pageErrors=[];
+  page.on('pageerror',error=>pageErrors.push(error.message));
+  await page.goto('/');
+  await expect(page.locator('#subjectBrowserAnnouncer')).toContainText('Showing');
+  await page.evaluate(()=>{
+    const revision=document.querySelector('#revisionFilter');
+    for(const value of ['2021','2026','2021','2026']) {
+      revision.value=value;
+      revision.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+  });
+  await expect(page.locator('#revisionFilter')).toHaveValue('2026');
+  const input=page.locator('#subjectSearch');
+  await input.fill('[]{}<>*?');
+  await expect(page.locator('#subjectGrid .subject-card')).toHaveCount(0);
+  await expect(page.locator('#subjectBrowserAnnouncer')).not.toContainText('Showing 36');
+  await page.evaluate(()=>{ window.__polyAuditInjected=0; });
+  await input.fill('<img src=x onerror="window.__polyAuditInjected=1">');
+  await expect(page.locator('#subjectGrid .subject-card')).toHaveCount(0);
+  expect(await page.evaluate(()=>window.__polyAuditInjected)).toBe(0);
+  await input.fill('');
+  await expect(page.locator('#subjectGrid .subject-card').first()).toBeVisible();
+  expect(pageErrors).toEqual([]);
+});
 test('catalogue errors offer retry rather than partial data',async({page})=>{
   let failed=true;
   await page.route('**/assets/data/revision-2021-subjects.json*',route=>failed?route.fulfill({status:503,body:'unavailable'}):route.continue());
