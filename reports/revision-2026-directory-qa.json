@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "success",
-  "sourceCommit": "155ee5444406ec2289d1d389fb2c15ceb1f7efca",
-  "generatedAt": "2026-09-15T11:36:09.208Z",
+  "sourceCommit": "0cf0cf0a680449aed305b25593d4c4cc68a0e517",
+  "generatedAt": "2026-09-15T12:46:15.601Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -163,8 +163,8 @@
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 4207104,
-      "sha256": "24032061e419288fb494fd939ac8a7602f3a442b57be39fce8fd4d9c4d8b20fd",
+      "bytes": 4207497,
+      "sha256": "6293a58898170bec9a85855a3485ed0551e10e2aa6b0fc0c10d5d00cc849a9cc",
       "viewport": {
         "width": 1440,
         "height": 1000
