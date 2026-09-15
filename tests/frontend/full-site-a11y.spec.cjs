@@ -27,6 +27,8 @@ function message(name, value) {
 
 for (const [name, path] of routes) {
   test(`${name} keeps the responsive accessibility baseline`, async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
     await page.route('https://**/*', route => route.abort());
     await page.goto(`${path}?audit=playwright-20260915`, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(250);
@@ -107,6 +109,7 @@ for (const [name, path] of routes) {
     expect.soft(result.headingJumps, message('headingJumps', result.headingJumps)).toEqual([]);
     expect.soft(result.positiveTabindex, message('positiveTabindex', result.positiveTabindex)).toEqual([]);
     expect.soft(result.overflow, message('horizontalOverflow', result)).toBeLessThanOrEqual(2);
+    expect.soft(pageErrors, message('pageErrors', pageErrors)).toEqual([]);
     if (result.width <= 414) {
       expect.soft(result.smallTargets, message('touchTargetsUnder44px', result.smallTargets)).toEqual([]);
     }
