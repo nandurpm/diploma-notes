@@ -7,6 +7,24 @@ const MAX_LINKS = 2;
 const TOKEN_SKEW_SECONDS = 60;
 let tokenCache = { accessToken: "", expiresAt: 0, projectId: "" };
 
+/* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
+async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch (error) {
+    if (error?.name === "AbortError" || String(error?.message || "").toLowerCase().includes("abort")) {
+      const timeoutError = new Error("Firebase request timed out.");
+      timeoutError.status = 504;
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
 function baseUrl(projectId) {
   return `${FIRESTORE_BASE}/${encodeURIComponent(projectId)}/databases/(default)/documents/helpComments`;
 }
@@ -69,7 +87,7 @@ async function accessToken(env) {
   );
   const signature = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(`${header}.${claim}`));
   const assertion = `${header}.${claim}.${base64Url(signature)}`;
-  const tokenResponse = await fetch(TOKEN_URL, {
+  const tokenResponse = await fetchWithTimeout(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion })
@@ -107,7 +125,7 @@ function firestoreFields(values) {
 
 async function createFirestoreComment(payload, env) {
   const { account, token } = await accessToken(env);
-  const response = await fetch(baseUrl(account.projectId), {
+  const response = await fetchWithTimeout(baseUrl(account.projectId), {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({

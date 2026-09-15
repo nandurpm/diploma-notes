@@ -9,3 +9,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/comments.js`, `commentsHealth` returned `secretLength: raw.length` in the `diagnostics` object of an unauthenticated `GET /health/comments` response, disclosing structural information about internal credentials to unauthenticated callers.
 **Learning:** Returning numeric metadata (like length) of environment variables or secret objects in health checks introduces information disclosure without providing security benefit.
 **Prevention:** Health and diagnostic endpoints should only expose simple boolean capability flags (e.g., `hasSecret`, `configured`) and never return secret lengths, hashes, or structural details.
+
+## 2026-04-02 - External API Timeout Controls in Cloudflare Workers
+**Vulnerability:** In `workers/ask-poly-ai/src/comments.js`, raw `fetch()` calls to Google OAuth and Firestore APIs lacked `AbortController` timeout handling, leaving worker threads vulnerable to connection hanging and resource exhaustion when external services stall.
+**Learning:** External API dependencies in edge workers without explicit request timeouts can hang indefinitely until worker runtime limits are reached, degrading performance and increasing DoS risks.
+**Prevention:** Wrap all outgoing worker `fetch` calls with an `AbortController` timeout (e.g. 7000ms) and convert timeout errors into standard 504/503 HTTP responses.
