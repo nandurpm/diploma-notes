@@ -63,12 +63,14 @@ jobs:
           {
             echo "## Lighthouse quality budget"
             echo ""
-            echo "- Pages: Home, Revision 2026 directory, Student Tools"
-            echo "- Performance minimum: 0.72"
+            echo "- Pages: Home, About, Revision 2026, Revision 2021, Mock Exams, Ask POLY AI, 2015 Materials, Tools, Help/Contact"
+            echo "- Performance minimum: 0.55"
             echo "- Accessibility minimum: 0.90"
             echo "- Best Practices minimum: 0.90"
             echo "- SEO minimum: 0.90"
-            echo "- CLS maximum: 0.10"
+            echo "- CLS warning threshold: 0.15"
+            echo "- LCP warning threshold: 4000 ms"
+            echo "- Total Blocking Time warning threshold: 600 ms"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v7
