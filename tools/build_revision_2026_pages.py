@@ -114,8 +114,8 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<button class="action syllabus" type="button" data-syllabus-unavailable="true" aria-label="{esc(syllabus_message)}" title="{esc(syllabus_message)}" onclick="window.alert(this.title)">Open Syllabus</button>'
     )
     qp_url = (
-        "https://sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-modelqp-courses-show&course={code}&scheme=REV2026"
+        "https://www.sitttrkerala.ac.in/index.php?"
+        "r=site%2Fdiploma-modelqp&scheme=REV2026"
     )
 
     if lesson_ok:

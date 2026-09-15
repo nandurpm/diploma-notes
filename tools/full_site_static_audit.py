@@ -22,8 +22,9 @@ Checks:
     (revision-202*/department-view.html); fragments exempt; canonical URLs
     must not carry query strings.
  4. Heading policy: exactly one H1 per genuine document.
- 5. SITTTR policy: course-specific diploma-modelqp-courses-show links are
-     accepted only when they carry a revision-specific scheme token; revision
+ 5. SITTTR policy: the per-course diploma-modelqp-courses-show route is
+     broken upstream (it redirects to the SITTTR file-not-found page even
+     with a scheme token), so served pages must not use it at all; revision
      indexes must use an allowed scheme=REV20xx token.
  6. Cache-buster consistency: one current ?v= token per asset site-wide.
 
@@ -196,13 +197,11 @@ for page in iter_html():
 
     # stylesheet links without version tokens still resolve; nothing to do here
 
-    # SITTTR policy on served pages
-    if "diploma-modelqp-courses-show" in raw and not re.search(
-            r"diploma-modelqp-courses-show[^\"']*(?:&amp;|&)scheme=REV(?:2015|2021|2026)",
-            raw,
-            re.I,
-    ):
-        broken_sitttr.append((rel, "course-specific model-paper route missing revision scheme"))
+    # SITTTR policy on served pages: the per-course courses-show route is
+    # dead upstream (302 -> SITTTR "file not found" even with scheme), so
+    # served pages must link the revision-specific model-QP index instead.
+    if "diploma-modelqp-courses-show" in raw:
+        broken_sitttr.append((rel, "per-course model-paper route is broken upstream; use the revision index"))
     for bad in re.findall(r'scheme=REV([0-9]{4})', raw):
         if bad not in {"1997", "2003", "2006", "2010", "2015", "2021", "2026"}:
             broken_sitttr.append((rel, f"scheme token REV{bad}"))

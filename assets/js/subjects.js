@@ -1913,7 +1913,7 @@ const MATERIALS_2015 = {
 };
 
 const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
-const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
+const SITTTR_MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV";
 
 function syllabusLink(subjectCode, revision) {
   if (revision === "2021" || revision === "2026") {
@@ -1924,7 +1924,7 @@ function syllabusLink(subjectCode, revision) {
 
 function modelQuestionPaperLink(subjectCode, revision) {
   if (revision === "2026") return "";
-  return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
+  return `${SITTTR_MODEL_QP_INDEX}${revision === "2021" ? "2021" : "2015"}`;
 }
 
 // Compute root prefix from actual path depth; works from any page.

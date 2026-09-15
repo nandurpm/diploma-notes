@@ -12,8 +12,8 @@
     return depth ? "../".repeat(depth) : "";
   };
   const esc = (v) => String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-  const syllabus = () => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${CODE}`;
-  const qp = () => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${CODE}`;
+  const syllabus = () => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${CODE}&scheme=REV2021`;
+  const qp = () => "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
   const lesson = () => `${root()}lessons/lessons-${CODE}.html`;
   const notes = () => `${root()}lessons/lessons-${CODE}.html?autoPrintNotes=1`;
   function departmentName() {

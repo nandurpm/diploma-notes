@@ -312,7 +312,7 @@ def subject_record(
     )
     model_qp = (
         "https://www.sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-modelqp-courses-show&course={code}"
+        f"r=site%2Fdiploma-modelqp&scheme=REV{revision or '2026'}"
     )
     return {
         "revision": revision,
