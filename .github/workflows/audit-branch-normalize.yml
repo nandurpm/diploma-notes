@@ -1,0 +1,69 @@
+name: Audit branch deterministic normalization
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-branch-normalize-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  normalize:
+    if: github.event.pull_request.head.ref == 'audit/full-site-2026-09-15' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: audit/full-site-2026-09-15
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Repair malformed About head boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('about.html')
+          text = path.read_text(encoding='utf-8')
+          body = text.lower().find('<body')
+          head_end = text.lower().find('</head>')
+          if body == -1:
+              raise SystemExit('about.html has no <body>')
+          if head_end == -1 or head_end > body:
+              text = text[:body] + '</head>\n' + text[body:]
+              path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Normalize metadata and shared-asset cache tokens
+        run: |
+          python scripts/standardize_metadata.py
+          python scripts/normalize_cache_busters.py
+
+      - name: Run full-site static audit
+        run: python tools/full_site_static_audit.py
+
+      - name: Verify patch whitespace
+        run: git diff --check
+
+      - name: Commit deterministic remediation output
+        env:
+          BRANCH: audit/full-site-2026-09-15
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'Deterministic source state is already normalized.'
+            exit 0
+          fi
+          git config user.name 'POLY PMNA Audit Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix: normalize full-site metadata and cache tokens'
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
