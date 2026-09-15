@@ -57,11 +57,18 @@ async function inspect(page, pageInfo, viewport) {
       const wrappingLabel = el.closest("label")?.textContent || "";
       return (el.getAttribute("aria-label") || labelledText || explicitLabel || wrappingLabel || el.getAttribute("title") || el.getAttribute("placeholder") || el.textContent || "").replace(/\s+/g, " ").trim();
     };
+    const effectiveTarget = (el) => {
+      if (el.matches('input[type="checkbox"], input[type="radio"]')) {
+        const explicit = el.id ? document.querySelector(`label[for="${CSS.escape(el.id)}"]`) : null;
+        return el.closest("label") || explicit || el;
+      }
+      return el;
+    };
     const interactive = [...document.querySelectorAll("a[href], button, input, select, textarea, [role=button]")].map((el) => ({
       tag: el.tagName.toLowerCase(),
       name: accessibleName(el),
       href: el.getAttribute("href") || "",
-      rect: rect(el),
+      rect: rect(effectiveTarget(el)),
       disabled: el.hasAttribute("disabled") || el.getAttribute("aria-disabled") === "true",
     }));
     const visibleInteractive = interactive.filter((item) => !item.disabled && item.rect.width > 0 && item.rect.height > 0 && item.rect.visibility !== "hidden" && item.rect.display !== "none" && Number(item.rect.opacity) > 0);
