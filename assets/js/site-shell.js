@@ -37,9 +37,9 @@
 (() => {
   "use strict";
 
-  // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Help"
+  // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Blog & GK" label: "Help"
 
-  const VERSION = "20260819-developer-link3";
+  const VERSION = "20260916-blog-nav1";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
@@ -86,6 +86,7 @@
     ["Ask POLY AI", "/ask-poly.html", path => /\/ask-poly(?:-v2)?\.html$/i.test(path)],
     ["2015 Materials", "/materials-2015.html", path => path.endsWith("/materials-2015.html")],
     ["Tools", "/tools.html", path => /\/tools(?:-v2|-v2-original)?\.html$/i.test(path)],
+    ["Blog & GK", "/blog.html", path => path.endsWith("/blog.html") || path.includes("/blog/")],
     ["Help", "/contact.html", path => path.endsWith("/contact.html")]
   ];
 
