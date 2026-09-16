@@ -638,7 +638,10 @@
         for (const event of events) if (await consume(event)) return answer;
         if (done) {
           if (buffer.trim() && await consume(buffer)) return answer;
-          throw new Error("The AI stream closed before completion.");
+          // Some browser/proxy paths close a valid SSE response without
+          // forwarding [DONE]. Preserve a non-empty answer as complete.
+          if (answer.trim()) return answer;
+          throw new Error("The AI stream closed before producing an answer.");
         }
       }
     } finally {
