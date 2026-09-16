@@ -1,6 +1,6 @@
 {
   "generated": "static audit",
-  "documents": 1510,
+  "documents": 1512,
   "fragments": 18,
   "utilities": 3,
   "views": 2,
@@ -10,6 +10,6 @@
   "headingIssues": [],
   "sitttrPolicyViolations": [],
   "cacheVersionConflicts": {},
-  "externalReferencesCounted": 14495,
+  "externalReferencesCounted": 14499,
   "queryOnlyRefsAccepted": 13
 }
