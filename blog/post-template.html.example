@@ -42,7 +42,7 @@ How to use:
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
-  <script src="/assets/js/site-shell.js?v=20260916-blog-nav1" defer></script>
+  <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
   <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"Article","headline":"REPLACE_TITLE","description":"REPLACE_META_DESCRIPTION","datePublished":"REPLACE_YYYY-MM-DD","dateModified":"REPLACE_YYYY-MM-DD","mainEntityOfPage":"https://polypmna.dpdns.org/blog/REPLACE_SLUG.html","author":{"@type":"Organization","name":"POLY PMNA"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/","logo":{"@type":"ImageObject","url":"https://polypmna.dpdns.org/assets/media/poly-pmna-logo.png"}},"image":"https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png","articleSection":"REPLACE_CATEGORY","inLanguage":"en"}</script>
 </head>
