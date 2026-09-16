@@ -1,5 +1,7 @@
 # POLY PMNA Full Audit & Remediation Report
 
+> Historical audit snapshot from 2026-09-15. Findings describe the repository at the time of the audit and may no longer represent current production state. Use current CI and runtime checks for present health.
+
 **Site:** https://polypmna.dpdns.org/  
 **Repository:** `nandurpm/diploma-notes`  
 **Audit date:** 2026-09-15  
@@ -12,10 +14,10 @@
 
 - The root project is a static HTML/CSS/JavaScript site/PWA. The root `package.json` has no build scripts; browser regression dependencies live under `tests/frontend/`.
 - Public deployment output is assembled by `tools/build_public_site.py` into `_site`.
-- Project conventions from `CONTRIBUTING.md` and `CODING_GUIDELINES.md` require minimal/backward-compatible changes and logical commits.
+- Project conventions from `CONTRIBUTING.md` and `docs/development/coding-guidelines.md` require minimal/backward-compatible changes and logical commits.
 - Existing QA includes `tools/site_quality_gate.py`, `tools/full_site_static_audit.py`, Playwright tests under `tests/frontend/`, Lighthouse CI, production URL auditing, secret scans and targeted Ask POLY/mock-exam validators.
-- The connected GitHub repository is used for source reads/writes. This execution environment could not resolve `github.com` for a conventional local `git clone`, so browser/build execution is delegated to the repository's GitHub Actions checks after the remediation branch is opened as a pull request.
-- Live-site verification also uses current public responses/search results, with repository source as the authority for code changes.
+- The connected GitHub repository was used for source reads/writes. Browser/build execution was delegated to the repository's GitHub Actions checks after the remediation branch was opened as a pull request.
+- Live-site verification also used current public responses/search results, with repository source as the authority for code changes.
 
 ## 1. Functional bugs
 
@@ -75,7 +77,7 @@
 ### Pre-fix findings
 
 - **Q1 — Audit tooling is fragmented.** Broad static/mobile/runtime auditors exist but are not consistently called by the main PR workflow, so regressions can pass despite useful tooling already being in the repository.
-- **Q2 — `tools/normalize_about_page.py` does not validate/repair malformed `<head>`/`<body>` ordering, which allowed F1 to persist.
+- **Q2 — `tools/normalize_about_page.py` does not validate/repair malformed `<head>`/`<body>` ordering, which allowed F1 to persist.**
 - **Q3 — `scripts/standardize_metadata.py` can normalize canonicals/H1s across documents but is mutation-only and not currently used as a non-mutating CI drift check.**
 - **Q4 — Existing JavaScript syntax checks and Node tests cover critical Ask POLY/mock-exam scripts; these remain the baseline rather than introducing an unrelated formatter/linter stack into a static site with established project-specific validators.**
 
@@ -84,9 +86,9 @@
 ### Pre-fix findings
 
 - **SEC1 — The primary quality workflow includes a committed-secret scan for OpenAI keys, Supabase service-role keys and Cloudflare tokens.** The public Supabase publishable browser key in `daily-quiz.html` is intentionally public and is explicitly distinguished from a service-role secret.
-- **SEC2 — A dedicated `tools/secret_scan.py` and security assessment reports also exist; no exposed private credential has been confirmed in this pass so far.
+- **SEC2 — A dedicated `tools/secret_scan.py` and security assessment reports also exist; no exposed private credential has been confirmed in this pass so far.**
 - **SEC3 — Network/user-input paths require runtime regression coverage, especially Ask POLY network failure and mock-exam score submission; the current tests cover streaming interruption/retry behavior and score-authority protections, and remaining gaps will be recorded rather than simulated as “passed.”**
 
 ## Remediation status
 
-Remediation has not yet begun in this snapshot. Subsequent commits update this section with exact changes, checks and remaining open items.
+This document intentionally preserves the pre-fix snapshot. For current status, use the repository's CI workflows, `reports/FULL-SITE-STATIC-AUDIT.json`, and current production smoke tests.
