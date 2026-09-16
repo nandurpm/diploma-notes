@@ -45,7 +45,7 @@ namespace_id = "202604"
 [vars]
 ENVIRONMENT = "production"
 SECURITY_LOGGING = "structured"
-ASK_POLY_RELEASE = "2026-07-20-audit-security3"
+ASK_POLY_RELEASE = "2026-09-16-vercel-cors1"
 # Try NVIDIA first, then OpenRouter if NVIDIA is unavailable or fails.
 # Credentials are supplied only as encrypted Cloudflare Worker secrets by the deploy workflow.
 AI_PROVIDER_ORDER = "nvidia,openrouter"
@@ -62,4 +62,4 @@ MAX_OUTPUT_TOKENS = "1200"
 MOCK_EXAM_MODEL = "gpt-4o-mini"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
 EXPOSE_ERRORS = "false"
-ALLOWED_ORIGINS = "https://polypmna.dpdns.org,https://www.polypmna.dpdns.org,https://polypmna.dpdns.com,https://www.polypmna.dpdns.com,https://polypmna.blogspot.com,https://polypmna.blogspot.in,http://localhost:8000,http://127.0.0.1:8000"
+ALLOWED_ORIGINS = "https://polypmna.dpdns.org,https://www.polypmna.dpdns.org,https://polypmna.dpdns.com,https://www.polypmna.dpdns.com,https://polypmna.blogspot.com,https://polypmna.blogspot.in,https://gptcperinthalmanna.vercel.app,https://gptcperinthalmanna.dpdns.org,https://www.gptcperinthalmanna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
