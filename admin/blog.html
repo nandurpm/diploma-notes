@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blog Publisher | POLY PMNA Admin</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20260916-blog1">
+  <link rel="stylesheet" href="/assets/css/blog-admin.css?v=20260916-admin1">
+  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <meta name="theme-color" content="#1d4ed8">
+  <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
+  <script src="/assets/js/blog-admin.js?v=20260916-admin1" defer></script>
+</head>
+<body class="portal-page blog-admin-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="topbar" data-site-header>
+    <a class="brand" href="/" aria-label="POLY PMNA home"><img class="brand-logo" src="/assets/media/poly-pmna-logo.png" alt="POLY PMNA" width="42" height="42"><strong>POLY PMNA</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation"><a href="/">Home</a><a href="/blog.html">Blog &amp; GK</a><a href="/contact.html">Help</a></nav>
+  </header>
+
+  <main id="main-content" class="blog-admin-main">
+    <section class="admin-hero">
+      <div><p class="eyebrow">POLY PMNA Admin</p><h1>Blog Publisher</h1><p>Create, edit, preview, publish and unpublish Blog &amp; GK posts without touching HTML or JSON.</p></div>
+      <a class="btn outline" href="/blog.html">View public blog</a>
+    </section>
+
+    <section id="login-panel" class="admin-card admin-login" aria-labelledby="login-heading">
+      <h2 id="login-heading">Admin login</h2>
+      <p>Use the same POLY PMNA account that has the <strong>admin</strong> role.</p>
+      <form id="login-form">
+        <label for="admin-email">Email</label>
+        <input id="admin-email" name="email" type="email" autocomplete="email" required maxlength="254">
+        <label for="admin-password">Password</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128">
+        <button class="btn primary" type="submit">Login</button>
+      </form>
+      <p id="login-status" class="admin-status" aria-live="polite"></p>
+    </section>
+
+    <section id="publisher" class="admin-workspace" hidden>
+      <div class="admin-toolbar-row">
+        <div><p class="eyebrow">Signed in</p><p id="admin-identity" class="admin-identity"></p></div>
+        <div class="admin-actions"><button id="new-post" class="btn primary" type="button">+ New post</button><button id="logout" class="btn outline" type="button">Logout</button></div>
+      </div>
+
+      <div class="admin-layout">
+        <aside class="admin-card admin-post-list" aria-labelledby="post-list-heading">
+          <div class="admin-section-head"><div><h2 id="post-list-heading">Posts</h2><p id="post-count">0 posts</p></div><button id="refresh-posts" class="btn soft" type="button">Refresh</button></div>
+          <label class="sr-only" for="post-search">Search posts</label>
+          <input id="post-search" type="search" placeholder="Search posts…" autocomplete="off">
+          <div id="post-list" class="post-list" aria-live="polite"></div>
+        </aside>
+
+        <section class="admin-card admin-editor" aria-labelledby="editor-heading">
+          <div class="admin-section-head"><div><p class="eyebrow">Editor</p><h2 id="editor-heading">New post</h2></div><span id="editor-state" class="state-pill">Draft</span></div>
+          <form id="post-form">
+            <input id="post-id" type="hidden">
+            <div class="field-grid two-col">
+              <div><label for="post-title">Title</label><input id="post-title" required minlength="3" maxlength="160" placeholder="Example: Kerala GK - Important Facts"></div>
+              <div><label for="post-slug">URL slug</label><input id="post-slug" required maxlength="180" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="kerala-gk-important-facts"><p class="field-help">Generated automatically; you can edit it.</p></div>
+            </div>
+
+            <div class="field-grid two-col">
+              <div><label for="post-category">Category</label><select id="post-category" required><option>Study Topics</option><option>General Knowledge</option><option>Daily Blogs</option><option>Exam Tips</option><option>Announcements</option></select></div>
+              <div><label for="post-tags">Tags</label><input id="post-tags" maxlength="240" placeholder="Kerala, GK, Exam Preparation"><p class="field-help">Separate tags with commas.</p></div>
+            </div>
+
+            <label for="post-summary">Short description</label>
+            <textarea id="post-summary" required minlength="10" maxlength="500" rows="3" placeholder="A short description shown on the Blog & GK page."></textarea>
+
+            <div class="editor-label-row"><label for="post-content">Article</label><span class="field-help">Use the toolbar; no HTML knowledge needed.</span></div>
+            <div class="rich-toolbar" role="toolbar" aria-label="Article formatting">
+              <button type="button" data-command="bold"><strong>B</strong><span class="sr-only">Bold</span></button>
+              <button type="button" data-command="italic"><em>I</em><span class="sr-only">Italic</span></button>
+              <button type="button" data-block="h2">H2</button>
+              <button type="button" data-block="h3">H3</button>
+              <button type="button" data-command="insertUnorderedList">• List</button>
+              <button type="button" data-command="insertOrderedList">1. List</button>
+              <button type="button" data-block="blockquote">Quote</button>
+              <button type="button" id="add-link">Link</button>
+              <button type="button" data-block="p">Paragraph</button>
+            </div>
+            <div id="post-content" class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Article content" data-placeholder="Start writing your article here…"></div>
+
+            <div class="field-grid two-col">
+              <div><label for="cover-image">Cover image</label><input id="cover-image" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><p class="field-help">Optional. Maximum 5 MB.</p><p id="cover-current" class="field-help"></p></div>
+              <div><label for="cover-alt">Image description</label><input id="cover-alt" maxlength="240" placeholder="Describe the image for accessibility"></div>
+            </div>
+
+            <label class="check-row"><input id="post-featured" type="checkbox"> Make this the featured post</label>
+
+            <div class="editor-actions">
+              <button id="preview-post" class="btn soft" type="button">Preview</button>
+              <button id="save-draft" class="btn outline" type="button">Save draft</button>
+              <button id="publish-post" class="btn primary" type="button">Publish</button>
+              <button id="unpublish-post" class="btn outline" type="button" hidden>Unpublish</button>
+              <button id="delete-post" class="btn danger" type="button" hidden>Delete</button>
+            </div>
+            <p id="editor-status" class="admin-status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <dialog id="preview-dialog" class="preview-dialog">
+      <form method="dialog" class="preview-dialog-head"><strong>Post preview</strong><button class="btn outline" value="close">Close</button></form>
+      <article id="preview-content" class="blog-article"></article>
+    </dialog>
+  </main>
+
+  <footer class="footer" data-site-footer><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/blog.html">Blog &amp; GK</a><a href="/contact.html">Help</a></nav></footer>
+  <script src="/assets/js/main.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260827-footer-consistency1" defer></script>
+</body>
+</html>
