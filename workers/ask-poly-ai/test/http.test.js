@@ -39,6 +39,8 @@ test("allowedOrigins falls back to defaults when unset", () => {
   const origins = allowedOrigins({});
   assert.ok(origins instanceof Set);
   assert.ok(origins.has("https://polypmna.dpdns.org"));
+  assert.ok(origins.has("https://gptcperinthalmanna.vercel.app"));
+  assert.ok(origins.has("https://gptcperinthalmanna.dpdns.org"));
   assert.ok(origins.has("http://localhost:8000"));
 });
 
@@ -75,6 +77,12 @@ test("corsHeaders echoes allowed origin and defaults otherwise", () => {
   assert.equal(headers["Access-Control-Allow-Methods"], "GET, POST, OPTIONS");
   assert.equal(headers["Access-Control-Allow-Headers"], "Content-Type, Authorization");
   assert.equal(headers.Vary, "Origin");
+});
+
+test("default CORS headers allow the Vercel production site", () => {
+  const origin = "https://gptcperinthalmanna.vercel.app";
+  assert.equal(isOriginAllowed(origin, {}), true);
+  assert.equal(corsHeaders(origin, {})["Access-Control-Allow-Origin"], origin);
 });
 
 test("jsonResponse serialises body, status and hardening headers", async () => {
