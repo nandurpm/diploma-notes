@@ -19,14 +19,15 @@
   <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260827-footer-consistency1">
   <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260827-footer-consistency1">
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260827-footer-consistency1">
-  <link rel="stylesheet" href="/assets/css/blog.css?v=20260916-blog1">
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20260916-blog2">
+  <link rel="stylesheet" href="/assets/css/blog-content-extensions.css?v=20260916-blog2">
   <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
   <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
   <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
-  <script src="/assets/js/blog-post.js?v=20260916-admin1" defer></script>
+  <script src="/assets/js/blog-post.js?v=20260916-admin2" defer></script>
 </head>
 <body class="portal-page blog-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -43,16 +44,19 @@
     <div id="post-shell" class="blog-article-shell" hidden>
       <article class="blog-article">
         <header class="blog-article-header">
-          <div class="blog-meta-row"><span id="post-category" class="blog-category-pill"></span><time id="post-date"></time></div>
+          <div class="blog-meta-row"><span id="post-category" class="blog-category-pill"></span><time id="post-date"></time><span id="post-author-inline" class="blog-author-inline"></span></div>
           <h1 id="post-title"></h1>
           <p id="post-summary" class="blog-article-deck"></p>
           <img id="post-cover" class="blog-post-cover" alt="" hidden>
         </header>
         <div id="post-content" class="blog-article-content"></div>
+        <section id="post-source-card" class="blog-source-card" hidden><h2>Source / reference</h2><p><a id="post-source-link" rel="noopener noreferrer" target="_blank"></a></p></section>
       </article>
       <aside class="blog-article-aside" aria-label="Article information">
         <section class="blog-aside-card"><h2>Category</h2><p id="aside-category"></p></section>
         <section class="blog-aside-card"><h2>Published</h2><p><time id="aside-date"></time></p></section>
+        <section class="blog-aside-card"><h2>Author</h2><p id="aside-author">POLY PMNA</p></section>
+        <section class="blog-aside-card"><h2>Language</h2><p id="aside-language">English</p></section>
         <section class="blog-aside-card"><h2>Explore more</h2><p><a class="blog-back-link" href="/blog.html">← Back to Blog &amp; GK</a></p></section>
       </aside>
     </div>

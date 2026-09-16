@@ -10,13 +10,13 @@
   <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260827-footer-consistency1">
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260827-footer-consistency1">
   <link rel="stylesheet" href="/assets/css/blog.css?v=20260916-blog1">
-  <link rel="stylesheet" href="/assets/css/blog-admin.css?v=20260916-admin1">
+  <link rel="stylesheet" href="/assets/css/blog-admin.css?v=20260916-admin2">
   <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
   <meta name="theme-color" content="#1d4ed8">
   <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
   <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
-  <script src="/assets/js/blog-admin.js?v=20260916-admin1" defer></script>
+  <script src="/assets/js/blog-admin.js?v=20260916-admin2" defer></script>
 </head>
 <body class="portal-page blog-admin-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -28,13 +28,13 @@
 
   <main id="main-content" class="blog-admin-main">
     <section class="admin-hero">
-      <div><p class="eyebrow">POLY PMNA Admin</p><h1>Blog Publisher</h1><p>Create, edit, preview, publish and unpublish Blog &amp; GK posts without touching HTML or JSON.</p></div>
+      <div><p class="eyebrow">POLY PMNA Admin</p><h1>Blog Publisher</h1><p>Write, style, preview and publish Blog &amp; GK posts from one screen. No HTML or JSON editing required.</p></div>
       <a class="btn outline" href="/blog.html">View public blog</a>
     </section>
 
     <section id="login-panel" class="admin-card admin-login" aria-labelledby="login-heading">
       <h2 id="login-heading">Admin login</h2>
-      <p>Use the same POLY PMNA account that has the <strong>admin</strong> role.</p>
+      <p>Use the POLY PMNA account that has the <strong>admin</strong> role.</p>
       <form id="login-form">
         <label for="admin-email">Email</label>
         <input id="admin-email" name="email" type="email" autocomplete="email" required maxlength="254">
@@ -51,53 +51,98 @@
         <div class="admin-actions"><button id="new-post" class="btn primary" type="button">+ New post</button><button id="logout" class="btn outline" type="button">Logout</button></div>
       </div>
 
+      <section class="admin-dashboard" aria-label="Blog overview">
+        <article><span>Total</span><strong id="stat-total">0</strong></article>
+        <article><span>Published</span><strong id="stat-published">0</strong></article>
+        <article><span>Drafts</span><strong id="stat-drafts">0</strong></article>
+        <article><span>Featured</span><strong id="stat-featured">0</strong></article>
+      </section>
+
       <div class="admin-layout">
         <aside class="admin-card admin-post-list" aria-labelledby="post-list-heading">
           <div class="admin-section-head"><div><h2 id="post-list-heading">Posts</h2><p id="post-count">0 posts</p></div><button id="refresh-posts" class="btn soft" type="button">Refresh</button></div>
           <label class="sr-only" for="post-search">Search posts</label>
           <input id="post-search" type="search" placeholder="Search posts…" autocomplete="off">
+          <div class="post-filter-grid">
+            <label><span>Status</span><select id="post-status-filter"><option value="">All</option><option value="published">Published</option><option value="draft">Drafts</option></select></label>
+            <label><span>Category</span><select id="post-category-filter"><option value="">All</option><option>Study Topics</option><option>General Knowledge</option><option>Daily Blogs</option><option>Exam Tips</option><option>Announcements</option></select></label>
+          </div>
           <div id="post-list" class="post-list" aria-live="polite"></div>
         </aside>
 
         <section class="admin-card admin-editor" aria-labelledby="editor-heading">
-          <div class="admin-section-head"><div><p class="eyebrow">Editor</p><h2 id="editor-heading">New post</h2></div><span id="editor-state" class="state-pill">Draft</span></div>
+          <div class="admin-section-head editor-head">
+            <div><p class="eyebrow">Editor</p><h2 id="editor-heading">New post</h2><p id="dirty-state" class="dirty-state">All changes saved</p></div>
+            <span id="editor-state" class="state-pill">Draft</span>
+          </div>
+
+          <div id="recovery-panel" class="recovery-panel" hidden>
+            <div><strong>Unsaved local draft found</strong><p>Restore what you were typing before the page was refreshed or closed.</p></div>
+            <div class="admin-actions"><button id="restore-recovery" class="btn soft" type="button">Restore</button><button id="discard-recovery" class="btn outline" type="button">Discard</button></div>
+          </div>
+
           <form id="post-form">
             <input id="post-id" type="hidden">
             <div class="field-grid two-col">
-              <div><label for="post-title">Title</label><input id="post-title" required minlength="3" maxlength="160" placeholder="Example: Kerala GK - Important Facts"></div>
+              <div><label for="post-title">Title</label><input id="post-title" required minlength="3" maxlength="160" placeholder="Example: Kerala GK - Important Facts"><div class="field-counter"><span>Post headline</span><span id="title-count">0/160</span></div></div>
               <div><label for="post-slug">URL slug</label><input id="post-slug" required maxlength="180" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="kerala-gk-important-facts"><p class="field-help">Generated automatically; you can edit it.</p></div>
             </div>
 
             <div class="field-grid two-col">
               <div><label for="post-category">Category</label><select id="post-category" required><option>Study Topics</option><option>General Knowledge</option><option>Daily Blogs</option><option>Exam Tips</option><option>Announcements</option></select></div>
-              <div><label for="post-tags">Tags</label><input id="post-tags" maxlength="240" placeholder="Kerala, GK, Exam Preparation"><p class="field-help">Separate tags with commas.</p></div>
+              <div><label for="post-tags">Tags</label><input id="post-tags" maxlength="240" placeholder="Kerala, GK, Exam Preparation"><p class="field-help">Separate tags with commas. Up to 12 tags are kept.</p></div>
             </div>
 
             <label for="post-summary">Short description</label>
             <textarea id="post-summary" required minlength="10" maxlength="500" rows="3" placeholder="A short description shown on the Blog & GK page."></textarea>
+            <div class="field-counter"><span>Used on cards and as the default SEO description</span><span id="summary-count">0/500</span></div>
 
-            <div class="editor-label-row"><label for="post-content">Article</label><span class="field-help">Use the toolbar; no HTML knowledge needed.</span></div>
+            <div class="editor-label-row"><label for="post-content">Article</label><span class="field-help">Select text, then use the toolbar.</span></div>
             <div class="rich-toolbar" role="toolbar" aria-label="Article formatting">
-              <button type="button" data-command="bold"><strong>B</strong><span class="sr-only">Bold</span></button>
-              <button type="button" data-command="italic"><em>I</em><span class="sr-only">Italic</span></button>
-              <button type="button" data-block="h2">H2</button>
-              <button type="button" data-block="h3">H3</button>
-              <button type="button" data-command="insertUnorderedList">• List</button>
-              <button type="button" data-command="insertOrderedList">1. List</button>
-              <button type="button" data-block="blockquote">Quote</button>
-              <button type="button" id="add-link">Link</button>
-              <button type="button" data-block="p">Paragraph</button>
+              <div class="toolbar-group" aria-label="History">
+                <button type="button" data-command="undo" title="Undo">↶</button><button type="button" data-command="redo" title="Redo">↷</button>
+              </div>
+              <div class="toolbar-group" aria-label="Text style">
+                <button type="button" data-command="bold" title="Bold"><strong>B</strong></button><button type="button" data-command="italic" title="Italic"><em>I</em></button><button type="button" data-command="underline" title="Underline"><u>U</u></button><button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button><button type="button" id="highlight-text" title="Highlight">Highlight</button>
+              </div>
+              <div class="toolbar-group" aria-label="Headings">
+                <button type="button" data-block="p">P</button><button type="button" data-block="h2">H2</button><button type="button" data-block="h3">H3</button><button type="button" data-block="h4">H4</button>
+              </div>
+              <div class="toolbar-group" aria-label="Lists and blocks">
+                <button type="button" data-command="insertUnorderedList">• List</button><button type="button" data-command="insertOrderedList">1. List</button><button type="button" data-block="blockquote">Quote</button><button type="button" data-block="pre">Code</button><button type="button" data-command="insertHorizontalRule">Divider</button>
+              </div>
+              <div class="toolbar-group" aria-label="Links">
+                <button type="button" id="add-link">Link</button><button type="button" data-command="unlink">Unlink</button>
+              </div>
+              <div class="toolbar-group" aria-label="Alignment">
+                <button type="button" data-align="left">Left</button><button type="button" data-align="center">Center</button><button type="button" data-align="right">Right</button>
+              </div>
+              <div class="toolbar-group" aria-label="Cleanup">
+                <button type="button" data-command="removeFormat">Clear format</button>
+              </div>
             </div>
             <div id="post-content" class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Article content" data-placeholder="Start writing your article here…"></div>
+            <div class="editor-metrics" aria-live="polite"><span><strong id="word-count">0</strong> words</span><span><strong id="char-count">0</strong> characters</span><span><strong id="read-time">0</strong> min read</span><span id="autosave-status">Local recovery ready</span></div>
 
-            <div class="field-grid two-col">
-              <div><label for="cover-image">Cover image</label><input id="cover-image" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><p class="field-help">Optional. Maximum 5 MB.</p><p id="cover-current" class="field-help"></p></div>
-              <div><label for="cover-alt">Image description</label><input id="cover-alt" maxlength="240" placeholder="Describe the image for accessibility"></div>
-            </div>
+            <section class="cover-panel" aria-labelledby="cover-heading">
+              <div class="cover-copy"><h3 id="cover-heading">Cover image</h3><p>Add a visual for the blog card and article. JPEG, PNG, WebP or AVIF, max 5 MB.</p><input id="cover-image" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><label for="cover-alt">Image description</label><input id="cover-alt" maxlength="240" placeholder="Describe the image for accessibility"><div class="admin-actions"><button id="remove-cover" class="btn outline" type="button">Remove cover</button></div><p id="cover-current" class="field-help"></p></div>
+              <div class="cover-preview-wrap"><img id="cover-preview" alt="Cover preview" hidden><div id="cover-placeholder" class="cover-placeholder">No cover selected</div></div>
+            </section>
 
-            <label class="check-row"><input id="post-featured" type="checkbox"> Make this the featured post</label>
+            <details class="advanced-settings">
+              <summary>Advanced settings &amp; SEO</summary>
+              <div class="advanced-grid">
+                <div><label for="post-author">Author name</label><input id="post-author" maxlength="80" value="POLY PMNA"></div>
+                <div><label for="post-language">Language</label><select id="post-language"><option value="en">English</option><option value="ml">Malayalam</option><option value="mixed">English + Malayalam</option></select></div>
+                <div><label for="post-seo-title">SEO title</label><input id="post-seo-title" maxlength="70" placeholder="Leave blank to use the post title"><div class="field-counter"><span>Search/social title</span><span id="seo-title-count">0/70</span></div></div>
+                <div><label for="post-seo-description">SEO description</label><textarea id="post-seo-description" maxlength="180" rows="3" placeholder="Leave blank to use the short description"></textarea><div class="field-counter"><span>Search/social description</span><span id="seo-description-count">0/180</span></div></div>
+                <div><label for="post-source-label">Source label</label><input id="post-source-label" maxlength="120" placeholder="Example: SITTTR Kerala circular"></div>
+                <div><label for="post-source-url">Source URL</label><input id="post-source-url" type="url" maxlength="500" placeholder="https://..."></div>
+              </div>
+              <label class="check-row"><input id="post-featured" type="checkbox"> Make this the featured post</label>
+            </details>
 
-            <div class="editor-actions">
+            <div class="editor-actions sticky-actions">
               <button id="preview-post" class="btn soft" type="button">Preview</button>
               <button id="save-draft" class="btn outline" type="button">Save draft</button>
               <button id="publish-post" class="btn primary" type="button">Publish</button>
