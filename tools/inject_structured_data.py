@@ -50,13 +50,37 @@ def page_type(relative: str) -> str:
         return "WebSite"
     if relative == "about.html":
         return "AboutPage"
-    if relative in {"revision-2021.html", "revision-2026.html", "materials-2015.html", "tools-catalog.html"}:
+    if relative in {"blog.html", "revision-2021.html", "revision-2026.html", "materials-2015.html", "tools-catalog.html"}:
         return "CollectionPage"
     if relative.startswith(("revision-2021/", "revision-2026/")):
         return "CollectionPage"
     if relative.startswith(("lessons/", "revision-2026-content/lessons/")):
         return "LearningResource"
     return "WebPage"
+
+
+def blog_parts() -> list[dict[str, str]]:
+    index = ROOT / "data/blog-index.json"
+    if not index.is_file():
+        return []
+    raw = json.loads(index.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        return []
+    parts: list[dict[str, str]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title") or "").strip()
+        url = str(item.get("url") or "").strip()
+        published = str(item.get("date") or "").strip()
+        if title and url.startswith("/") and published:
+            parts.append({
+                "@type": "BlogPosting",
+                "headline": title,
+                "url": ORIGIN + url,
+                "datePublished": published,
+            })
+    return parts
 
 
 def payload(relative: str, text: str) -> dict[str, object]:
@@ -69,14 +93,21 @@ def payload(relative: str, text: str) -> dict[str, object]:
         "@type": kind,
         "name": title,
         "url": canonical,
-        "description": description,
+    }
+    if description:
+        data["description"] = description
+    if relative == "blog.html":
+        parts = blog_parts()
+        if parts:
+            data["hasPart"] = parts
+    data.update({
         "isPartOf": {"@type": "WebSite", "name": "POLY PMNA", "url": ORIGIN + "/"},
         "publisher": {"@type": "Organization", "name": "POLY PMNA", "url": ORIGIN + "/"},
         "inLanguage": ["en", "ml"],
-    }
+    })
     if kind == "WebSite":
         data.pop("isPartOf", None)
-    elif kind == "CollectionPage":
+    elif kind == "CollectionPage" and relative != "blog.html":
         revision = "Revision 2026" if "2026" in relative else "Revision 2021" if "2021" in relative else "Revision 2015"
         data["about"] = {"@type": "EducationalOccupationalProgram", "name": f"Kerala Polytechnic {revision}"}
     elif kind == "LearningResource":
