@@ -2,18 +2,45 @@
 (() => {
   "use strict";
 
+  // Every subject browser uses the same canonical manifest resolver.
+  if (!document.querySelector('script[data-canonical-pdf-resolver]')) {
+    const resolver = document.createElement("script");
+    resolver.dataset.canonicalPdfResolver = "true";
+    resolver.src = new URL("lesson-availability-hotfix.js?v=20260910-local-catalogue2", document.currentScript.src).href;
+    document.head.append(resolver);
+  }
+
+
   const COMMON = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const ALL_DEPARTMENTS = "all";
   const HOME_LIMIT = 36;
 
   // Revision 2021 assets remain in /lessons and /notes.
-  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
-  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","1009","1141","1142","1143","1144","1149","1251","1252","1253","1254","1257","1258","1259","1471","1472","1473","1474","1477","1478","1479","2001","2002","2003","2006","2008","2009","2011","2019","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","2051","2059","2061","2069","2071","2072","2078","2079","2081","2089","2091","2099","2101","2109","2111","2121","2129","2131","2139","2141","2142","2181","2254","2255","2371","3011","3012","3013","3014","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4006","4007","4009","4011","4012","4013","4021","4022","4023","4024","4031","4032","4041","4042","4043","4101","4102","4103","5001","5002","5011","5012","5013","5014A","5014B","5014C","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6011A","6011B","6011C","6012A","6012B","6012C","6012D","6031","6031A","6031C","6031D","6032","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042","6042A","6042B","6042C","6042D","6043","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+  const NOTES_CODES = new Set([]);
 
   // Revision 2026 assets are detected only inside /revision-2026-content.
-  const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2001C","2001D","2001E","2002A","2002B","2003A","2003B","2005","2009A","2011","2031","2032","2041","2131"]);
-  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2001C","2001D","2001E","2002A","2002B","2003A","2003B","2005","2009A","2011","2031","2032","2041","2131"]);
+  const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2001C","2001D","2001E","2002A","2002B","2003A","2003B","2005","2009A","2009B","2011","2012","2018","2019","2021","2022","2028","2029","2031","2032","2038","2039","2041","2042","2048","2049","2051","2052","2058","2059","2061","2069","2071","2072","2073","2078","2079","2081","2089","2091","2099","2101","2109","2111","2119","2121","2129","2131","2132","2138","2139","2141","2142","2143","2144","2147","2148","2149","2182","2183","2187","2188","2251","2252","2253","2257","2258","2259","2331","2339","2421","2429","2432","2439","2461","2469","2532","2539","2561","2569","3001","3009","3011","3012","3013","3014","3017","3018","3019","3021","3022","3023","3024","3028","3029","3031","3032","3033","3034","3037","3038","3039","3041","3042","3043","3044","3047","3048","3049","3051","3052","3053","3054","3055","3058","3059","3061","3062","3063","3064","3067","3068","3069","3071","3072","3073","3074","3077","3078","3079","3081","3082","3083","3084","3087","3088","3089","3091","3092","3093","3094","3097","3098","3099","3101","3102","3103","3104","3107","3108","3109","3111","3112","3113","3114","3117","3118","3119","3121","3122","3123","3124","3127","3128","3129","3131","3132","3133","3134","3137","3138","3139","3141","3142","3143","3144","3146","3147","3148","3149","3181","3182","3183","3184","3187","3188","3189","3241","3242","3249","3251","3252","3253","3254","3257","3258","3259","3261","3262","3263","3268","3269","3281","3282","3283","3289","3301","3308","3309","3331","3332","3333","3334","3337","3338","3339","3341","3342","3343","3349","3352","3361","3362","3371","3381","3382","3383","3384","3387","3388","3389","3411","3421","3422","3423","3424","3427","3428","3429","3431","3432","3433","3434","3437","3438","3439","3461","3462","3463","3464","3468","3469","3491","3492","3493","3499","3501","3531","3532","3533","3538","3539","3561","3571","3572","3579","4001","4002","4009A","4009B","4009C","4009D","4009E","4011","4012","4013","4017","4018","4019","4021","4022","4023","4026","4027","4028","4029","4031","4032","4033","4037","4038","4039","4041","4042","4043","4047","4048","4049","4051","4052","4053","4058","4059","4061","4062","4063","4067","4068","4069","4071","4072","4073","4074","4077","4078","4079","4081","4082","4083","4087","4088","4089","4091","4092","4093","4097","4098","4099","4101","4102","4103","4107","4108","4109","4111","4112","4113","4117","4118","4119","4121","4122","4123","4127","4128","4129","4131","4132","4133","4137","4138","4139","4141","4142","4143","4146","4147","4148","4149","4151","4152","4181","4182","4183","4188","4189","4241","4242","4248","4249","4251","4252","4253","4257","4258","4259","4261","4262","4263","4268","4269","4281","4282","4283","4288","4289","4301","4307","4309","4331","4332","4333","4337","4338","4339","4341","4342","4343","4348","4349","4351","4361","4371","4372","4379","4381","4382","4389","4391","4392","4411","4418","4419","4421","4422","4423","4427","4428","4429","4431","4432","4433","4437","4438","4439","4461","4462","4463","4467","4469","4491","4492","4499","4501","4502","4509","4511","4521","4529","4531","4538","4539","4541","4571","4578","4579","4701","5007","5008","5009","5011","5012","5013","5014A","5014B","5014C","5014D","5017","5018","5019A","5019B","5021","5022","5023","5024A","5024B","5024C","5024D","5028","5029A","5029B","5031","5032","5033A","5033B","5033C","5033D","5037","5038","5039A","5039B","5041","5042","5043A","5043B","5043C","5043D","5047","5048","5049A","5049B","5049C","5051","5052","5053A","5053B","5053C","5053D","5057","5058","5059A","5059B","5059C","5059D","5061","5062","5063A","5063B","5063C","5063D","5067","5068","5069A","5069B","5071","5072","5073A","5073B","5073C","5073D","5077","5078","5079A","5081","5082","5083A","5083B","5083C","5083D","5087","5088","5089A","5089B","5089C","5089D","5091","5092","5093A","5093B","5093C","5093D","5097","5098","5099A","5099B","5101","5102","5103A","5103B","5103C","5103D","5107","5108","5109A","5109B","5111","5112","5113A","5113B","5113C","5113D","5117","5118","5119A","5119B","5121","5122","5123A","5123B","5123C","5127","5128","5129","5131","5132","5133","5133A","5133B","5133C","5134A","5134B","5134C","5134D","5137","5138","5139A","5139B","5139C","5139D","5141","5142","5143","5144A","5144B","5144C","5144D","5147","5148","5149A","5149B","5181","5182","5183A","5183B","5183C","5183D","5187","5188","5201","5202A","5208","5209A","5241","5242","5243A","5243B","5243C","5248","5249A","5249B","5251","5252","5253","5254A","5254B","5254C","5254D","5257","5258","5259A","5259B","5259C","5259D","5261","5262","5263A","5267","5268","5269A","5281","5282","5283A","5283B","5283C","5283D","5287","5288","5289A","5289B","5301","5302","5303A","5303B","5303C","5303D","5307","5309A","5309B","5331","5332","5333A","5333B","5333C","5333D","5337","5338","5339A","5339B","5341","5342A","5342B","5347","5348","5349A","5349B","5351A","5359A","5361A","5371","5372","5373A","5378","5379A","5381","5382","5383A","5383B","5383C","5383D","5387","5388","5389A","5389B","5389C","5389D","5391A","5391B","5399A","5411","5411A","5421","5422","5423A","5423B","5423C","5423D","5427","5428","5429A","5429B","5431","5432","5433A","5433B","5433D","5437","5438","5439A","5439B","5461","5462","5463A","5463B","5463C","5463D","5467","5468","5469A","5469B","5491","5492","5493A","5493B","5493C","5493D","5497","5498","5499A","5501","5502","5503A","5503B","5508","5509A","5521","5522","5523A","5523B","5528","5529A","5531","5532","5533A","5533B","5538","5539","5551A","5551B","5551C","5558","5559A","5559B","5559C","5561","5562A","5562B","5569A","5571","5579","6007","6009","6011P","6011T","6012","6013A","6013B","6013C","6013D","6014A","6014B","6014C","6014D","6018","6019A","6019B","6021A","6021B","6021P","6021T","6022","6022A","6022B","6022C","6022D","6023A","6023B","6023C","6023D","6024A","6024B","6024C","6024D","6028","6029A","6029B","6031P","6031T","6032","6033A","6033B","6033C","6033D","6034A","6034B","6034C","6034D","6038","6039A","6039B","6041P","6041T","6042","6043A","6043B","6043C","6043D","6044A","6044B","6044C","6044D","6048","6049A","6049B","6051A","6051B","6051P","6051T","6052","6052B","6052C","6052D","6053A","6053B","6053C","6053D","6054A","6054B","6054C","6054D","6058","6059A","6059B","6059C","6059D","6061P","6061T","6062","6063A","6063B","6063C","6063D","6064A","6064B","6064C","6068","6069A","6069B","6071A","6071B","6071C","6071P","6071T","6072","6072A","6072C","6072D","6073A","6073B","6073C","6073D","6074A","6074B","6074C","6074D","6078","6079A","6081P","6081T","6082","6083A","6083B","6083C","6083D","6084A","6084B","6084C","6084D","6088","6089A","6089B","6091P","6091T","6092","6093A","6093B","6093C","6093D","6094A","6094B","6094C","6094D","6098","6099A","6099B","6101P","6101T","6102","6103A","6103B","6103C","6103D","6104A","6104B","6104C","6104D","6108","6109A","6109B","6111P","6111T","6112","6113A","6113B","6113C","6114A","6114B","6114C","6114D","6117","6118A","6118B","6121P","6121T","6122","6123A","6123B","6123C","6124A","6124B","6124C","6128","6129","6131A","6131D","6131P","6131T","6132","6133A","6133B","6133C","6133D","6134A","6134B","6134C","6134D","6138","6139A","6139B","6139C","6139D","6141","6141P","6141T","6142","6143A","6143B","6143C","6143D","6144A","6144B","6144C","6144D","6148","6149","6149A","6149B","6149C","6149D","6181","6182P","6182T","6183A","6183B","6183C","6184A","6184B","6188","6189","6201","6201A","6202A","6203A","6203B","6209A","6241P","6241T","6242","6243A","6243B","6243C","6244A","6244B","6244C","6244D","6248","6249B","6251P","6251T","6252","6253A","6253B","6253C","6254A","6254B","6254C","6254D","6258","6259A","6259B","6261P","6261T","6262","6263A","6263B","6263C","6264A","6264B","6264C","6264D","6268","6269A","6269B","6269C","6281P","6281T","6282","6283A","6283B","6283C","6284A","6284B","6301P","6301T","6302","6303A","6304A","6304B","6304C","6304D","6308","6309A","6309B","6331P","6331T","6332","6333A","6333B","6333C","6333D","6334A","6334B","6334C","6334D","6338","6339A","6339B","6339C","6339D","6341","6342A","6342B","6342C","6342D","6343A","6343B","6348","6349A","6351A","6351B","6361A","6361B","6371A","6371B","6372A","6379A","6381P","6381T","6382","6383B","6383C","6383D","6384A","6384B","6384C","6388","6389A","6389B","6389C","6389D","6391P","6391T","6392A","6392B","6411","6419","6421P","6421T","6422","6423A","6423B","6423C","6423D","6424A","6424B","6424C","6424D","6428","6429A","6429B","6431P","6431T","6432","6433A","6433B","6433C","6433D","6434A","6434B","6434C","6438","6439A","6439B","6461P","6461T","6462","6463A","6463B","6463C","6463D","6464A","6464B","6464C","6464D","6468","6469A","6469B","6491P","6491T","6492A","6492B","6492C","6493A","6493B","6499A","6501A","6501B","6501C","6502A","6521","6522A","6528","6529A","6531P","6531T","6532A","6538","6541P","6541T","6551P","6551T","6552","6553B","6559","6561","6562A","6569","6571P","6571T","6572A","6579A","6579B","6579C"]);
+  const REV2026_NOTES_CODES = new Set([]);
+
+  // REV2021 course codes with NO matching REV2026 code (computed by diffing the
+  // full REV2021 code list against revision-2026-subjects.json's code list).
+  // The government site's course-contents page is looked up by a bare numeric
+  // "course" code with no revision/scheme qualifier, so a code that exists in
+  // BOTH revisions can't be disambiguated — that's what caused 2021 subjects to
+  // silently open 2026 content for shared codes (e.g. 3009). For codes in this
+  // set there's no such collision, so a direct link is safe and correct.
+  // Re-derive with: REV2021 codes (assets/js/subjects.js) minus REV2026 codes
+  // (assets/data/revision-2026-subjects.json) whenever either dataset changes.
+  const REV2021_SAFE_CODES = new Set(["1005","1007","1257","1258","1471","1472","1473","1474","1477","1478","1479","2001","2002","2003","2006","2008","2009","2181","2254","2255","2291","2301","2371","2379","2411","2471","2472","2473","2474","2475","2477","2478","2479","2701","3015","3016","3025","3026","3027","3035","3036","3045","3046","3055","3057","3065","3066","3075","3076","3085","3086","3095","3096","3105","3106","3116","3125","3126","3135","3136","3146","3151","3152","3157","3158","3159","3243","3248","3255","3256","3264","3265","3266","3267","3271","3272","3273","3274","3275","3276","3277","3278","3279","3288","3291","3292","3293","3297","3298","3299","3302","3303","3304","3307","3321","3322","3323","3324","3325","3326","3327","3328","3329","3335","3336","3344","3345","3346","3347","3348","3351","3352","3356","3357","3358","3359","3361","3362","3366","3367","3368","3369","3372","3377","3378","3379","3425","3426","3465","3466","3467","3471","3472","3473","3474","3475","3476","3477","3478","3479","3498","3509","4006","4007","4008","4009","4016","4024","4036","4046","4057","4064","4077","4084","4094","4106","4124","4136","4144","4151","4152","4157","4158","4159","4184","4185","4242","4254","4266","4267","4271","4272","4276","4277","4278","4279","4287","4291","4292","4293","4296","4297","4298","4299","4302","4303","4308","4321","4322","4323","4326","4327","4328","4329","4336","4346","4347","4352","4353","4356","4357","4358","4359","4368","4369","4372","4373","4377","4378","4392","4398","4399","4424","4464","4468","4471","4472","4473","4474","4477","4478","4479","4492","4498","4701","4702","4709","5001","5002","5019","5023A","5023B","5023C","5027","5029","5036","5039","5039C","5043","5043E","5049","5079","5096","5109C","5112A","5112B","5119","5133A","5133B","5133C","5143A","5143B","5143C","5146","5148A","5148B","5148C","5149","5151","5152A","5152B","5157","5158","5159A","5159B","5182A","5182B","5182C","5189","5202","5209","5247","5249","5263","5269","5271","5272","5273A","5273B","5273C","5277","5278","5279A","5279B","5279C","5289C","5291","5292","5293A","5293B","5293C","5297","5298","5299A","5299B","5299C","5308","5309C","5321","5322A","5322B","5322C","5323","5327","5328","5329A","5329B","5329C","5339C","5342","5343A","5343B","5351","5352A","5352B","5352C","5358","5359","5372A","5372B","5379B","5389","5391","5399","5401","5402A","5408","5409A","5411","5418","5419A","5429","5439","5469","5471","5472","5473","5474A","5474B","5474C","5477","5478","5479A","5479B","5479C","5493D","5499B","5509","5709","6001","6002","6008","6011A","6011B","6011C","6012A","6012B","6012C","6012D","6017","6019","6021A","6021B","6022A","6022B","6022C","6022D","6027","6029","6031","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6036","6037","6039","6041","6041A","6041B","6042A","6042B","6042C","6042D","6043","6046","6047","6049","6051A","6051B","6051C","6052A","6052B","6052C","6052D","6057","6061A","6061B","6061C","6062A","6062B","6067","6069","6071A","6071B","6071C","6072A","6072B","6072C","6072D","6077","6079","6081A","6081B","6081C","6082A","6082B","6082C","6082D","6087","6089","6091A","6091B","6091C","6092A","6092B","6092C","6092D","6097","6099","6101A","6101B","6101C","6102A","6102B","6102C","6102D","6107","6109C","6111","6118","6119","6121A","6121B","6121C","6122A","6122B","6122C","6127","6131A","6131B","6131C","6131D","6132A","6132B","6132C","6132D","6137","6141","6149","6151A","6151B","6152","6157","6158","6159A","6159B","6181A","6181B","6181C","6182A","6182B","6182C","6182D","6187","6201A","6201B","6241A","6241B","6241C","6242A","6242B","6242C","6242D","6249","6251A","6251B","6251C","6252A","6252B","6252C","6252D","6257","6259","6261","6262A","6262B","6262C","6267","6269","6271A","6271B","6271C","6272A","6272B","6272C","6272D","6277","6278","6279A","6279B","6279C","6281A","6281B","6281C","6282A","6282B","6282C","6288","6289A","6289B","6291A","6291B","6292A","6292B","6292C","6292D","6298","6299A","6299B","6299C","6301A","6301B","6301C","6302A","6302B","6302C","6302D","6309C","6321A","6321B","6321C","6322A","6322B","6322C","6322D","6327","6328","6329A","6329B","6329C","6331A","6331B","6331C","6332A","6332B","6332C","6332D","6337","6341A","6341B","6341C","6349B","6349C","6351C","6352A","6352B","6352C","6352D","6359","6369","6371C","6377","6378","6379B","6389","6391A","6391B","6398","6399","6401A","6407","6408","6409A","6411A","6412A","6417","6418","6419A","6421A","6421B","6421C","6422A","6422B","6422C","6422D","6427","6429","6431A","6439","6461A","6461B","6461C","6461D","6462A","6462B","6462C","6462D","6467","6469","6471A","6471B","6471C","6477","6478","6479","6491B","6491C","6491D","6492D","6497","6498","6499B","6501B","6501C","6701","IP301"]);
+
+  // The complement of REV2021_SAFE_CODES: codes that exist in BOTH revisions.
+  // Confirmed live (2026-08-12) that the government site's course= lookup for
+  // a colliding code is NOT stable — the exact same URL (course=1001) served
+  // REV2021 content on one fetch and REV2026 content on the next. So neither
+  // revision can safely direct-link a colliding code; both fall back.
+  const SHARED_CODE_COLLISIONS = new Set(["1001","1002","1003","1004","1008","1009","1141","1142","1143","1144","1149","1251","1252","1253","1254","1259","2011","2019","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","2051","2059","2061","2069","2071","2072","2078","2079","2081","2089","2091","2099","2101","2109","2111","2121","2129","2131","2139","2141","2142","2143","2144","2148","2149","2182","2251","2252","2253","2257","2258","2259","2339","2421","2429","2461","2469","3009","3011","3012","3013","3014","3017","3018","3019","3021","3022","3023","3024","3028","3029","3031","3032","3033","3034","3037","3038","3039","3041","3042","3043","3044","3047","3048","3049","3051","3052","3053","3054","3058","3059","3061","3062","3063","3064","3067","3068","3069","3071","3072","3073","3074","3077","3078","3079","3081","3082","3083","3084","3087","3088","3089","3091","3092","3093","3094","3097","3098","3099","3101","3102","3103","3104","3107","3108","3109","3111","3112","3113","3117","3118","3119","3121","3122","3123","3124","3127","3128","3129","3131","3132","3133","3134","3137","3138","3139","3141","3142","3143","3147","3148","3149","3181","3182","3183","3184","3187","3188","3189","3241","3242","3249","3251","3252","3253","3254","3257","3258","3259","3261","3262","3263","3268","3269","3281","3282","3289","3301","3308","3309","3331","3332","3333","3334","3337","3338","3339","3341","3342","3343","3349","3371","3381","3382","3389","3411","3421","3422","3423","3424","3427","3428","3429","3431","3461","3462","3463","3464","3468","3469","3499","3501","4001","4011","4012","4013","4017","4018","4019","4021","4022","4023","4027","4028","4029","4031","4032","4033","4037","4038","4039","4041","4042","4043","4047","4048","4049","4051","4052","4053","4058","4059","4061","4062","4063","4067","4068","4069","4071","4072","4073","4074","4078","4079","4081","4082","4083","4087","4088","4089","4091","4092","4093","4097","4098","4099","4101","4102","4103","4107","4108","4109","4111","4112","4113","4117","4118","4119","4121","4122","4123","4127","4128","4129","4131","4132","4133","4137","4138","4139","4141","4142","4143","4147","4148","4149","4181","4182","4183","4188","4189","4241","4249","4251","4252","4253","4257","4258","4259","4261","4262","4263","4268","4269","4281","4282","4288","4289","4301","4309","4331","4332","4333","4337","4338","4339","4341","4342","4343","4348","4349","4351","4371","4379","4381","4389","4391","4411","4421","4422","4423","4427","4428","4429","4461","4462","4463","4467","4469","4491","4499","4501","4509","5008","5009","5011","5012","5013","5014A","5014B","5014C","5017","5018","5021","5022","5028","5031","5032","5033A","5033B","5033C","5037","5038","5041","5042","5043A","5043B","5043D","5047","5048","5049A","5049B","5049C","5051","5052","5053A","5053B","5053C","5057","5058","5059A","5059B","5059C","5061","5062","5063A","5063B","5063C","5067","5068","5069A","5069B","5071","5072","5073A","5073B","5073C","5077","5078","5081","5082","5083A","5083B","5083C","5087","5088","5089A","5089B","5089C","5091","5092","5093A","5093B","5093C","5097","5098","5101","5102","5103A","5103B","5103C","5107","5108","5109A","5109B","5111","5117","5118","5121","5122","5123A","5123B","5123C","5127","5128","5129","5131","5132","5137","5138","5139A","5139B","5139C","5141","5142","5147","5181","5187","5188","5201","5241","5242","5243A","5243B","5248","5251","5252","5253","5254A","5254B","5254C","5257","5258","5259A","5259B","5259C","5261","5262","5267","5268","5281","5282","5283A","5283B","5283C","5287","5288","5289A","5289B","5301","5302","5303A","5303B","5303C","5307","5309A","5309B","5331","5332","5333A","5333B","5333C","5337","5338","5339A","5339B","5341","5347","5348","5349A","5349B","5371","5378","5379A","5381","5421","5422","5423A","5423B","5423C","5427","5428","5431","5432","5438","5461","5462","5463A","5463B","5463C","5467","5468","5491","5492","5493A","5493B","5493C","5497","5498","5499A","5501","6007","6009","6018","6028","6032","6038","6039A","6039B","6042","6048","6049A","6049B","6058","6059A","6059B","6059C","6068","6078","6088","6098","6108","6109A","6109B","6117","6128","6129","6138","6139A","6139B","6139C","6142","6143A","6143B","6143C","6148","6188","6189","6209A","6248","6258","6268","6308","6309A","6309B","6338","6339A","6339B","6339C","6342A","6342B","6342C","6348","6349A","6351A","6351B","6361A","6371A","6371B","6379A","6428","6468","6492A","6492B","6492C","6501A"]);
 
   const MANUAL = [
     {revision:"2021",semester:"Semester 1",code:"1001",name:"Communication Skills in English",department:COMMON,type:"Theory",assetCode:"1001"},
@@ -59,29 +86,67 @@
     ? window.PolyUtils.escapeHtml(value)
     : String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const norm = value => String(value || "").trim().toUpperCase();
-  const depKey = value => String(value || "").toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+  // PERFORMANCE OPTIMIZATION: cache depKey transforms so the expensive regexp
+  // replacement runs at most once per distinct department string.
+  const depKeyCache = new Map();
+  const depKey = value => {
+    const text = String(value || "");
+    const cached = depKeyCache.get(text);
+    if (cached !== undefined) return cached;
+    const result = text.toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+    depKeyCache.set(text, result);
+    return result;
+  };
   const semRank = value => Number(String(value || "").match(/\d+/)?.[0] || 999);
   const root = () => { const depth = location.pathname.replace(/\/[^/]*$/, " ").trim().split("/").filter(Boolean).length; return depth ? "../".repeat(depth) : ""; };
   const asset = subject => String(subject.assetCode || subject.code || "");
   const sameDept = (a, b) => depKey(a) === depKey(b);
-  const key = subject => [subject.revision, subject.department, subject.semester, norm(subject.code), String(subject.name || "").toLowerCase()].join("::");
-  const syllabusUrl = subject => {
-    if (String(subject.revision) === "2021") {
-      return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
-    }
-    return subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  // PERFORMANCE OPTIMIZATION: Simplified key generation to reduce string concatenation and array allocation.
+  const revisionTag = revision => {
+    const value = String(revision || "").trim().toUpperCase();
+    if (value === "2021" || value === "REV2021") return "REV2021";
+    if (value === "2026" || value === "REV2026") return "REV2026";
+    return value.startsWith("REV") ? value : (value ? `REV${value}` : "");
   };
-  const questionPaperUrl = subject => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  const revisionYear = revision => revisionTag(revision).replace(/^REV/, "");
+  const makeCourseKey = subject => `${revisionTag(subject.revision)}-${norm(subject.code)}`;
+  const key = s => `${makeCourseKey(s)}|${s.department}|${s.semester}`;
+  const directCourseUrl = (code, revision) => {
+    const tag = revisionTag(revision);
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
+  };
+  // SITTTR's public course endpoint does not reliably distinguish the two
+  // revisions for shared course codes. Until a course-specific REV2021 URL is
+  // verified in the data record, do not send a student to a potentially 2026 page.
+  const syllabusUrl = subject => {
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+  };
+  const syllabusUnavailableMessage = subject =>
+    `Official syllabus link has not been verified for Revision ${esc(revisionYear(subject.revision))} course ${esc(subject.code)}.`;
+  const syllabusAction = subject => {
+    const href = syllabusUrl(subject);
+    if (href) return `<a class="action syllabus" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>`;
+    const message = syllabusUnavailableMessage(subject);
+    return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
+  };
+  const questionPaperUrl = subject => {
+    if (subject.questionPaperUrl) return subject.questionPaperUrl;
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
+  };
+  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
+  const questionPaperAction = (subject, label) => {
+    const href = questionPaperUrl(subject);
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${subject.questionPaperUrl ? "Open Model Question Paper PDF" : `Browse all Revision ${esc(revisionYear(subject.revision))} papers`}</a>`;
+    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
+  };
 
   function unique(list) {
     const seen = new Set();
     return list.filter(subject => { const id = key(subject); if (seen.has(id)) return false; seen.add(id); return true; });
-  }
-
-  function parseSubjectsText(text) {
-    const match = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
-    if (!match) return [];
-    try { return Function(`"use strict";return (${match[1]});`)(); } catch { return []; }
   }
 
   function normalize2026(subject) {
@@ -97,20 +162,32 @@
       syllabusUrl: subject.syllabusUrl,
       programmeSlug: subject.programmeSlug,
       programmeCode: subject.programmeCode,
-      programmeUrl: subject.programmeUrl
+      programmeUrl: subject.programmeUrl,
+      syllabusUnavailable: Boolean(subject.syllabusUnavailable)
     };
   }
 
   async function getSubjects() {
-    let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2026Payload] = await Promise.all([
-      // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
-      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`).then(response => response.ok ? response.json() : null).catch(() => null)
-    ]);
-    if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
-    const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
-    return unique([...revision2021, ...MANUAL, ...revision2026]);
+    const archiveRequest = fetch(`${root()}assets/data/sitttr-pdf-links.json`).then(response => response.ok ? response.json() : null).catch(() => null);
+    const payloads = await Promise.all(['revision-2021-subjects.json', 'revision-2026-subjects-lite.json'].map(async file => {
+      const response = await fetch(`${root()}assets/data/${file}?v=20260910-audit1`);
+      if (!response.ok) throw new Error('Unable to load the subject catalogue.');
+      const data = await response.json();
+      if (!Array.isArray(data.subjects) || !data.subjects.length) throw new Error('The subject catalogue is empty or invalid.');
+      return data.subjects;
+    }));
+    const subjects = unique([...payloads[0], ...payloads[1].map(normalize2026)]);
+    const archive = await archiveRequest;
+    const archiveBase = 'https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/';
+    if (archive?.base === archiveBase) {
+      subjects.forEach(subject => {
+        const slug = subject.department.toLowerCase().replaceAll('&', ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const links = archive.links?.[subject.revision]?.[`${subject.revision}|${slug}|${norm(subject.code)}`];
+        const path = links?.modelQuestionPaper;
+        if (typeof path === 'string' && path.startsWith(`sitttr/revision-${subject.revision}/model-question-papers/`) && path.endsWith('.pdf') && !path.includes('..')) subject.questionPaperUrl = archiveBase + path;
+      });
+    }
+    return subjects;
   }
 
   function hasLesson(subject) {
@@ -137,7 +214,7 @@
       };
     }
     return {
-      lessonHref: `${relativeRoot}lessons/lessons-${code}.html`,
+      lessonHref: `${relativeRoot}lessons.html?revision=2021&code=${code}#subject-${code}`,
       notesHref: `${relativeRoot}notes/downloadable-notes-${code}.pdf`
     };
   }
@@ -146,23 +223,55 @@
     if (mode === "papers") {
       // Question-papers page: show only the sample question paper link,
       // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.departmentLabel || subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
     const notesAvailable = hasNotes(subject);
-    const downloadHref = notesAvailable ? notesHref : `${lessonHref}?autoPrintNotes=1`;
+    const printUrl = new URL(lessonHref, location.href);
+    printUrl.searchParams.set('autoPrintNotes', '1');
+    const downloadHref = notesAvailable ? notesHref : printUrl.href;
     const downloadAttributes = notesAvailable ? " download" : ' target="_blank" rel="noopener noreferrer"';
     const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>${notesAvailable ? "Download PDF" : "Print / Save as PDF"}</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.departmentLabel || subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>${subject.sharedDepartments ? `<details><summary>View programmes</summary><p>${esc(subject.sharedDepartments.join(", "))}</p></details>` : ""}<div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
+
+  // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
+  // changes at runtime, so card(subject, mode) is pure; caching it avoids re-escaping
+  // and string concatenation on every re-render.
+  const cardCache = new Map();
+  function cachedCard(subject, mode) {
+    const modeKey = mode || "default";
+    let modeCache = cardCache.get(modeKey);
+    if (!modeCache) {
+      modeCache = new WeakMap();
+      cardCache.set(modeKey, modeCache);
+    }
+    const cached = modeCache.get(subject);
+    if (cached !== undefined) return cached;
+    const html = card(subject, mode);
+    modeCache.set(subject, html);
+    return html;
+  }
+
+  // PERFORMANCE OPTIMIZATION: semester-section headings are pure text and the
+  // card grid only needs inline grid styles once; build them with a static
+  // template string instead of inline styles on every node.
+  const SEMESTER_SECTION_STYLE = "grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px";
+  const SEMESTER_CARD_GRID_STYLE = "display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%";
 
   function group(list, mode) {
     const groups = new Map();
     list.forEach(subject => { const semester = String(subject.semester || "Other subjects"); if (!groups.has(semester)) groups.set(semester, []); groups.get(semester).push(subject); });
-    return [...groups.entries()].map(([semester, items]) => `<section class="semester-subject-section" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${items.map(subject => card(subject, mode)).join("")}</div></section>`).join("");
+    const out = [];
+    for (const [semester, items] of groups) {
+      out.push(`<section class="semester-subject-section" style="${SEMESTER_SECTION_STYLE}"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="${SEMESTER_CARD_GRID_STYLE}">`);
+      items.forEach(subject => out.push(cachedCard(subject, mode)));
+      out.push("</div></section>");
+    }
+    return out.join("");
   }
 
   function fillSemester(select, values, preferred) {
@@ -170,7 +279,7 @@
     const old = select.value || preferred || "all";
     select.replaceChildren(new Option("All semesters", "all"));
     [...new Set(values.filter(Boolean))].sort((a, b) => semRank(a) - semRank(b) || String(a).localeCompare(String(b))).forEach(value => select.add(new Option(value, value)));
-    select.value = [...select.options].some(option => option.value === old) ? old : ([...select.options].some(option => option.value === preferred) ? preferred : "all");
+    select.value = [...select.options].some(option => option.value === old) ? old : (preferred || "all");
   }
 
   function fillDepartment(select, list, preferred) {
@@ -227,46 +336,90 @@
     // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
     // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
     list.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
+    let totalMatches = list.length;
     if (mode === "home") {
       // PERFORMANCE OPTIMIZATION: Replacing O(n^2) array.findIndex loop with O(n) Set lookups.
       // This is crucial on the homepage where 1800+ elements would otherwise trigger millions of iterations.
-      const seenHomeCodes = new Set();
-      const uniqueHomeList = [];
-      for (let i = 0; i < list.length; i++) {
-        const subject = list[i];
-        const uniqueKey = norm(subject.code) + "::" + String(subject.revision || "");
-        if (!seenHomeCodes.has(uniqueKey)) {
-          seenHomeCodes.add(uniqueKey);
-          uniqueHomeList.push(subject);
-        }
+      const groups = new Map();
+      for (const subject of list) {
+        const uniqueKey = `${norm(subject.code)}::${subject.revision}::${subject.semester}`;
+        if (!groups.has(uniqueKey)) groups.set(uniqueKey, []);
+        groups.get(uniqueKey).push(subject);
       }
-      list = uniqueHomeList.slice(0, HOME_LIMIT);
+      const uniqueHomeList = [...groups.values()].map(items => {
+        const departments = [...new Set(items.map(item => item.department))];
+        return departments.length > 1
+          ? {...items[0], departmentLabel: `Shared across ${departments.length} programmes`, sharedDepartments: departments}
+          : items[0];
+      });
+      totalMatches = uniqueHomeList.length;
+      list = uniqueHomeList.slice(0, visibleLimit);
     }
-    grid.innerHTML = list.length ? (mode === "home" ? list.map(subject => card(subject, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
 
-    let announcer = $("subjectBrowserAnnouncer");
-    if (!announcer && grid.parentNode) {
-      announcer = document.createElement("div");
-      announcer.id = "subjectBrowserAnnouncer";
-      announcer.className = "sr-only";
-      announcer.setAttribute("role", "status");
-      announcer.setAttribute("aria-live", "polite");
-      grid.parentNode.insertBefore(announcer, grid);
+    grid.innerHTML = list.length ? (mode === "home" ? list.map(s => cachedCard(s, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+
+    // PERFORMANCE OPTIMIZATION: create the announcer only once and keep it in a
+    // module-level variable instead of querying the DOM on every render.
+    if (!renderAnnouncer && grid.parentNode) {
+      renderAnnouncer = document.createElement("div");
+      renderAnnouncer.id = "subjectBrowserAnnouncer";
+      renderAnnouncer.className = "subject-results-count";
+      renderAnnouncer.setAttribute("role", "status");
+      renderAnnouncer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(renderAnnouncer, grid);
     }
-    if (announcer) {
-      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    if (mode === 'home') {
+      if (!showMore) {
+        showMore = document.createElement('button');
+        showMore.type = 'button';
+        showMore.className = 'btn';
+        showMore.textContent = 'Show more subjects';
+        showMore.setAttribute('aria-controls', 'subjectGrid');
+        grid.after(showMore);
+      }
+      showMore.hidden = list.length >= totalMatches;
+      showMore.onclick = () => {
+        const previousCount = list.length;
+        visibleLimit += HOME_LIMIT;
+        render(all, grid, mode, fixedRevision, department);
+        const firstNew = grid.querySelectorAll('.subject-card')[previousCount];
+        if (firstNew) { firstNew.tabIndex = -1; firstNew.focus(); }
+      };
+    }
+    if (renderAnnouncer) {
+      renderAnnouncer.textContent = totalMatches === 0 ? "No subjects found." : `Showing ${list.length} of ${totalMatches} matching subjects.`;
     }
   }
+
+  let renderAnnouncer = null;
+  let visibleLimit = HOME_LIMIT;
+  let showMore = null;
 
   async function init() {
     const grid = $("subjectGrid");
     if (!grid) return;
+
+    if (!renderAnnouncer && grid.parentNode) {
+      renderAnnouncer = document.createElement("div");
+      renderAnnouncer.id = "subjectBrowserAnnouncer";
+      renderAnnouncer.className = "subject-results-count";
+      renderAnnouncer.setAttribute("role", "status");
+      renderAnnouncer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(renderAnnouncer, grid);
+    }
+
     grid.innerHTML = `<div class="empty-state">Loading Revision 2021 and Revision 2026 subjects...</div>`;
     const mode = grid.dataset.mode || "home";
     const fixedRevision = grid.dataset.revision;
     const department = grid.dataset.department;
     const preferredRevision = grid.dataset.defaultRevision || $("revisionFilter")?.value || (mode === "lessons" ? "2021" : "2026");
-    const all = await getSubjects();
+    let all;
+    try { all = await getSubjects(); }
+    catch (error) {
+      grid.innerHTML = '<div class="empty-state" role="alert">Subject data could not be loaded. Check your connection and retry. <button type="button" class="btn" id="retrySubjectLoad">Retry</button></div>';
+      $('retrySubjectLoad').addEventListener('click', init, { once: true });
+      return;
+    }
 
     // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject
     // to avoid redundant string joins and lowercase conversions on every keystroke.
@@ -283,7 +436,16 @@
 
     fillRevision($("revisionFilter"), all, preferredRevision);
 
+    const params = new URLSearchParams(location.search);
+    const requestedRevision = params.get("revision");
+    const requestedCode = String(params.get("code") || "").trim().toUpperCase();
+    const revisionSelect = $("revisionFilter");
+    if (requestedRevision && revisionSelect && [...revisionSelect.options].some(option => option.value === requestedRevision && !option.disabled)) {
+      revisionSelect.value = requestedRevision;
+    }
+
     const searchInput = $("subjectSearch");
+    if (requestedCode && searchInput) searchInput.value = requestedCode;
     if (searchInput) {
       searchInput.setAttribute("aria-controls", "subjectGrid");
       searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
@@ -295,7 +457,7 @@
     fillSemester($("semesterFilter"), activeSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
 
     let timer = 0;
-    const rerender = () => { clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 100); };
+    const rerender = () => { visibleLimit = HOME_LIMIT; clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 120); };
     $("revisionFilter")?.addEventListener("change", () => {
       const revision = $("revisionFilter").value;
       const revisionSubjects = all.filter(subject => String(subject.revision) === revision);
@@ -305,12 +467,27 @@
     });
     [$("subjectSearch"), $("semesterFilter"), $("departmentFilter")].forEach(control => {
       if (!control) return;
-      control.addEventListener("input", rerender);
-      control.addEventListener("change", rerender);
+      // PERFORMANCE OPTIMIZATION: passive listeners keep scrolling smooth while the
+      // user types in the search field after the (heavy) grid has rendered.
+      control.addEventListener("input", rerender, { passive: true });
+      control.addEventListener("change", rerender, { passive: true });
     });
-    render(all, grid, mode, fixedRevision, department);
+    // PERFORMANCE OPTIMIZATION: render after the loading placeholder paints so the
+    // user sees progress immediately instead of a frozen blank page while the
+    // (heavy) 2026 data is being filtered and rendered.
+    requestAnimationFrame(() => {
+      render(all, grid, mode, fixedRevision, department);
+      if (requestedCode) {
+        requestAnimationFrame(() => {
+          const card = [...grid.querySelectorAll("[data-subject-code]")]
+            .find(node => String(node.dataset.subjectCode || "").toUpperCase() === requestedCode);
+          card?.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+    });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();
+

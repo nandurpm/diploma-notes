@@ -1,13 +1,17 @@
 /* Purpose: Index - Descriptive comment added for clarity */
-import { askPoly, configuredProviders } from "./ask-handler.js";
+import { askPoly, askPolyStream, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
+import { canStoreVerifiedResults } from "./result-store.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
+import { languageInstruction, resolvePreferredLanguage } from "./language-policy.js";
+import { matchFaq } from "./faq-match.js";
 import {
   cleanText,
   corsHeaders,
   createRateLimiter,
   isOriginAllowed,
-  jsonResponse
+  jsonResponse,
+  streamResponse
 } from "./http.js";
 
 const allowAsk = createRateLimiter(30);
@@ -82,7 +86,8 @@ function cloudflareMessages(body) {
         "Answer only the user's actual question. For simple factual questions, answer directly and stop.",
         "Do not mention POLY PMNA, subjects, syllabus, resources or links unless the user explicitly asks about them.",
         "Use supplied website context only when it directly answers an explicit website or academic-resource question.",
-        SYSTEM_INSTRUCTIONS
+        SYSTEM_INSTRUCTIONS,
+        languageInstruction(resolvePreferredLanguage(body))
       ].join("\n\n")
     },
     ...history,
@@ -204,10 +209,12 @@ export default {
         ok: true,
         service: "Ask POLY AI",
         configured: providers.length > 0,
+        verifiedResultStorage: canStoreVerifiedResults(env),
         knowledgeMode: KNOWLEDGE_MODE,
         revisionAware: ["2026", "2021", "2015"],
         wholeSiteContext: true,
         localMathFallback: true,
+        preloadedFaq: true,
         workersAIFallback: hasWorkersAI(env),
         workersAIRestFallback: hasWorkersAIRest(env),
         providers,
@@ -219,7 +226,8 @@ export default {
               ? (env.GEMINI_MODEL || "gemini-3.5-flash")
               : (env.OPENAI_MODEL || "gpt-4o-mini"),
         mockExamEvaluation: true,
-        mockExamPattern: "1004-75-mark-official-model"
+        mockExamPattern: "1004-75-mark-official-model",
+        dailyQuizGrading: true
       }, 200, origin, env);
     }
 
@@ -264,7 +272,47 @@ export default {
       return jsonResponse({ error: "Too many questions. Please wait a few minutes and try again." }, 429, origin, env);
     }
 
+    // Preloaded FAQ check: runs before any AI provider, so a matched
+    // question gets an instant, guaranteed-consistent answer at zero AI cost.
+    // Edit workers/ask-poly-ai/src/faq-data.js to add or change entries.
+    const faqMessage = cleanText(body?.message, 2200);
+    const faqMatch = matchFaq(faqMessage);
+    if (faqMatch && body.stream !== true) {
+      return jsonResponse({ ...faqMatch, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
+    }
+
     const enrichedBody = enrichAskBody(body);
+    if (body.stream === true) {
+      try {
+        let streamed;
+        if (faqMatch) {
+          const encoder = new TextEncoder();
+          const answer = String(faqMatch.answer || faqMatch.message || "");
+          streamed = {
+            stream: new ReadableStream({
+              start(controller) {
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: answer } })}\\n\\n`));
+                controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+                controller.close();
+              }
+            }),
+            provider: "preloaded-faq",
+            model: "faq-v1"
+          };
+        } else {
+          streamed = await askPolyStream(enrichedBody, env);
+        }
+        return streamResponse(streamed.stream, origin, env, { provider: streamed.provider, model: streamed.model });
+      } catch (error) {
+        console.error("Ask POLY streaming request failed", error);
+        return jsonResponse({
+          error: "The AI assistant is temporarily unavailable. Your chat is saved; please retry once.",
+          retryable: true,
+          detail: env.EXPOSE_ERRORS === "true" ? cleanText(error?.message, 500) : undefined
+        }, 502, origin, env);
+      }
+    }
+
     const providerErrors = [];
 
     if (hasWorkersAI(env)) {
@@ -297,7 +345,7 @@ export default {
       return jsonResponse({
         error: missingMessage
           ? "Please enter a question."
-          : "The AI service could not answer right now. Please retry once; your chat is saved.",
+          : "The AI assistant is temporarily unavailable. Your chat is saved; please retry once.",
         retryable: !missingMessage,
         detail: env.EXPOSE_ERRORS === "true" ? providerErrors.join(" | ") : undefined
       }, missingMessage ? 400 : 502, origin, env);

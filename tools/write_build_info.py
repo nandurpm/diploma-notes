@@ -39,7 +39,15 @@ data = {
     "buildId": (commit[:12] if commit else built_at.replace(":", "").replace("-", "")),
 }
 
-(ROOT / "build-info.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+# Write atomically and validate the payload before replacing the file.
+# A previous appending writer concatenated two build objects without a
+# separator and corrupted build-info.json on disk (failed JSON.parse and
+# broke version/caching consumers). Always overwrite — never append.
+serialized = json.dumps(data, indent=2) + "\n"
+json.loads(serialized)
+tmp = ROOT / "build-info.json.tmp"
+tmp.write_text(serialized, encoding="utf-8")
+tmp.replace(ROOT / "build-info.json")
 
 # Deployment environments set CI=true. Local audit runs do not rewrite source
 # unless POLY_INJECT_BUILD_ID=1 is supplied explicitly.

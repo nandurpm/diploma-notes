@@ -1,0 +1,1139 @@
+# Revision 2026 new subject codes compared with Revision 2021
+
+- REV2021 unique codes in repository catalogue: **685**
+- REV2026 unique codes: **1180**
+- Codes in REV2026 but absent from the current REV2021 catalogue: **1129**
+
+> Limitation: the REV2021 repository catalogue is not fully certified for every official programme row.
+
+## New codes
+
+- **1011** — Fundamentals of Civil Engineering — Semester 1 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **1021** — Basic Mechanical Engineering — Semester 1 — Fire Technology and Safety, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Tool & Die Engineering, Wood and Paper Technology
+- **1031** — Basic Electrical and Electronics Engineering — Semester 1 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **1041** — Elementary Concepts of Electronics — Semester 1 — Biomedical Engineering, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **1051** — Basic Automobile Engineering — Semester 1 — Automobile Engineering
+- **1061** — Engineering Science — Semester 1 — Textile Technology
+- **1091** — Introduction to Polymer Science — Semester 1 — Polymer Technology
+- **1101** — Introduction to Printing Technology — Semester 1 — Printing Technology
+- **1131** — Problem Solving and Python Programming — Semester 1 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **1141** — Fundamentals of Business — Semester 1 — Commercial Practice
+- **1142** — Financial Accounting with Tally I — Semester 1 — Commercial Practice
+- **1143** — Managerial Economics — Semester 1 — Commercial Practice
+- **1144** — Shorthand English Theory I — Semester 1 — Commercial Practice
+- **1149** — Visual Design and Smart Publishing — Semester 1 — Commercial Practice
+- **1181** — Architectural Graphics — Semester 1 — Architecture, Interior Design
+- **1182** — Fundamentals of Architecture — Semester 1 — Architecture, Interior Design
+- **1251** — Foundation Courses — Semester 1 — Computer Application & Business Management
+- **1252** — Foundation Courses — Semester 1 — Computer Application & Business Management
+- **1253** — Foundation Courses — Semester 1 — Computer Application & Business Management
+- **1254** — Computer Applications in Management — Semester 1 — Computer Application & Business Management
+- **1259** — Introduction to Python Lab — Semester 1 — Computer Application & Business Management
+- **1421** — Fundamentals of Food Processing Technology — Semester 1 — Food Processing Technology
+- **2001A** — Mathematics for Industrial Engineering — Semester 2 — Architecture, Automobile Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Fire Technology and Safety, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Tool & Die Engineering, Wood and Paper Technology
+- **2001B** — Mathematics for Electrical Sciences — Semester 2 — Biomedical Engineering, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **2001C** — Mathematics for Computer Technology — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **2001D** — Mathematics for Applied Engineering — Semester 2 — Chemical Engineering, Food Processing Technology, Polymer Technology, Printing Technology, Textile Technology
+- **2001E** — Business Mathematics — Semester 2 — Computer Application & Business Management
+- **2002A** — Applied Physics for Mechanical, Structural and Industrial Applications — Semester 2 — Architecture, Automobile Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Fire Technology and Safety, Food Processing Technology, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Polymer Technology, Printing Technology, Tool & Die Engineering, Wood and Paper Technology
+- **2002B** — Engineering Physics for Applied Electrical Technology and Computing — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Biomedical Engineering, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics, Robotic Process Automation, Textile Technology
+- **2003A** — Chemistry for Engineering Practices — Semester 2 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Robotic Process Automation, Tool & Die Engineering, Wood and Paper Technology
+- **2003B** — Chemistry for Technical Practices — Semester 2 — Chemical Engineering, Polymer Technology, Printing Technology, Textile Technology
+- **2005** — Environmental Sustainability and Ethics — Semester 2 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **2009A** — General Engineering Workshop — Semester 2 — Architecture, Automobile Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Fire Technology and Safety, Food Processing Technology, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Polymer Technology, Printing Technology, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **2009B** — Engineering Workshop Practice — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Biomedical Engineering, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics, Robotic Process Automation
+- **2011** — Building Materials & Construction Techniques — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **2012** — Basic Surveying — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **2018** — Construction Materials Lab — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **2019** — Basic Surveying Lab — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **2042** — Electronic Devices and Applications — Semester 2 — Biomedical Engineering, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **2048** — Elements of Electrical & Electronics Engineering Lab — Semester 2 — Biomedical Engineering, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **2051** — Basic Electrical and Electronics Engineering — Semester 2 — Automobile Engineering
+- **2052** — Fundamentals of Internal Combustion Engines — Semester 2 — Automobile Engineering
+- **2058** — Basic Electrical and Electronics Lab — Semester 2 — Automobile Engineering
+- **2059** — Automobile Service Lab — Semester 2 — Automobile Engineering
+- **2061** — Technology of Manmade Fibres — Semester 2 — Textile Technology
+- **2069** — Fundamentals of Textile Mechanics Lab — Semester 2 — Textile Technology
+- **2071** — Fundamentals of Engineering Chemistry — Semester 2 — Chemical Engineering
+- **2072** — Fundamentals of Chemical Engineering — Semester 2 — Chemical Engineering
+- **2073** — Industrial Safety - Principles and Practices — Semester 2 — Chemical Engineering
+- **2078** — Industrial Safety Lab — Semester 2 — Chemical Engineering
+- **2079** — CAD Lab — Semester 2 — Chemical Engineering
+- **2081** — Basics of Instrumentation and Transducers — Semester 2 — Instrumentation Engineering
+- **2089** — Basic Instrumentation Lab — Semester 2 — Instrumentation Engineering
+- **2091** — Polymer Science — Semester 2 — Polymer Technology
+- **2099** — Polymer Science Lab — Semester 2 — Polymer Technology
+- **2101** — Fundamentals of Printing Science — Semester 2 — Printing Technology
+- **2109** — Digital Office Systems and Documentation — Semester 2 — Printing Technology
+- **2111** — Fundamentals of Manufacturing and Tool Engineering — Semester 2 — Tool & Die Engineering
+- **2119** — Basic CAD Lab — Semester 2 — Tool & Die Engineering
+- **2121** — Botany and Anatomical Structure — Semester 2 — Wood and Paper Technology
+- **2129** — Botany Lab — Semester 2 — Wood and Paper Technology
+- **2131** — Fundamentals of Electrical and Electronics Engineering — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Fire Technology and Safety, Food Processing Technology, Information Technology, Mechanical Engineering (Automobile Engineering), Mechatronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **2132** — Programming in C — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **2138** — Fundamentals of Electrical and Electronics Engineering Lab — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Fire Technology and Safety, Food Processing Technology, Information Technology, Mechanical Engineering (Automobile Engineering), Mechatronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **2139** — Programming in C Lab — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **2141** — Business Regulatory Framework — Semester 2 — Commercial Practice
+- **2142** — Financial Accounting with Tally II — Semester 2 — Commercial Practice
+- **2143** — Co-operative Theory and Practice — Semester 2 — Commercial Practice
+- **2144** — Shorthand English Theory II — Semester 2 — Commercial Practice
+- **2147** — Digital Marketing and AI Tools for Business — Semester 2 — Commercial Practice
+- **2148** — Data Entry Operations and Applications — Semester 2 — Commercial Practice
+- **2149** — Typewriting and Word Processing — Semester 2 — Commercial Practice
+- **2182** — Building Materials & Technology — Semester 2 — Architecture, Interior Design
+- **2183** — History of Architecture - I — Semester 2 — Architecture
+- **2187** — Masonry & Service Lab — Semester 2 — Architecture, Interior Design
+- **2188** — Architectural Design & Drafting I — Semester 2 — Architecture
+- **2251** — Foundation Courses — Semester 2 — Computer Application & Business Management
+- **2252** — Management Concepts and Organisational Behavior — Semester 2 — Computer Application & Business Management
+- **2253** — Foundation Courses — Semester 2 — Computer Application & Business Management
+- **2257** — Computerised Accounting Lab — Semester 2 — Computer Application & Business Management
+- **2258** — Foundation Courses — Semester 2 — Computer Application & Business Management
+- **2259** — Office Automation Software Lab — Semester 2 — Computer Application & Business Management
+- **2331** — Foundations of Robotics — Semester 2 — Automation and Robotics
+- **2339** — Foundations of Robotics Lab — Semester 2 — Automation and Robotics
+- **2421** — Food Processing Technology — Semester 2 — Food Processing Technology
+- **2429** — Food Processing Technology lab — Semester 2 — Food Processing Technology
+- **2432** — Fundamentals of Computer Programming — Semester 2 — Mechatronics
+- **2439** — Computer Programming Lab — Semester 2 — Mechatronics
+- **2461** — Principles of Safety Management — Semester 2 — Fire Technology and Safety
+- **2469** — Computer Applications in Fire Technology & Safety — Semester 2 — Fire Technology and Safety
+- **2532** — History of Interior Design - I — Semester 2 — Interior Design
+- **2539** — Interior Design & Drafting I — Semester 2 — Interior Design
+- **2561** — Basics of Automobile Engineering — Semester 2 — Mechanical Engineering (Automobile Engineering)
+- **2569** — Basics of Automobile Engineering Lab — Semester 2 — Mechanical Engineering (Automobile Engineering)
+- **3001** — Essence of Indian Constitution — Semester 3 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **3009** — Digital 101 — Semester 3 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **3011** — Engineering Mechanics — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3012** — Advanced Surveying — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3013** — Estimation & Costing — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3014** — Concrete Technology — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3017** — CAD Lab — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3018** — Concrete Technology Lab — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3019** — Building Planning and Drawing — Semester 3 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **3028** — CADD Lab — Semester 3 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **3029** — Fluid Mechanics and Hydraulic Machines Lab — Semester 3 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **3033** — Mechanical Engineering — Semester 3 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **3034** — Electricity Generation, Transmission and Distribution — Semester 3 — Electrical & Electronics Engineering, Electrical Engineering
+- **3037** — Electrical Measurements Lab — Semester 3 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **3038** — Electrical Workshop Practice — Semester 3 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **3039** — Electrical Machines Lab I — Semester 3 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **3051** — Material Science and Strength of Materials — Semester 3 — Automobile Engineering
+- **3052** — Internal Combustion Engines - I — Semester 3 — Automobile Engineering
+- **3053** — Automotive Fluid Mechanics — Semester 3 — Automobile Engineering
+- **3054** — Basic Automotive Management and Operations — Semester 3 — Automobile Engineering
+- **3058** — Petrol Engine Lab — Semester 3 — Automobile Engineering
+- **3059** — Computer Aided Automobile Drawing - I — Semester 3 — Automobile Engineering
+- **3061** — Fabric Production Technology I — Semester 3 — Textile Technology
+- **3062** — Textile Chemical Processing I — Semester 3 — Textile Technology
+- **3063** — Yarn Production Technology I — Semester 3 — Textile Technology
+- **3064** — Fabric Structure and Design — Semester 3 — Textile Technology
+- **3067** — Fabric Production Technology Lab I — Semester 3 — Textile Technology
+- **3068** — Textile Chemical Processing Lab I — Semester 3 — Textile Technology
+- **3069** — Garment Technology I Lab — Semester 3 — Textile Technology
+- **3071** — Chemical Process Principles — Semester 3 — Chemical Engineering
+- **3072** — Inorganic Chemical Technology — Semester 3 — Chemical Engineering
+- **3073** — Environmental Engineering — Semester 3 — Chemical Engineering
+- **3074** — Fluid Mechanics — Semester 3 — Chemical Engineering
+- **3077** — Chemical Equipment Drawing — Semester 3 — Chemical Engineering
+- **3078** — Analytical Chemistry Lab — Semester 3 — Chemical Engineering
+- **3079** — Technical Analysis Lab — Semester 3 — Chemical Engineering
+- **3081** — Electronic Circuits — Semester 3 — Instrumentation Engineering
+- **3082** — Process Variable Measurements — Semester 3 — Instrumentation Engineering
+- **3083** — Logic Circuits Design — Semester 3 — Instrumentation Engineering
+- **3084** — Basics of Artificial Intelligence and IOT — Semester 3 — Instrumentation Engineering
+- **3087** — Electronic Circuits Lab — Semester 3 — Instrumentation Engineering
+- **3088** — Measurements Lab — Semester 3 — Instrumentation Engineering
+- **3089** — Product Design and Development Workshop — Semester 3 — Instrumentation Engineering
+- **3091** — Natural Rubber Production — Semester 3 — Polymer Technology
+- **3092** — Basic Mechanical Engineering — Semester 3 — Polymer Technology
+- **3093** — Technology of Elastomers — Semester 3 — Polymer Technology
+- **3094** — Synthetic Rubbers — Semester 3 — Polymer Technology
+- **3097** — Natural Rubber Latex Testing Lab — Semester 3 — Polymer Technology
+- **3098** — Polymer Identification Lab — Semester 3 — Polymer Technology
+- **3099** — Introduction to CAD — Semester 3 — Polymer Technology
+- **3101** — Mechanism of Printing Machines I — Semester 3 — Printing Technology
+- **3102** — Digital Imaging Techniques — Semester 3 — Printing Technology
+- **3103** — Material Science for Printing and Packaging — Semester 3 — Printing Technology
+- **3104** — Digital and Print Media Design — Semester 3 — Printing Technology
+- **3107** — Advanced Printing Machines Workshop I — Semester 3 — Printing Technology
+- **3108** — Graphic Design Practices I — Semester 3 — Printing Technology
+- **3109** — Master Preparation Workshop — Semester 3 — Printing Technology
+- **3111** — Production Technology I — Semester 3 — Tool & Die Engineering
+- **3112** — Engineering Metrology — Semester 3 — Tool & Die Engineering
+- **3113** — Tool Engineering Drawing and 3D Modelling — Semester 3 — Tool & Die Engineering
+- **3114** — Mould and Die Technology — Semester 3 — Tool & Die Engineering
+- **3117** — Metrology Lab — Semester 3 — Tool & Die Engineering
+- **3118** — Mould and Die Lab — Semester 3 — Tool & Die Engineering
+- **3119** — Conventional Machine Tools Lab — Semester 3 — Tool & Die Engineering
+- **3121** — Pulp Technology — Semester 3 — Wood and Paper Technology
+- **3122** — Wood Chemistry — Semester 3 — Wood and Paper Technology
+- **3123** — Engineering Mechanics and Strength of Materials — Semester 3 — Wood and Paper Technology
+- **3124** — Wood Processing — Semester 3 — Wood and Paper Technology
+- **3127** — Pulp Technology Lab — Semester 3 — Wood and Paper Technology
+- **3128** — Introduction to CADD Lab — Semester 3 — Wood and Paper Technology
+- **3129** — Workshop Practice — Semester 3 — Wood and Paper Technology
+- **3131** — Database Management Systems — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Robotic Process Automation
+- **3133** — Digital Logic and Computer Organization — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
+- **3134** — Web Technology — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
+- **3137** — Database Management Systems Lab — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Robotic Process Automation
+- **3138** — Object Oriented Programming Lab — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Information Technology
+- **3139** — Computer Hardware and System Administration Lab — Semester 3 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology
+- **3141** — Accounting for Partnership — Semester 3 — Commercial Practice
+- **3142** — Legal Environment for Co-operatives — Semester 3 — Commercial Practice
+- **3143** — Functional Hindi — Semester 3 — Commercial Practice
+- **3144** — Business Statistics & Data Analysis — Semester 3 — Commercial Practice
+- **3147** — Modern Business Communication Practices — Semester 3 — Commercial Practice
+- **3148** — Shorthand English 60 wpm — Semester 3 — Commercial Practice
+- **3149** — Typewriting English 30 wpm — Semester 3 — Commercial Practice
+- **3181** — Mechanics of Structures — Semester 3 — Architecture, Interior Design
+- **3182** — History of Architecture - II — Semester 3 — Architecture
+- **3183** — Surveying for Architecture — Semester 3 — Architecture
+- **3184** — Architectural Appreciation — Semester 3 — Architecture
+- **3187** — Architectural Design & Drafting II — Semester 3 — Architecture
+- **3188** — Working Drawing I — Semester 3 — Architecture
+- **3189** — CAD Lab — Semester 3 — Architecture, Interior Design
+- **3241** — Biology for Biomedical Engineers — Semester 3 — Biomedical Engineering
+- **3242** — Diagnostic and Monitoring Devices — Semester 3 — Biomedical Engineering
+- **3249** — Medical Equipment Servicing Fundamentals Lab — Semester 3 — Biomedical Engineering
+- **3251** — Business Law — Semester 3 — Computer Application & Business Management
+- **3252** — Production and Operations Management — Semester 3 — Computer Application & Business Management
+- **3253** — Quantitative Methods and Statistical Analysis — Semester 3 — Computer Application & Business Management
+- **3254** — Human Resource Management and Workforce Analytics — Semester 3 — Computer Application & Business Management
+- **3257** — Payroll Management Lab — Semester 3 — Computer Application & Business Management
+- **3258** — Visual Media Design Lab — Semester 3 — Computer Application & Business Management
+- **3259** — Professional Intelligence and Behavioral Competency Lab — Semester 3 — Computer Application & Business Management
+- **3261** — Web Design — Semester 3 — Information Technology
+- **3262** — Database Systems — Semester 3 — Information Technology
+- **3263** — Computer Communication and Networks — Semester 3 — Information Technology
+- **3268** — UI/UX Design Lab — Semester 3 — Information Technology
+- **3269** — Web Design Lab — Semester 3 — Information Technology
+- **3281** — Operating System Design — Semester 3 — Cyber Forensics and Information Security
+- **3282** — Data Structures using C — Semester 3 — Cyber Forensics and Information Security
+- **3283** — Fundamentals of Cryptography and Information Security Study — Semester 3 — Cyber Forensics and Information Security
+- **3289** — Web Technology Lab — Semester 3 — Cyber Forensics and Information Security
+- **3301** — Introduction to Robotic Process Automation — Semester 3 — Robotic Process Automation
+- **3308** — Introduction to Robotic Process Automation Lab — Semester 3 — Robotic Process Automation
+- **3309** — System Administration Lab — Semester 3 — Artificial Intelligence & Machine Learning, Cyber Forensics and Information Security, Robotic Process Automation
+- **3331** — Mechanics of Materials — Semester 3 — Automation and Robotics
+- **3332** — Analog and Digital Electronics — Semester 3 — Automation and Robotics
+- **3333** — Electrical Circuits and Machines — Semester 3 — Automation and Robotics
+- **3334** — Sensor Technology — Semester 3 — Automation and Robotics
+- **3337** — Mechanics of Materials Lab — Semester 3 — Automation and Robotics
+- **3338** — Analog and Digital Electronics Lab — Semester 3 — Automation and Robotics
+- **3339** — Sensor Technology Lab — Semester 3 — Automation and Robotics
+- **3341** — Data Structures — Semester 3 — Artificial Intelligence & Machine Learning
+- **3342** — Mobile Application Development — Semester 3 — Artificial Intelligence & Machine Learning
+- **3343** — Advanced Python Programming — Semester 3 — Artificial Intelligence & Machine Learning
+- **3349** — Data Structures Lab — Semester 3 — Artificial Intelligence & Machine Learning
+- **3371** — IC Technology — Semester 3 — Integrated Circuit Design & Fabrication
+- **3381** — Fundamentals of Artificial Intelligence — Semester 3 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **3382** — Object Oriented Programming using Python — Semester 3 — Artificial Intelligence
+- **3383** — Principles of Computer Systems — Semester 3 — Artificial Intelligence
+- **3384** — Data Preprocessing and Visualization — Semester 3 — Artificial Intelligence
+- **3387** — Object Oriented Programming using Python Lab — Semester 3 — Artificial Intelligence
+- **3388** — Fundamentals of Artificial Intelligence Lab — Semester 3 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **3389** — Web Programming Lab — Semester 3 — Artificial Intelligence
+- **3411** — Fundamentals of Electric Vehicles and Charging Systems — Semester 3 — Electrical Engineering & Electric Vehicles Technology
+- **3421** — Elements of Food Engineering — Semester 3 — Food Processing Technology
+- **3422** — Food Microbiology I — Semester 3 — Food Processing Technology
+- **3423** — Food Chemistry I — Semester 3 — Food Processing Technology
+- **3424** — Food Safety, Quality and Hygiene — Semester 3 — Food Processing Technology
+- **3427** — Elements of Food Engineering Lab — Semester 3 — Food Processing Technology
+- **3428** — Food Microbiology I Lab — Semester 3 — Food Processing Technology
+- **3429** — Sensory Evaluation Lab — Semester 3 — Food Processing Technology
+- **3431** — Sensors and Transducers — Semester 3 — Mechatronics
+- **3432** — Analog and Digital Circuits — Semester 3 — Mechatronics
+- **3433** — Mechanics of Materials — Semester 3 — Mechatronics
+- **3434** — Engineering Materials and Metrology — Semester 3 — Mechatronics
+- **3437** — Sensors and Transducers Lab — Semester 3 — Mechatronics
+- **3438** — Analog and Digital Circuits Lab — Semester 3 — Mechatronics
+- **3439** — CAD Lab — Semester 3 — Mechatronics
+- **3461** — Fluid Mechanics and Machinery — Semester 3 — Fire Technology and Safety
+- **3462** — Basic First Aid — Semester 3 — Fire Technology and Safety
+- **3463** — Electrical Safety — Semester 3 — Fire Technology and Safety
+- **3464** — Hazard Identification & Risk Assessment — Semester 3 — Fire Technology and Safety
+- **3468** — Basic First aid lab — Semester 3 — Fire Technology and Safety
+- **3469** — Advanced CADD Lab — Semester 3 — Fire Technology and Safety
+- **3491** — Solid State Devices — Semester 3 — Micro Electronics
+- **3492** — Analog Electronic Circuits — Semester 3 — Micro Electronics
+- **3493** — Logic Circuit Design — Semester 3 — Micro Electronics
+- **3499** — Logic Circuit Design Lab — Semester 3 — Micro Electronics
+- **3501** — Computer Organization and Architecture — Semester 3 — Electronics and Computer Engineering
+- **3531** — History of Interior Design - II — Semester 3 — Interior Design
+- **3532** — Space Documentation — Semester 3 — Interior Design
+- **3533** — Architectural Appreciation — Semester 3 — Interior Design
+- **3538** — Interior Design & Drafting II — Semester 3 — Interior Design
+- **3539** — Interior Working Drawing I — Semester 3 — Interior Design
+- **3561** — Automobile Electrical systems (Lab based theory) — Semester 3 — Mechanical Engineering (Automobile Engineering)
+- **3571** — Object Oriented Programming Concepts — Semester 3 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **3572** — Logic Design and Computer Organization — Semester 3 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **3579** — Web Design and Development Lab — Semester 3 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **4002** — Career Readiness and Communication — Semester 4 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **4009A** — Minor Project — Semester 4 — Automobile Engineering, Biomedical Engineering, Computer Application & Business Management, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **4009B** — Minor Project — Semester 4 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **4009C** — Minor Project — Semester 4 — Architecture, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Interior Design
+- **4009D** — Minor Project — Semester 4 — Chemical Engineering
+- **4009E** — Minor Project — Semester 4 — Commercial Practice
+- **4011** — Design of Steel Structures — Semester 4 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **4012** — Theory of Structures — Semester 4 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **4013** — Geotechnical Engineering — Semester 4 — Civil Engineering
+- **4017** — Advanced Surveying Lab — Semester 4 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **4018** — Material Testing Lab — Semester 4 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **4019** — Advanced CAD Lab — Semester 4 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **4026** — Material Testing and Metallography Lab — Semester 4 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **4027** — Mechanical Workshop — Semester 4 — Automobile Engineering, Fire Technology and Safety, Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **4028** — Thermal Engineering Lab — Semester 4 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **4029** — Computer Aided Machine Drawing — Semester 4 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **4032** — Electrical Layouts and Estimation — Semester 4 — Electrical & Electronics Engineering, Electrical Engineering
+- **4033** — Analog and Digital Circuits — Semester 4 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **4037** — Electrical Computer Aided Drafting Lab — Semester 4 — Electrical & Electronics Engineering, Electrical Engineering
+- **4038** — Python Programming and Machine Learning Lab — Semester 4 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **4039** — Industrial Electrical Engineering Lab — Semester 4 — Electrical & Electronics Engineering, Electrical Engineering
+- **4047** — Analog Communication Lab — Semester 4 — Electronics Engineering, Electronics and Communication
+- **4048** — Linear Integrated Circuits Lab — Semester 4 — Biomedical Engineering, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Integrated Circuit Design & Fabrication, Micro Electronics
+- **4049** — Python Programming Lab — Semester 4 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **4051** — Automobile Transmission Systems — Semester 4 — Automobile Engineering
+- **4052** — Manufacturing Technology for Automobile Components — Semester 4 — Automobile Engineering
+- **4053** — Internal Combustion Engines - II — Semester 4 — Automobile Engineering
+- **4058** — Automobile Transmission Workshop — Semester 4 — Automobile Engineering
+- **4059** — Diesel Engine Lab — Semester 4 — Automobile Engineering
+- **4061** — Fabric Production Technology II — Semester 4 — Textile Technology
+- **4062** — Textile Chemical Processing II — Semester 4 — Textile Technology
+- **4063** — Yarn Production Technology II — Semester 4 — Textile Technology
+- **4067** — Fabric Production Technology Lab II — Semester 4 — Textile Technology
+- **4068** — Textile Chemical Processing Lab II — Semester 4 — Textile Technology
+- **4069** — Garment Technology II Lab — Semester 4 — Textile Technology
+- **4071** — Process Heat Transfer — Semester 4 — Chemical Engineering
+- **4072** — Organic Chemical Technology — Semester 4 — Chemical Engineering
+- **4073** — Process Equipment Operation and Maintenance — Semester 4 — Chemical Engineering
+- **4074** — Reaction Engineering and Thermodynamics — Semester 4 — Chemical Engineering
+- **4078** — Fluid Mechanics Lab — Semester 4 — Chemical Engineering
+- **4079** — Process Engineering Drawing — Semester 4 — Chemical Engineering
+- **4081** — Control Engineering — Semester 4 — Instrumentation Engineering
+- **4082** — Process Control Instrumentation — Semester 4 — Instrumentation Engineering
+- **4083** — Microcontrollers for Instrumentation — Semester 4 — Instrumentation Engineering
+- **4087** — Instrumentation Workshop — Semester 4 — Instrumentation Engineering
+- **4088** — Process Control Instrumentation Lab — Semester 4 — Instrumentation Engineering
+- **4089** — System Simulation Lab — Semester 4 — Instrumentation Engineering
+- **4091** — Polymer Processing Machinery — Semester 4 — Polymer Technology
+- **4092** — Latex Technology — Semester 4 — Polymer Technology
+- **4093** — Rubber Products — Semester 4 — Polymer Technology
+- **4097** — Ingredients Testing Lab — Semester 4 — Polymer Technology
+- **4098** — Latex Technology Lab — Semester 4 — Polymer Technology
+- **4099** — Mould Design using CAD — Semester 4 — Polymer Technology
+- **4107** — Post Press Workshop Practices I — Semester 4 — Printing Technology
+- **4108** — Graphic Design Practices II — Semester 4 — Printing Technology
+- **4109** — Advanced Printing Machines Workshop II — Semester 4 — Printing Technology
+- **4111** — Applied Mechanics and Strength of Materials — Semester 4 — Tool & Die Engineering
+- **4112** — Press Tool Technology — Semester 4 — Tool & Die Engineering
+- **4113** — Material Technology and Heat Treatment — Semester 4 — Tool & Die Engineering
+- **4117** — Press Tool Lab — Semester 4 — Tool & Die Engineering
+- **4118** — Computer Aided Mould and Die Drawing Lab — Semester 4 — Tool & Die Engineering
+- **4119** — Mould and Press Tool Drawing — Semester 4 — Tool & Die Engineering
+- **4121** — Chemical Engineering — Semester 4 — Wood and Paper Technology
+- **4122** — Wood Products — Semester 4 — Wood and Paper Technology
+- **4123** — Paper Technology-I — Semester 4 — Wood and Paper Technology
+- **4127** — CADD Lab — Semester 4 — Wood and Paper Technology
+- **4128** — Wood Chemistry Lab — Semester 4 — Wood and Paper Technology
+- **4129** — Wood Workshop I — Semester 4 — Wood and Paper Technology
+- **4131** — Data Structures — Semester 4 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Technology
+- **4132** — Operating System Design — Semester 4 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Robotic Process Automation
+- **4133** — Computer Networks — Semester 4 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology
+- **4137** — Data Structures Lab — Semester 4 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Technology
+- **4138** — Web Programming Lab — Semester 4 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Information Technology, Robotic Process Automation
+- **4139** — UI/UX Design Lab — Semester 4 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security
+- **4141** — Cost and Management Accounting — Semester 4 — Commercial Practice
+- **4142** — Corporate Accounting & Financial Analysis — Semester 4 — Commercial Practice
+- **4143** — Shorthand English 80 wpm — Semester 4 — Commercial Practice
+- **4146** — Typewriting English 45 wpm — Semester 4 — Commercial Practice
+- **4147** — Shorthand Malayalam — Semester 4 — Commercial Practice
+- **4148** — Accounting and Auditing of Co-operatives — Semester 4 — Commercial Practice
+- **4149** — Typewriting Malayalam I — Semester 4 — Commercial Practice
+- **4181** — Climate Responsive Architecture — Semester 4 — Architecture, Interior Design
+- **4182** — Building Services — Semester 4 — Architecture, Interior Design
+- **4183** — Building Estimation — Semester 4 — Architecture
+- **4188** — Architectural Design & Drafting III — Semester 4 — Architecture
+- **4189** — Working Drawing II — Semester 4 — Architecture
+- **4241** — Therapeutic Device Technology — Semester 4 — Biomedical Engineering
+- **4248** — Biomedical Sensors and Circuits Lab — Semester 4 — Biomedical Engineering
+- **4249** — PCB and Circuit Simulation Lab — Semester 4 — Biomedical Engineering
+- **4251** — Relational Database Management System — Semester 4 — Computer Application & Business Management
+- **4252** — Marketing Management and Analytics — Semester 4 — Computer Application & Business Management
+- **4253** — Applied Financial Management — Semester 4 — Computer Application & Business Management
+- **4257** — Banking and Taxation Lab — Semester 4 — Computer Application & Business Management
+- **4258** — Relational Database Management System Lab — Semester 4 — Computer Application & Business Management
+- **4259** — Data Visualisation & Processing Lab — Semester 4 — Computer Application & Business Management
+- **4261** — Web Programming — Semester 4 — Information Technology
+- **4262** — Fundamentals of System Administration — Semester 4 — Information Technology
+- **4263** — Data Structures using C — Semester 4 — Information Technology, Robotic Process Automation
+- **4268** — System Administration Lab-I — Semester 4 — Information Technology
+- **4269** — Computer Hardware and Networking Lab — Semester 4 — Information Technology
+- **4281** — Biometric Security — Semester 4 — Cyber Forensics and Information Security
+- **4282** — Cyber Forensics and Security Threats Case Study — Semester 4 — Cyber Forensics and Information Security
+- **4283** — Web Programming — Semester 4 — Cyber Forensics and Information Security
+- **4288** — Computer Networks Engineering Lab — Semester 4 — Cyber Forensics and Information Security
+- **4289** — Cyber Forensics Lab — Semester 4 — Cyber Forensics and Information Security
+- **4301** — Advanced Robotic Process Automation — Semester 4 — Robotic Process Automation
+- **4307** — Advanced Robotic Process Automation Lab — Semester 4 — Robotic Process Automation
+- **4309** — Mobile Programming Lab — Semester 4 — Robotic Process Automation
+- **4331** — Linear IC and Power electronics — Semester 4 — Automation and Robotics
+- **4332** — Design of Microcontroller based Robotics Application — Semester 4 — Automation and Robotics
+- **4333** — Mechanics of Robotics — Semester 4 — Automation and Robotics
+- **4337** — Linear IC and Power Electronics Lab — Semester 4 — Automation and Robotics
+- **4338** — Design of Microcontroller Based Robotics Application Lab — Semester 4 — Automation and Robotics
+- **4339** — Advanced Python Programming Lab — Semester 4 — Automation and Robotics
+- **4341** — Machine Learning — Semester 4 — Artificial Intelligence & Machine Learning
+- **4342** — Object Oriented Programming — Semester 4 — Artificial Intelligence & Machine Learning
+- **4343** — Web Application Development — Semester 4 — Artificial Intelligence & Machine Learning
+- **4348** — Machine Learning Lab — Semester 4 — Artificial Intelligence & Machine Learning
+- **4349** — Julia Programming Lab — Semester 4 — Artificial Intelligence & Machine Learning
+- **4351** — Environmental Chemistry & Microbiology — Semester 4 — Civil & Environmental Engineering
+- **4361** — Rural Infrastructure Management — Semester 4 — Civil & Rural Engineering
+- **4371** — Solid State Devices — Semester 4 — Integrated Circuit Design & Fabrication
+- **4379** — Electronics System Modelling Lab — Semester 4 — Integrated Circuit Design & Fabrication
+- **4381** — Prompt Engineering — Semester 4 — Artificial Intelligence
+- **4382** — Fundamentals of Data Mining and Machine Learning — Semester 4 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **4389** — Database Management Systems Lab — Semester 4 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Electronics and Computer Engineering
+- **4391** — Urban Planning and Development — Semester 4 — Civil Engineering & Planning
+- **4411** — Vehicle Chassis and Transmission Systems — Semester 4 — Electrical Engineering & Electric Vehicles Technology
+- **4418** — Electrical Vehicle Computer Aided Drafting Lab — Semester 4 — Electrical Engineering & Electric Vehicles Technology
+- **4419** — Electric Vehicle Body and Circuits Lab — Semester 4 — Electrical Engineering & Electric Vehicles Technology
+- **4421** — Food Microbiology II — Semester 4 — Food Processing Technology
+- **4422** — Food Analysis — Semester 4 — Food Processing Technology
+- **4423** — Food Preservation — Semester 4 — Food Processing Technology
+- **4427** — Food Microbiology II Lab — Semester 4 — Food Processing Technology
+- **4428** — Food Analysis Lab — Semester 4 — Food Processing Technology
+- **4429** — Food Chemistry II Lab — Semester 4 — Food Processing Technology
+- **4431** — Mechanics of Robotics — Semester 4 — Mechatronics
+- **4432** — Electrical Drives and Control — Semester 4 — Mechatronics
+- **4433** — Manufacturing and Machine Tools — Semester 4 — Mechatronics
+- **4437** — Mechanics of Robotics Lab — Semester 4 — Mechatronics
+- **4438** — Electrical Drives and Control Lab — Semester 4 — Mechatronics
+- **4439** — Mechatronics Systems and PLC Lab — Semester 4 — Mechatronics
+- **4461** — Fire Engineering Fundamentals — Semester 4 — Fire Technology and Safety
+- **4462** — Planning & Design of Fire Protection System — Semester 4 — Fire Technology and Safety
+- **4463** — Strength of Materials(FS) — Semester 4 — Fire Technology and Safety
+- **4467** — Fire Engineering Lab — Semester 4 — Fire Technology and Safety
+- **4469** — Fluid Mechanics and Machinery Lab — Semester 4 — Fire Technology and Safety
+- **4491** — VLSI Design — Semester 4 — Micro Electronics
+- **4499** — VLSI Design Lab — Semester 4 — Micro Electronics
+- **4501** — Fundamentals of Database Management Systems — Semester 4 — Electronics and Computer Engineering
+- **4502** — Introduction to AI & ML — Semester 4 — Electronics and Computer Engineering
+- **4509** — Introduction to AI & ML Lab — Semester 4 — Electronics and Computer Engineering
+- **4511** — Advanced Construction Technology — Semester 4 — Civil Engineering (Construction Technology)
+- **4521** — Embedded Systems and Programming — Semester 4 — Electronics Engineering (Embedded Systems)
+- **4529** — Embedded Systems and Programming Lab — Semester 4 — Electronics Engineering (Embedded Systems)
+- **4531** — Specification, Estimation & Costing — Semester 4 — Interior Design
+- **4538** — Interior Design & Drafting III — Semester 4 — Interior Design
+- **4539** — Interior Working Drawing II — Semester 4 — Interior Design
+- **4541** — Introduction to Electric Vehicles — Semester 4 — Electrical Engineering
+- **4571** — Data Communication and Networking — Semester 4 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **4578** — Data Analytics and Visualization Lab — Semester 4 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **4579** — Computer Networks Engineering Lab — Semester 4 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5007** — Summer Internship — Semester 5 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **5008** — PSI — Semester 5 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **5009** — Major Project - Phase I — Semester 5 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **5011** — Construction Management and Safety Engineering — Semester 5 — Architecture, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology), Interior Design
+- **5012** — Design of RCC Structures — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5013** — Hydraulics & Irrigation Engineering — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5014A** — Sustainable Construction Practices — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering (Construction Technology)
+- **5014B** — Remote Sensing and GIS — Semester 5 — Civil Engineering, Civil Engineering & Planning
+- **5014C** — Water Resource Engineering — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering
+- **5014D** — Building Maintenance & Services — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5017** — Structural Drawing with CAD — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5018** — Hydraulics & Irrigation Engineering Lab — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5019A** — Computer Applications Lab — Semester 5 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5019B** — GIS Lab — Semester 5 — Civil Engineering
+- **5021** — Industrial Management and Safety — Semester 5 — Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
+- **5022** — Design of Machine Elements — Semester 5 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **5023** — Automobile Engineering — Semester 5 — Mechanical Engineering
+- **5024A** — Non-destructive Testing — Semester 5 — Mechanical Engineering
+- **5024B** — Power Plant Engineering — Semester 5 — Mechanical Engineering
+- **5024C** — Composite Materials — Semester 5 — Mechanical Engineering
+- **5024D** — Advanced Production Process — Semester 5 — Mechanical Engineering
+- **5028** — Machine Shop Practice — Semester 5 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **5029A** — Design and Analysis Lab — Semester 5 — Mechanical Engineering
+- **5029B** — NDT Lab — Semester 5 — Mechanical Engineering
+- **5032** — Power Electronics — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5033A** — Fundamentals of Control Systems — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5033B** — Special Electical Machines — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5033C** — Electrical Engineering Materials — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering
+- **5033D** — Renewable Power Plants — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5037** — Electrical Machines Lab II — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5038** — Power Electronics Lab — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5039A** — Modeling and Simulation Lab — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5039B** — Electronic Design and Prototyping Lab — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **5043B** — Microwave Devices & Radar — Semester 5 — Electronics Engineering
+- **5043C** — Telecommunication Networks — Semester 5 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **5043D** — Advanced Microprocessors — Semester 5 — Biomedical Engineering, Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **5047** — Embedded Systems Design Lab — Semester 5 — Electronics Engineering, Electronics and Communication, Micro Electronics
+- **5048** — Computer Hardware & Networking Lab — Semester 5 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **5049A** — Power Electronics & Automation Lab — Semester 5 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Integrated Circuit Design & Fabrication
+- **5049B** — Telecommunication Networks Lab — Semester 5 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering
+- **5049C** — Microwave Lab — Semester 5 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Computer Engineering
+- **5051** — Automobile Chassis and Climate Control — Semester 5 — Automobile Engineering
+- **5052** — Automobile Electrical and Electronics Systems — Semester 5 — Automobile Engineering
+- **5053A** — Two and Three Wheeler Technology — Semester 5 — Automobile Engineering
+- **5053B** — Agricultural Vehicle Technology — Semester 5 — Automobile Engineering
+- **5053C** — Construction Vehicle Technology — Semester 5 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **5053D** — Alternative Fuel Vehicle Technology — Semester 5 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **5057** — Automobile Chassis Workshop — Semester 5 — Automobile Engineering
+- **5058** — Automobile Electrical and Electronics Lab — Semester 5 — Automobile Engineering
+- **5059A** — Two and Three Wheeler Workshop — Semester 5 — Automobile Engineering
+- **5059B** — Agricultural Vehicle Workshop — Semester 5 — Automobile Engineering
+- **5059C** — Construction Vehicle Workshop — Semester 5 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **5059D** — Alternative Fuel Vehicle Workshop — Semester 5 — Automobile Engineering
+- **5061** — Textile Testing & Analysis — Semester 5 — Textile Technology
+- **5062** — Fashion Design and Garment Technology — Semester 5 — Textile Technology
+- **5063A** — Textile Marketing and Merchandising — Semester 5 — Textile Technology
+- **5063B** — Long Staple Spinning Technology — Semester 5 — Textile Technology
+- **5063C** — Statistical Quality Control in Textile Testing — Semester 5 — Textile Technology
+- **5063D** — Sustainability in Textile Manufacturing — Semester 5 — Textile Technology
+- **5067** — Textile Testing & Analysis Lab I — Semester 5 — Textile Technology
+- **5068** — Textile Printing and Finishing Lab — Semester 5 — Textile Technology
+- **5069A** — Fashion Design and Garment Technology Lab — Semester 5 — Textile Technology
+- **5069B** — Garment CAD Lab — Semester 5 — Textile Technology
+- **5071** — Mass Transfer Operations I — Semester 5 — Chemical Engineering
+- **5072** — Process Control & Instrumentation — Semester 5 — Chemical Engineering
+- **5073A** — Petroleum Refining & Petrochemical Technology — Semester 5 — Chemical Engineering
+- **5073B** — Modern Separation Techniques — Semester 5 — Chemical Engineering
+- **5073C** — Material Science and Technology — Semester 5 — Chemical Engineering
+- **5073D** — Sustainable Materials and Technologies — Semester 5 — Chemical Engineering
+- **5077** — Heat Transfer Lab — Semester 5 — Chemical Engineering
+- **5078** — Environmental Engineering Lab — Semester 5 — Chemical Engineering
+- **5079A** — Material Testing Lab — Semester 5 — Chemical Engineering
+- **5081** — Advanced Process Control and Smart Instrumentation — Semester 5 — Instrumentation Engineering
+- **5082** — Industrial Instrumentation — Semester 5 — Instrumentation Engineering
+- **5083A** — Industrial Power Electronics for Instrumentation — Semester 5 — Instrumentation Engineering
+- **5083B** — Laser and Optical Instrumentation — Semester 5 — Instrumentation Engineering
+- **5083C** — Robotics and Control — Semester 5 — Instrumentation Engineering
+- **5083D** — Artificial Intelligence and Machine Learning (IE) — Semester 5 — Instrumentation Engineering
+- **5087** — Advanced Process Control Lab — Semester 5 — Instrumentation Engineering
+- **5088** — Industrial Instrumentation Lab — Semester 5 — Instrumentation Engineering
+- **5089A** — Industrial Power Electronics Lab — Semester 5 — Instrumentation Engineering
+- **5089B** — Optical Instrumentation Lab — Semester 5 — Instrumentation Engineering
+- **5089C** — Robotics and Control Lab — Semester 5 — Instrumentation Engineering
+- **5089D** — Artificial Intelligence and Machine Learning Lab (IE) — Semester 5 — Instrumentation Engineering
+- **5091** — Plastic Technology — Semester 5 — Polymer Technology
+- **5092** — Quality Assurance and Testing — Semester 5 — Polymer Technology
+- **5093A** — Tyre Technology — Semester 5 — Polymer Technology
+- **5093B** — Polymers for Packaging — Semester 5 — Polymer Technology
+- **5093C** — Polymer Recycling — Semester 5 — Polymer Technology
+- **5093D** — Polymer Adhesives — Semester 5 — Polymer Technology
+- **5097** — Dry Rubber Testing Lab — Semester 5 — Polymer Technology
+- **5098** — Physical Testing Lab — Semester 5 — Polymer Technology
+- **5099A** — Compound Design Workshop — Semester 5 — Polymer Technology
+- **5099B** — Latex Products Testing Lab — Semester 5 — Polymer Technology
+- **5101** — Packaging Science and Technology — Semester 5 — Printing Technology
+- **5102** — Maintenance Engineering and Automation in Printing Industry — Semester 5 — Printing Technology
+- **5103A** — Advanced Functional & Interactive Printing Applications — Semester 5 — Printing Technology
+- **5103B** — Sustainable Printing Industry Practices — Semester 5 — Printing Technology
+- **5103C** — Multimedia Design and Advertising — Semester 5 — Printing Technology
+- **5103D** — Printing and Logistics — Semester 5 — Printing Technology
+- **5107** — Carton Engineering and Packaging Structure Design Laboratory — Semester 5 — Printing Technology
+- **5108** — Graphic Design Practices III — Semester 5 — Printing Technology
+- **5109A** — Troubleshooting Workshop — Semester 5 — Printing Technology
+- **5109B** — Adavanced Printing Machines Workshop III — Semester 5 — Printing Technology
+- **5111** — Press Tool and Mould Design — Semester 5 — Tool & Die Engineering
+- **5112** — Production Technology II — Semester 5 — Tool & Die Engineering
+- **5113A** — Advanced Plastic Processing Techniques — Semester 5 — Tool & Die Engineering
+- **5113B** — Hydraulics and Pneumatics — Semester 5 — Tool & Die Engineering
+- **5113C** — CAD/CAM — Semester 5 — Tool & Die Engineering
+- **5113D** — Maintenance Engineering and Practices — Semester 5 — Tool & Die Engineering
+- **5117** — Advanced Machine Tools Lab — Semester 5 — Tool & Die Engineering
+- **5118** — Computer Aided Press Tool Drawing Lab — Semester 5 — Tool & Die Engineering
+- **5119A** — Advanced Tooling Lab — Semester 5 — Tool & Die Engineering
+- **5119B** — Hydraulics and Pneumatics Circuits Lab — Semester 5 — Tool & Die Engineering
+- **5121** — Adhesive Technology — Semester 5 — Wood and Paper Technology
+- **5122** — Advanced Wood Products — Semester 5 — Wood and Paper Technology
+- **5123A** — Statistical Quality Assurance — Semester 5 — Wood and Paper Technology
+- **5123B** — Quantity Surveying — Semester 5 — Wood and Paper Technology
+- **5123C** — Process Control and Instrumentation - WP — Semester 5 — Wood and Paper Technology
+- **5127** — Furniture Production Lab — Semester 5 — Wood and Paper Technology
+- **5128** — Wood Workshop II — Semester 5 — Wood and Paper Technology
+- **5129** — Environmental and Adhesive Technology Lab — Semester 5 — Wood and Paper Technology
+- **5131** — Project Management and Software Engineering — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
+- **5132** — Cyber Security — Semester 5 — Computer Engineering
+- **5133** — Artificial Intelligence and Machine Learning — Semester 5 — Computer Engineering, Computer Science and Technology
+- **5134A** — Mobile application development — Semester 5 — Computer Engineering, Computer Science & Engineering, Information Technology
+- **5134B** — Network Infrastructure Management — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5134C** — Digital Marketing — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Information Technology
+- **5134D** — Data Science and Analytics — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Information Technology
+- **5137** — Cyber Security Lab — Semester 5 — Computer Engineering
+- **5138** — Artificial Intelligence and Machine Learning Lab — Semester 5 — Computer Engineering, Computer Science and Technology
+- **5139A** — Mobile Application Development Lab — Semester 5 — Computer Engineering, Computer Science & Engineering, Information Technology
+- **5139B** — Network Infrastructure Management Lab — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5139C** — Digital Marketing Lab — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Information Technology
+- **5139D** — Data Science and Analytics Lab — Semester 5 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Information Technology
+- **5141** — Modern Management and Cyber Safety — Semester 5 — Commercial Practice
+- **5142** — Co-operative Management and Administration — Semester 5 — Commercial Practice
+- **5143** — Shorthand English (Elaboration) 100wpm — Semester 5 — Commercial Practice
+- **5144A** — Financial Market — Semester 5 — Commercial Practice
+- **5144B** — Banking & Insurance — Semester 5 — Commercial Practice
+- **5144C** — Income Tax Law & Practice — Semester 5 — Commercial Practice
+- **5144D** — GST Law & Practice — Semester 5 — Commercial Practice
+- **5147** — Shorthand Malayalam (Speed & Theory) 50 wpm — Semester 5 — Commercial Practice
+- **5148** — Typewriting Malayalam II — Semester 5 — Commercial Practice
+- **5149A** — Applied ERP with SAP — Semester 5 — Commercial Practice
+- **5149B** — Advanced Computerized Financial Accounting — Semester 5 — Commercial Practice
+- **5181** — Design of Structural Elements — Semester 5 — Architecture
+- **5182** — Landscape Architecture — Semester 5 — Architecture
+- **5183A** — Sustainable Building Technologies — Semester 5 — Architecture, Interior Design
+- **5183B** — Vernacular Architecture — Semester 5 — Architecture, Interior Design
+- **5183C** — Tendering and Valuation — Semester 5 — Architecture
+- **5183D** — Advanced Building Technology — Semester 5 — Architecture
+- **5187** — Architectural Design and Drafting - IV — Semester 5 — Architecture
+- **5188** — Interior Design & Drafting I — Semester 5 — Architecture
+- **5201** — Digital Communication — Semester 5 — Electronics and Communication
+- **5202A** — Microwave Communication — Semester 5 — Electronics and Communication
+- **5208** — Digital Communication Lab — Semester 5 — Electronics and Communication
+- **5209A** — Microwave Communication Lab — Semester 5 — Electronics and Communication
+- **5241** — Medical Imaging Devices — Semester 5 — Biomedical Engineering
+- **5242** — Analytical Techniques and Laboratory Instruments — Semester 5 — Biomedical Engineering
+- **5243A** — Medical Implants and Prosthetic Devices — Semester 5 — Biomedical Engineering
+- **5243B** — C Programming — Semester 5 — Biomedical Engineering
+- **5243C** — Medical Embedded Systems — Semester 5 — Biomedical Engineering
+- **5248** — Biomedical Signal Conditioning Circuits Lab — Semester 5 — Biomedical Engineering
+- **5249A** — Embedded Systems for Medical Devices Lab — Semester 5 — Biomedical Engineering
+- **5249B** — C Programming Lab — Semester 5 — Biomedical Engineering
+- **5251** — Mobile Application Development using Flutter — Semester 5 — Computer Application & Business Management
+- **5252** — E-Commerce and Cyber Security — Semester 5 — Computer Application & Business Management
+- **5253** — Supply Chain and Logistics Management — Semester 5 — Computer Application & Business Management
+- **5254A** — Customer Relationship Management — Semester 5 — Computer Application & Business Management
+- **5254B** — Warehouse Management — Semester 5 — Computer Application & Business Management
+- **5254C** — Working Capital Management — Semester 5 — Computer Application & Business Management
+- **5254D** — Hospital Administration — Semester 5 — Computer Application & Business Management
+- **5257** — Flutter Application Development Lab — Semester 5 — Computer Application & Business Management
+- **5258** — Web Designing I Lab — Semester 5 — Computer Application & Business Management
+- **5259A** — Customer Relationship Management Lab — Semester 5 — Computer Application & Business Management
+- **5259B** — Warehouse Management Lab — Semester 5 — Computer Application & Business Management
+- **5259C** — Working Capital Management Lab — Semester 5 — Computer Application & Business Management
+- **5259D** — Hospital Administration Lab — Semester 5 — Computer Application & Business Management
+- **5261** — Network Routing and Switching (IF) — Semester 5 — Information Technology
+- **5262** — System Administration — Semester 5 — Computer Science & Engineering, Information Technology
+- **5263A** — Full Stack Web Development — Semester 5 — Information Technology
+- **5267** — Network Routing and Switching Lab — Semester 5 — Information Technology
+- **5268** — System Administration Lab-II — Semester 5 — Computer Science & Engineering, Information Technology
+- **5269A** — Full Stack Development Lab — Semester 5 — Information Technology
+- **5281** — Object Oriented Programming — Semester 5 — Cyber Forensics and Information Security
+- **5282** — Network Security — Semester 5 — Cyber Forensics and Information Security
+- **5283A** — Introduction to IoT — Semester 5 — Cyber Forensics and Information Security
+- **5283B** — Internet and Web application Security — Semester 5 — Cyber Forensics and Information Security
+- **5283C** — Data and Application Security — Semester 5 — Cyber Forensics and Information Security
+- **5283D** — Mobile & Wireless Security — Semester 5 — Cyber Forensics and Information Security
+- **5287** — Object Oriented Programming Lab — Semester 5 — Cyber Forensics and Information Security
+- **5288** — Network Security Lab — Semester 5 — Cyber Forensics and Information Security
+- **5289A** — Smart Device Programming Lab — Semester 5 — Cyber Forensics and Information Security
+- **5289B** — Internet and Web application Security Lab — Semester 5 — Cyber Forensics and Information Security
+- **5301** — Introduction to Machine Learning — Semester 5 — Robotic Process Automation
+- **5302** — Internet of Things — Semester 5 — Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
+- **5303A** — Fundamentals of Digital Marketing — Semester 5 — Robotic Process Automation
+- **5303B** — Non Relational Database Management System — Semester 5 — Robotic Process Automation
+- **5303C** — Virtualization Technology & Cloud Computing — Semester 5 — Artificial Intelligence & Machine Learning, Robotic Process Automation
+- **5303D** — Data Mining — Semester 5 — Robotic Process Automation
+- **5307** — Introduction to Machine Learning Lab — Semester 5 — Robotic Process Automation
+- **5309A** — Non Relational Database Management System Lab — Semester 5 — Robotic Process Automation
+- **5309B** — Data Mining Lab — Semester 5 — Robotic Process Automation
+- **5331** — Industrial Automation Control — Semester 5 — Automation and Robotics
+- **5332** — AI for Robotics — Semester 5 — Automation and Robotics
+- **5333A** — Industrial Robotics — Semester 5 — Automation and Robotics
+- **5333B** — Robotics and Machine Vision — Semester 5 — Automation and Robotics
+- **5333C** — Robotic Operating System — Semester 5 — Automation and Robotics
+- **5333D** — Programme Elective (official title not published) — Semester 5 — Automation and Robotics
+- **5337** — Industrial Automation Control Lab — Semester 5 — Automation and Robotics
+- **5338** — AI for Robotics Lab — Semester 5 — Automation and Robotics
+- **5339A** — Industrial IoT and Smart Systems Lab — Semester 5 — Automation and Robotics
+- **5339B** — Robot Operating System Lab — Semester 5 — Automation and Robotics
+- **5341** — Natural Language Processing — Semester 5 — Artificial Intelligence & Machine Learning
+- **5342A** — Soft Computing — Semester 5 — Artificial Intelligence & Machine Learning
+- **5342B** — Introduction to Social Networks — Semester 5 — Artificial Intelligence & Machine Learning
+- **5347** — Medical Electronics Circuits Lab — Semester 5 — Biomedical Engineering
+- **5348** — UI/UX Design Lab — Semester 5 — Artificial Intelligence & Machine Learning
+- **5349A** — Virtualisation Technology and Cloud Computing Lab — Semester 5 — Artificial Intelligence & Machine Learning
+- **5349B** — Soft Computing Lab — Semester 5 — Artificial Intelligence & Machine Learning
+- **5351A** — Environmental Geotechnology — Semester 5 — Civil & Environmental Engineering
+- **5359A** — Solid Waste Composting and Air Quality Monitoring Lab — Semester 5 — Civil & Environmental Engineering
+- **5361A** — Repair and Rehabilitation of Structures — Semester 5 — Civil & Rural Engineering, Civil Engineering (Construction Technology)
+- **5371** — CAD for VLSI — Semester 5 — Integrated Circuit Design & Fabrication
+- **5372** — VLSI Design — Semester 5 — Integrated Circuit Design & Fabrication
+- **5373A** — Analog and Digital Communication Systems — Semester 5 — Integrated Circuit Design & Fabrication
+- **5378** — VLSI CAD Lab — Semester 5 — Integrated Circuit Design & Fabrication
+- **5379A** — Analog and Digital Communication Systems Lab — Semester 5 — Integrated Circuit Design & Fabrication
+- **5381** — Big Data Analytics — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **5382** — Deep Learning — Semester 5 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5383A** — AI in Practice and Ethics — Semester 5 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5383B** — AI in Cyber Security — Semester 5 — Artificial Intelligence
+- **5383C** — IoT and Applications — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Mechatronics
+- **5383D** — Computational Intelligence — Semester 5 — Artificial Intelligence
+- **5387** — Big Data Analytics Lab — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **5388** — Deep Learning Lab — Semester 5 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5389A** — MATLAB — Semester 5 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5389B** — Java Programming Lab — Semester 5 — Artificial Intelligence
+- **5389C** — Julia Programming Lab — Semester 5 — Artificial Intelligence
+- **5389D** — Power BI Lab — Semester 5 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5391A** — Tendering and Contracts — Semester 5 — Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5391B** — Low-Cost Housing — Semester 5 — Civil Engineering & Planning
+- **5399A** — Structural Health Monitoring Lab — Semester 5 — Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **5411A** — Vehicle Power Train Control System — Semester 5 — Electrical Engineering & Electric Vehicles Technology
+- **5421** — Unit Operations of Food Industry — Semester 5 — Food Processing Technology
+- **5422** — Food Additives — Semester 5 — Food Processing Technology
+- **5423A** — Food Chemistry II — Semester 5 — Food Processing Technology
+- **5423B** — Beverage Processing — Semester 5 — Food Processing Technology
+- **5423C** — Bakery and Confectionery — Semester 5 — Food Processing Technology
+- **5423D** — Fat and Oil Processing Technology — Semester 5 — Food Processing Technology
+- **5427** — Unit Operations of Food Industry Lab — Semester 5 — Food Processing Technology
+- **5428** — Food Additives Lab — Semester 5 — Food Processing Technology
+- **5429A** — Fat and Oil Processing Technology Lab — Semester 5 — Food Processing Technology
+- **5429B** — Bakery and Confectionery Lab — Semester 5 — Food Processing Technology
+- **5431** — Computer Integrated Design and Manufacturing — Semester 5 — Mechatronics
+- **5432** — Microprocessors and Microcontrollers — Semester 5 — Mechatronics
+- **5433A** — Biomedical Instrumentation — Semester 5 — Mechatronics
+- **5433B** — Automobile Engineering — Semester 5 — Mechatronics
+- **5433D** — Network Theory — Semester 5 — Mechatronics
+- **5437** — Computer Integrated Design and Manufacturing Lab — Semester 5 — Mechatronics
+- **5438** — Microprocessors and Microcontrollers Lab — Semester 5 — Mechatronics
+- **5439A** — Automobile Engineering Lab — Semester 5 — Mechatronics
+- **5439B** — IoT Lab — Semester 5 — Mechatronics
+- **5461** — Occupational Health & Industrial Safety Engineering — Semester 5 — Fire Technology and Safety
+- **5462** — Safety in Process Industries and Powder Handling — Semester 5 — Fire Technology and Safety
+- **5463A** — Safety in Construction and Textile Industry — Semester 5 — Fire Technology and Safety
+- **5463B** — Safety In Material Handling — Semester 5 — Fire Technology and Safety
+- **5463C** — Transport and Mine Safety — Semester 5 — Fire Technology and Safety
+- **5463D** — Manufacturing Process — Semester 5 — Fire Technology and Safety
+- **5467** — Environmental Safety Lab — Semester 5 — Fire Technology and Safety
+- **5468** — Personal Protective Equipment Lab — Semester 5 — Fire Technology and Safety
+- **5469A** — Transportation Lab — Semester 5 — Fire Technology and Safety
+- **5469B** — Safety Infrastructure and Planning Lab — Semester 5 — Fire Technology and Safety
+- **5491** — Digital System Design — Semester 5 — Micro Electronics
+- **5492** — Analog and Digital Communication — Semester 5 — Micro Electronics
+- **5493A** — Embedded System — Semester 5 — Micro Electronics
+- **5493B** — Digital CMOS VLSI — Semester 5 — Micro Electronics
+- **5493C** — Introduction to MEMS — Semester 5 — Micro Electronics
+- **5497** — Verilog Programming Lab — Semester 5 — Micro Electronics
+- **5498** — Communication Systems Lab — Semester 5 — Micro Electronics
+- **5499A** — VHDL Lab — Semester 5 — Micro Electronics
+- **5501** — Embedded Systems & RTOS — Semester 5 — Electronics and Computer Engineering
+- **5502** — Introduction to Computer Networks — Semester 5 — Electronics and Computer Engineering
+- **5503A** — Fundamentals of Electronic Communication — Semester 5 — Electronics and Computer Engineering
+- **5503B** — Microwave Devices & Circuits — Semester 5 — Electronics and Computer Engineering
+- **5508** — Embedded Systems & RTOS Lab — Semester 5 — Electronics and Computer Engineering
+- **5509A** — Fundamentals of Electronic Communication Lab — Semester 5 — Electronics and Computer Engineering
+- **5521** — IoT and Real-Time Embedded Systems — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5522** — Fundamentals of Robotics and AI — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5523A** — Programme Elective (official title not published) — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5523B** — Advanced Communication Systems — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5528** — IoT and Real-Time Embedded Systems Lab — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5529A** — Fundamentals of Robotics and AI Lab — Semester 5 — Electronics Engineering (Embedded Systems)
+- **5531** — Tendering & Valuation for Interiors — Semester 5 — Interior Design
+- **5532** — Furniture Design I — Semester 5 — Interior Design
+- **5533A** — Maintenance & Retrofitting — Semester 5 — Interior Design
+- **5533B** — Advanced Lighting & Acoustics in Interiors — Semester 5 — Interior Design
+- **5538** — Interior Design & Drafting - IV — Semester 5 — Interior Design
+- **5539** — Digital Photography — Semester 5 — Interior Design
+- **5551A** — Network Routing and Switching — Semester 5 — Computer Science and Technology
+- **5551B** — Deep Learning — Semester 5 — Computer Science and Technology
+- **5551C** — Cyber Security — Semester 5 — Computer Science and Technology
+- **5558** — Internet of Things Lab — Semester 5 — Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
+- **5559A** — Deep Learning Lab — Semester 5 — Computer Science and Technology
+- **5559B** — Cyber Security Lab — Semester 5 — Computer Science and Technology
+- **5559C** — Network Routing and Switching Lab — Semester 5 — Computer Science and Technology
+- **5561** — Automobile Chassis and transmission systems — Semester 5 — Mechanical Engineering (Automobile Engineering)
+- **5562A** — Sensors ,Actuators and Automotive Mechatronics — Semester 5 — Mechanical Engineering (Automobile Engineering)
+- **5562B** — Modern Automotive Technology — Semester 5 — Mechanical Engineering (Automobile Engineering)
+- **5569A** — Sensors, Actuators and Automotive Mechatronics Lab — Semester 5 — Mechanical Engineering (Automobile Engineering)
+- **5571** — Data Structures and Algorithms — Semester 5 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **5579** — Data Structures and Algorithms Lab — Semester 5 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6011P** — Transportation Engineering — Semester 6 — Civil Engineering
+- **6011T** — Transportation Engineering — Semester 6 — Civil Engineering
+- **6012** — Environmental Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6013A** — 3D Printing in Construction — Semester 6 — Civil Engineering, Civil Engineering (Construction Technology)
+- **6013B** — Solid Waste Management & Air Pollution — Semester 6 — Civil Engineering
+- **6013C** — Harbour, Tunnel & Airport Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6013D** — Habitat Technology — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6014A** — Renewable Energy and Environment — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6014B** — Sustainable Development — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6014C** — Green Building and Energy Conservation — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6014D** — Environmental Laws & Policies — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6018** — Environmental Engineering Lab — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6019A** — BIM & Modelling Lab — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6019B** — Emerging Trends in Civil Engineering Lab — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6021P** — Refrigeration and Air Conditioning — Semester 6 — Mechanical Engineering
+- **6021T** — Refrigeration and Air Conditioning — Semester 6 — Mechanical Engineering
+- **6022** — Mechatronics and Automation — Semester 6 — Mechanical Engineering
+- **6023A** — Logistics and Supply Chain Management — Semester 6 — Mechanical Engineering
+- **6023B** — Additive Manufacturing — Semester 6 — Mechanical Engineering, Mechatronics, Tool & Die Engineering
+- **6023C** — Electric Vehicles — Semester 6 — Mechanical Engineering
+- **6023D** — Computer Integrated Manufacturing — Semester 6 — Mechanical Engineering
+- **6024A** — Computer Aided Design and Manufacturing — Semester 6 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **6024B** — Product Design and Development — Semester 6 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **6024C** — Production Technology — Semester 6 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering)
+- **6024D** — Renewable Energy Technologies — Semester 6 — Mechanical Engineering, Mechanical Engineering (Automobile Engineering), Wood and Paper Technology
+- **6028** — Mechatronics and Automation Lab — Semester 6 — Mechanical Engineering
+- **6029A** — Advanced Manufacturing Lab — Semester 6 — Mechanical Engineering
+- **6029B** — Electric Vehicles Lab — Semester 6 — Mechanical Engineering
+- **6031P** — Microcontroller and PLC — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6031T** — Microcontroller and PLC — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6032** — Electric Vehicle and Renewable Energy Technologies — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering
+- **6033A** — Energy Conservation and Audit — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6033B** — Embedded System Design with PIC — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6033C** — Inductrial Drives and Control — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6033D** — Power System Economics and Distributed Generation — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6034A** — Solar Power Technologies — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6034B** — Energy Conservation and Management — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6034C** — Electrification of Residential Buildings — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6034D** — Electric Vehicles and Traction — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
+- **6041P** — Verilog Programming & Applications — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6041T** — Verilog Programming & Applications — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6042** — Robotics and Artificial Intelligence — Semester 6 — Biomedical Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6043A** — Fundamentals of Hybrid & Electric Vehicles — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering
+- **6043B** — Medical Electronics — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems)
+- **6043C** — Electronics Product Engineering — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Integrated Circuit Design & Fabrication, Micro Electronics
+- **6043D** — Principles of MEMS — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6044A** — IoT Concepts and Applications — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6044B** — Modern Electronics — Semester 6 — Electronics Engineering, Integrated Circuit Design & Fabrication
+- **6044C** — Drone Technology — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Micro Electronics
+- **6044D** — Healthcare Electronics — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems)
+- **6048** — Robotics and AI Lab — Semester 6 — Biomedical Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6049A** — Advanced Communication Lab — Semester 6 — Electronics Engineering
+- **6049B** — Numerical Computing & Simulation Lab — Semester 6 — Electronics Engineering, Electronics Engineering (Embedded Systems), Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6051P** — Electric and Hybrid Vehicles — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6051T** — Electric and Hybrid Vehicles — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6052** — Design of Automotive Components — Semester 6 — Automobile Engineering
+- **6053A** — Vehicle Diagnostics and Service — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6053B** — Automotive Control Systems — Semester 6 — Automobile Engineering
+- **6053C** — Vehicle Body Engineering — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6053D** — Transport Operations and Logistics — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6054A** — Automobile Engineering — Semester 6 — Automobile Engineering
+- **6054B** — Automobile Safety and Maintenance — Semester 6 — Automobile Engineering
+- **6054C** — Automotive Management — Semester 6 — Automobile Engineering
+- **6054D** — Automobile Electrical Systems — Semester 6 — Automobile Engineering
+- **6058** — Computer Aided Automobile Drawing - II — Semester 6 — Automobile Engineering
+- **6059A** — Vehicle Diagnostic and Service Lab — Semester 6 — Automobile Engineering, Mechanical Engineering (Automobile Engineering)
+- **6059B** — Automotive Control Systems Lab — Semester 6 — Automobile Engineering
+- **6059C** — Vehicle Body Engineering Lab — Semester 6 — Automobile Engineering
+- **6059D** — Transport Operations and Logistics Lab — Semester 6 — Automobile Engineering
+- **6061P** — Knitting and Nonwoven Technology — Semester 6 — Textile Technology
+- **6061T** — Knitting and Nonwoven Technology — Semester 6 — Textile Technology
+- **6062** — Technical Textiles — Semester 6 — Textile Technology
+- **6063A** — Textile Machine Maintenance — Semester 6 — Textile Technology
+- **6063B** — Management of Textile Effluents — Semester 6 — Textile Technology
+- **6063C** — Textile Mill Management — Semester 6 — Textile Technology
+- **6063D** — High Performance Fibres — Semester 6 — Textile Technology
+- **6064A** — Total Quality Management — Semester 6 — Textile Technology
+- **6064B** — Geotextiles — Semester 6 — Textile Technology
+- **6064C** — Textile Composites — Semester 6 — Textile Technology
+- **6069A** — Textile Product Analysis & Costing Lab — Semester 6 — Textile Technology
+- **6069B** — Fashion Technology Lab — Semester 6 — Textile Technology
+- **6071P** — Mechanical Operations — Semester 6 — Chemical Engineering
+- **6071T** — Mechanical Operations — Semester 6 — Chemical Engineering
+- **6072** — Mass Transfer Operations II — Semester 6 — Chemical Engineering
+- **6073A** — Plant Utilities — Semester 6 — Chemical Engineering
+- **6073B** — Solid Waste Management — Semester 6 — Chemical Engineering
+- **6073C** — Biochemical Engineering — Semester 6 — Chemical Engineering
+- **6073D** — Sustainable Energy Technologies — Semester 6 — Chemical Engineering
+- **6074A** — Project Management - Process Plants — Semester 6 — Chemical Engineering
+- **6074B** — Energy Management and Audit — Semester 6 — Chemical Engineering
+- **6074C** — Disaster Management — Semester 6 — Chemical Engineering
+- **6074D** — Energy Engineering — Semester 6 — Chemical Engineering
+- **6078** — Mass Transfer Lab — Semester 6 — Chemical Engineering
+- **6079A** — Fuels and Combustion Lab — Semester 6 — Chemical Engineering
+- **6081P** — Analytical and Biomedical Instrumentation — Semester 6 — Instrumentation Engineering
+- **6081T** — Analytical and Biomedical Instrumentation — Semester 6 — Instrumentation Engineering
+- **6082** — Instrumentation Applications in Industry 5.0 — Semester 6 — Instrumentation Engineering
+- **6083A** — Aircraft Instrumentation — Semester 6 — Instrumentation Engineering
+- **6083B** — Power Plant Instrumentation — Semester 6 — Instrumentation Engineering
+- **6083C** — Industrial Communication and Networking — Semester 6 — Instrumentation Engineering
+- **6083D** — Instrumentation in Agriculture — Semester 6 — Instrumentation Engineering
+- **6084A** — Biomedical Instrumentation — Semester 6 — Instrumentation Engineering
+- **6084B** — Industrial IOT — Semester 6 — Instrumentation Engineering
+- **6084C** — Transducer Engineering — Semester 6 — Instrumentation Engineering
+- **6084D** — Industrial Process Control — Semester 6 — Instrumentation Engineering
+- **6088** — Virtual Instrumentation Lab — Semester 6 — Instrumentation Engineering
+- **6089A** — Maintenance and Calibration Workshop — Semester 6 — Instrumentation Engineering
+- **6089B** — Biomedical Equipment Service Lab — Semester 6 — Instrumentation Engineering
+- **6091P** — Fibres and Composites — Semester 6 — Polymer Technology
+- **6091T** — Fibres and Composites — Semester 6 — Polymer Technology
+- **6092** — Plastic Products — Semester 6 — Polymer Technology
+- **6093A** — Injection Mould Design — Semester 6 — Polymer Technology
+- **6093B** — Biopolymers — Semester 6 — Polymer Technology
+- **6093C** — Speciality Polymers — Semester 6 — Polymer Technology
+- **6093D** — Paint Technology — Semester 6 — Polymer Technology
+- **6094A** — Process Control and Measuring Devices — Semester 6 — Polymer Technology
+- **6094B** — Polymers and Environment — Semester 6 — Polymer Technology
+- **6094C** — Smart Polymers — Semester 6 — Polymer Technology
+- **6094D** — Nanomaterials and Technology — Semester 6 — Polymer Technology
+- **6098** — Rubber Products Workshop — Semester 6 — Polymer Technology
+- **6099A** — Rubber Products Testing Lab — Semester 6 — Polymer Technology
+- **6099B** — Plastics Quality Assurance Lab — Semester 6 — Polymer Technology
+- **6101P** — Press Standardization and Print Quality Management — Semester 6 — Printing Technology
+- **6101T** — Press Standardization and Print Quality Management — Semester 6 — Printing Technology
+- **6102** — Print and Media Business Management — Semester 6 — Printing Technology
+- **6103A** — Food and Pharmaceutical Packging — Semester 6 — Printing Technology
+- **6103B** — Printed Electronics for Smart and Flexible Systems — Semester 6 — Printing Technology
+- **6103C** — Security Printing and Anti-Counterfeiting Technology — Semester 6 — Printing Technology
+- **6103D** — AI Enabled Printing and Packaging Systems — Semester 6 — Printing Technology
+- **6104A** — E-publishing and Content Design — Semester 6 — Printing Technology
+- **6104B** — Fundamentals of Renewabale Energy — Semester 6 — Printing Technology
+- **6104C** — Disaster Risk Management Principles — Semester 6 — Printing Technology
+- **6104D** — Digital and Social Media Marketing — Semester 6 — Printing Technology
+- **6108** — Post Press Workshop Practices II — Semester 6 — Printing Technology
+- **6109A** — Package Testing Lab — Semester 6 — Printing Technology
+- **6109B** — MATLAB — Semester 6 — Printing Technology
+- **6111P** — Jigs, Fixtures and Material Handling Systems — Semester 6 — Tool & Die Engineering
+- **6111T** — Jigs, Fixtures and Material Handling Systems — Semester 6 — Tool & Die Engineering
+- **6112** — Robotics and Automation in Manufacturing — Semester 6 — Tool & Die Engineering
+- **6113A** — Production Management — Semester 6 — Tool & Die Engineering
+- **6113B** — Quality Control and Inspection Techniques — Semester 6 — Tool & Die Engineering
+- **6113C** — Mechatronics — Semester 6 — Tool & Die Engineering
+- **6114A** — Total Quality Management (TD) — Semester 6 — Tool & Die Engineering
+- **6114B** — 3D Printing & Rapid Prototyping — Semester 6 — Tool & Die Engineering
+- **6114C** — Product Design — Semester 6 — Tool & Die Engineering
+- **6114D** — Sustainable Manufacturing — Semester 6 — Tool & Die Engineering
+- **6117** — CAM & 3D Printing Lab — Semester 6 — Tool & Die Engineering
+- **6118A** — Product Design Lab — Semester 6 — Tool & Die Engineering
+- **6118B** — Quality Control and Inspection Techniques Lab — Semester 6 — Tool & Die Engineering
+- **6121P** — Applied Estimation for Furniture and Interior Projects — Semester 6 — Wood and Paper Technology
+- **6121T** — Applied Estimation for Furniture and Interior Projects — Semester 6 — Wood and Paper Technology
+- **6122** — Paper Technology-II — Semester 6 — Wood and Paper Technology
+- **6123A** — Interior Design and Furniture Technology — Semester 6 — Wood and Paper Technology
+- **6123B** — Paper Board and Speciality Papers — Semester 6 — Wood and Paper Technology
+- **6123C** — Timber Structure — Semester 6 — Wood and Paper Technology
+- **6124A** — Project Management — Semester 6 — Wood and Paper Technology
+- **6124B** — Coated and Speciality Paper — Semester 6 — Wood and Paper Technology
+- **6124C** — Secondary Fibre Processing — Semester 6 — Wood and Paper Technology
+- **6128** — Advanced Wood Workshop — Semester 6 — Wood and Paper Technology
+- **6129** — Interior Design Lab — Semester 6 — Wood and Paper Technology
+- **6131P** — Software Testing — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering
+- **6131T** — Software Testing — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering
+- **6132** — Internet of Things — Semester 6 — Computer Engineering
+- **6133A** — Virtualization Technology and Cloud Computing — Semester 6 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6133B** — Prompt Engineering and Generative AI — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Information Technology
+- **6133C** — Full Stack Web Development — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology
+- **6133D** — Ethical Hacking — Semester 6 — Computer Engineering, Computer Science & Engineering, Cyber Forensics and Information Security, Electronics and Computer Engineering
+- **6134A** — Concepts of Web Technology — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Electronics and Computer Engineering
+- **6134B** — Cyber Security Essentials — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Cyber Forensics and Information Security
+- **6134C** — Principles to IoT — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology
+- **6134D** — Artificial Intelligence and Applications — Semester 6 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Computer Science and Technology, Robotic Process Automation
+- **6138** — Internet of Things Lab — Semester 6 — Computer Engineering
+- **6139A** — Virtualization Technology and Cloud Computing Lab — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Cyber Forensics and Information Security
+- **6139B** — Prompt Engineering and Generative AI Lab — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Information Technology
+- **6139C** — Full Stack Web Development Lab — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology
+- **6139D** — Ethical Hacking Lab — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Cyber Forensics and Information Security, Electronics and Computer Engineering
+- **6141P** — Shorthand English (Speed & Theory) 120 wpm — Semester 6 — Commercial Practice
+- **6141T** — Shorthand English (Speed & Theory) 120 wpm — Semester 6 — Commercial Practice
+- **6142** — Shorthand English Condensation and Theory 120 wpm — Semester 6 — Commercial Practice
+- **6143A** — Financial Management — Semester 6 — Commercial Practice
+- **6143B** — Human Resource Management — Semester 6 — Commercial Practice
+- **6143C** — Business Environment — Semester 6 — Commercial Practice
+- **6143D** — Investment Management — Semester 6 — Commercial Practice
+- **6144A** — Personal Finance and Planning — Semester 6 — Commercial Practice
+- **6144B** — Project Planning and Development — Semester 6 — Commercial Practice
+- **6144C** — Engineering Economics and Accountancy — Semester 6 — Commercial Practice
+- **6144D** — Organisational Behaviour — Semester 6 — Commercial Practice
+- **6148** — Malayalam Word Processing — Semester 6 — Commercial Practice
+- **6149A** — Stock Market Investment and Trading — Semester 6 — Commercial Practice
+- **6149B** — Operational Secretarial Practice — Semester 6 — Commercial Practice
+- **6149C** — Advanced Excel with AI — Semester 6 — Commercial Practice
+- **6149D** — Applied GST and E-Filing — Semester 6 — Commercial Practice
+- **6181** — Project Management in Architecture — Semester 6 — Architecture, Interior Design
+- **6182P** — Landscape Design &Drafting — Semester 6 — Architecture
+- **6182T** — Landscape Design &Drafting — Semester 6 — Architecture
+- **6183A** — Interior Art and Accessories — Semester 6 — Architecture, Interior Design
+- **6183B** — Inclusive Design and Ergonomics — Semester 6 — Architecture, Interior Design
+- **6183C** — Disaster Resilient buildings — Semester 6 — Architecture
+- **6184A** — AI in Design and Visual Communication — Semester 6 — Architecture, Interior Design
+- **6184B** — Fundamentals of Design — Semester 6 — Architecture, Interior Design
+- **6188** — Interior Design and Drafting -II — Semester 6 — Architecture
+- **6189** — Advanced CAD lab — Semester 6 — Architecture, Interior Design
+- **6201** — Mobile and Wireless Communication — Semester 6 — Electronics and Communication
+- **6202A** — Modern Communication Systems — Semester 6 — Electronics and Communication
+- **6203A** — Applied Electronics — Semester 6 — Electronics and Communication, Integrated Circuit Design & Fabrication
+- **6203B** — Emerging Trends in Electronics — Semester 6 — Electronics Engineering (Embedded Systems), Electronics and Communication
+- **6209A** — Computer Hardware and Data Communication Lab — Semester 6 — Electronics and Communication
+- **6241P** — Healthcare Systems and Equipment Servicing — Semester 6 — Biomedical Engineering
+- **6241T** — Healthcare Systems and Equipment Servicing — Semester 6 — Biomedical Engineering
+- **6242** — Medical Lasers and Radiotherapy Devices — Semester 6 — Biomedical Engineering
+- **6243A** — Intelligent Medical Systems — Semester 6 — Biomedical Engineering
+- **6243B** — IoMT and Healthcare — Semester 6 — Biomedical Engineering
+- **6243C** — Principles of BioMEMS — Semester 6 — Biomedical Engineering
+- **6244A** — Biomedical Equipment Technology — Semester 6 — Biomedical Engineering
+- **6244B** — AI in Biomedical Engineering — Semester 6 — Biomedical Engineering
+- **6244C** — Healthcare Information Management — Semester 6 — Biomedical Engineering
+- **6244D** — Mobility and Assistive Systems — Semester 6 — Biomedical Engineering
+- **6248** — Biomedical Circuit Prototyping and Demonstration Lab — Semester 6 — Biomedical Engineering
+- **6249B** — Computer Hardware and Networking Lab — Semester 6 — Biomedical Engineering
+- **6251P** — Digital Marketing — Semester 6 — Computer Application & Business Management
+- **6251T** — Digital Marketing — Semester 6 — Computer Application & Business Management
+- **6252** — Retail Management — Semester 6 — Computer Application & Business Management
+- **6253A** — Airport Management — Semester 6 — Computer Application & Business Management
+- **6253B** — Business Ethics — Semester 6 — Computer Application & Business Management
+- **6253C** — Shipping & Port Management — Semester 6 — Computer Application & Business Management
+- **6254A** — Fundamentals of Marketing Management — Semester 6 — Computer Application & Business Management
+- **6254B** — Introduction to Human Resource Management — Semester 6 — Computer Application & Business Management
+- **6254C** — Basics of Production & Operations Management — Semester 6 — Computer Application & Business Management
+- **6254D** — Fundamentals of Accounting & Finance — Semester 6 — Computer Application & Business Management
+- **6258** — Web Designing Lab II — Semester 6 — Computer Application & Business Management
+- **6259A** — Business Communication Lab — Semester 6 — Computer Application & Business Management
+- **6259B** — Security Market Lab — Semester 6 — Computer Application & Business Management
+- **6261P** — Web and Mobile Development Frameworks — Semester 6 — Computer Science & Engineering, Information Technology
+- **6261T** — Web and Mobile Development Frameworks — Semester 6 — Computer Science & Engineering, Information Technology
+- **6262** — Cyber Security Systems — Semester 6 — Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Information Technology
+- **6263A** — Cloud and DevOps — Semester 6 — Computer Science and Technology, Information Technology
+- **6263B** — Cyber Forensics — Semester 6 — Information Technology
+- **6263C** — Soft Computing — Semester 6 — Computer Science and Technology, Information Technology, Robotic Process Automation
+- **6264A** — Web Design — Semester 6 — Information Technology
+- **6264B** — System Administration — Semester 6 — Information Technology
+- **6264C** — Network Routing and Switching — Semester 6 — Information Technology
+- **6264D** — Web Programming — Semester 6 — Information Technology
+- **6268** — Cyber Security Systems Lab — Semester 6 — Computer Science & Engineering, Computer Science and Engineering (Artificial Intelligence & Machine Learning), Cyber Forensics and Information Security, Information Technology
+- **6269A** — Cloud and DevOps Lab — Semester 6 — Computer Science and Technology, Information Technology
+- **6269B** — Cyber Forensic Lab — Semester 6 — Information Technology
+- **6269C** — Soft Computing Lab — Semester 6 — Computer Science and Technology, Information Technology
+- **6281P** — Advanced Digital Forensics — Semester 6 — Cyber Forensics and Information Security
+- **6281T** — Advanced Digital Forensics — Semester 6 — Cyber Forensics and Information Security
+- **6282** — Preserving & Recovering Digital Evidence — Semester 6 — Cyber Forensics and Information Security
+- **6283A** — Computer Communications & Networks — Semester 6 — Cyber Forensics and Information Security
+- **6283B** — Mobile Application Security — Semester 6 — Cyber Forensics and Information Security
+- **6283C** — Cyber Forensics — Semester 6 — Cyber Forensics and Information Security
+- **6284A** — Data Mining — Semester 6 — Cyber Forensics and Information Security
+- **6284B** — Digital Forensics and Incident Response — Semester 6 — Cyber Forensics and Information Security
+- **6301P** — Robotics Process Automation Tools — Semester 6 — Robotic Process Automation
+- **6301T** — Robotics Process Automation Tools — Semester 6 — Robotic Process Automation
+- **6302** — Data Analytics & Visualization — Semester 6 — Robotic Process Automation
+- **6303A** — Software Testing — Semester 6 — Robotic Process Automation
+- **6304A** — Introduction to Computing Problems — Semester 6 — Robotic Process Automation
+- **6304B** — Robotic Process Automation Concepts — Semester 6 — Robotic Process Automation
+- **6304C** — Digital Marketing — Semester 6 — Robotic Process Automation
+- **6304D** — Multimedia — Semester 6 — Robotic Process Automation
+- **6308** — Julia Programming Lab — Semester 6 — Robotic Process Automation
+- **6309A** — Artificial Intelligence Lab — Semester 6 — Robotic Process Automation
+- **6309B** — Cyber Security Lab — Semester 6 — Robotic Process Automation
+- **6331P** — Advanced Robotics — Semester 6 — Automation and Robotics
+- **6331T** — Advanced Robotics — Semester 6 — Automation and Robotics
+- **6332** — Robotics Process Automation — Semester 6 — Automation and Robotics
+- **6333A** — Electric Drives and Control — Semester 6 — Automation and Robotics
+- **6333B** — Advanced Microprocessor and Microcontroller — Semester 6 — Automation and Robotics
+- **6333C** — Mechatronics and Automation — Semester 6 — Automation and Robotics
+- **6333D** — Manufacturing Automation — Semester 6 — Automation and Robotics
+- **6334A** — Robot Navigation System — Semester 6 — Automation and Robotics
+- **6334B** — Introduction to Industrial Automation — Semester 6 — Automation and Robotics
+- **6334C** — PLC and Automation — Semester 6 — Automation and Robotics
+- **6334D** — Fundamentals of Robotics — Semester 6 — Automation and Robotics
+- **6338** — Robotics Process Automation Lab — Semester 6 — Automation and Robotics
+- **6339A** — Mechatronics and Automation Lab — Semester 6 — Automation and Robotics
+- **6339B** — Manufacturing and Prototyping Lab — Semester 6 — Automation and Robotics
+- **6339C** — Electric Drives and Control Lab — Semester 6 — Automation and Robotics
+- **6339D** — Advanced Microprocessor and Microcontroller Lab — Semester 6 — Automation and Robotics
+- **6341** — Deep Learning — Semester 6 — Artificial Intelligence & Machine Learning
+- **6342A** — Ethical Hacking with AI — Semester 6 — Artificial Intelligence & Machine Learning
+- **6342B** — Computer Vision and Image Processing — Semester 6 — Artificial Intelligence & Machine Learning
+- **6342C** — Mobile Computing — Semester 6 — Artificial Intelligence & Machine Learning
+- **6342D** — Robotic Process Automation — Semester 6 — Artificial Intelligence & Machine Learning
+- **6343A** — Smart Device Programming — Semester 6 — Artificial Intelligence & Machine Learning
+- **6343B** — Virtualisation Technology and Cloud Computing — Semester 6 — Artificial Intelligence & Machine Learning
+- **6348** — Deep Learning Lab — Semester 6 — Artificial Intelligence & Machine Learning
+- **6349A** — Robotic Process Automation Lab — Semester 6 — Artificial Intelligence & Machine Learning
+- **6351A** — Ground Improvement Techniques — Semester 6 — Civil & Environmental Engineering, Civil Engineering (Construction Technology)
+- **6351B** — Environmental Impact Assessment — Semester 6 — Civil & Environmental Engineering
+- **6361A** — Disaster Management — Semester 6 — Civil & Rural Engineering
+- **6361B** — Rural Construction Engineering & Farm Infrastructure — Semester 6 — Civil & Rural Engineering
+- **6371A** — Semiconductor Package and Testing — Semester 6 — Integrated Circuit Design & Fabrication
+- **6371B** — Sensors and Actuators — Semester 6 — Integrated Circuit Design & Fabrication
+- **6372A** — Renewable Energy — Semester 6 — Integrated Circuit Design & Fabrication
+- **6379A** — Sensors and Actuators Lab — Semester 6 — Integrated Circuit Design & Fabrication
+- **6381P** — Visual Data Processing — Semester 6 — Artificial Intelligence
+- **6381T** — Visual Data Processing — Semester 6 — Artificial Intelligence
+- **6382** — Natural Language Processing — Semester 6 — Artificial Intelligence
+- **6383B** — Reinforcement Learning — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6383C** — AI for Robotics — Semester 6 — Artificial Intelligence
+- **6383D** — Virtual Reality and Augmented Reality — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6384A** — Machine Learning Concepts — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6384B** — Generative AI — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6384C** — AI Applications and Ethics — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **6388** — Natural Language Processing Lab — Semester 6 — Artificial Intelligence
+- **6389A** — IOT and Applications Lab — Semester 6 — Artificial Intelligence
+- **6389B** — Mobile Application Development Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6389C** — Virtual Reality Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6389D** — Full Stack Development Lab — Semester 6 — Artificial Intelligence, Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6391P** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6391T** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning, Civil Engineering (Construction Technology)
+- **6392A** — Building Bye Laws and Statutory Drawings — Semester 6 — Civil Engineering & Planning
+- **6392B** — Water Proofing Protection and Repairs — Semester 6 — Civil Engineering & Planning
+- **6411** — Electric Vehicle Technology & Design Consideration — Semester 6 — Electrical Engineering & Electric Vehicles Technology
+- **6419** — Electric Vehicle Hardware Lab — Semester 6 — Electrical Engineering & Electric Vehicles Technology
+- **6421P** — Dairy Processing Technology — Semester 6 — Food Processing Technology
+- **6421T** — Dairy Processing Technology — Semester 6 — Food Processing Technology
+- **6422** — Fruit and Vegetable Processing — Semester 6 — Food Processing Technology
+- **6423A** — Cereals and Legumes — Semester 6 — Food Processing Technology
+- **6423B** — Spices and Condiments — Semester 6 — Food Processing Technology
+- **6423C** — Processing of Meat and Fish — Semester 6 — Food Processing Technology
+- **6423D** — Food Packing Technology — Semester 6 — Food Processing Technology
+- **6424A** — By-Product Utilization — Semester 6 — Food Processing Technology
+- **6424B** — Food Waste Management — Semester 6 — Food Processing Technology
+- **6424C** — Food Laws and Regulation — Semester 6 — Food Processing Technology
+- **6424D** — Non-Thermal Processing Techniques — Semester 6 — Food Processing Technology
+- **6428** — Fruit and Vegetable Processing Lab — Semester 6 — Food Processing Technology
+- **6429A** — Value Added Processing Lab — Semester 6 — Food Processing Technology
+- **6429B** — Cereals and Legumes Processing Lab — Semester 6 — Food Processing Technology
+- **6431P** — Bio Mechatronics — Semester 6 — Mechatronics
+- **6431T** — Bio Mechatronics — Semester 6 — Mechatronics
+- **6432** — Fluid Power Automation — Semester 6 — Mechatronics
+- **6433A** — Thermodynamics — Semester 6 — Mechatronics
+- **6433B** — Renewable Energy — Semester 6 — Mechatronics
+- **6433C** — Maintenance Engineering — Semester 6 — Mechatronics
+- **6433D** — Micro Electro Mechanical Systems — Semester 6 — Mechatronics
+- **6434A** — Robot Safety and Standards — Semester 6 — Mechatronics
+- **6434B** — Non Destructive Testing — Semester 6 — Mechatronics
+- **6434C** — Environmental Impact Assessment — Semester 6 — Mechatronics
+- **6438** — Hydraulics and Pneumatics Lab — Semester 6 — Mechatronics
+- **6439A** — Thermal Engineering Lab — Semester 6 — Mechatronics
+- **6439B** — MEMS Lab — Semester 6 — Mechatronics
+- **6461P** — Automobile Engineering and Safety — Semester 6 — Fire Technology and Safety
+- **6461T** — Automobile Engineering and Safety — Semester 6 — Fire Technology and Safety
+- **6462** — Regulations for Safety Health and Environment — Semester 6 — Fire Technology and Safety
+- **6463A** — Explosion Theory and Control — Semester 6 — Fire Technology and Safety
+- **6463B** — Advanced Safety Management — Semester 6 — Fire Technology and Safety
+- **6463C** — Advanced Fire Control Technology — Semester 6 — Fire Technology and Safety
+- **6463D** — Safety in Oil and Gas Industries — Semester 6 — Fire Technology and Safety
+- **6464A** — Safety Management — Semester 6 — Fire Technology and Safety
+- **6464B** — Basic Fire Control Technology — Semester 6 — Fire Technology and Safety
+- **6464C** — Transportation Safety — Semester 6 — Fire Technology and Safety
+- **6464D** — Basic Safety in Material Handling — Semester 6 — Fire Technology and Safety
+- **6468** — Fire Safety Training Lab — Semester 6 — Fire Technology and Safety
+- **6469A** — Chemical Safety Analysis Lab — Semester 6 — Fire Technology and Safety
+- **6469B** — Computer Aided Risk Analysis Lab — Semester 6 — Fire Technology and Safety
+- **6491P** — Principles of IoT — Semester 6 — Micro Electronics
+- **6491T** — Principles of IoT — Semester 6 — Micro Electronics
+- **6492A** — VLSI Testing — Semester 6 — Micro Electronics
+- **6492B** — RF MEMS — Semester 6 — Micro Electronics
+- **6492C** — Nanoelectronics — Semester 6 — Micro Electronics
+- **6493A** — Entertainment Electronics — Semester 6 — Micro Electronics
+- **6493B** — MEMS — Semester 6 — Micro Electronics
+- **6499A** — Sensors & Actuators Lab — Semester 6 — Micro Electronics
+- **6501A** — Introduction to Project Management and Software Engineering — Semester 6 — Electronics and Computer Engineering
+- **6502A** — Fundamentals of AI and ML — Semester 6 — Electronics and Computer Engineering
+- **6521** — ARM Microcontroller and Applications — Semester 6 — Electronics Engineering (Embedded Systems)
+- **6522A** — Drone Systems and UAV Technology — Semester 6 — Electronics Engineering (Embedded Systems)
+- **6528** — ARM Microcontroller and Applications Lab — Semester 6 — Electronics Engineering (Embedded Systems)
+- **6529A** — Embedded MicroPython Programming Lab — Semester 6 — Electronics Engineering (Embedded Systems)
+- **6531P** — Furniture Design II — Semester 6 — Interior Design
+- **6531T** — Furniture Design II — Semester 6 — Interior Design
+- **6532A** — Landscape for Interiors — Semester 6 — Interior Design
+- **6538** — 3D Printing and Prototyping — Semester 6 — Interior Design
+- **6541P** — Power System Protection — Semester 6 — Electrical Engineering
+- **6541T** — Power System Protection — Semester 6 — Electrical Engineering
+- **6551P** — Mobile Programming — Semester 6 — Computer Science and Technology
+- **6551T** — Mobile Programming — Semester 6 — Computer Science and Technology
+- **6552** — Data Science and Analytics — Semester 6 — Computer Science and Technology
+- **6553B** — Cyber Security Essentials — Semester 6 — Robotic Process Automation
+- **6559** — Data Science and Analytics Lab — Semester 6 — Computer Science and Technology
+- **6561** — Refrigeration and HVAC — Semester 6 — Mechanical Engineering (Automobile Engineering)
+- **6562A** — Automotive Pollution and Control — Semester 6 — Mechanical Engineering (Automobile Engineering)
+- **6569** — Refrigeration and HVAC Lab — Semester 6 — Mechanical Engineering (Automobile Engineering)
+- **6571P** — Internet of Things and Applications — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6571T** — Internet of Things and Applications — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6572A** — Generative AI with Large Language Models — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6579A** — Generative AI with Large Language Models Lab — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6579B** — Programme Elective (official title not published) — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)
+- **6579C** — Programme Elective (official title not published) — Semester 6 — Computer Science and Engineering (Artificial Intelligence & Machine Learning)

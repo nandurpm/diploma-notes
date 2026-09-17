@@ -69,7 +69,7 @@ Extracts, chunks, and structures lesson text across all HTML pages, compiling a 
   ```
 
 ### `generate_sitemap.py`
-Generates the global `sitemap.xml` resource map, ensuring all HTML files and downloadable PDF notes are properly indexed.
+Generates the global `sitemap.xml` resource map, indexing the canonical HTML pages and printable lesson routes.
 * **Usage:**
   ```bash
   python3 tools/generate_sitemap.py
@@ -77,30 +77,17 @@ Generates the global `sitemap.xml` resource map, ensuring all HTML files and dow
 
 ---
 
-## 3. PDF Lesson Notes Generation
+## 3. Printable Lesson Notes
 
-The platform provides offline downloadable PDF notes corresponding to each lesson. These notes are dynamically compiled directly from the live lesson pages.
+The platform keeps lesson content as HTML and does not deploy static note-PDF payloads. Subject cards open the canonical lesson with `?autoPrintNotes=1`, allowing students to use the browser or app print/share menu to save a local PDF copy.
 
-### ⚠️ Local Setup Prerequisite
-Because the PDF generators rely on capturing the rendered HTML, you must boot a local HTTP server on port `8000` first so the script can browse the local files.
+Every retained lesson page includes the shared print stylesheet and print-notes runtime. Run the artifact validator after content changes:
+
 ```bash
-# Run this from the repository root in a separate shell session
-python3 -m http.server 8000
+python3 tools/validate_print_notes_artifact.py .
 ```
 
-### `build_missing_lesson_pdfs.py`
-Searches for Revision 2021 lesson files missing corresponding PDFs in the `notes/` folder, loads them via the local server, and renders them to high-quality print PDFs.
-* **Usage:**
-  ```bash
-  python3 tools/build_missing_lesson_pdfs.py
-  ```
-
-### `build_missing_revision_2026_lesson_pdfs.py`
-Performs the same function for Revision 2026 lessons, exporting generated PDFs to `revision-2026-content/notes/`.
-* **Usage:**
-  ```bash
-  python3 tools/build_missing_revision_2026_lesson_pdfs.py
-  ```
+The validator confirms that no note PDFs or legacy PDF references are present, every **Save as PDF** action uses print mode, and all lesson pages include the shared lesson runtime.
 
 ---
 

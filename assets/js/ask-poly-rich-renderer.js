@@ -106,8 +106,8 @@
     for (const line of lines) {
       if (!line.trim()) {
         flush();
-        list = null;
-        listTag = "";
+        // Keep the current list open when the model inserts blank lines between items.
+        // A following heading or paragraph will reset it naturally.
         continue;
       }
 

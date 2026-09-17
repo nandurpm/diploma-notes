@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
+EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tmp", "tools", "workers", "node_modules", "_site"}
 EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html"}
 FAVICON = '<link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">'
 MANIFEST = '<link rel="manifest" href="/site.webmanifest">'
@@ -16,7 +16,12 @@ THEME = '<meta name="theme-color" content="#1d4ed8">'
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 STRUCTURED_START_RE = re.compile(r'(?=<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>)', re.I)
-ICON_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bicon\b[^"\']*\1)(?=[^>]*href=["\']/assets/media/poly-pmna-favicon\.svg["\'])[^>]*>\s*', re.I)
+# Normalize ordinary favicons regardless of their file format. Keep
+# apple-touch-icon links because they serve a distinct platform purpose.
+ICON_RE = re.compile(
+    r'<link\b(?=[^>]*\brel\s*=\s*(["\'])(?:shortcut\s+)?icon\1)[^>]*>\s*',
+    re.I,
+)
 MANIFEST_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bmanifest\b[^"\']*\1)[^>]*>\s*', re.I)
 THEME_RE = re.compile(r'<meta\b(?=[^>]*\bname\s*=\s*(["\'])theme-color\1)[^>]*>\s*', re.I)
 

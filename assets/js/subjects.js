@@ -241,7 +241,7 @@ const SUBJECTS = [
   { revision: "2021", code: "4333", name: "Linear IC and Power Electronics", department: "Automation and Robotics", semester: "Semester 4", type: "Theory" },
   { revision: "2021", code: "4336", name: "Linear IC and Power Electronics Lab", department: "Automation and Robotics", semester: "Semester 4", type: "Lab" },
   { revision: "2021", code: "4337", name: "Microcontroller based Robotic Application Design Lab", department: "Automation and Robotics", semester: "Semester 4", type: "Lab" },
-  { revision: "2021", code: "4338", name: "Mechanics of of Robotics Lab", department: "Automation and Robotics", semester: "Semester 4", type: "Lab" },
+  { revision: "2021", code: "4338", name: "Mechanics of Robotics Lab", department: "Automation and Robotics", semester: "Semester 4", type: "Lab" },
   { revision: "2021", code: "4339", name: "Industry 4.0", department: "Automation and Robotics", semester: "Semester 4", type: "Theory" },
   { revision: "2021", code: "4006", name: "Minor Project", department: "Automation and Robotics", semester: "Semester 4", type: "Project" },
   { revision: "2021", code: "5001", name: "Industrial Management and Safety", department: "Automation and Robotics", semester: "Semester 5", type: "Theory" },
@@ -1083,7 +1083,7 @@ const SUBJECTS = [
   { revision: "2021", code: "4006", name: "Minor Project", department: "Electronics and Computer Engineering", semester: "Semester 4", type: "Project" },
   { revision: "2021", code: "5002", name: "Project Management and Software Engineering", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Project" },
   { revision: "2021", code: "5131", name: "Embedded System and Real time Operating System", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
-  { revision: "2021", code: "5501", name: "Linear Integared Ciricuits", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
+  { revision: "2021", code: "5501", name: "Linear Integrated Circuits", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5043A", name: "Optical Communication and Networking", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5043B", name: "Microwave Devices and Radar", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5133B", name: "Ethical Hacking", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
@@ -1484,7 +1484,7 @@ const SUBJECTS = [
   { revision: "2021", code: "4041", name: "Microcontroller and Applications", department: "Mechatronics", semester: "Semester 4", type: "Theory" },
   { revision: "2021", code: "4046", name: "Microcontroller and Applications Lab", department: "Mechatronics", semester: "Semester 4", type: "Lab" },
   { revision: "2021", code: "4709", name: "Mechanical Engineering Lab", department: "Mechatronics", semester: "Semester 4", type: "Lab" },
-  { revision: "2021", code: "4338", name: "Mechanics of of Robotics Lab", department: "Mechatronics", semester: "Semester 4", type: "Lab" },
+  { revision: "2021", code: "4338", name: "Mechanics of Robotics Lab", department: "Mechatronics", semester: "Semester 4", type: "Lab" },
   { revision: "2021", code: "4339", name: "Industry 4.0", department: "Mechatronics", semester: "Semester 4", type: "Theory" },
   { revision: "2021", code: "4009", name: "Minor Project", department: "Mechatronics", semester: "Semester 4", type: "Project" },
   { revision: "2021", code: "5001", name: "Industrial Management and Safety", department: "Mechatronics", semester: "Semester 5", type: "Theory" },
@@ -1913,17 +1913,18 @@ const MATERIALS_2015 = {
 };
 
 const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
-const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
+const SITTTR_MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV";
 
 function syllabusLink(subjectCode, revision) {
-  if (revision === "2021") {
-    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+  if (revision === "2021" || revision === "2026") {
+    return `${SITTTR_SYLLABUS_BASE}${encodeURIComponent(subjectCode)}&scheme=REV${encodeURIComponent(revision)}`;
   }
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
 }
 
-function modelQuestionPaperLink(subjectCode) {
-  return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
+function modelQuestionPaperLink(subjectCode, revision) {
+  if (revision === "2026") return "";
+  return `${SITTTR_MODEL_QP_INDEX}${revision === "2021" ? "2021" : "2015"}`;
 }
 
 // Compute root prefix from actual path depth; works from any page.

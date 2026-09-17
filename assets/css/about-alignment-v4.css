@@ -391,7 +391,7 @@
   box-shadow: var(--about-shadow-hover);
 }
 
-.timeline-content-card h4 {
+.timeline-content-card h3 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.15rem;
   font-weight: 800;

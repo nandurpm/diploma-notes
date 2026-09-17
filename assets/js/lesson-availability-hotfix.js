@@ -1,37 +1,90 @@
 /* Purpose: Lesson availability hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
+  if (window.__polyCanonicalPdfResolver) return;
+  window.__polyCanonicalPdfResolver = true;
 
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const REV2026_INDEX = `${SITTTR_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
-  let programmeLookup = null;
-  const VALIDATION_VERSION = "20260718-model-paper-navigation3";
+  const VALIDATION_VERSION = "20260910-local-catalogue2";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth ? "../".repeat(depth) : "";
   };
   const norm = value => String(value || "").trim().toUpperCase();
-  const revisionOf = card => String(card.dataset.revision || "2021").trim();
+  // Cards use stable IDs (REV2021 / REV2026). Normalize older year-only
+  // markup as well, so no REV2026 card can fall through to the 2021 branch.
+  const revisionOf = card => {
+    const value = String(card.dataset.revision || "REV2021").trim().toUpperCase();
+    if (value === "2021" || value === "REV2021") return "REV2021";
+    if (value === "2026" || value === "REV2026") return "REV2026";
+    return value;
+  };
 
-  const notesUrlFor = (code, revision) => revision === "2026"
-    ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
-    : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  const PDF_BASE = "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/";
+  const manifests = new Map();
+  // Resolve relative to the script, not the page: nested department pages and
+  // project-path deployments must use the same published catalogue.
+  const catalogueRoot = new URL("../../docs/pdf-archive/manifests/", document.currentScript.src);
+
+  async function loadNotesCatalogue(year) {
+    const sources = [
+      new URL(`notes-${year}.json`, catalogueRoot).href,
+      `${PDF_BASE}manifests/notes-${year}.json`,
+    ];
+    let lastError;
+    for (const url of sources) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(url, { cache: "no-cache", signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (String(data.revision) !== year || !Array.isArray(data.subjects)) {
+          throw new Error("Invalid PDF catalogue.");
+        }
+        return new Map(data.subjects
+          .filter(item => item && item.status === "published" && typeof item.pdfUrl === "string" && item.pdfUrl.startsWith(`${PDF_BASE}notes/${year}/`))
+          .map(item => [norm(item.code), item.pdfUrl]));
+      } catch (error) {
+        lastError = error;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+    throw lastError;
+  }
+
+  async function notesUrlFor(code, revision) {
+    const year = revision.replace(/^REV/, "");
+    if (!["2021", "2026"].includes(year)) return "";
+    if (!manifests.has(year)) {
+      const pending = loadNotesCatalogue(year).catch(error => {
+        manifests.delete(year); // A user retry must make a fresh request.
+        throw error;
+      });
+      manifests.set(year, pending);
+    }
+    return (await manifests.get(year)).get(norm(code)) || "";
+  }
 
   const lessonUrlFor = (code, revision, printMode = false) => {
-    const href = revision === "2026"
+    const href = revision === "REV2026"
       ? `${root()}revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`
       : `${root()}lessons/lessons-${encodeURIComponent(code)}.html`;
     return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
   };
 
-  const questionPaperUrlFor = code =>
-    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
+  const questionPaperUrlFor = (code, revision) => {
+    const tag = String(revision || "").toUpperCase();
+    if (tag === "REV2026" || tag === "2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
+  };
 
-  const programmeQuestionPaperUrlFor = programmeCode =>
-    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
+  const modelPaperUnavailableMessage = (revision, code) =>
+    `Model Question Paper not available for Revision ${String(revision || "").replace(/^REV/, "")} for course ${code}.`;
 
   function bindReliableOfficialNavigation(link) {
     if (!link) return;
@@ -52,106 +105,24 @@
 
   function normalizeQuestionPaperLink(card, row, code, revision) {
     const link = row.querySelector(".action.qp");
-    if (!link || !code) return link;
+    if (!link || !code || link.dataset.modelPaperUnavailable === 'true' || link.getAttribute('aria-disabled') === 'true') return link;
+    // Preserve course-specific PDFs and verified links from the page renderer.
+    const href = link.getAttribute('href');
+    if (!href) return link;
+    const route = new URL(href, location.href).searchParams.get('r');
+    if (route !== 'site/diploma-modelqp') return link;
     link.dataset.courseCode = code;
     link.dataset.modelPaperCourse = code;
-    if (revision === "2026") link.dataset.scheme = "REV2026";
+    link.dataset.modelPaperRevision = revision;
+    const revisionLabel = String(revision || "").replace(/^REV/, "");
+    link.removeAttribute("aria-disabled");
+    delete link.dataset.modelPaperUnavailable;
     return configureOfficialLink(
       link,
-      questionPaperUrlFor(code),
-      "Open Model Question Paper",
-      `Open the official SITTTR model-question-paper page for course ${code}.`
+      questionPaperUrlFor(code, revision),
+      `Browse all Revision ${revisionLabel} papers`,
+      `Browse the official Revision ${revisionLabel} paper index; a paper for this course is not guaranteed.`
     );
-  }
-
-  function findLinkByUrl(links, predicate) {
-    return links.find(link => {
-      try {
-        return predicate(new URL(link.href, location.href));
-      } catch {
-        return false;
-      }
-    }) || null;
-  }
-
-  function rebuildModelPaperNotice(notice, programmeCode = "") {
-    if (!notice) return;
-    let label = notice.querySelector("strong");
-    if (!label) {
-      label = document.createElement("strong");
-      notice.prepend(label);
-    }
-    label.textContent = "Official Revision 2026 model question papers:";
-
-    const links = [...notice.querySelectorAll("a")];
-    let indexLink = notice.querySelector("a[data-model-qp-index]") || findLinkByUrl(links, url =>
-      /diploma-modelqp$/i.test(url.searchParams.get("r") || "") &&
-      norm(url.searchParams.get("scheme")) === "REV2026"
-    );
-    if (!indexLink) {
-      indexLink = document.createElement("a");
-      indexLink.className = "btn ghost";
-    }
-    indexLink.dataset.modelQpIndex = "REV2026";
-    configureOfficialLink(
-      indexLink,
-      REV2026_INDEX,
-      "Open all REV2026 model papers",
-      "Open the official SITTTR Revision 2026 model-question-paper index."
-    );
-
-    let departmentLink = null;
-    if (programmeCode) {
-      departmentLink = notice.querySelector("a[data-model-qp-programme]") || findLinkByUrl(links, url =>
-        /diploma-modelqp-courses$/i.test(url.searchParams.get("r") || "") &&
-        norm(url.searchParams.get("prog")) === programmeCode
-      );
-      if (!departmentLink) {
-        departmentLink = document.createElement("a");
-        departmentLink.className = "btn ghost";
-      }
-      departmentLink.dataset.modelQpProgramme = programmeCode;
-      configureOfficialLink(
-        departmentLink,
-        programmeQuestionPaperUrlFor(programmeCode),
-        `Open ${programmeCode} department model papers`,
-        `Open the official SITTTR model-question-paper list for department ${programmeCode}.`
-      );
-    }
-
-    links.forEach(link => {
-      if (link !== indexLink && link !== departmentLink) link.remove();
-    });
-    [...notice.childNodes].forEach(node => {
-      if (node !== label && node !== indexLink && node !== departmentLink) node.remove();
-    });
-    notice.append(label, document.createTextNode(" "));
-    if (departmentLink) notice.append(departmentLink, document.createTextNode(" "));
-    notice.append(indexLink);
-  }
-
-  async function enhanceDepartmentPaperAccess() {
-    const slug = document.body?.dataset?.programmeSlug;
-    const revision = String(document.body?.dataset?.revision || "");
-    const notice = document.getElementById("rev2026-model-qp-access");
-    if (revision !== "2026" || !notice) return;
-    if (!slug) return;
-
-    rebuildModelPaperNotice(notice);
-
-    if (!programmeLookup) {
-      programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260718-model-paper-navigation3`, { cache: "no-store" })
-        .then(response => response.ok ? response.json() : null)
-        .catch(() => null);
-    }
-
-    const payload = await programmeLookup;
-    const programme = payload?.programmes?.find(item => item.slug === slug);
-    const programmeCode = norm(programme?.officialCode);
-    if (!programmeCode || !notice.isConnected) return;
-
-    document.body.dataset.programmeCode = programmeCode;
-    rebuildModelPaperNotice(notice, programmeCode);
   }
 
   async function headOk(url, rejectHtml = false) {
@@ -172,6 +143,12 @@
 
   const lessonExists = url => headOk(url, false);
   const pdfExists = url => headOk(url, true);
+  const declaredAvailability = (card, field) => {
+    const value = String(card?.dataset?.[field] || "").trim().toLowerCase();
+    if (value === "true") return true;
+    if (value === "false") return false;
+    return null;
+  };
 
   function keepSingle(row, selector) {
     const items = [...row.querySelectorAll(selector)];
@@ -223,13 +200,13 @@
     download.className = "action download";
     const downloadHref = notesAvailable ? notesHref : printHref;
     if (download.getAttribute("href") !== downloadHref) download.setAttribute("href", downloadHref);
-    if (download.textContent !== "Download Notes") download.textContent = "Download Notes";
+    download.textContent = notesAvailable ? "Download PDF" : "Print / Save as PDF";
     download.removeAttribute("aria-disabled");
 
     if (notesAvailable) {
-      download.setAttribute("download", "");
-      download.removeAttribute("target");
-      download.removeAttribute("rel");
+      download.removeAttribute("download");
+      download.target = "_blank";
+      download.rel = "noopener noreferrer";
     } else {
       download.removeAttribute("download");
       download.target = "_blank";
@@ -244,19 +221,34 @@
     const validationKey = `${VALIDATION_VERSION}:${revision}:${code}`;
     if (!row || !code || checking.has(card) || card.dataset.availabilityValidated === validationKey) return;
     checking.add(card);
+    let failed = false;
+    row.querySelector(".pdf-load-retry")?.remove();
 
     try {
       const qp = normalizeQuestionPaperLink(card, row, code, revision);
       const lessonHref = lessonUrlFor(code, revision);
-      const notesHref = notesUrlFor(code, revision);
+      const notesHref = await notesUrlFor(code, revision);
       const printHref = lessonUrlFor(code, revision, true);
-      const lessonAvailable = await lessonExists(lessonHref);
+      const declaredLesson = declaredAvailability(card, "lessonAvailable");
+      const lessonAvailable = declaredLesson === null
+        ? await lessonExists(lessonHref)
+        : declaredLesson;
       if (!card.isConnected) return;
 
       if (!lessonAvailable) {
         card.dataset.lessonAvailable = "false";
-        card.dataset.notesAvailable = "false";
+        card.dataset.notesAvailable = String(Boolean(notesHref));
         ensureUnavailable(row, qp);
+        if (notesHref) {
+          const download = document.createElement("a");
+          download.className = "action download";
+          download.href = notesHref;
+          download.textContent = "Download PDF";
+          download.target = "_blank";
+          download.rel = "noopener noreferrer";
+          row.querySelector(".notes-status")?.replaceWith(download);
+          card.dataset.notesHref = notesHref;
+        }
         return;
       }
 
@@ -264,12 +256,23 @@
       card.dataset.lessonHref = lessonHref;
       card.dataset.notesHref = notesHref;
 
-      const notesAvailable = await pdfExists(notesHref);
+      // Published manifest entries supersede stale generated card flags.
+      const notesAvailable = Boolean(notesHref);
       if (!card.isConnected) return;
       ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
       card.dataset.notesAvailable = String(notesAvailable);
+    } catch (error) {
+      failed = true;
+      if (!card.isConnected) return;
+      // A network failure is not evidence that notes are unpublished.
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'btn pdf-load-retry';
+      retry.textContent = 'PDF availability could not be checked. Retry';
+      retry.addEventListener('click', () => validateCard(card), { once: true });
+      row.append(retry);
     } finally {
-      if (card.isConnected) card.dataset.availabilityValidated = validationKey;
+      if (!failed && card.isConnected) card.dataset.availabilityValidated = validationKey;
       checking.delete(card);
     }
   }
@@ -278,7 +281,6 @@
   function run() {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      enhanceDepartmentPaperAccess();
       const grid = document.getElementById("subjectGrid");
       if (grid?.dataset.mode === "papers") return;
       document.querySelectorAll(".subject-card").forEach(validateCard);
@@ -300,3 +302,4 @@
     if (hasRelevantChange) run();
   }).observe(document.body, { childList: true, subtree: true });
 })();
+

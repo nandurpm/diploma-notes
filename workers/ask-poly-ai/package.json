@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "check": "node --check src/index.js",
-    "test": "node --test test/*.test.js",
-    "coverage": "node --test --experimental-test-coverage test/*.test.js",
+    "test": "node --test test/*.test.js test/*.test.mjs",
+    "coverage": "node --test --experimental-test-coverage test/*.test.js test/*.test.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.131.0"
   }
 }

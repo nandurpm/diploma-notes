@@ -1,6 +1,6 @@
 # Purpose: Generate sitemap - Descriptive comment added for clarity
 #!/usr/bin/env python3
-"""Generate sitemap.xml from canonical public HTML and downloadable study PDFs."""
+"""Generate sitemap.xml from canonical public HTML lesson and site pages."""
 from __future__ import annotations
 
 import argparse
@@ -69,11 +69,6 @@ def entries() -> list[tuple[str, str]]:
         url = canonical_for(path)
         if url:
             found[url] = git_lastmod(path)
-    for pattern in ("notes/*.pdf", "revision-2026-content/notes/*.pdf"):
-        for path in ROOT.glob(pattern):
-            if path.is_file():
-                url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
-                found[url] = git_lastmod(path)
     return sorted(found.items(), key=lambda item: (item[0] != f"{ORIGIN}/", item[0]))
 
 

@@ -1,0 +1,26 @@
+/* Model Question Papers page styles previously embedded inline, now external for CSP compliance. */
+.qp-index-card .action-row {
+  margin-top: 14px;
+}
+
+.qp-help-panel {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid rgba(29, 78, 216, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.94), rgba(255, 255, 255, 0.96));
+}
+
+.qp-help-panel ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.qp-help-panel li {
+  margin: 4px 0;
+}
+
+.result-limit-note {
+  grid-column: 1 / -1;
+  margin-bottom: 14px;
+}

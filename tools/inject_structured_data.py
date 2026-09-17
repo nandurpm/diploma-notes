@@ -9,11 +9,12 @@ import json
 import re
 from pathlib import Path
 
+from structured_data_html import find_structured_data_blocks, remove_structured_data_blocks
+
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
-EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html"}
-BLOCK_RE = re.compile(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>[\s\S]*?</script>\s*', re.I)
+EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html", "origin_main_1253.html"}
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 TITLE_RE = re.compile(r"<title>([\s\S]*?)</title>", re.I)
@@ -47,6 +48,8 @@ def metadata(text: str) -> tuple[str, str, str, str]:
 def page_type(relative: str) -> str:
     if relative == "index.html":
         return "WebSite"
+    if relative == "about.html":
+        return "AboutPage"
     if relative in {"revision-2021.html", "revision-2026.html", "materials-2015.html", "tools-catalog.html"}:
         return "CollectionPage"
     if relative.startswith(("revision-2021/", "revision-2026/")):
@@ -110,7 +113,7 @@ def public_pages() -> list[Path]:
 
 def updated_text(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
-    source = BLOCK_RE.sub("", read_page(path))
+    source = remove_structured_data_blocks(read_page(path))
     data = payload(relative, source)
     block = '<script type="application/ld+json" data-poly-structured-data>' + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "</script>\n"
     updated, count = HEAD_END_RE.subn(block + "</head>", source, count=1)
@@ -120,10 +123,10 @@ def updated_text(path: Path) -> str:
 
 
 def validate(text: str, relative: str) -> None:
-    matches = re.findall(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>([\s\S]*?)</script>', text, re.I)
-    if len(matches) != 1:
-        raise ValueError(f"Expected one POLY JSON-LD block in {relative}; found {len(matches)}")
-    data = json.loads(matches[0])
+    blocks = find_structured_data_blocks(text)
+    if len(blocks) != 1:
+        raise ValueError(f"Expected one POLY JSON-LD block in {relative}; found {len(blocks)}")
+    data = json.loads(blocks[0].payload)
     for key in ("@context", "@type", "name", "url"):
         if not data.get(key):
             raise ValueError(f"Structured data missing {key} in {relative}")

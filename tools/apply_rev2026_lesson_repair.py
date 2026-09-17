@@ -6,17 +6,18 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSON_RUNTIME = "20260725-watermark1"
+LESSON_RUNTIME = "20260819-ask-context1"
 REV2026_RUNTIME = "20260718-rev2026-repair4"
 MODEL_RUNTIME = "20260718-model-paper-navigation3"
 SITTTR = "https://sitttrkerala.ac.in/index.php"
-COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp-courses-show&course={}"
+COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp&scheme=REV2026"
 
 LESSON_SCRIPT_RE = re.compile(
     r'<script\b[^>]*src=["\']/assets/js/lesson-navigation-fix\.js\?v=[^"\']+["\'][^>]*>\s*</script>',
@@ -39,7 +40,11 @@ def write(path: Path, text: str, check: bool) -> bool:
         return False
     if check:
         raise RuntimeError(f"stale generated/source file: {path.relative_to(ROOT)}")
-    path.write_text(text, encoding="utf-8")
+    base_real = os.path.realpath(ROOT)
+    target_real = os.path.realpath(path)
+    if os.path.commonpath([base_real, target_real]) != base_real:
+        raise RuntimeError("Invalid file path")
+    Path(target_real).write_text(text, encoding="utf-8")
     return True
 
 
@@ -227,8 +232,8 @@ def revision_department_pages() -> list[Path]:
     registry_path = ROOT / "assets/data/revision-2026-programmes.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     programmes = registry.get("programmes", [])
-    if len(programmes) != 38:
-        raise RuntimeError(f"expected 38 programme records, found {len(programmes)}")
+    if len(programmes) != 42:
+        raise RuntimeError(f"expected 42 programme records, found {len(programmes)}")
     pages = [ROOT / "revision-2026" / f"{item['slug']}.html" for item in programmes]
     missing = [path.name for path in pages if not path.exists()]
     if missing:
@@ -300,6 +305,9 @@ def validate() -> None:
 
 
 def main() -> int:
+    if not (ROOT / "assets/js/lesson-availability-hotfix.js").exists():
+        print("REV2026 legacy lesson hotfix is retired; no repair is required.")
+        return 0
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="Validate without modifying files")
     args = parser.parse_args()

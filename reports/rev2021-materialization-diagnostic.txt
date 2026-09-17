@@ -1,0 +1,5 @@
+Revision 2021 materialization diagnostic
+Commit: 081d6b46ef1595331c76851a671e4c94d80b22bf
+Run: 32566654411
+
+Could not normalize revision-2021/manufacturing-technology.html

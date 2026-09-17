@@ -17,6 +17,7 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_FILE = ROOT / "automation" / "rev2026-syllabus-queue.txt"
+QUEUE_MANIFEST = ROOT / "assets" / "data" / "revision-2026-subjects-lite.json"
 LESSONS_DIR = ROOT / "revision-2026-content" / "lessons"
 MASTER_PROMPT_CANDIDATES = (
     ROOT / "docs" / "poly-pmna-lesson-html-master-prompt.md",
@@ -35,7 +36,7 @@ GITHUB_MODELS_ENDPOINT = os.environ.get(
 GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
 ASK_POLY_ENDPOINT = os.environ.get(
     "ASK_POLY_ENDPOINT",
-    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy",
+    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly",
 )
 
 MIN_HTML_CHARS = int(os.environ.get("REV2026_MIN_HTML_CHARS", "30000"))
@@ -70,19 +71,33 @@ def code_sort_key(code: str) -> tuple[int, int, str]:
 
 
 def load_queue() -> list[str]:
-    if not QUEUE_FILE.exists():
-        raise GenerationError(f"Queue file is missing: {QUEUE_FILE.relative_to(ROOT)}")
     codes: list[str] = []
-    for raw in QUEUE_FILE.read_text(encoding="utf-8").splitlines():
-        value = raw.split("#", 1)[0].strip().upper()
-        if not value:
-            continue
-        if not CODE_RE.fullmatch(value):
-            raise GenerationError(f"Invalid subject code in queue: {value!r}")
-        codes.append(value)
-    unique = sorted(set(codes), key=code_sort_key)
+    if QUEUE_FILE.exists():
+        for raw in QUEUE_FILE.read_text(encoding="utf-8").splitlines():
+            value = raw.split("#", 1)[0].strip().upper()
+            if not value:
+                continue
+            if not CODE_RE.fullmatch(value):
+                raise GenerationError(f"Invalid subject code in queue: {value!r}")
+            codes.append(value)
+    else:
+        # The queue is an optional override. When it is absent, derive the
+        # ordered candidates from the maintained subject manifest so the daily
+        # job can still discover any lesson that is genuinely missing.
+        if not QUEUE_MANIFEST.exists():
+            raise GenerationError(
+                f"Queue file is missing and fallback manifest is unavailable: {QUEUE_MANIFEST.relative_to(ROOT)}"
+            )
+        try:
+            manifest = json.loads(QUEUE_MANIFEST.read_text(encoding="utf-8"))
+            codes = [str(item.get("code", "")).strip().upper() for item in manifest.get("subjects", [])]
+        except (OSError, json.JSONDecodeError) as error:
+            raise GenerationError(f"Could not load fallback subject manifest: {error}") from error
+        log(f"Queue override not found; using {QUEUE_MANIFEST.relative_to(ROOT)} as the candidate list.")
+
+    unique = sorted({code for code in codes if CODE_RE.fullmatch(code)}, key=code_sort_key)
     if not unique:
-        raise GenerationError("The REV2026 queue is empty.")
+        raise GenerationError("The REV2026 queue and fallback subject manifest contain no valid subject codes.")
     return unique
 
 
@@ -283,11 +298,12 @@ OUTPUT CONTRACT — NON-NEGOTIABLE
 - Do not use Markdown fences, explanations, status reports, TODOs, placeholders, or abbreviated sections.
 - The exact output path will be revision-2026-content/lessons/lessons-{code}.html.
 - Preserve the full code including suffix letters.
-- Use the correct notes path /revision-2026-content/notes/downloadable-notes-{code}.pdf.
+- Make Download Notes link to /revision-2026-content/lessons/lessons-{code}.html?autoPrintNotes=1 in the same tab; do not reference or generate a static notes PDF.
 - Include Print / Save PDF and Download Notes controls.
 - Support ?autoPrintNotes=1 and ?downloadNotes=1.
 - Use full-width responsive layout with no duplicate website header, no fixed site header, and no permanent left sidebar.
 - Include substantial Malayalam support for major concepts; keep technical terms, formulas, units, standards and component names in English.
+- Mark every Malayalam-support container with lang="ml" (and use lang="en" for English-only containers); do not leave visible Malayalam prose under an English-only ancestor.
 - Include every official module/topic/outcome/experiment/activity from the source.
 - Disclose official-source inconsistencies instead of silently correcting them.
 - Use semantic HTML, internal CSS, vanilla JavaScript, inline SVG and local/root-relative assets only.
@@ -423,9 +439,9 @@ def validate_html(document: str, code: str, title: str, syllabus_text: str) -> l
     for phrase in ("print / save pdf", "download notes"):
         if phrase not in plain:
             errors.append(f"required control is missing: {phrase}")
-    expected_pdf = f"/revision-2026-content/notes/downloadable-notes-{code}.pdf".lower()
-    if expected_pdf not in lower:
-        errors.append("correct Revision 2026 notes PDF path is missing")
+    expected_print_url = f"/revision-2026-content/lessons/lessons-{code}.html?autoprintnotes=1".lower()
+    if expected_print_url not in lower:
+        errors.append("correct Revision 2026 print-mode lesson URL is missing")
     if "autoprintnotes" not in lower or "downloadnotes" not in lower:
         errors.append("required notes query-parameter handling is missing")
     if len(re.findall(r"<h2\b", lower)) < 6:
@@ -468,7 +484,7 @@ def inject_shared_runtime(document: str) -> str:
     marker = '/assets/js/lesson-navigation-fix.js'
     if marker in document.lower():
         return document
-    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>'
+    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260819-ask-context1" defer></script>'
     body_end = re.search(r'</body\s*>', document, flags=re.I)
     if body_end:
         document = document[:body_end.start()] + script_tag + '\n' + document[body_end.start():]

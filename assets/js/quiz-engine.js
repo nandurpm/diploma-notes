@@ -9,6 +9,9 @@
 
   let current = [];
   let subject = '';
+  let authChoiceLocked = false;
+  let quizRequestVersion = 0;
+  let submissionInFlight = false;
 
   function ensureGeneralKnowledge() {
     if (!B.subjects.GK) B.subjects.GK = 'General Knowledge';
@@ -79,7 +82,8 @@
     $('authView')?.classList.add('hidden');
     $('portalView')?.classList.remove('hidden');
     $('welcomeTitle').textContent = 'Welcome, ' + name;
-    show('dashboardView');
+    show('dailyView');
+    renderCurriculumCards('daily');
     stats();
     recent();
   }
@@ -125,6 +129,55 @@
     if ($('submitQuiz')) $('submitQuiz').disabled = true;
   }
 
+  function renderScoreTracker(rows) {
+    const target = $('scoreTracker');
+    if (!target) return;
+
+    if (!rows.length) {
+      target.innerHTML = '<p class="tracker-empty">Complete a Daily Quiz to start your private score tracker. Your guest history stays in this browser; signed-in history may also be saved online.</p>';
+      return;
+    }
+
+    const bySubject = new Map();
+    const dates = new Set();
+    let totalScore = 0;
+    let totalQuestions = 0;
+
+    rows.forEach((row) => {
+      const score = Number(row.best_score ?? row.score ?? 0) || 0;
+      const total = Number(row.total_questions ?? 10) || 10;
+      totalScore += score;
+      totalQuestions += total;
+      if (row.quiz_date) dates.add(row.quiz_date);
+      const current = bySubject.get(row.subject_code) || { code: row.subject_code, best: 0, attempts: 0, latest: '' };
+      current.best = Math.max(current.best, score);
+      current.attempts += 1;
+      current.latest = String(current.latest || '') > String(row.quiz_date || '') ? current.latest : (row.quiz_date || '');
+      bySubject.set(row.subject_code, current);
+    });
+
+    const lastDate = [...dates].sort().at(-1);
+    let streak = 0;
+    if (lastDate) {
+      const cursor = new Date(lastDate + 'T00:00:00');
+      while (dates.has(R.dateKey(cursor))) {
+        streak += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+    }
+
+    const average = totalQuestions ? Math.round((totalScore / totalQuestions) * 100) : 0;
+    const leaders = [...bySubject.values()]
+      .sort((a, b) => b.best - a.best || b.attempts - a.attempts || String(a.code).localeCompare(String(b.code)))
+      .slice(0, 8);
+
+    target.innerHTML = `<div class="tracker-metrics">
+      <article><span>Total points</span><strong>${totalScore}</strong><small>across ${rows.length} saved attempt${rows.length === 1 ? '' : 's'}</small></article>
+      <article><span>Average score</span><strong>${average}%</strong><small>best recorded score per submitted attempt</small></article>
+      <article><span>Study streak</span><strong>${streak} day${streak === 1 ? '' : 's'}</strong><small>consecutive days ending on your latest attempt</small></article>
+    </div><ol class="personal-leaderboard">${leaders.map((entry, index) => `<li><span class="leader-rank">${index + 1}</span><div><strong>${esc(entry.code)} — ${esc(title(entry.code))}</strong><small>${entry.attempts} attempt${entry.attempts === 1 ? '' : 's'} · last saved ${esc(entry.latest || '—')}</small></div><b>${entry.best}/10</b></li>`).join('')}</ol>`;
+  }
+
   function renderReadOnly(code, row, date = R.dateKey()) {
     subject = code;
     current = qset(code, date);
@@ -152,8 +205,9 @@
   }
 
   async function renderQuiz(code) {
+    const requestVersion = ++quizRequestVersion;
     if (!B.questions[code] || B.questions[code].length === 0) {
-      alert(`Daily practice questions for Course Code ${code} are currently under development.\n\nPlease try our First-Year Common Quizzes (Math, Physics, Chemistry, English, Environment, Constitution) or General Knowledge in the meantime!`);
+      alert(`Questions for this subject are being prepared.\n\nPlease try a supported first-year subject or General Knowledge in the meantime.`);
       return;
     }
     subject = code;
@@ -164,6 +218,7 @@
     hideQuizControls();
 
     const existing = await R.today(code);
+    if (requestVersion !== quizRequestVersion || subject !== code) return;
     if (existing) {
       renderReadOnly(code, existing, R.dateKey());
       return;
@@ -176,13 +231,33 @@
 
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">One attempt only. After submit, the result saves online and cannot be edited today.</p>` + current.map((q, index) => `
       <div class="question" id="q${esc(q.id)}">
-        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</div>
+        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext" id="question-label-${esc(q.id)}">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
+        <fieldset class="options" aria-labelledby="question-label-${esc(q.id)}"><legend class="sr-only">Choose one answer</legend>${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</fieldset>
         <div class="answer hidden" id="a${esc(q.id)}"></div>
       </div>`).join('');
+    $('quizBox').querySelectorAll('input[type="radio"]').forEach((input) => input.addEventListener('change', updateQuizProgress));
+    updateQuizProgress();
+  }
+
+  function updateQuizProgress() {
+    const answered = current.filter((q) => document.querySelector(`input[name="${CSS.escape(q.id)}"]:checked`)).length;
+    const total = current.length || 10;
+    const percent = Math.round((answered / total) * 100);
+    $('quizProgressWrap')?.style.setProperty('display', 'block');
+    $('quizProgressBar')?.style.setProperty('width', `${percent}%`);
+    $('quizProgressWrap')?.setAttribute('aria-valuenow', String(percent));
+    $('quizProgressWrap')?.setAttribute('aria-valuetext', `${answered} of ${total} questions answered`);
+  }
+
+  function scoreFeedback(score) {
+    if (score >= 9) return 'Excellent work — review any missed answer and continue your streak.';
+    if (score >= 7) return 'Good progress — review the incorrect answers before the next quiz.';
+    if (score >= 5) return 'Developing well — revise the listed topics before tomorrow’s quiz.';
+    return 'Review recommended — use the correct-answer review to focus your next study session.';
   }
 
   async function submit() {
+    if (submissionInFlight) return;
     const existing = await R.today(subject);
     if (existing) {
       renderReadOnly(subject, existing, R.dateKey());
@@ -218,6 +293,7 @@
       return;
     }
 
+    submissionInFlight = true;
     $('submitQuiz').disabled = true;
     $('quizMsg').textContent = 'Saving result online…';
     $('quizMsg').className = 'status';
@@ -238,6 +314,7 @@
 
     const saved = await R.save(row);
     if (!saved.remote && !saved.guest) {
+      submissionInFlight = false;
       $('submitQuiz').disabled = false;
       $('quizMsg').textContent = 'Cloud save failed. Check internet/login and submit again. Result is not locked until cloud save succeeds.';
       $('quizMsg').className = 'status error';
@@ -245,6 +322,8 @@
     }
 
     renderReadOnly(subject, saved.row || row, R.dateKey());
+    $('quizMsg').textContent = `Score: ${score}/10. ${scoreFeedback(score)}`;
+    submissionInFlight = false;
     stats();
     recent();
   }
@@ -268,6 +347,7 @@
       if ($('analysisBox')) {
         $('analysisBox').innerHTML = `<div class="analysis-card"><span>Mode</span><b>${A?.guest ? 'Guest' : 'Login'}</b></div><div class="analysis-card"><span>Question Bank</span><b>${bank}</b></div><div class="analysis-card"><span>Saved Results</span><b>${rows.length}</b></div><div class="analysis-card"><span>Today</span><b>${today.length}</b></div>`;
       }
+      renderScoreTracker(rows);
     } catch (err) {
       console.error("Failed to load quiz statistics", err);
       if ($('dateStat')) $('dateStat').textContent = 'Error';
@@ -279,6 +359,7 @@
           <button class="btn outline btn-sm" onclick="location.reload()" type="button" style="margin-top: 10px; display: inline-flex;">Retry Connection</button>
         </div>`;
       }
+      if ($('scoreTracker')) $('scoreTracker').innerHTML = '<p class="tracker-empty">Your score tracker is temporarily unavailable because saved practice records could not be loaded.</p>';
     }
   }
 
@@ -322,15 +403,16 @@
       <p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p>
       <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" style="width:100%; margin-top:auto;">${label}</button>`;
 
-    el.onclick = () => {
+    const activate = () => {
       if (!isSupported) {
-        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease practice with our first-year Common Subjects (English, Mathematics, Physics, Chemistry, Environment, Constitution) or General Knowledge in the meantime!`);
+        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease choose another supported subject or General Knowledge while more question banks are being prepared.`);
         return;
       }
       if (kind === 'daily') renderQuiz(code);
       else if (kind === 'review') review(code);
       else location.href = (code === '1004' ? '/mock-exam-1004.html' : '/mock-exam.html?subject=' + encodeURIComponent(code));
     };
+    el.querySelector('button').addEventListener('click', activate);
     $(target).appendChild(el);
   }
 
@@ -344,10 +426,12 @@
     const dept = kind === 'daily' ? $('dailyDept').value : kind === 'review' ? $('reviewDept').value : $('mockDept').value;
 
     if (category === 'common') {
-      CURR.common.forEach((sub) => {
-        card(targetId, sub.code, sub.name, kind);
-      });
-      // Add GK specifically to common daily/review lists
+      CURR.common
+        .filter((sub) => Array.isArray(B.questions[sub.code]) && B.questions[sub.code].length > 0)
+        .forEach((sub) => {
+          card(targetId, sub.code, sub.name, kind);
+        });
+      // Add GK specifically to common daily/review lists.
       if (kind !== 'mock') {
         card(targetId, 'GK', 'General Knowledge', kind);
       }
@@ -427,6 +511,7 @@
     registerTab?.addEventListener('keydown', handleTabKey);
     $('authForm').onsubmit = async (event) => {
       event.preventDefault();
+      authChoiceLocked = true;
       $('authSubmit').disabled = true;
       msg('Please wait...', true);
       try {
@@ -451,7 +536,7 @@
         if (cp) cp.type = type;
       };
     }
-    $('guestLogin').onclick = () => enter(A.asGuest().name);
+    $('guestLogin').onclick = () => { authChoiceLocked = true; enter(A.asGuest().name); };
     $('logoutBtn').onclick = async () => { await A.logout(); location.reload(); };
     $('openDash').onclick = () => { show('dashboardView'); stats(); recent(); };
     $('openDaily').onclick = () => { show('dailyView'); renderCurriculumCards('daily'); };
@@ -468,7 +553,7 @@
     setInterval(tick, 1000);
     tick();
     mode('login');
-    A.restore().then((result) => { if (result) enter(result.name); });
+    A.restore().then((result) => { if (result && !authChoiceLocked) enter(result.name); });
     stats();
   }
 

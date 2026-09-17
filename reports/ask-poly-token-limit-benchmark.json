@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-08-23T09:36:27Z",
+  "endpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
+  "tested_deployment": "current production; MAX_OUTPUT_TOKENS=1200",
+  "reference_deployment": "historical controlled run; MAX_OUTPUT_TOKENS=6000",
+  "workload": {
+    "concurrency": 10,
+    "context_chars": 14000,
+    "same_context_as_reference": true,
+    "case": "Explain the key examination topics in this course and give a concise study plan."
+  },
+  "current_1200": {
+    "successful": 10,
+    "failed": 0,
+    "wall_ms": 6945.5,
+    "min_ms": 4796.0,
+    "mean_ms": 6032.9,
+    "median_ms": 6381.6,
+    "p95_ms": 6793.5,
+    "max_ms": 6942.2,
+    "providers": [
+      "nvidia"
+    ],
+    "results": [
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2294,
+        "elapsed_ms": 6793.5
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2214,
+        "elapsed_ms": 6942.2
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2294,
+        "elapsed_ms": 5839.4
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 1052,
+        "elapsed_ms": 4886.5
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 1136,
+        "elapsed_ms": 4796.0
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2087,
+        "elapsed_ms": 6306.8
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2318,
+        "elapsed_ms": 6538.5
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 2536,
+        "elapsed_ms": 6462.6
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 1985,
+        "elapsed_ms": 6456.3
+      },
+      {
+        "ok": true,
+        "status": 200,
+        "provider": "nvidia",
+        "model": "meta/llama-3.1-8b-instruct",
+        "answer_chars": 1723,
+        "elapsed_ms": 5307.3
+      }
+    ],
+    "median_delta_pct_vs_6000": 25.8,
+    "p95_delta_pct_vs_6000": -9.9
+  },
+  "historical_6000_reference": {
+    "successful": 10,
+    "failed": 0,
+    "wall_ms": 7545,
+    "min_ms": 4160,
+    "median_ms": 5072,
+    "p95_ms": 7541,
+    "max_ms": 7541,
+    "provider": "nvidia",
+    "model": "meta/llama-3.1-8b-instruct",
+    "source": "ask-poly-stress-telemetry-report.md"
+  }
+}

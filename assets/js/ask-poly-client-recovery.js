@@ -4,7 +4,7 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
+  const RETRYABLE_STATUS = new Set([400, 401, 403, 408, 425, 429, 500, 502, 503, 504]);
   const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
@@ -25,7 +25,7 @@
   function endpointCandidates() {
     return [...new Set([
       String(config().endpoint || "").trim(),
-      String(config().backupEndpoint || "").trim()
+      String(config().fallbackEndpoint || "").trim()
     ].filter(Boolean))];
   }
 
@@ -42,7 +42,11 @@
         return "";
       }
     });
-    return [...new Set([configured, ...derived].filter(Boolean))];
+    return [...new Set([
+      configured,
+      String(config().fallbackHealthEndpoint || "").trim(),
+      ...derived
+    ].filter(Boolean))];
   }
 
   function matchesEndpoint(input) {
@@ -105,39 +109,35 @@
     let lastError = null;
     let lastResponse = null;
 
-    for (let index = 0; index < candidates.length; index += 1) {
-      const endpoint = candidates[index];
-      const attempts = index === 0 ? 2 : 1;
-
-      for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    for (const [endpointIndex, endpoint] of candidates.entries()) {
+      // The primary Worker currently returns a Cloudflare challenge to API POSTs;
+      // retrying that same route only adds delay before the Supabase relay works.
+      const maxAttempts = endpointIndex === 0 ? 1 : 2;
+      for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
         try {
           const response = await originalFetch(endpoint, cloneOptions(options, endpoint));
           if (response.ok) {
             activeEndpoint = endpoint;
-            if (index > 0) setStatus("Ready on backup AI", "Primary AI route was unavailable; backup route answered.");
             return response;
           }
           lastResponse = response;
           if (!RETRYABLE_STATUS.has(response.status)) return response;
           lastError = new Error(`Ask POLY returned HTTP ${response.status}.`);
+          if (response.status === 401 || response.status === 403) break;
         } catch (error) {
           lastError = error;
           if (error?.name === "AbortError") throw error;
         }
 
-        if (attempt < attempts) {
-          setStatus("Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
+        if (attempt === 1 && attempt < maxAttempts) {
+          setStatus(endpointIndex === 0 ? "Switching to backup AI…" : "Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
           await delay(RETRY_DELAY_MS);
         }
-      }
-
-      if (index < candidates.length - 1) {
-        setStatus("Switching AI route…", "The primary endpoint could not be reached from this network.");
       }
     }
 
     if (lastResponse) return lastResponse;
-    throw lastError || new Error("Ask POLY request failed on all routes.");
+    throw lastError || new Error("Ask POLY request failed after retries.");
   }
 
   window.fetch = function polyAskFetch(input, options = {}) {
@@ -173,12 +173,7 @@
   function addRetryButtons() {
     document.querySelectorAll("#chatMessages .ask-bubble.ai:not([data-poly-retry-checked])").forEach(bubble => {
       bubble.dataset.polyRetryChecked = "true";
-      const text = String(bubble.textContent || "").toLowerCase();
-      const failed = text.includes("could not reach the ai service")
-        || text.includes("live ai service is temporarily unavailable")
-        || text.includes("ai service could not answer right now")
-        || text.includes("relay could not reach");
-      if (!failed) return;
+      if (bubble.dataset.polyError !== "true") return;
       const button = document.createElement("button");
       button.type = "button";
       button.className = "ask-copy ask-retry";

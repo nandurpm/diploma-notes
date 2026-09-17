@@ -1,0 +1,107 @@
+{
+  "version": "2026-08-14-syllabus-details-v1",
+  "sources": [
+    {
+      "title": "SITTTR Kerala official course-content page",
+      "url": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4272",
+      "retrievedAt": "2026-08-14T00:00:00Z"
+    }
+  ],
+  "courses": [
+    {
+      "revision": "2021",
+      "code": "4272",
+      "name": "Data Structures and Algorithms",
+      "department": "Cloud Computing and Big Data",
+      "semester": "Semester 4",
+      "sourceUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4272",
+      "credits": 4,
+      "category": "Program Core",
+      "periodsPerWeek": "4 (L:4, T:0, P:0)",
+      "periodsPerSemester": 60,
+      "objectives": [
+        "Explain the fundamental concept of Data Structures and Algorithms.",
+        "Emphasize the importance of data structures in designing and implementing efficient algorithms."
+      ],
+      "prerequisites": [
+        "Sound knowledge in Python (courses 1008, Introduction to IT systems Lab, and 2131, Programming in Python).",
+        "Control structures, modular program design, arrays and functions (courses 2131/2139, Problem Solving and Programming / Lab)."
+      ],
+      "outcomes": [
+        {
+          "code": "CO1",
+          "title": "Illustrate the basic data structure concepts through Python language",
+          "hours": 13,
+          "level": "Applying",
+          "modules": [
+            {"code": "M1.01", "title": "Describe the concept of algorithm and asymptotic analysis", "hours": 3, "level": "Understanding"},
+            {"code": "M1.02", "title": "Demonstrate Recursive Algorithms", "hours": 2, "level": "Applying"},
+            {"code": "M1.03", "title": "Explain Data Structures and its classifications", "hours": 2, "level": "Understanding"},
+            {"code": "M1.04", "title": "Illustrate Arrays in Python", "hours": 6, "level": "Applying"}
+          ],
+          "content": "Algorithms: definition, asymptotic analysis, Big-O notation, Big Omega notation and recursion. Data Structures: definition, classification, linear data structures, non-linear data structures and Abstract Data Type (ADT). Arrays: array-based sequences; traverse, insert, delete, search and update; and two-dimensional arrays in Python."
+        },
+        {
+          "code": "CO2",
+          "title": "Use different Searching and Sorting Algorithms",
+          "hours": 13,
+          "level": "Applying",
+          "modules": [
+            {"code": "M2.01", "title": "Demonstrate Linear search algorithm", "hours": 1, "level": "Applying"},
+            {"code": "M2.02", "title": "Illustrate Binary Search algorithm", "hours": 3, "level": "Applying"},
+            {"code": "M2.03", "title": "Use Bubble Sort algorithm", "hours": 1, "level": "Applying"},
+            {"code": "M2.04", "title": "Apply Selection Sort algorithm", "hours": 2, "level": "Applying"},
+            {"code": "M2.05", "title": "Demonstrate Merge Sort algorithm", "hours": 3, "level": "Applying"},
+            {"code": "M2.06", "title": "Sketch Quick Sort algorithm", "hours": 3, "level": "Applying"}
+          ],
+          "content": "Searching algorithms: Linear Search and Binary Search. Sorting algorithms: Bubble Sort, Selection Sort, Quick Sort and Merge Sort."
+        },
+        {
+          "code": "CO3",
+          "title": "Demonstrate linear data structures Stack, Queue and Linked Lists",
+          "hours": 16,
+          "level": "Applying",
+          "modules": [
+            {"code": "M3.01", "title": "Demonstrate Array Based Stack ADT operations", "hours": 1, "level": "Applying"},
+            {"code": "M3.02", "title": "Use stack to convert infix expression to postfix expression and evaluate postfix expression", "hours": 4, "level": "Applying"},
+            {"code": "M3.03", "title": "Illustrate Array based Queue ADT", "hours": 1, "level": "Applying"},
+            {"code": "M3.04", "title": "Classify different type of Queues such as circular Queue and Double Ended Queue", "hours": 3, "level": "Understanding"},
+            {"code": "M3.05", "title": "Explain Linked list Concept", "hours": 1, "level": "Understanding"},
+            {"code": "M3.06", "title": "Demonstrate different types of linked list such as singly linked list, doubly linked list and circular linked list", "hours": 3, "level": "Applying"},
+            {"code": "M3.07", "title": "Implement stack ADT using singly Linked list", "hours": 1, "level": "Applying"},
+            {"code": "M3.08", "title": "Use a Singly Linked List to implement Queue ADT", "hours": 1, "level": "Applying"}
+          ],
+          "content": "Stacks: introduction, ADT, array representation, operations, applications, infix-to-postfix conversion and evaluation of postfix expressions. Queues: introduction, queue ADT, array representation, operations, circular queue and deque types. Linked lists: singly linked lists, memory representation, operations and traversal, circular and doubly linked lists, and linked-list implementations of Stack and Queue."
+        },
+        {
+          "code": "CO4",
+          "title": "Sketch nonlinear Data Structures such as Tree and graph",
+          "hours": 16,
+          "level": "Applying",
+          "modules": [
+            {"code": "M4.01", "title": "Explain the concepts in Graph data structure and its types", "hours": 2, "level": "Understanding"},
+            {"code": "M4.02", "title": "Apply the different representations of a Graph", "hours": 2, "level": "Applying"},
+            {"code": "M4.03", "title": "Demonstrate Graph Traversal algorithms such as BFS and DFS", "hours": 3, "level": "Applying"},
+            {"code": "M4.04", "title": "Describe Tree Data Structure and terminologies related to it", "hours": 1, "level": "Understanding / Applying"},
+            {"code": "M4.05", "title": "Classify different types of Binary Trees", "hours": 1, "level": "Understanding / Applying"},
+            {"code": "M4.06", "title": "Use different representations of Binary Tree", "hours": 1, "level": "Applying"},
+            {"code": "M4.07", "title": "Illustrate Different Tree Traversal Algorithms such as Inorder, Preorder and Postorder", "hours": 2, "level": "Applying"},
+            {"code": "M4.08", "title": "Implement Binary Search Tree operations", "hours": 4, "level": "Applying"}
+          ],
+          "content": "Graphs: vertex, edge, adjacent vertices, self-loop, parallel edges, isolated vertex, degree of vertex, pendant vertex, subgraph, paths and cycles; directed, undirected, simple, complete, cyclic, acyclic, bipartite, complete bipartite, connected, disconnected and regular graphs; set, linked and matrix representations; BFS and DFS. Trees: node, parent, child, link, root, leaf, level, height, depth, degree, sibling, ancestor, path and path length; full, complete, strict and perfect binary trees; linked-list representations; inorder, preorder and postorder traversal; and binary-search-tree insertion, traversal, deletion and node counting."
+        }
+      ],
+      "references": [
+        "Michael T. Goodrich, Roberto Tamassia and Michael H. Goldwasser, Data Structures and Algorithms in Python (An Indian Adaptation), Wiley, 1st edition, July 2021.",
+        "Bradley N. Miller, Problem Solving with Algorithms and Data Structures Using Python, Franklin Beedle & Assoc., 2nd edition, January 2013."
+      ],
+      "onlineResources": [
+        "https://www.tutorialspoint.com/python_data_structure/python_data_structure_introduction.htm",
+        "https://www.geeksforgeeks.org/python-data-structures/",
+        "https://www.edureka.co/blog/data-structures-in-python/",
+        "https://realpython.com/python-data-structures/",
+        "https://www.programiz.com/dsa"
+      ]
+    }
+  ]
+}

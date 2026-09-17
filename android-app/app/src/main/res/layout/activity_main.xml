@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
+        android:id="@+id/rootColumn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_background"
@@ -68,6 +69,24 @@
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/bookmarkButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/bookmark_page"
+                android:padding="10dp"
+                android:src="@drawable/ic_star_outline" />
+
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/share_page"
+                android:padding="11dp"
+                android:src="@drawable/ic_share" />
+
+            <ImageButton
                 android:id="@+id/refreshButton"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
@@ -82,12 +101,18 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <WebView
-                android:id="@+id/webView"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/app_background"
-                android:overScrollMode="never" />
+                android:layout_height="match_parent">
+
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/app_background"
+                    android:overScrollMode="never" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -263,7 +288,10 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="12dp">
 
-                <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_study" />
+                <TextView
+                    android:id="@+id/labelStudy"
+                    style="@style/DrawerSectionLabel"
+                    android:text="@string/drawer_study" />
 
                 <TextView
                     android:id="@+id/navHome"
@@ -295,7 +323,10 @@
                     android:drawableStart="@drawable/ic_question"
                     android:text="@string/nav_ask_poly_ai" />
 
-                <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_resources" />
+                <TextView
+                    android:id="@+id/labelResources"
+                    style="@style/DrawerSectionLabel"
+                    android:text="@string/drawer_resources" />
 
                 <TextView
                     android:id="@+id/navTools"
@@ -315,7 +346,9 @@
                     android:drawableStart="@drawable/ic_archive"
                     android:text="@string/nav_materials_2015" />
 
-                <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_support" />
+                <TextView
+                    style="@style/DrawerSectionLabel"
+                    android:text="@string/drawer_support" />
 
                 <TextView
                     android:id="@+id/navAbout"
@@ -328,10 +361,29 @@
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_document"
                     android:text="@string/nav_contact" />
+
+                <TextView
+                    android:id="@+id/navSaveOffline"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_document"
+                    android:text="@string/nav_save_offline" />
+
+                <TextView
+                    android:id="@+id/navSavedPages"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_archive"
+                    android:text="@string/nav_saved_pages" />
+
+                <TextView
+                    android:id="@+id/navShareApp"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_share"
+                    android:text="@string/nav_share_app" />
             </LinearLayout>
         </ScrollView>
 
         <View
+            android:id="@+id/drawerFooterDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider" />

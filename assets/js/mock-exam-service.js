@@ -9,13 +9,6 @@
   const GUEST_RESULTS_KEY = "polypmna_guest_mock_exam_results";
   const key = (kind) => `poly-mock-exam:${M.paperId}:${M.state.user?.id || "unknown"}:${kind}`;
 
-  const chemistryExact = Object.freeze({
-    A1: ["orbital"], A2: ["covalent"], A3: ["water"], A4: ["phenolphthalein"],
-    A5: ["temporary"], A6: ["brass"], A7: ["borosilicate", "pyrex"], A8: ["ion", "ions"], A9: ["oxidation"]
-  });
-  const exactAnswers = Object.freeze(M.exactAnswers || chemistryExact);
-  const keywords = Object.freeze(M.keywords || {});
-
   async function loadSupabaseConfig() {
     try {
       const response = await fetch(`/daily-quiz.html?auth_config=${Date.now()}`, { cache: "no-store" });
@@ -68,68 +61,8 @@
     return url.toString();
   }
 
-  function isNonAnswer(value) {
-    const text = String(value || "").trim().toLowerCase();
-    return !text || /^(?:i\s+)?(?:do\s*not|don't|dont)\s+know\b|^no idea\b|^not sure\b|^nil\b|^n\/?a\b/.test(text);
-  }
-
   function selectedPayload() {
     return M.ui.selectedQuestions().map((q) => ({ id: q.id, answer: String(M.state.answers[q.id] || "").trim() }));
-  }
-
-  function norm(value) {
-    return String(value || "").toLowerCase().replace(/×/g, "x").replace(/\s+/g, " ").trim();
-  }
-
-  function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  function canUseRubricFallback(error) {
-    if (globalThis.ASK_POLY_CONFIG?.mockExamRubricFallback === false) return false;
-    if (error?.name === "AbortError") return true;
-    if (!navigator.onLine) return true;
-    if (!error?.status) return true;
-    return error.status === 429 || error.status >= 500;
-  }
-
-  function localFallbackEvaluation(reason) {
-    const results = M.ui.selectedQuestions().map((question) => {
-      const answer = String(M.state.answers[question.id] || "").trim();
-      if (isNonAnswer(answer)) {
-        return { id: question.id, awardedMarks: 0, maxMarks: question.marks, confidence: 0.99, feedback: "No assessable answer was provided.", missingPoints: ["Provide the required fact, explanation, formula, steps or final value."] };
-      }
-      const normalised = norm(answer);
-      if (question.section === "A") {
-        const accepted = exactAnswers[question.id] || [];
-        const correct = accepted.some((term) => normalised.includes(norm(term)));
-        return { id: question.id, awardedMarks: correct ? 1 : 0, maxMarks: 1, confidence: 0.7, feedback: correct ? "Keyword matched." : "The answer did not match the expected key concept.", missingPoints: correct ? [] : accepted.slice(0, 2) };
-      }
-      const terms = keywords[question.id] || [];
-      const matched = terms.filter((term) => normalised.includes(norm(term)));
-      const missing = terms.filter((term) => !normalised.includes(norm(term)));
-      const coverage = terms.length ? matched.length / terms.length : 0;
-      const lengthCredit = Math.min(0.18, answer.length / 1600);
-      const awardedMarks = Math.round(question.marks * Math.min(1, coverage * 1.2 + lengthCredit) * 2) / 2;
-      return { id: question.id, awardedMarks, maxMarks: question.marks, confidence: 0.35, feedback: awardedMarks > 0 ? `Provisional keyword check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The browser rubric did not find enough relevant content.", missingPoints: missing.slice(0, 5) };
-    });
-    const score = Math.round(results.reduce((sum, item) => sum + item.awardedMarks, 0) * 2) / 2;
-    return {
-      paperId: M.paperId,
-      subjectCode: M.subjectCode,
-      title: M.examTitle || M.displayName || "Official-Pattern Mock Examination",
-      score,
-      totalMarks: M.totalMarks,
-      percentage: Math.round(score / M.totalMarks * 1000) / 10,
-      status: "provisional",
-      evaluationMode: "browser-rubric-provisional",
-      model: "browser-rubric-v7",
-      evaluatedAt: new Date().toISOString(),
-      results,
-      overallFeedback: "This is a provisional browser-only estimate because the server evaluator was unavailable. It is not an official or authoritative score and is not saved to online history.",
-      fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180),
-      savedOnline: false
-    };
   }
 
   async function accessToken() {
@@ -175,8 +108,7 @@
       return data;
     } catch (error) {
       console.error("Server evaluation unavailable.", error);
-      if (canUseRubricFallback(error)) return localFallbackEvaluation(error);
-      throw new Error(error.message || "Evaluation is temporarily unavailable. Your answers remain saved; please submit again.");
+      throw new Error(error.message || "Server evaluation is temporarily unavailable. Your answers remain saved; please submit again.");
     } finally {
       clearTimeout(timeout);
     }
@@ -211,8 +143,8 @@
       }
     }
 
-    if (result?.status !== "published" || result?.evaluationMode === "browser-rubric-provisional") {
-      throw new Error("Provisional browser results are not stored as authoritative online scores.");
+    if (result?.status !== "published") {
+      throw new Error("Only server-published results can be stored as authoritative online scores.");
     }
     if (result?.savedOnline === true || result?.serverSaved === true) return;
     throw new Error("The evaluator did not confirm server-side result storage. The result remains available only in this browser.");

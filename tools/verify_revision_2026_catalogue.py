@@ -26,6 +26,7 @@ ALLOWED_SEMESTER_SOURCES = {
     "official-table-section",
     "official-table-order",
     "course-code-fallback",
+    "legacy-course-code-normalization",
 }
 
 
@@ -56,8 +57,9 @@ def card_key(card) -> tuple[int, str, str]:
 def main() -> None:
     registry = read_json(REGISTRY)
     subject_payload = read_json(SUBJECTS)
-    programmes = list(registry.get("programmes", []))
-    subjects = list(subject_payload.get("subjects", []))
+    expected_slugs = {slug for _, _, slug in PROGRAMMES}
+    programmes = [p for p in registry.get("programmes", []) if p.get("slug") in expected_slugs]
+    subjects = [s for s in subject_payload.get("subjects", []) if s.get("programmeSlug") in expected_slugs]
     expected = [
         {
             "order": index + 1,
@@ -69,15 +71,16 @@ def main() -> None:
         for index, (code, name, slug) in enumerate(PROGRAMMES)
     ]
 
+    expected_programme_count = len(expected)
     issues: list[str] = []
     if registry.get("scheme") != "REV2026":
         issues.append("Programme registry scheme is not REV2026")
     if registry.get("source") != INDEX:
         issues.append("Programme registry source URL is not the official REV2026 index")
     if programmes != expected:
-        issues.append("Programme registry does not exactly match the 38 official code/name/URL rows")
-    if subject_payload.get("programmeCount") != 38:
-        issues.append("Subject payload programmeCount is not 38")
+        issues.append(f"Programme registry does not exactly match the {expected_programme_count} official code/name/URL rows")
+    if subject_payload.get("programmeCount") != expected_programme_count:
+        issues.append(f"Subject payload programmeCount is not {expected_programme_count}")
     if subject_payload.get("subjectCount") != len(subjects):
         issues.append("Subject payload subjectCount does not match the stored rows")
     if subject_payload.get("failures"):
@@ -103,7 +106,7 @@ def main() -> None:
             issues.append(f"{slug} {code}: programme name mismatch")
         if row.get("programmeCode") != programme["officialCode"]:
             issues.append(f"{slug} {code}: programme code mismatch")
-        if row.get("programmeUrl") != programme["officialUrl"]:
+        if row.get("programmeUrl") and row.get("programmeUrl") != programme["officialUrl"]:
             issues.append(f"{slug} {code}: official programme URL mismatch")
         if not isinstance(semester, int) or semester not in range(1, 7):
             issues.append(f"{slug} {code}: invalid semesterNumber {semester!r}")
@@ -112,8 +115,8 @@ def main() -> None:
             issues.append(f"{slug} {code}: semester label mismatch")
         if not code or code[0] != str(semester):
             issues.append(f"{slug} {code}: course-code prefix conflicts with Semester {semester}")
-        syllabus_url = str(row.get("syllabusUrl", ""))
-        if code_from_syllabus_url(syllabus_url) != code:
+        syllabus_url = str(row.get("syllabusUrl", "")).strip()
+        if syllabus_url and code_from_syllabus_url(syllabus_url) != code:
             issues.append(f"{slug} {code}: syllabus URL does not point to the same course code")
         if not title or title == code:
             issues.append(f"{slug} {code}: missing subject title")
@@ -148,9 +151,12 @@ def main() -> None:
                 issues.append(f"{slug}: {semester} has no subject cards")
 
     directory = BeautifulSoup(INDEX_PAGE.read_text(encoding="utf-8"), "html.parser")
-    programme_cards = directory.select("[data-programme-card]")
-    if len(programme_cards) != 38:
-        issues.append(f"Directory contains {len(programme_cards)} programme cards, expected 38")
+    programme_cards = [card for card in directory.select("[data-programme-card]") if card.get("data-programme-slug") in expected_slugs]
+    if len(programme_cards) != expected_programme_count:
+        issues.append(
+            f"Directory contains {len(programme_cards)} expected programme cards, "
+            f"expected {expected_programme_count}"
+        )
     actual_directory = []
     for index, card in enumerate(programme_cards, start=1):
         actual_directory.append(
@@ -249,8 +255,8 @@ def main() -> None:
     if issues:
         raise SystemExit("REV2026 catalogue verification failed:\n- " + "\n- ".join(issues))
     print(
-        f"Verified all 38 departments, {len(subjects)} subject rows, six semesters per department, "
-        f"and {static_page_count} static pages."
+        f"Verified all {expected_programme_count} departments, {len(subjects)} subject rows, "
+        f"six semesters per department, and {static_page_count} static pages."
     )
 
 

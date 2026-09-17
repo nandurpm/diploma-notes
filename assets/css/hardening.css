@@ -1,5 +1,6 @@
 /* Purpose: Hardening - Descriptive comment added for clarity */
 @import url("/assets/css/subject-semester-layout.css?v=20260614-1");
+@import url("/assets/css/speed-and-mobile-optimization.css?v=20260812-opt1");
 
 /* Verified cross-page layout, accessibility, and failure-state corrections. */
 :root {

@@ -24,7 +24,7 @@
       "src": "/assets/media/poly-pmna-apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
-      "purpose": "apple-touch-icon"
+      "purpose": "any"
     },
     {
       "src": "/assets/media/poly-pmna-favicon.svg",

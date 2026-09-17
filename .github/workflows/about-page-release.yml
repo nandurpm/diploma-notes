@@ -5,26 +5,28 @@ on:
   issues:
     types: [opened]
 
-permissions:
-  contents: write
-  issues: write
-
 jobs:
   trigger:
-    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Release redesigned About page'
+    permissions:
+      contents: write
+      issues: write
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.issue.title == '[automation] Release redesigned About page' &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Normalize and validate About page

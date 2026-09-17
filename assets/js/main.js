@@ -35,7 +35,6 @@
   const isHomePage = path === "/" || /\/index\.html$/i.test(path);
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php";
   const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
-  const REV2026_MODEL_QP_ROUTE = "site%2Fdiploma-modelqp-courses-show";
   const REVEAL_CSS_PATH = "/assets/css/reveal.css";
   const REVEAL_JS_PATH = "/assets/js/reveal.js";
   const REVEAL_VERSION = "20260728-global-reveal1";
@@ -148,7 +147,7 @@
     if (existing) return;
 
     const script = document.createElement("script");
-    script.src = `${popupPath}?v=20260719-popup-loader-fix2`;
+    script.src = `${popupPath}?v=20260910-audit1`;
     script.defer = true;
     script.dataset.polyVisitorPopupLoader = "true";
     script.addEventListener("error", () => {
@@ -171,88 +170,8 @@
     });
   }
 
-  /* =========================================================
-     REVISION 2026 OFFICIAL LINK CONFIGURATION
-     ---------------------------------------------------------
-     Configures individual action links (Syllabus, Model QP)
-     on a single Revision 2026 subject card to point to the
-     official SITTTR Kerala website. Extracts the course code
-     from the card's data attributes and constructs the
-     appropriate external URL.
-     ========================================================= */
-  function configureOfficialLink(link, href, label, title) {
-    if (!link) return;
-    link.href = href;
-    link.textContent = label;
-    link.title = title;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer external";
-    link.removeAttribute("download");
-  }
-
-  /* =========================================================
-     REVISION 2026 CARD LINK NORMALIZER
-     ---------------------------------------------------------
-     Scans all Revision 2026 subject cards on the page and
-     updates their Syllabus and Model Question Paper action
-     buttons to link to the official SITTTR Kerala website.
-     Extracts the 4-digit course code from each card.
-     ========================================================= */
-  function normalizeRev2026OfficialLinks(scope = document) {
-    const cards = [];
-    if (scope.nodeType === 1 && scope.matches?.('.subject-card[data-revision="2026"]')) cards.push(scope);
-    scope.querySelectorAll?.('.subject-card[data-revision="2026"]').forEach(card => cards.push(card));
-
-    cards.forEach(card => {
-      const code = String(
-        card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent || ""
-      ).trim().toUpperCase();
-      if (!/^[0-9]{4}[A-Z]?$/.test(code)) return;
-
-      const encodedCode = encodeURIComponent(code);
-      configureOfficialLink(
-        card.querySelector(".action.syllabus"),
-        `${SITTTR_BASE}?r=${REV2026_SYLLABUS_ROUTE}&course=${encodedCode}`,
-        "Open Syllabus",
-        `Open the official SITTTR syllabus for Revision 2026 course ${code}.`
-      );
-      configureOfficialLink(
-        card.querySelector(".action.qp"),
-        `${SITTTR_BASE}?r=${REV2026_MODEL_QP_ROUTE}&course=${encodedCode}`,
-        "Open Model Question Paper",
-        `Open the official SITTTR model-question-paper page for Revision 2026 course ${code}.`
-      );
-    });
-  }
-
-  /* =========================================================
-     REVISION 2026 CARD WATCHER
-     ---------------------------------------------------------
-     Uses a MutationObserver to watch for dynamically added
-     Revision 2026 subject cards (e.g., from AJAX-loaded content
-     or browser-rendered grids) and normalizes their links
-     as they appear. Prevents cards loaded after initial page
-     render from having broken Syllabus/QP links.
-     ========================================================= */
-  function watchRev2026Cards() {
-    normalizeRev2026OfficialLinks(document);
-    if (!document.body || isLessonPage) return;
-
-    let timer = 0;
-    new MutationObserver(mutations => {
-      const relevant = mutations.some(mutation =>
-        [...mutation.addedNodes].some(node =>
-          node.nodeType === 1 && (
-            node.matches?.('.subject-card[data-revision="2026"]') ||
-            node.querySelector?.('.subject-card[data-revision="2026"]')
-          )
-        )
-      );
-      if (!relevant) return;
-      clearTimeout(timer);
-      timer = window.setTimeout(() => normalizeRev2026OfficialLinks(document), 50);
-    }).observe(document.body, { childList: true, subtree: true });
-  }
+  // Resource renderers own revision-specific links. Do not overwrite verified
+  // archive URLs or unavailable states with a guessed course endpoint.
 
   /* =========================================================
      MAINTENANCE CONTROLLER LOADER
@@ -272,6 +191,31 @@
   }
 
   /* =========================================================
+     GLOBAL SEARCH SHORTCUT LOADER
+     ---------------------------------------------------------
+     Loads the search shortcut utility script on all pages.
+     The shortcut listens for the '/' key to focus the first
+     available page-specific search input.
+     Related: assets/js/search.js
+     ========================================================= */
+  function ensureSearchShortcut() {
+    const searchPath = "/assets/js/search.js";
+    const existing = [...document.scripts].some(script => {
+      try {
+        return new URL(script.src || "", window.location.href).pathname === searchPath;
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `${searchPath}?v=20260804-search-shortcut`;
+    script.defer = true;
+    document.head.append(script);
+  }
+
+  /* =========================================================
      INITIALIZATION
      ---------------------------------------------------------
      Runs all initialization steps in order.
@@ -284,7 +228,7 @@
     normalizeLegacyInternalLinks();
     ensureSiteShell();
     ensureVisitorPopup();
-    watchRev2026Cards();
+    ensureSearchShortcut();
   }
 
   if (document.readyState === "loading") {

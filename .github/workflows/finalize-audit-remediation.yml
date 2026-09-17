@@ -9,31 +9,33 @@ on:
   issues:
     types: [opened]
 
-permissions:
-  contents: write
-  issues: write
-
 concurrency:
   group: finalize-audit-remediation-main
   cancel-in-progress: false
 
 jobs:
   finalize:
-    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Finalize audit remediation'
+    permissions:
+      contents: write
+      issues: write
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.issue.title == '[automation] Finalize audit remediation' &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association))
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
       SUPABASE_JS_VERSION: "2.110.7"
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
 

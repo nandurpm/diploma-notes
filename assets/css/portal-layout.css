@@ -337,8 +337,28 @@ body.portal-page .info-card,
 body.portal-page .choice-card,
 body.portal-page .subject-card {
   min-width: 0 !important;
-  height: 100%;
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
+}
+
+/* Model-paper cards contain two actions. Keep them in a predictable vertical
+   stack so Ask POLY is never clipped or hidden below the paper button. */
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  gap: 9px;
+}
+
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row > *,
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row .action,
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row .availability-label {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
 }
 
 body.portal-page img,
@@ -358,4 +378,30 @@ body.portal-page iframe {
   body.portal-page .page-title h1 {
     max-width: 100% !important;
   }
+}
+
+/* Cross-page mobile audit: prevent legacy card internals from widening the document. */
+body.portal-page main,
+body.portal-page .cards,
+body.portal-page .info-card,
+body.portal-page .choice-card {
+  min-width: 0 !important;
+}
+
+body.portal-page main {
+  overflow-x: hidden;
+}
+
+body.portal-page .cards > .info-card,
+body.portal-page .cards > .choice-card {
+  overflow-x: clip;
+}
+
+body.portal-page .cards > .info-card h2,
+body.portal-page .cards > .info-card h3,
+body.portal-page .cards > .choice-card h2,
+body.portal-page .cards > .choice-card h3,
+body.portal-page .cards > .info-card p,
+body.portal-page .cards > .choice-card p {
+  overflow-wrap: anywhere;
 }

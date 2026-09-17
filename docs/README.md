@@ -1,35 +1,44 @@
 # Documentation
 
-Internal documentation, audit reports, and developer notes for the POLY PMNA project.
+Developer documentation for POLY PMNA lives here. Public website routes remain outside this directory; `docs/` is excluded from the deployed site except for the explicitly synchronized PDF catalogue manifests used by the build.
 
-## Contents
+## Start here
 
-This directory contains key architecture documentation, project standards, and master prompt templates used to build and maintain the POLY PMNA digital learning platform.
+| Need | Guide |
+|---|---|
+| Understand the repository | [Repository map](REPOSITORY-MAP.md) |
+| Make a safe code change | [Development guides](development/README.md) |
+| Contribute | [Contribution guide](../CONTRIBUTING.md) |
+| Release safely | [Release checklist](RELEASE-CHECKLIST.md) |
+| Understand backend/security boundaries | [Architecture](architecture/) and [secure deployment](SECURE-DEPLOYMENT.md) |
+| Publish lesson PDFs | [PDF automation](lesson-pdf-automation.md) |
+| Review a historical audit | [Audit archive](audits/README.md) |
+| Investigate a past incident | [Diagnostics](diagnostics/README.md) |
+| Review superseded notes | [Archive](archive/) |
 
-| File | Description |
-|------|-------------|
-| [`README.md`](README.md) | Index and overview of all developer and architecture documentation in this folder. |
-| [`1004-model-structure-note.md`](1004-model-structure-note.md) | Structural details and question/marks breakdown of the Course Code 1004 Mock Examination (Engineering Mechanics). |
-| [`AUDIT-FINDINGS.md`](AUDIT-FINDINGS.md) | Comprehensive audit of the repository structure, dependencies, and architectural patterns. |
-| [`AUDIT-REPORT.md`](AUDIT-REPORT.md) | Detailed audit report of front-end site components, department pages, and lesson pages. |
-| [`lesson-page-standard.md`](lesson-page-standard.md) | Mandatory presentation standards and guidelines for all lesson HTML files in Revision 2021 and Revision 2026. |
-| [`new-lesson-push-notifications.md`](new-lesson-push-notifications.md) | Configuration and operation guide for automatic new-lesson push notifications in the Android app using Firebase Cloud Messaging (FCM). |
-| [`poly-pmna-lesson-html-master-prompt.md`](poly-pmna-lesson-html-master-prompt.md) | Master prompt template for generating scheme-aware, high-quality, standalone HTML student handbooks from official SITTTR syllabus PDFs. |
-| [`RELEASE-CHECKLIST.md`](RELEASE-CHECKLIST.md) | Official release checklist and deployment guide detailing pre-release quality gates, local builds, deployment procedures, live verifications, and rollback steps. |
-| [`revision-aware-handbook-rules.md`](revision-aware-handbook-rules.md) | Explicit formatting and content rules for building handbooks that respect curriculum differences between Revision 2021 and Revision 2026. |
-| [`syllabus-structure-5032.md`](syllabus-structure-5032.md) | Example layout and structured model representing curriculum modules and outcomes for course code 5032. |
-| [`syllabus-structure-master-prompt.md`](syllabus-structure-master-prompt.md) | Legacy master prompt utilized for generating SITTTR Revision 2021 lesson syllabus structure data files. |
-| [`website-audit-and-remediation-prompt.md`](website-audit-and-remediation-prompt.md) | Remediation guidelines and automated validation prompt to check metadata, canonical correctness, and local asset references. |
+## Organization
 
-## Purpose
+| Area | Purpose |
+|---|---|
+| [`architecture/`](architecture/) | Current architecture and system-boundary documentation |
+| [`development/`](development/) | Coding and repository-maintenance standards |
+| [`audits/`](audits/) | Historical audit snapshots; not current health declarations |
+| [`diagnostics/`](diagnostics/) | Incident investigations and troubleshooting evidence |
+| [`archive/`](archive/) | Superseded design notes and historical reference material |
+| [`pdf-archive/`](pdf-archive/) | Synchronized PDF catalogue manifests and archive documentation |
+| [`images/`](images/) | Documentation-only images |
 
-This directory serves as the home for:
+Feature-specific standards that are still current remain at the top of `docs/` when they are referenced broadly by workflows or contributors, including lesson standards, release instructions, authentication/security notes, and PDF automation.
 
-- Architecture documentation and decision records
-- Audit reports generated during code reviews
-- Developer onboarding notes
-- Feature specifications and design documents
+## Current health vs. historical evidence
 
-## Relationship to Project
+Audit and diagnostic files are intentionally retained for traceability, but their observations may describe an older deployment. For current health, rely on the active CI workflows and current verification tools such as:
 
-These documents are maintained alongside the codebase for reference. They are not deployed to the live site and are intended for developers and contributors.
+```bash
+python tools/check_repository_layout.py
+python tools/site_quality_gate.py
+python tools/full_site_static_audit.py
+python tools/build_public_site.py --target _site_test
+```
+
+The repository map explains which files are public compatibility paths and which files are safe to reorganize.

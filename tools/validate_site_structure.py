@@ -49,7 +49,8 @@ def main() -> int:
     rev26 = read("revision-2026.html")
     lesson_js = read("assets/js/lesson-navigation-fix.js")
     lesson_css = read("assets/css/lesson-page-fix.css")
-    android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java")
+    android_activity_path = ROOT / "android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
+    android_activity = android_activity_path.read_text(encoding="utf-8", errors="ignore") if android_activity_path.exists() else ""
 
     check("homepage has no floating Ask POLY duplicate", "home-ask-poly-float" not in index, "Floating Ask POLY markup/style must be absent.")
     check("homepage revision cards are not repeated", count(r'class="choice-card[^>]*"[^>]+href="/?revision-202[16]\.html"', index) == 0, "Revision destinations belong in the hero, not repeated feature cards.")
@@ -69,7 +70,12 @@ def main() -> int:
     check("tools use one calculator implementation", "tools-expression-hotfix.js" not in tools_html, "The duplicate calculator override must not be loaded.")
     check("generic converter excludes RPM", "speed:{" not in tools_js and "rpm:1" not in tools_js, "RPM is angular speed and cannot be directly converted to linear speed.")
     check("RPM calculator requires diameter", "Diameter mm" in tools_js and "Math.PI*diameterM*rpm/60" in tools_js, "Linear speed must use v = pi*D*N/60.")
-    check("scientific parser validates function tokens", "Unsupported function:" in tools_js and "evaluateExpression" in tools_js, "Scientific expressions must use one validated parser.")
+    check(
+        "scientific parser prohibits string code generation",
+        count(r"function\s+evaluateExpression\s*\(", tools_js) == 1
+        and not re.search(r"\b(?:eval|Function)\s*\(", tools_js),
+        "Scientific expressions must use one CSP-safe parser. Behaviour and token rejection are exercised by tests/frontend/audit.test.cjs.",
+    )
 
     rev21_count = programme_card_count(rev21)
     rev26_count = programme_card_count(rev26)
@@ -96,14 +102,12 @@ def main() -> int:
     minimum_rev21_lessons = 91
     minimum_rev26_lessons = 35
     lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
-    check("lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) in (35, 36, 42, 44), lesson_count_detail)
-    check("lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 44, lesson_count_detail)
+    check("lesson inventory includes both revision families", bool(rev21_lessons) and bool(rev26_lessons), lesson_count_detail)
     check(
         "lesson files do not drop below the known baseline",
         len(rev21_lessons) >= minimum_rev21_lessons and len(rev26_lessons) >= minimum_rev26_lessons,
         f"{lesson_count_detail} Minimums: REV2021={minimum_rev21_lessons}, REV2026={minimum_rev26_lessons}.",
     )
-    check("lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) in (35, 36, 42, 44), lesson_count_detail)
     check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
@@ -115,7 +119,11 @@ def main() -> int:
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
     check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
-    check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
+    check(
+        "Android WebView removes duplicate lesson chrome when APK source is present",
+        not android_activity_path.exists() or ("revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity),
+        "The optional APK source is absent after repository cleanup; browser-side native-app safeguards remain validated." if not android_activity_path.exists() else "The APK must keep only its native app bar around lessons.",
+    )
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []

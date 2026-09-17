@@ -305,7 +305,7 @@ def canonical_footer() -> str:
         f'<p>&copy; <span data-year></span> {SITE_NAME}.</p>'
         '<nav class="footer-links" aria-label="Footer navigation">'
         '<a href="/about.html">About</a><a href="/contact.html">Help</a>'
-        '<a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Developer</a>'
+        '<a href="/about.html#developer">Developer</a>'
         '</nav>'
         '<nav class="footer-legal" aria-label="Legal">'
         '<a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>'

@@ -5,11 +5,15 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-VERSION = "20260716-rev2026-modelqp-direct3"
+VERSION = "20260823-sitttr-scheme-fix1"
 PATTERNS = (
     re.compile(r"(assets/js/subject-browser\.js)\?v=[^\"']+"),
     re.compile(r"(assets/js/revision-2026-browser\.js)\?v=[^\"']+"),
+    re.compile(r"(assets/js/sitttr-rev2021-browser\.js)\?v=[^\"']+"),
     re.compile(r"(assets/js/lesson-availability-hotfix\.js)\?v=[^\"']+"),
+    re.compile(r"(assets/js/materials-2015\.js)\?v=[^\"']+"),
+    re.compile(r"(assets/data/revision-2015-subjects\.json)\?v=[^\"']+"),
+    re.compile(r"(assets/data/revision-2015-pdf-links\.json)\?v=[^\"']+"),
 )
 
 

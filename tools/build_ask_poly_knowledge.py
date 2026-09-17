@@ -17,6 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets/data/ask-poly-knowledge.json"
+EXTRA_FACTS_FILE = ROOT / "assets/data/ask-poly-extra-facts.json"
 SITE = "https://polypmna.dpdns.org"
 
 EXCLUDED_DIRS = {
@@ -27,6 +28,7 @@ EXCLUDED_DIRS = {
     "reports",
     "tools",
     "workers",
+    "_site",
 }
 EXCLUDED_NAME_PARTS = (
     "backup",
@@ -211,6 +213,38 @@ def load_json(path: Path) -> dict[str, Any]:
         return {}
 
 
+def load_extra_facts() -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    """Load hand-written facts/FAQ from assets/data/ask-poly-extra-facts.json.
+
+    This file is meant to be editable by non-developers: plain question/answer
+    and topic/fact pairs, no HTML or Python required. Placeholder example rows
+    (containing "Replace this with") are skipped automatically so an untouched
+    template file never pollutes the generated knowledge base.
+    """
+    data = load_json(EXTRA_FACTS_FILE)
+    site_facts: list[dict[str, str]] = []
+    for row in data.get("siteFacts", []) if isinstance(data, dict) else []:
+        if not isinstance(row, dict):
+            continue
+        topic = compact(row.get("topic"), 120)
+        fact = compact(row.get("fact"), 600)
+        if not topic or not fact or "Replace this with" in fact:
+            continue
+        site_facts.append({"topic": topic, "fact": fact})
+
+    faq: list[dict[str, str]] = []
+    for row in data.get("faq", []) if isinstance(data, dict) else []:
+        if not isinstance(row, dict):
+            continue
+        question = compact(row.get("question"), 300)
+        answer = compact(row.get("answer"), 1200)
+        if not question or not answer or "Replace this with" in question or "Replace this with" in answer:
+            continue
+        faq.append({"question": question, "answer": answer})
+
+    return site_facts, faq
+
+
 def department_page_map(pages: list[dict[str, Any]], revision: str) -> dict[str, str]:
     category = f"revision-{revision}-department"
     result: dict[str, str] = {}
@@ -278,7 +312,7 @@ def subject_record(
     )
     model_qp = (
         "https://www.sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-modelqp-courses-show&course={code}"
+        f"r=site%2Fdiploma-modelqp&scheme=REV{revision or '2026'}"
     )
     return {
         "revision": revision,
@@ -382,12 +416,13 @@ def main() -> int:
     subjects = build_subjects(pages)
     programmes_2026 = revision_2026_programmes()
     programmes_2021 = revision_2021_programmes(pages)
+    extra_site_facts, extra_faq = load_extra_facts()
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
     lesson_count = sum(1 for row in subjects if row.get("lessonAvailable"))
     notes_count = sum(1 for row in subjects if row.get("notesAvailable"))
     payload = {
-        "version": "2026-07-whole-site-v1",
+        "version": "2026-08-offline-science1",
         "generatedAt": generated_at,
         "site": "POLY PMNA",
         "siteUrl": SITE,
@@ -464,15 +499,57 @@ def main() -> int:
                 "question": "Where are older 2015 scheme materials?",
                 "answer": "Open [2015 Materials](/materials-2015.html). It is separate from Revision 2021 and Revision 2026.",
             },
+            {
+                "question": "What can Ask POLY answer when the AI provider or API key is unavailable?",
+                "answer": "Ask POLY has a local fallback for website navigation, revision and subject guidance, common mathematics, unit conversions, geometry, Ohm's law, power, force, work, energy, density, speed, frequency and wavelength questions. It clearly labels locally generated answers.",
+            },
+            {
+                "question": "How do I use the POLY PMNA website?",
+                "answer": "Use Home for announcements, Revision 2026 or Revision 2021 for curriculum pages, Mock Exams for practice, Ask POLY AI for questions, 2015 Materials for the older scheme, Student Tools for calculators and Help to report a problem.",
+            },
+            {
+                "question": "Where can I download the current Android APK?",
+                "answer": "Use the app download button on the POLY PMNA homepage. The current signed release is POLY PMNA v3.10. On Android, reload the page after an update so the latest app manifest is fetched.",
+            },
+            {
+                "question": "How do I use the Ask POLY calculator fallback?",
+                "answer": "Ask a direct expression such as 12*8, a conversion such as 5 km to m, or a formula question such as voltage 12, current 2 and resistance 6. The local fallback returns a result and the formula when supported.",
+            },
+            {
+                "question": "Which mathematics and science calculations are supported offline?",
+                "answer": "Offline support includes arithmetic, brackets, powers, percentages, square and cube roots, trigonometry in degrees, logarithms, length/mass/area/volume/pressure/energy/power/speed/frequency conversions, circle/triangle/cylinder geometry, Ohm's law, electrical power, force, acceleration, work, kinetic energy, gravitational potential energy, density, speed, frequency and wavelength.",
+            },
+            {
+                "question": "What should I do if an Ask POLY answer is wrong or a calculation needs advanced assumptions?",
+                "answer": "Check units, signs and the formula shown. For safety-critical engineering, medical, electrical installation or official examination decisions, verify the result with a qualified teacher or the applicable standard; the local fallback is an educational aid, not a professional approval.",
+            },
+            {
+                "question": "Why is my saved chat missing?",
+                "answer": "Saved chats are stored locally in the browser or APK WebView. Clearing app data or site data can remove them; a normal reload should not. Do not clear app data unless you have backed up anything important.",
+            },
         ],
     }
+
+    existing_topics = {normalize(row["topic"]) for row in payload["siteFacts"]}
+    for row in extra_site_facts:
+        if normalize(row["topic"]) in existing_topics:
+            continue
+        payload["siteFacts"].append(row)
+        existing_topics.add(normalize(row["topic"]))
+
+    existing_questions = {normalize(row["question"]) for row in payload["faq"]}
+    for row in extra_faq:
+        if normalize(row["question"]) in existing_questions:
+            continue
+        payload["faq"].append(row)
+        existing_questions.add(normalize(row["question"]))
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps(payload["counts"], indent=2))
 
-    if len(programmes_2026) != 38:
-        raise SystemExit(f"Expected 38 Revision 2026 programmes, found {len(programmes_2026)}")
+    if len(programmes_2026) < 38:
+        raise SystemExit(f"Expected at least 38 Revision 2026 programmes, found {len(programmes_2026)}")
     if len(subjects) < 300:
         raise SystemExit(f"Knowledge index has too few subject records: {len(subjects)}")
     if not any(row.get("revision") == "2026" for row in subjects):

@@ -25,12 +25,61 @@ window.PolyUtils = (() => {
     return document.querySelector(`meta[name="${name}"]`)?.content || "";
   }
 
+  const memoryStorage = (() => {
+    const values = new Map();
+    return {
+      getItem: (key) => values.get(String(key)) ?? null,
+      setItem: (key, value) => values.set(String(key), String(value)),
+      removeItem: (key) => values.delete(String(key)),
+      clear: () => values.clear(),
+    };
+  })();
+
+  function getSessionStorage() {
+    try {
+      const storage = window.sessionStorage;
+      const probe = "__poly_pmna_session_probe__";
+      storage.setItem(probe, "1");
+      storage.removeItem(probe);
+      return storage;
+    } catch (_) {
+      // Never fall back to localStorage for authentication state. An in-memory
+      // store logs the user out on reload, which is safer than persistence.
+      return memoryStorage;
+    }
+  }
+
   const DEFAULT_AUTH_OPTIONS = {
+    // Keep the Supabase session out of localStorage so a shared browser does not
+    // retain an authentication session indefinitely. The server remains the
+    // authority for JWT expiry and refresh-token revocation.
     persistSession: true,
+    storage: getSessionStorage(),
     autoRefreshToken: true,
     detectSessionInUrl: true,
     flowType: "pkce",
   };
+
+  const PRODUCTION_ORIGIN = "https://polypmna.dpdns.org";
+
+  /**
+   * Returns the origin that Supabase authentication emails may safely use.
+   * Production keeps the current origin; localhost, file previews and unknown
+   * hosts fall back to the public POLY PMNA origin so email links never point
+   * to a server that exists only on the developer's computer.
+   */
+  function getAuthRedirectOrigin() {
+    try {
+      const origin = window.location.origin;
+      const hostname = String(window.location.hostname || "").toLowerCase();
+      if (origin && origin !== "null" && hostname === "polypmna.dpdns.org" && window.location.protocol === "https:") {
+        return origin;
+      }
+    } catch (_) {
+      // Use the production fallback below when location is unavailable.
+    }
+    return PRODUCTION_ORIGIN;
+  }
 
   function createSupabaseBrowserClient(options = {}) {
     if (!window.supabase?.createClient) return null;
@@ -85,5 +134,5 @@ window.PolyUtils = (() => {
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
-  return { escapeHtml, getMetaContent, createSupabaseBrowserClient, formatDateKey };
+  return { escapeHtml, getMetaContent, getAuthRedirectOrigin, createSupabaseBrowserClient, formatDateKey };
 })();

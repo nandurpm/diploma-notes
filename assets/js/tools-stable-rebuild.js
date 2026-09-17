@@ -13,7 +13,7 @@
   const fmt = v => Number.isFinite(Number(v)) ? new Intl.NumberFormat('en-IN',{maximumFractionDigits:6}).format(Number(v)) : '—';
   
   /* Validates that a value is a finite number */
-  const n = (v,l='Value') => { const x = Number(String(v).trim()); if(!Number.isFinite(x)) throw new Error(l + ' must be a valid number.'); return x; };
+  const n = (v,l='Value') => { const text = String(v ?? '').trim(); const x = Number(text); if(!text || !Number.isFinite(x)) throw new Error(l + ' must be a valid number.'); return x; };
   
   /* Validates that a value is a positive number greater than zero */
   const p = (v,l='Value') => { const x = n(v,l); if(x <= 0) throw new Error(l + ' must be greater than zero.'); return x; };
@@ -27,6 +27,7 @@
     ['mix','Civil','🧱','Concrete Mix Calculator','Dry material estimate from mix ratio.'],['brick','Civil','🧱','Brick Quantity Calculator','Brick estimate for a wall.'],['csa','Civil','🏗️','Cement/Sand/Aggregate Estimator','Concrete materials and cement bags.'],['area','Civil','📐','Area Calculator','Rectangle, triangle and circle area.'],['vol','Civil','📦','Volume Calculator','Cuboid, cylinder and cone volume.'],['uw','Civil','⚖️','Unit Weight Converter','kg/m³ and kN/m³ conversion.'],
     /* Mechanical engineering and physics calculators */
     ['rpm','Mechanical','🔄','Rotational to Linear Speed','Calculate surface speed from diameter and RPM using v = πDN/60.'],['torque','Mechanical','🔧','Torque Calculator','Torque = force × radius.'],['ptr','Mechanical','⚙️','Power-Torque-RPM Calculator','P = 2πNT/60.'],['gear','Mechanical','⚙️','Gear Ratio Calculator','Gear ratio and output speed.'],['press','Mechanical','🧯','Pressure Converter','Pa, kPa, bar, psi and atm.'],['temp','Mechanical','🌡️','Temperature Converter','Celsius, Fahrenheit and Kelvin.'],
+    ['kinematics','Mechanical','↗','Kinematics Calculator','Find final velocity, displacement and average velocity from u, a and t.'],['projectile','Mechanical','🎯','Projectile Motion Calculator','Calculate flight time, range and maximum height for a launch angle.'],['momentum','Mechanical','💥','Momentum & Impulse Calculator','Calculate momentum change, impulse and average force.'],['energy','Mechanical','⚡','Work, Energy & Power Calculator','Calculate kinetic energy, potential energy, net work and average power.'],['circular','Mechanical','⭕','Circular Motion Calculator','Calculate centripetal acceleration, force, angular speed and period.'],['heat','Mechanical','🔥','Calorimetry Calculator','Calculate heat energy using Q = mcΔT.'],
     /* Academic and student performance tools */
     ['cgpa','Academic','🎓','CGPA / SGPA Calculator','Weighted grade point calculator.'],['att','Academic','✅','Attendance Percentage Calculator','Attendance percentage and classes needed.'],['internal','Academic','📝','Internal Marks Calculator','Add internal marks components.'],['pass','Academic','🎯','Exam Passing Marks Calculator','Marks needed to pass.'],['plan','Academic','📅','Study Planner','Split topics across days.'],['timer','Academic','⏱️','Daily Revision Timer','Pomodoro style revision timer.'],
     /* Text processing and document helpers */
@@ -34,7 +35,7 @@
   ].map(x => ({id:x[0],cat:x[1],icon:x[2],title:x[3],desc:x[4]}));
   const cats = ['All',...new Set(list.map(t => t.cat))];
   const favKey = 'polyToolsFav2', recKey = 'polyToolsRecent2';
-  let activeCat = 'All', onlyFav = false, lastOpener = null;
+  let activeCat = 'All', onlyFav = false, lastOpener = null, lastToolId = null, lastToolContainer = null, modalCleanup = null;
   /* Helper to retrieve data from localStorage with a fallback default */
   const get = (k,d=[]) => { try { return JSON.parse(localStorage.getItem(k)||'null') ?? d; } catch { return d; } };
   
@@ -46,20 +47,26 @@
   
   /* Adds a tool ID to the recently used list, keeping only the latest 8 */
   const recent = id => set(recKey,[id,...get(recKey).filter(x=>x!==id)].slice(0,8));
-  function card(t){ return `<article class='card'><button class='tool-open' data-tool='${esc(t.id)}' type='button' aria-label='Open ${esc(t.title)}'><span class='tool-icon' aria-hidden='true'>${t.icon}</span><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p><span class='tag'>${esc(t.cat)}</span></button><button class='btn fav2' data-id='${esc(t.id)}' type='button' aria-label='${fav(t.id)?'Remove':'Add'} ${esc(t.title)} ${fav(t.id)?'from':'to'} favorites'>${fav(t.id)?'★':'☆'} Favorite</button></article>`; }
+  function card(t){ return `<article class='card'><button class='tool-open' data-tool='${esc(t.id)}' type='button' aria-label='Open ${esc(t.title)}'><span class='tool-icon' aria-hidden='true'>${t.icon}</span><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p><span class='tag'>${esc(t.cat)}</span><span class='tool-open-label'>Open tool <span aria-hidden='true'>→</span></span></button><button class='btn fav2' data-id='${esc(t.id)}' type='button' aria-label='${fav(t.id)?'Remove':'Add'} ${esc(t.title)} ${fav(t.id)?'from':'to'} favorites'>${fav(t.id)?'★':'☆'} Favorite</button></article>`; }
   function render(){
     const q = ($('#q')?.value || '').toLowerCase().trim();
-    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || fav(t.id)) && `${t.title} ${t.desc} ${t.cat}`.toLowerCase().includes(q));
+    const favoriteIds = get(favKey);
+    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || favoriteIds.includes(t.id)) && `${t.title} ${t.desc} ${t.cat}`.toLowerCase().includes(q));
     $('#tc') && ($('#tc').textContent = list.length);
-    const countCard = $('#toolCountCard'); if (countCard) countCard.hidden = false;
     $('#shown') && ($('#shown').textContent = `${shown.length} of ${list.length} tools shown`);
-    $('#grid') && ($('#grid').innerHTML = shown.map(card).join('') || `<p class='notice'>No tools found.</p>`);
+    const emptyMessage = onlyFav && !favoriteIds.length ? 'No favorites saved yet. Use the ☆ Favorite button on a tool card to save it here.' : 'No tools match your current search or category.';
+    $('#grid') && ($('#grid').innerHTML = shown.map(card).join('') || `<div class='empty-state'><strong>Nothing to show yet</strong><span>${emptyMessage}</span></div>`);
     const r = get(recKey).map(id => list.find(t => t.id === id)).filter(Boolean);
     if($('#recentSec')) $('#recentSec').hidden = !r.length;
     if($('#recent')) $('#recent').innerHTML = r.map(card).join('');
+    const clearBtn = $('#clear');
+    if (clearBtn) { clearBtn.hidden = !r.length; clearBtn.disabled = !r.length; }
     $$('.tool-open').forEach(button => button.onclick = () => openTool(button.dataset.tool, button));
     $$('.fav2').forEach(b => b.onclick = e => { e.stopPropagation(); const a=get(favKey); set(favKey, a.includes(b.dataset.id) ? a.filter(x=>x!==b.dataset.id) : [...a,b.dataset.id]); render(); });
-    const favBtn = $('#fav'); if (favBtn) favBtn.setAttribute('aria-pressed', onlyFav ? 'true' : 'false');
+    const favBtn = $('#fav');
+    if (favBtn) { favBtn.setAttribute('aria-pressed', onlyFav ? 'true' : 'false'); favBtn.classList.toggle('primary', onlyFav); favBtn.textContent = `${onlyFav ? '★ Showing favorites' : '☆ Favorites'}${favoriteIds.length ? ` (${favoriteIds.length})` : ''}`; }
+    const filterSummary = $('#filterSummary');
+    if (filterSummary) filterSummary.textContent = `${activeCat === 'All' ? 'All categories' : activeCat} · ${shown.length} shown`;
   }
   /* Dynamically generates input fields and action buttons for a specific tool */
   function fields(defs, calc, note=''){
@@ -84,25 +91,59 @@
   }
   /* Parses and evaluates mathematical expressions securely */
   function evaluateExpression(raw){
-    /* Pre-process the expression: handle pi, power operator, and percentages */
-    let expression=String(raw||'').trim().toLowerCase().replace(/π/g,'pi').replace(/\^/g,'**').replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
-    if(!expression) throw new Error('Enter an expression.');
-    
-    /* Security check: allow only specific mathematical characters and symbols */
-    if(/[^0-9+\-*/%().,\sA-Za-z_]/.test(expression)) throw new Error('Unsupported character.');
-    
-    /* Define available mathematical functions and constants (trig in degrees) */
-    const scope={pi:Math.PI,e:Math.E,sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),asin:x=>Math.asin(x)*180/Math.PI,acos:x=>Math.acos(x)*180/Math.PI,atan:x=>Math.atan(x)*180/Math.PI,sqrt:Math.sqrt,cbrt:Math.cbrt,log:Math.log10,ln:Math.log,abs:Math.abs,pow:Math.pow,min:Math.min,max:Math.max,round:Math.round,floor:Math.floor,ceil:Math.ceil};
-    
-    /* Ensure only allowed functions are called in the expression */
-    const allowed=new Set(Object.keys(scope));
-    for(const token of expression.match(/[A-Za-z_]\w*/g)||[]){if(!allowed.has(token)) throw new Error('Unsupported function: '+token);}
-    
-    /* Execute the expression within the restricted scope */
-    const value=Function(...Object.keys(scope),'"use strict";return ('+expression+');')(...Object.values(scope));
-    if(!Number.isFinite(value)) throw new Error('Result is not finite.');
+    const input = String(raw || '').trim().toLowerCase().replace(/π/g, 'pi').replace(/×/g, '*').replace(/[÷]/g, '/').replace(/−/g, '-');
+    if (!input) throw new Error('Enter an expression.');
+    if (input.length > 1000) throw new Error('Expression is too long (maximum 1000 characters).');
+    const tokens = input.match(/(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?|[a-z]+|\*\*|[+*/^%(),-]|\S/g) || [];
+    const functions = {sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),asin:x=>Math.asin(x)*180/Math.PI,acos:x=>Math.acos(x)*180/Math.PI,atan:x=>Math.atan(x)*180/Math.PI,sqrt:Math.sqrt,cbrt:Math.cbrt,log:Math.log10,ln:Math.log,abs:Math.abs,pow:Math.pow,min:Math.min,max:Math.max,round:Math.round,floor:Math.floor,ceil:Math.ceil};
+    let position = 0;
+    const take = token => tokens[position] === token && (++position, true);
+    const expect = token => { if (!take(token)) throw new Error('Expected ' + token + '.'); };
+    // Recursive descent: unary signs bind less tightly than right-associative powers.
+    // No generated code, property access, assignments, or JavaScript evaluation.
+    function primary() {
+      const token = tokens[position++];
+      let value;
+      if (token === '(') { value = sum(); expect(')'); }
+      else if (token === 'pi' || token === 'e') value = token === 'pi' ? Math.PI : Math.E;
+      else if (Object.hasOwn(functions, token)) {
+        expect('(');
+        const args = [sum()];
+        while (take(',')) args.push(sum());
+        expect(')');
+        const arity = token === 'pow' ? 2 : ['min', 'max'].includes(token) ? args.length : 1;
+        if (args.length !== arity) throw new Error(token + ' expects ' + arity + ' argument(s).');
+        value = functions[token](...args);
+      } else if (token && /^(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/.test(token)) value = Number(token);
+      else throw new Error('Expected a number, constant or supported function.');
+      while (take('%')) value /= 100;
+      return value;
+    }
+    function power() { const left = primary(); return take('^') || take('**') ? left ** unary() : left; }
+    function unary() { return take('+') ? unary() : take('-') ? -unary() : power(); }
+    function product() {
+      let value = unary();
+      while (true) {
+        if (take('*')) value *= unary();
+        else if (take('/')) value /= unary();
+        else return value;
+      }
+    }
+    function sum() {
+      let value = product();
+      while (true) {
+        if (take('+')) value += product();
+        else if (take('-')) value -= product();
+        else return value;
+      }
+    }
+    const value = sum();
+    if (position !== tokens.length) throw new Error('Unexpected token: ' + tokens[position]);
+    if (!Number.isFinite(value)) throw new Error('Result is not finite. Check the domain and divisors.');
     return value;
   }
+  const numberList = (value, label='Values') => String(value ?? '').split(',').map(part => n(part, label));
+
   function expression(){ $('#body').innerHTML = `<label class='sr-only' for='expr'>Expression</label><textarea id='expr' rows='5' placeholder='Example: sin(30)+sqrt(16)+2^3'></textarea><div class='notice'>Allowed: + - * / ^ %, brackets, sqrt(), cbrt(), sin(), cos(), tan(), inverse trigonometry, log(), ln(), pi and e. Trigonometry uses degrees.</div><div class='tool-actions'><button class='btn primary' id='calcBtn' type='button'>Calculate</button><button class='btn' id='clearBtn' type='button'>Clear</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#clearBtn').onclick=()=>{$('#expr').value='';$('#res').textContent='Cleared.'}; $('#calcBtn').onclick=()=>{try{const value=evaluateExpression($('#expr').value);$('#res').className='result';$('#res').innerHTML=`<b>${fmt(value)}</b>`;}catch(err){$('#res').className='result err';$('#res').textContent=err.message||'Invalid expression.'}}; }
   const gcd=(a,b)=>{a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));while(b)[a,b]=[b,a%b];return a||1};
   const unitMaps={length:{mm:.001,cm:.01,m:1,km:1000,in:.0254,ft:.3048},mass:{g:.001,kg:1,tonne:1000,lb:.453592},area:{sqm:1,sqmm:1e-6,sqcm:1e-4,sqft:.092903},volume:{ml:.001,l:1,m3:1000,ft3:28.3168},pressure:{pa:1,kpa:1000,bar:100000,psi:6894.76,atm:101325}};
@@ -113,16 +154,16 @@
     unit:()=>fields([['value','Value','1'],['type','Type','length','length/mass/area/volume/pressure'],['from','From unit','m'],['to','To unit','cm']], f=>{const m=unitMaps[String(f.get('type')).toLowerCase()]; if(!m) throw new Error('Supported types: length, mass, area, volume, pressure.'); const from=String(f.get('from')).toLowerCase(), to=String(f.get('to')).toLowerCase(); if(!m[from]||!m[to]) throw new Error('Invalid unit.'); return `<b>${fmt(n(f.get('value'),'Value')*m[from]/m[to])} ${esc(to)}</b>`;}, 'Linear speed and RPM are not directly interchangeable. Use Rotational to Linear Speed when diameter is known.'),
     percent:()=>fields([['value','Value','200'],['percent','Percent','10'],['old','Old value for change',''],['new','New value for change','']], f=>{let out=`${fmt(n(f.get('percent'),'Percent')/100*n(f.get('value'),'Value'))}`; if(f.get('old')&&f.get('new')) out += `<br>Change = ${fmt((n(f.get('new'),'New')-n(f.get('old'),'Old'))/p(f.get('old'),'Old')*100)}%`; return `<b>${out}</b>`;}),
     ratio:()=>fields([['a','First number','12'],['b','Second number','18']], f=>{const a=n(f.get('a'),'First'),b=n(f.get('b'),'Second'),g=gcd(a,b);return `<b>${fmt(a/g)} : ${fmt(b/g)}</b>`;}),
-    avg:()=>fields([['values','Numbers separated by comma','10,20,30']], f=>{const a=String(f.get('values')).split(',').map(Number).filter(Number.isFinite); if(!a.length) throw new Error('Enter numbers separated by comma.'); return `<b>Average = ${fmt(a.reduce((s,x)=>s+x,0)/a.length)}</b><br>Sum = ${fmt(a.reduce((s,x)=>s+x,0))}, Count = ${a.length}`;}),
+    avg:()=>fields([['values','Numbers separated by comma','10,20,30']], f=>{const a=numberList(f.get('values')); if(!a.length) throw new Error('Enter numbers separated by comma.'); return `<b>Average = ${fmt(a.reduce((s,x)=>s+x,0)/a.length)}</b><br>Sum = ${fmt(a.reduce((s,x)=>s+x,0))}, Count = ${a.length}`;}),
     ohm:()=>fields([['v','Voltage V',''],['i','Current A',''],['r','Resistance Ω','']], f=>{const V=f.get('v'),I=f.get('i'),R=f.get('r'); if(!V&&I&&R)return`<b>V = ${fmt(n(I,'Current')*n(R,'Resistance'))} V</b>`; if(V&&!I&&R)return`<b>I = ${fmt(n(V,'Voltage')/p(R,'Resistance'))} A</b>`; if(V&&I&&!R)return`<b>R = ${fmt(n(V,'Voltage')/p(I,'Current'))} Ω</b>`; throw new Error('Fill any two values and leave one blank.');}),
     power:()=>fields([['v','Voltage V','230'],['i','Current A','2']], f=>`<b>P = ${fmt(n(f.get('v'),'Voltage')*n(f.get('i'),'Current'))} W</b>`),
     divider:()=>fields([['vin','Input voltage','12'],['r1','R1 Ω','1000'],['r2','R2 Ω','1000']], f=>`<b>Vout = ${fmt(n(f.get('vin'),'Input')*p(f.get('r2'),'R2')/(p(f.get('r1'),'R1')+p(f.get('r2'),'R2')))} V</b>`),
     color:()=>fields([['b1','Band 1','brown'],['b2','Band 2','black'],['mul','Multiplier','red'],['tol','Tolerance','gold']], f=>{const b1=colors[String(f.get('b1')).toLowerCase()],b2=colors[String(f.get('b2')).toLowerCase()],m=colors[String(f.get('mul')).toLowerCase()]; if(!b1||!b2||!m||b1[0]===null||b2[0]===null) throw new Error('Invalid color.'); return `<b>${fmt(((b1[0]*10)+b2[0])*m[1])} Ω</b><br>Tolerance: ${esc(f.get('tol'))}`;}, 'Valid colors: black, brown, red, orange, yellow, green, blue, violet, grey, white, gold, silver'),
-    res:()=>fields([['mode','Mode','series','series or parallel'],['values','Resistance values Ω','100,200,300']], f=>{const a=String(f.get('values')).split(',').map(Number).filter(x=>Number.isFinite(x)&&x>0); if(!a.length) throw new Error('Enter resistor values.'); const mode=String(f.get('mode')).toLowerCase(); const r=mode.includes('parallel')?1/a.reduce((s,x)=>s+1/x,0):a.reduce((s,x)=>s+x,0); return `<b>Req = ${fmt(r)} Ω</b>`;}),
+    res:()=>fields([['mode','Mode','series','series or parallel'],['values','Resistance values Ω','100,200,300']], f=>{const a=numberList(f.get('values'), 'Resistance'); if(!a.every(x=>x>0)) throw new Error('Every resistance must be greater than zero.'); const mode=String(f.get('mode')).trim().toLowerCase(); if(!['series','parallel'].includes(mode)) throw new Error('Mode must be series or parallel.'); const r=mode.includes('parallel')?1/a.reduce((s,x)=>s+1/x,0):a.reduce((s,x)=>s+x,0); return `<b>Req = ${fmt(r)} Ω</b>`;}),
     cap:()=>fields([['code','3-digit code','104']], f=>{const c=String(f.get('code')).trim(); if(!/^\d{3}$/.test(c)) throw new Error('Enter 3 digit code like 104.'); const pf=Number(c.slice(0,2))*Math.pow(10,Number(c[2])); return `<b>${fmt(pf)} pF</b><br>${fmt(pf/1000)} nF | ${fmt(pf/1000000)} µF`; }),
-    led:()=>fields([['vs','Supply V','12'],['vf','LED Vf','2'],['i','Current mA','20']], f=>`<b>R = ${fmt((n(f.get('vs'),'Supply')-n(f.get('vf'),'LED Vf'))/(p(f.get('i'),'Current')/1000))} Ω</b>`),
+    led:()=>fields([['vs','Supply V','12'],['vf','LED Vf','2'],['i','Current mA','20']], f=>{const supply=p(f.get('vs'),'Supply'),forward=p(f.get('vf'),'LED Vf'),current=p(f.get('i'),'Current')/1000;if(supply<=forward)throw new Error('Supply voltage must exceed LED forward voltage.');return `<b>R = ${fmt((supply-forward)/current)} Ω</b>`;}),
     tr:()=>fields([['vp','Primary voltage','230'],['np','Primary turns','1000'],['ns','Secondary turns','100']], f=>`<b>Vs = ${fmt(n(f.get('vp'),'Vp')*p(f.get('ns'),'Ns')/p(f.get('np'),'Np'))} V</b><br>Ratio Np:Ns = ${fmt(p(f.get('np'),'Np')/p(f.get('ns'),'Ns'))}:1`),
-    bat:()=>fields([['ah','Battery Ah','7'],['v','Battery voltage','12'],['load','Load W','20'],['eff','Efficiency %','85']], f=>`<b>Backup ≈ ${fmt(p(f.get('ah'),'Ah')*p(f.get('v'),'Voltage')*(n(f.get('eff'),'Efficiency')/100)/p(f.get('load'),'Load'))} hours</b>`),
+    bat:()=>fields([['ah','Battery Ah','7'],['v','Battery voltage','12'],['load','Load W','20'],['eff','Efficiency %','85']], f=>{const efficiency=p(f.get('eff'),'Efficiency');if(efficiency>100)throw new Error('Efficiency must be greater than 0 and at most 100%.');return `<b>Backup ≈ ${fmt(p(f.get('ah'),'Ah')*p(f.get('v'),'Voltage')*(efficiency/100)/p(f.get('load'),'Load'))} hours</b>`;}),
     drop:()=>fields([['i','Current A','5'],['l','One-way length m','20'],['a','Cable area mm²','1.5'],['v','Supply voltage','230']], f=>{const vd=2*n(f.get('i'),'Current')*n(f.get('l'),'Length')*0.0175/p(f.get('a'),'Area'); return `<b>Voltage drop ≈ ${fmt(vd)} V</b><br>${fmt(vd/p(f.get('v'),'Supply')*100)}% of supply`;}, 'Copper, single-phase estimate using 0.0175 Ω·mm²/m. Verify final cable selection against applicable standards.'),
     mix:()=>fields([['vol','Wet concrete volume m³','1'],['ratio','Mix ratio','1:2:4']], concrete), csa:()=>fields([['vol','Wet concrete volume m³','1'],['ratio','Mix ratio','1:1.5:3']], concrete),
     brick:()=>fields([['l','Wall length m','5'],['h','Wall height m','3'],['t','Wall thickness m','0.2'],['bl','Brick length m','0.19'],['bh','Brick height m','0.09'],['bt','Brick thickness m','0.09']], f=>{const wall=p(f.get('l'),'Length')*p(f.get('h'),'Height')*p(f.get('t'),'Thickness'); const brick=p(f.get('bl'),'Brick length')*p(f.get('bh'),'Brick height')*p(f.get('bt'),'Brick thickness'); return `<b>Bricks ≈ ${Math.ceil(wall/brick)}</b><br>Wall volume = ${fmt(wall)} m³`; }),
@@ -135,9 +176,15 @@
     gear:()=>fields([['driver','Driver teeth','20'],['driven','Driven teeth','60'],['rpm','Input RPM','900']], f=>{const ratio=p(f.get('driven'),'Driven')/p(f.get('driver'),'Driver'); return `<b>Gear ratio = ${fmt(ratio)}:1</b><br>Output speed = ${fmt(p(f.get('rpm'),'RPM')/ratio)} RPM`; }),
     press:()=>fields([['value','Value','1'],['from','From','bar'],['to','To','psi']], f=>{const from=String(f.get('from')).toLowerCase(),to=String(f.get('to')).toLowerCase(); if(!pressure[from]||!pressure[to]) throw new Error('Units: pa, kpa, bar, psi, atm'); return `<b>${fmt(n(f.get('value'),'Value')*pressure[from]/pressure[to])} ${esc(to)}</b>`;}),
     temp:()=>fields([['value','Value','100'],['from','From','c'],['to','To','f']], f=>{let v=n(f.get('value'),'Value'), from=String(f.get('from')).toLowerCase(), to=String(f.get('to')).toLowerCase(); let c=from.startsWith('f')?(v-32)*5/9:from.startsWith('k')?v-273.15:v; let out=to.startsWith('f')?c*9/5+32:to.startsWith('k')?c+273.15:c; return `<b>${fmt(out)} °${esc(to.toUpperCase())}</b>`;}),
-    cgpa:()=>fields([['gp','Grade points','8,9,7'],['cr','Credits','4,4,3']], f=>{const gp=String(f.get('gp')).split(',').map(Number),cr=String(f.get('cr')).split(',').map(Number); if(gp.length!==cr.length||!gp.every(Number.isFinite)||!cr.every(Number.isFinite)) throw new Error('Grade points and credits must match.'); const total=cr.reduce((s,x)=>s+x,0); return `<b>SGPA / CGPA = ${fmt(gp.reduce((s,x,i)=>s+x*cr[i],0)/total)}</b>`;}),
-    att:()=>fields([['att','Attended classes','36'],['total','Total classes','45'],['target','Target %','75']], f=>{const a=n(f.get('att'),'Attended'),t=p(f.get('total'),'Total'),target=n(f.get('target'),'Target')/100; const need=Math.max(0,Math.ceil((target*t-a)/(1-target))); return `<b>${fmt(a/t*100)}%</b><br>Classes needed for target if no absence: ${need}`;}),
-    internal:()=>fields([['marks','Marks separated by comma','8,9,7,10']], f=>{const a=String(f.get('marks')).split(',').map(Number).filter(Number.isFinite); if(!a.length) throw new Error('Enter marks.'); return `<b>Total = ${fmt(a.reduce((s,x)=>s+x,0))}</b>`;}),
+    kinematics:()=>fields([['u','Initial velocity u (m/s)','0'],['a','Acceleration a (m/s²)','2'],['t','Time t (s)','5']], f=>{const u=n(f.get('u'),'Initial velocity'),a=n(f.get('a'),'Acceleration'),t=p(f.get('t'),'Time'),v=u+a*t,s=u*t+0.5*a*t*t,avg=(u+v)/2;return `<b>Final velocity = ${fmt(v)} m/s</b><br>Displacement = ${fmt(s)} m<br>Average velocity = ${fmt(avg)} m/s<br><small>v = u + at; s = ut + ½at²</small>`;}, 'Constant-acceleration motion in one dimension.'),
+    projectile:()=>fields([['v','Launch speed (m/s)','20'],['angle','Launch angle (degrees)','45'],['g','Gravity g (m/s²)','9.80665']], f=>{const v=p(f.get('v'),'Launch speed'),angle=n(f.get('angle'),'Launch angle'),g=p(f.get('g'),'Gravity');if(angle<=0||angle>=90)throw new Error('Use a launch angle greater than 0° and less than 90°.');const rad=angle*Math.PI/180,vy=v*Math.sin(rad),vx=v*Math.cos(rad),time=2*vy/g,range=v*v*Math.sin(2*rad)/g,height=vy*vy/(2*g);return `<b>Range = ${fmt(range)} m</b><br>Flight time = ${fmt(time)} s<br>Maximum height = ${fmt(height)} m<br>Horizontal velocity = ${fmt(vx)} m/s<br><small>Assumes launch and landing at the same height; air resistance neglected.</small>`;}, 'Use a standard gravitational field of 9.80665 m/s² unless your problem specifies another value.'),
+    momentum:()=>fields([['m','Mass (kg)','2'],['u','Initial velocity u (m/s)','3'],['v','Final velocity v (m/s)','8'],['t','Impact / force duration (s)','0.5']], f=>{const m=p(f.get('m'),'Mass'),u=n(f.get('u'),'Initial velocity'),v=n(f.get('v'),'Final velocity'),t=p(f.get('t'),'Duration'),pi=m*u,pf=m*v,imp=pf-pi,force=imp/t;return `<b>Impulse = ${fmt(imp)} N·s</b><br>Initial momentum = ${fmt(pi)} kg·m/s<br>Final momentum = ${fmt(pf)} kg·m/s<br>Average force = ${fmt(force)} N<br><small>J = Δp = FΔt</small>`;}),
+    energy:()=>fields([['m','Mass (kg)','2'],['u','Initial speed u (m/s)','3'],['v','Final speed v (m/s)','8'],['h','Height above reference h (m)','5'],['t','Time interval (s)','2'],['g','Gravity g (m/s²)','9.80665']], f=>{const m=p(f.get('m'),'Mass'),u=n(f.get('u'),'Initial speed'),v=n(f.get('v'),'Final speed'),h=n(f.get('h'),'Height'),t=p(f.get('t'),'Time'),g=p(f.get('g'),'Gravity'),kei=0.5*m*u*u,kef=0.5*m*v*v,work=kef-kei,pe=m*g*h,power=work/t;return `<b>Net work = ${fmt(work)} J</b><br>Initial KE = ${fmt(kei)} J<br>Final KE = ${fmt(kef)} J<br>Potential energy = ${fmt(pe)} J<br>Average power = ${fmt(power)} W<br><small>Wnet = ΔKE; PE = mgh.</small>`;}),
+    circular:()=>fields([['m','Mass (kg)','2'],['v','Tangential speed (m/s)','10'],['r','Radius (m)','4']], f=>{const m=p(f.get('m'),'Mass'),v=p(f.get('v'),'Speed'),r=p(f.get('r'),'Radius'),a=v*v/r,force=m*a,omega=v/r,period=2*Math.PI*r/v;return `<b>Centripetal force = ${fmt(force)} N</b><br>Centripetal acceleration = ${fmt(a)} m/s²<br>Angular speed = ${fmt(omega)} rad/s<br>Period = ${fmt(period)} s<br><small>Fc = mv²/r; ω = v/r.</small>`;}),
+    heat:()=>fields([['m','Mass (kg)','1'],['c','Specific heat capacity c (J/kg·°C)','4186'],['ti','Initial temperature (°C)','20'],['tf','Final temperature (°C)','80']], f=>{const m=p(f.get('m'),'Mass'),c=p(f.get('c'),'Specific heat capacity'),ti=n(f.get('ti'),'Initial temperature'),tf=n(f.get('tf'),'Final temperature'),dt=tf-ti,q=m*c*dt;return `<b>Heat energy Q = ${fmt(q)} J</b><br>Temperature change ΔT = ${fmt(dt)} °C<br>${q>=0?'Heat absorbed':'Heat released'} = ${fmt(Math.abs(q)/1000)} kJ<br><small>Q = mcΔT; phase changes are not included.</small>`;}),
+    cgpa:()=>fields([['gp','Grade points','8,9,7'],['cr','Credits','4,4,3']], f=>{const gp=numberList(f.get('gp'), 'Grade points'),cr=numberList(f.get('cr'), 'Credits'); if(gp.length!==cr.length||!gp.every(Number.isFinite)||!cr.every(Number.isFinite)) throw new Error('Grade points and credits must match.'); if(!gp.every(x=>x>=0&&x<=10)||!cr.every(x=>x>0)) throw new Error('Grade points must be 0–10 and credits greater than zero.'); const total=cr.reduce((s,x)=>s+x,0); return `<b>SGPA / CGPA = ${fmt(gp.reduce((s,x,i)=>s+x*cr[i],0)/total)}</b>`;}),
+    att:()=>fields([['att','Attended classes','36'],['total','Total classes','45'],['target','Target %','75']], f=>{const a=n(f.get('att'),'Attended'),t=p(f.get('total'),'Total'),target=n(f.get('target'),'Target')/100; if(!Number.isSafeInteger(a)||!Number.isSafeInteger(t)||a<0||a>t) throw new Error('Use whole class counts with 0 ≤ attended ≤ total.'); if(target<0||target>1) throw new Error('Target must be between 0 and 100%.'); const need=target===1 ? (a===t ? 0 : '100% cannot be reached after a missed class') : Math.max(0,Math.ceil((target*t-a)/(1-target))); return `<b>${fmt(a/t*100)}%</b><br>Classes needed for target if no absence: ${need}`;}),
+    internal:()=>fields([['marks','Marks separated by comma','8,9,7,10']], f=>{const a=numberList(f.get('marks'), 'Marks'); if(!a.length) throw new Error('Enter marks.'); return `<b>Total = ${fmt(a.reduce((s,x)=>s+x,0))}</b>`;}),
     pass:()=>fields([['max','Maximum marks','100'],['pass','Pass %','40'],['scored','Already scored','25']], f=>`<b>Need ${fmt(Math.max(0,p(f.get('max'),'Max')*n(f.get('pass'),'Pass')/100-n(f.get('scored'),'Scored')))} more marks</b>`),
     plan:()=>fields([['topics','Number of topics','20'],['days','Available days','5']], f=>`<b>${Math.ceil(p(f.get('topics'),'Topics')/p(f.get('days'),'Days'))} topics/day</b>`),
     timer:()=>timer(), grammar:()=>textTool('grammar'), words:()=>textTool('words'), case:()=>textTool('case'), clean:()=>textTool('clean'), letter:()=>letter(), lab:()=>lab()
@@ -189,12 +236,13 @@
         statusEl.textContent = 'Timer reset to 25 minutes.';
       }
     };
+    return () => { clearInterval(run); run=null; };
   }
-  function textTool(kind){ $('#body').innerHTML=`<label class='sr-only' for='text'>Text</label><textarea id='text' rows='9' placeholder='Paste or type text here'></textarea><div class='tool-actions'><button class='btn primary' id='run' type='button'>Run Tool</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#run').onclick=()=>{let t=$('#text').value; if(kind==='words'){const w=t.trim()?t.trim().split(/\s+/).length:0;$('#res').innerHTML=`<b>${w}</b> words<br>${t.length} characters<br>Reading time ≈ ${fmt(w/180)} min`;return;} if(kind==='case'){ $('#text').value=t.toLowerCase().replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()); $('#res').textContent='Converted to sentence case.'; return;} if(kind==='clean'){ $('#text').value=t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); $('#res').textContent='Cleaned.'; return;} $('#text').value=t.replace(/\s+([,.!?])/g,'$1').replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,'I'); $('#res').textContent='Basic rule-based cleanup completed. It is not a full AI grammar checker.';}; }
+  function textTool(kind){ $('#body').innerHTML=`${kind==='case'?"<label for='caseMode'>Case style</label><select id='caseMode'><option value='sentence'>Sentence case</option><option value='upper'>UPPERCASE</option><option value='lower'>lowercase</option><option value='title'>Title Case</option></select>":''}<label class='sr-only' for='text'>Text</label><textarea id='text' rows='9' placeholder='Paste or type text here'></textarea><div class='tool-actions'><button class='btn primary' id='run' type='button'>Run Tool</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#run').onclick=()=>{let t=$('#text').value; if(kind==='words'){const w=t.trim()?t.trim().split(/\s+/).length:0;$('#res').innerHTML=`<b>${w}</b> words<br>${t.length} characters<br>Reading time ≈ ${fmt(w/180)} min`;return;} if(kind==='case'){ const mode=$('#caseMode').value; const transforms={upper:value=>value.toUpperCase(),lower:value=>value.toLowerCase(),title:value=>value.toLowerCase().replace(/\b[a-z]/g,char=>char.toUpperCase()),sentence:value=>value.toLowerCase().replace(/(^|[.!?]\s+)([a-z])/g,(match,prefix,char)=>prefix+char.toUpperCase())};$('#text').value=transforms[mode](t);$('#res').textContent='Converted to '+mode+' case.';return;} if(kind==='clean'){ $('#text').value=t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); $('#res').textContent='Cleaned.'; return;} $('#text').value=t.replace(/\s+([,.!?])/g,'$1').replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,'I'); $('#res').textContent='Basic rule-based cleanup completed. It is not a full AI grammar checker.';}; }
   function letter(){ $('#body').innerHTML=`<label class='sr-only' for='letterText'>Application letter</label><textarea id='letterText' rows='13'>To\nThe Principal\n\nSubject: Application for leave\n\nRespected Sir/Madam,\nI request leave for ______ due to ______. Kindly grant permission.\n\nYours faithfully,\nName:\nClass:\nRoll No:</textarea>`; }
   function lab(){ $('#body').innerHTML=`<label class='sr-only' for='labText'>Lab record format</label><textarea id='labText' rows='14'>Experiment No:\nDate:\nAim:\nApparatus / Software Required:\nTheory:\nProcedure:\nObservation / Drawing Details:\nResult:\nPrecautions:\nViva Questions:</textarea>`; }
-  function closeModal(){ const modal=$('#modal'); if(!modal)return; modal.hidden=true; document.body.style.overflow=''; lastOpener?.focus?.(); lastOpener=null; }
-  function openTool(id, opener){ const t=list.find(x=>x.id===id); if(!t)return; lastOpener=opener||document.activeElement; recent(id); $('#cat').textContent=t.cat; $('#ttl').textContent=t.title; $('#desc').textContent=t.desc; $('#modal').hidden=false; document.body.style.overflow='hidden'; (calc[id]||(()=>{$('#body').innerHTML='<div class="result">Tool not configured.</div>'}))(); const firstInput = $('#body input, #body textarea'); if (firstInput) { firstInput.focus(); if (typeof firstInput.select === 'function') firstInput.select(); } else { $('#x')?.focus(); } render(); }
-  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button' aria-pressed='${c==='All'?'true':'false'}'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>{const active=x===b;x.classList.toggle('on',active);x.setAttribute('aria-pressed',active?'true':'false');});render();}); $('#q') && ($('#q').oninput=render); $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
+  function closeModal(){ const modal=$('#modal'); if(!modal)return; modalCleanup?.(); modalCleanup=null; modal.hidden=true; document.body.style.overflow=''; const returnTarget=lastOpener?.isConnected?lastOpener:$$(lastToolContainer?'#'+lastToolContainer+' .tool-open':'.tool-open').find(button=>button.dataset.tool===lastToolId);returnTarget?.focus();lastOpener=null;lastToolId=null;lastToolContainer=null; }
+  function openTool(id, opener){ const t=list.find(x=>x.id===id); if(!t)return; modalCleanup?.(); modalCleanup=null; lastOpener=opener||document.activeElement; lastToolId=id; lastToolContainer=lastOpener?.closest?.('#grid,#recent')?.id||null; recent(id); $('#cat').textContent=t.cat; $('#ttl').textContent=t.title; $('#desc').textContent=t.desc; $('#modal').hidden=false; document.body.style.overflow='hidden'; const cleanup=(calc[id]||(()=>{$('#body').innerHTML='<div class="result">Tool not configured.</div>'; return null;}))(); if(typeof cleanup==='function') modalCleanup=cleanup; const firstInput = $('#body input, #body textarea'); if (firstInput) { firstInput.focus(); if (typeof firstInput.select === 'function') firstInput.select(); } else { $('#x')?.focus(); } render(); }
+  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button' aria-pressed='${c==='All'?'true':'false'}'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>{const active=x===b;x.classList.toggle('on',active);x.setAttribute('aria-pressed',active?'true':'false');});render();}); const searchInput=$('#q'); if(searchInput){ searchInput.oninput=render; searchInput.onkeydown=e=>{if(e.key==='Escape'&&searchInput.value){searchInput.value='';render();searchInput.blur();}};} $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();

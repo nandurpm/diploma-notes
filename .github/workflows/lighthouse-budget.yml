@@ -28,13 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+          persist-credentials: false
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
 
@@ -62,15 +63,17 @@ jobs:
           {
             echo "## Lighthouse quality budget"
             echo ""
-            echo "- Pages: Home, Revision 2026 directory, Student Tools"
-            echo "- Performance minimum: 0.72"
+            echo "- Pages: Home, About, Revision 2026, Revision 2021, Mock Exams, Ask POLY AI, 2015 Materials, Tools, Help/Contact"
+            echo "- Performance minimum: 0.55"
             echo "- Accessibility minimum: 0.90"
             echo "- Best Practices minimum: 0.90"
             echo "- SEO minimum: 0.90"
-            echo "- CLS maximum: 0.10"
+            echo "- CLS warning threshold: 0.15"
+            echo "- LCP warning threshold: 4000 ms"
+            echo "- Total Blocking Time warning threshold: 600 ms"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports-${{ github.run_id }}

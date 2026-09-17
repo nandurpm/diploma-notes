@@ -16,6 +16,9 @@ html.polytechnic-native-app body.has-fixed-site-header{padding-top:0!important}
 html.poly-lesson-page{--fixed-site-header-height:0px!important;--fixed-site-header-gap:0px!important;scroll-padding-top:0!important}
 html.poly-lesson-page body{padding-top:0!important}
 
+/* Keep page scrolling on html/body. Prevent an accidental overflow:auto on
+   portal main elements from creating a short nested scrollbar. */
+body.portal-page > main{overflow:visible!important;overflow-y:visible!important;overscroll-behavior:auto!important}
 body.portal-page .topbar{position:fixed!important;inset:0 0 auto 0!important;z-index:10000!important;display:grid!important;grid-template-columns:auto minmax(220px,1fr) max-content!important;align-items:center!important;gap:10px!important;width:100%!important;max-width:none!important;margin:0!important;padding:8px 14px!important;border-radius:0 0 28px 28px!important;transform:translateZ(0);backface-visibility:hidden;isolation:isolate}
 body.portal-page .progress,body.portal-page .reading-progress,body.portal-page #readingProgress{z-index:10020!important}
 body.portal-page .brand{min-width:0!important;display:inline-flex!important;align-items:center!important;gap:8px!important;color:inherit!important}

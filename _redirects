@@ -1,3 +1,7 @@
-/ask-poly-v2.html /ask-poly.html 302
+http://polypmna.dpdns.org/* https://polypmna.dpdns.org/:splat 301
+http://www.polypmna.dpdns.org/* https://polypmna.dpdns.org/:splat 301
+http://polypmna.dpdns.com/* https://polypmna.dpdns.org/:splat 301
+http://www.polypmna.dpdns.com/* https://polypmna.dpdns.org/:splat 301
+
 /first-year-materials.html /materials-2015.html 301
 /departments.html /revision-2021.html 301

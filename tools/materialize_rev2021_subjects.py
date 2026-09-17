@@ -5,12 +5,24 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import quote
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:  # GitHub Actions does not install optional parser packages.
+    BeautifulSoup = None
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMON = "First Year / Common"
+PDF_MANIFEST = json.loads((ROOT / "assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
+PDF_BASE = PDF_MANIFEST["base"]
+PDF_LINKS = PDF_MANIFEST["links"].get("2021", {})
+SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}"
+SITTTR_MODEL_QP_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021"
 OBJECT_RE = re.compile(r"\{[^{}]*\brevision\s*:\s*[\"']2021[\"'][^{}]*\}", re.S)
 PAIR_RE = re.compile(r"\b(revision|code|name|department|semester|type|assetCode)\s*:\s*[\"']([^\"']*)[\"']")
 GRID_OPEN_RE = re.compile(r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)', re.I)
@@ -36,6 +48,25 @@ def normalized(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", html.unescape(value).lower().replace("&", " and ")).strip()
 
 
+def pdf_key(department: str, code: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", html.unescape(department).lower().replace("&", " and ")).strip("-")
+    return f"2021|{slug}|{code.upper()}"
+
+
+def pdf_href(department: str, code: str, kind: str) -> str:
+    path = PDF_LINKS.get(pdf_key(department, code), {}).get(kind)
+    return f"{PDF_BASE}{path}" if path else ""
+
+
+def pdf_filename(href: str) -> str:
+    return href.rsplit("/", 1)[-1] if href else ""
+
+
+def sitttr_href(code: str, kind: str) -> str:
+    template = SITTTR_MODEL_QP_URL if kind == "modelQuestionPaper" else SITTTR_SYLLABUS_URL
+    return template.format(quote(code.upper(), safe=""))
+
+
 def semester_rank(value: str) -> tuple[int, str]:
     match = SEMESTER_NUMBER_RE.search(value)
     return (int(match.group(1)) if match else 999, value)
@@ -48,38 +79,170 @@ def subject_key(record: dict[str, str]) -> tuple[str, ...]:
     )
 
 
+def _text_content(fragment: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
+
+
+def parse_existing_pages() -> list[dict[str, str]]:
+    records: list[dict[str, str]] = []
+    for path in sorted((ROOT / "revision-2021").glob("*.html")):
+        if path.name == "department-view.html":
+            continue
+        text = path.read_text(encoding="utf-8")
+        if BeautifulSoup is not None:
+            soup = BeautifulSoup(text, "html.parser")
+            department = soup.body.get("data-department", "") if soup.body else ""
+            if not department:
+                grid = soup.select_one("#subjectGrid[data-department]")
+                department = grid.get("data-department", "") if grid else ""
+            articles = soup.select('article.subject-card[data-revision="2021"]')
+            rows = [(article.get("data-subject-code", "").strip(),
+                     article.find("h3").get_text(" ", strip=True) if article.find("h3") else "",
+                     article.find("p").get_text(" ", strip=True) if article.find("p") else "")
+                     for article in articles]
+        else:
+            department_match = DEPARTMENT_RE.search(text)
+            department = html.unescape(department_match.group(1)) if department_match else ""
+            article_re = re.compile(r'<article\b(?=[^>]*class=["\'][^"\']*subject-card[^"\']*["\'])(?=[^>]*data-revision=["\']2021["\'])[^>]*>.*?</article>', re.I | re.S)
+            rows = []
+            for article in article_re.findall(text):
+                code_match = re.search(r'data-subject-code=["\']([^"\']+)', article, re.I)
+                name_match = re.search(r'<h3\b[^>]*>(.*?)</h3>', article, re.I | re.S)
+                meta_match = re.search(r'<p\b[^>]*>(.*?)</p>', article, re.I | re.S)
+                rows.append((code_match.group(1).strip() if code_match else "",
+                             _text_content(name_match.group(1)) if name_match else "",
+                             _text_content(meta_match.group(1)) if meta_match else ""))
+        for code, name, meta in rows:
+            parts = [part.strip() for part in meta.split("/") if part.strip()]
+            if not code or not name or len(parts) < 2:
+                continue
+            semester = next((part for part in parts if re.match(r"^Semester\s+\d+", part, re.I)), "Semester 1")
+            semester_index = parts.index(semester) if semester in parts else max(0, len(parts) - 2)
+            subject_type = parts[semester_index + 1] if semester_index + 1 < len(parts) else "Theory"
+            department_name = " / ".join(parts[:semester_index]) or department or COMMON
+            records.append({
+                "revision": "2021",
+                "code": code,
+                "name": name,
+                "department": department_name,
+                "semester": semester,
+                "type": subject_type,
+                "assetCode": code,
+            })
+    return records
+
+
+def _department_slug(value: str) -> str:
+    return re.sub(r"-and-", "-", re.sub(r"[^a-z0-9]+", "-", html.unescape(value).lower().replace("&", " and ")).strip("-"))
+
+
+def _title_from_pdf(path: str, code: str) -> str:
+    filename = Path(path).stem
+    prefix = re.match(rf"{re.escape(code)}-(.*)$", filename, re.I)
+    value = prefix.group(1) if prefix else filename
+    return value.replace("-", " ").strip().title() or code
+
+
+def manifest_records(existing: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Fill the Rev2021 subject corpus from verified syllabus manifest paths.
+
+    The manifest contains the complete department/semester/code inventory. Existing
+    rendered cards provide better display names and types when present; only missing
+    identities are synthesized from the manifest filename, never from guessed URLs.
+    """
+    page_names: dict[tuple[str, str, str], dict[str, str]] = {}
+    for record in existing:
+        key = (_department_slug(record.get("department", "")), record.get("code", "").upper(), record.get("semester", ""))
+        page_names.setdefault(key, record)
+    departments: dict[str, str] = {}
+    for page in sorted((ROOT / "revision-2021").glob("*.html")):
+        if page.name == "department-view.html":
+            continue
+        text = page.read_text(encoding="utf-8")
+        match = DEPARTMENT_RE.search(text)
+        if match:
+            name = html.unescape(match.group(1)).strip()
+            departments.setdefault(_department_slug(name), name)
+    result: list[dict[str, str]] = []
+    for key, links in sorted(PDF_LINKS.items()):
+        _, department_slug, code = key.split("|", 2)
+        syllabus_path = links.get("syllabus", "")
+        source_path = syllabus_path or links.get("modelQuestionPaper", "")
+        semester_match = re.search(r"/semester-(\d+)/", source_path)
+        if not source_path or not semester_match:
+            continue
+        semester = f"Semester {semester_match.group(1)}"
+        known = page_names.get((department_slug, code.upper(), semester))
+        department = departments.get(department_slug) or departments.get(_department_slug(department_slug.replace("-", " "))) or department_slug.replace("-", " ").title()
+        result.append({
+            "revision": "2021",
+            "code": code,
+            "name": known.get("name") if known else _title_from_pdf(source_path, code),
+            "department": known.get("department") if known else department,
+            "semester": semester,
+            "type": known.get("type") if known else ("Lab" if "-lab" in source_path.lower() else "Theory"),
+            "assetCode": code,
+        })
+    return result
+
+
 def all_records() -> list[dict[str, str]]:
-    records = parse_records(ROOT / "assets/js/subjects.js")
-    records.extend(parse_records(ROOT / "assets/js/subject-browser.js"))
+    source_records = parse_records(ROOT / "assets/js/subjects.js")
+    source_records.extend(parse_records(ROOT / "assets/js/subject-browser.js"))
+    existing = parse_existing_pages()
+    manifest = manifest_records(existing)
+    canonical_names: dict[str, str] = {}
+    for page in sorted((ROOT / "revision-2021").glob("*.html")):
+        if page.name == "department-view.html":
+            continue
+        match = DEPARTMENT_RE.search(page.read_text(encoding="utf-8"))
+        if match:
+            name = html.unescape(match.group(1)).strip()
+            canonical_names.setdefault(_department_slug(name), name)
+    # Prefer explicit source/page labels, then fill absent identities from the
+    # verified syllabus manifest. Identity intentionally includes department,
+    # semester, and code to avoid cross-programme contamination. Canonicalize
+    # aliases such as “Tool and Die Engineering” to the page’s “Tool & Die
+    # Engineering” label so filtering cannot split one department in two.
+    aliases = {
+        "electronics-communication-engineering": "electronics-communication",
+    }
     unique: dict[tuple[str, ...], dict[str, str]] = {}
-    for record in records:
-        unique.setdefault(subject_key(record), record)
+    for original in source_records + existing + manifest:
+        record = dict(original)
+        slug = aliases.get(_department_slug(record.get("department", "")), _department_slug(record.get("department", "")))
+        record["department"] = canonical_names.get(slug, record.get("department", ""))
+        identity = (slug, record.get("semester", ""), record.get("code", "").upper())
+        unique.setdefault(identity, record)
     return list(unique.values())
 
 
-def paths(record: dict[str, str]) -> tuple[str, str, bool, bool]:
-    code = record["assetCode"]
+def paths(record: dict[str, str]) -> tuple[str, str, bool]:
+    code = record.get("assetCode") or record["code"]
     lesson_local = Path("lessons") / f"lessons-{code}.html"
-    notes_local = Path("notes") / f"downloadable-notes-{code}.pdf"
-    return (
-        "/" + lesson_local.as_posix(),
-        "/" + notes_local.as_posix(),
-        (ROOT / lesson_local).is_file(),
-        (ROOT / notes_local).is_file(),
-    )
+    lesson_href = "/" + lesson_local.as_posix()
+    return lesson_href, lesson_href + "?autoPrintNotes=1", (ROOT / lesson_local).is_file()
 
 
 def card(record: dict[str, str]) -> str:
     code = record["code"]
-    lesson_href, notes_href, lesson_ok, notes_ok = paths(record)
-    syllabus = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&amp;course=" + html.escape(code, quote=True)
-    model_qp = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=" + html.escape(code, quote=True)
+    lesson_href, notes_href, lesson_ok = paths(record)
+    syllabus = pdf_href(record["department"], code, "syllabus")
+    model_qp = pdf_href(record["department"], code, "modelQuestionPaper")
+    syllabus_action = (
+        f'<a class="action syllabus" href="{html.escape(syllabus, quote=True)}" download="{html.escape(pdf_filename(syllabus), quote=True)}">Download Syllabus</a>'
+        if syllabus else
+        f'<a class="action syllabus external-fallback" href="{html.escape(sitttr_href(code, "syllabus"), quote=True)}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>'
+    )
+    model_action = (
+        f'<a class="action qp" href="{html.escape(model_qp, quote=True)}" download="{html.escape(pdf_filename(model_qp), quote=True)}">Download Model Question Paper</a>'
+        if model_qp else
+        f'<a class="action qp external-fallback" href="{html.escape(sitttr_href(code, "modelQuestionPaper"), quote=True)}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>'
+    )
     if lesson_ok:
-        download_href = notes_href if notes_ok else lesson_href + "?autoPrintNotes=1"
-        download_attr = " download" if notes_ok else ' target="_blank" rel="noopener noreferrer"'
         study = (
             f'<a class="action lessons" href="{html.escape(lesson_href, quote=True)}">View Lessons</a>'
-            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Download Notes</a>'
+            f'<a class="action download" href="{html.escape(notes_href, quote=True)}">Save as PDF</a>'
         )
     else:
         study = (
@@ -92,11 +255,10 @@ def card(record: dict[str, str]) -> str:
         f'data-revision="2021" data-semester="{html.escape(record["semester"], quote=True)}" '
         f'data-search-text="{html.escape(search, quote=True)}" data-notes-href="{html.escape(notes_href, quote=True)}" '
         f'data-lesson-href="{html.escape(lesson_href, quote=True)}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(notes_ok).lower()}"><div class="subject-top"><span>2021</span>'
+        f'data-notes-available="{str(lesson_ok).lower()}"><div class="subject-top"><span>2021</span>'
         f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
-        f'<div class="action-row"><a class="action syllabus" href="{syllabus}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
-        f'{study}<a class="action qp" href="{model_qp}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>'
+        f'<div class="action-row">{syllabus_action}{study}{model_action}</div></article>'
     )
 
 
@@ -121,6 +283,24 @@ def render(records: list[dict[str, str]]) -> str:
     return "".join(sections)
 
 
+def write_runtime_dataset(records: list[dict[str, str]]) -> None:
+    output = ROOT / "assets/data/revision-2021-subjects.json"
+    subjects = sorted(
+        records,
+        key=lambda item: (item.get("department", ""), semester_rank(item.get("semester", "")), item.get("code", ""), item.get("name", "")),
+    )
+    payload = {
+        "scheme": "REV2021",
+        "source": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021",
+        "sourceManifestCommit": PDF_MANIFEST.get("generated_from", ""),
+        "subjectCount": len(subjects),
+        "subjects": subjects,
+    }
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if output.read_text(encoding="utf-8") != serialized if output.exists() else True:
+        output.write_text(serialized, encoding="utf-8")
+
+
 def materialized_text(path: Path, records: list[dict[str, str]]) -> str:
     text = path.read_text(encoding="utf-8")
     match = DEPARTMENT_RE.search(text)
@@ -131,6 +311,16 @@ def materialized_text(path: Path, records: list[dict[str, str]]) -> str:
     wanted = [record for record in records if normalized(record["department"]) in accepted]
     if not wanted:
         raise ValueError(f"No Revision 2021 subjects found for {department}")
+    department_keys = {
+        (record.get("semester", ""), record.get("code", "").upper())
+        for record in wanted
+        if normalized(record.get("department", "")) != normalized(COMMON)
+    }
+    wanted = [
+        record for record in wanted
+        if normalized(record.get("department", "")) != normalized(COMMON)
+        or (record.get("semester", ""), record.get("code", "").upper()) not in department_keys
+    ]
     content = render(wanted)
     if START in text or END in text:
         if text.count(START) != 1 or text.count(END) != 1:
@@ -147,6 +337,8 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="Fail if any department page is stale")
     args = parser.parse_args()
     records = all_records()
+    if not args.check:
+        write_runtime_dataset(records)
     changed: list[str] = []
     failures: list[str] = []
     pages = [path for path in sorted((ROOT / "revision-2021").glob("*.html")) if path.name != "department-view.html"]

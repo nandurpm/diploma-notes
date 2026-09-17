@@ -1,6 +1,6 @@
 # Purpose: Deploy production diagnostic - Descriptive comment added for clarity
 #!/usr/bin/env python3
-"""Build, deploy and verify POLY PMNA production while recording safe diagnostics."""
+"""Build, deploy and verify the optional POLY PMNA Cloudflare Pages mirror while recording safe diagnostics."""
 from __future__ import annotations
 
 import json
@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = Path(os.environ.get("DEPLOY_DIAGNOSTIC_REPORT", "/tmp/deploy-diagnostic.md"))
-DOMAIN = os.environ.get("PRODUCTION_DOMAIN", "polypmna.dpdns.org")
+DOMAIN = os.environ.get("PRODUCTION_DOMAIN", "diploma-notes.pages.dev")
 TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "")
 ACCOUNT = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
 SHA = os.environ.get("GITHUB_SHA", "unknown")
@@ -37,26 +37,12 @@ def run(command: list[str], label: str) -> None:
 
 
 def cloudflare_project() -> str:
-    request = urllib.request.Request(
-        f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/pages/projects",
-        headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        payload = json.loads(response.read().decode("utf-8"))
-    if not payload.get("success"):
-        raise RuntimeError(f"Cloudflare API errors: {payload.get('errors')}")
-    projects = payload.get("result") or []
-    matches = []
-    for project in projects:
-        domains = set(project.get("domains") or [])
-        subdomain = str(project.get("subdomain") or "").replace("https://", "").rstrip("/")
-        if DOMAIN in domains or DOMAIN == subdomain:
-            matches.append(project)
-    log("Available Cloudflare Pages projects: " + (", ".join(str(item.get("name")) for item in projects) or "none"))
-    log("Projects matching production domain: " + (", ".join(str(item.get("name")) for item in matches) or "none"))
-    if len(matches) != 1:
-        raise RuntimeError(f"Expected exactly one Cloudflare Pages project matching {DOMAIN}; found {len(matches)}")
-    return str(matches[0]["name"])
+    # Match deploy-static-site.yml: deployment does not require permission to
+    # enumerate every project in the account or ownership of production DNS.
+    project = os.environ.get("CLOUDFLARE_PAGES_PROJECT", "diploma-notes").strip()
+    if not project or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in project):
+        raise ValueError("CLOUDFLARE_PAGES_PROJECT must be a Pages project slug")
+    return project
 
 
 def verify_live() -> None:
@@ -96,7 +82,7 @@ def verify_live() -> None:
 def write_report(status: str, error: str = "") -> None:
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     body = [
-        f"# Production deployment diagnostic: {status}",
+        f"# Cloudflare Pages mirror diagnostic: {status}",
         "",
         f"- Commit: `{SHA}`",
         f"- Domain: `{DOMAIN}`",

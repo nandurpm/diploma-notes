@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Directories that should not be included in the public build
 EXCLUDED_ROOTS = {
     ".git", ".github", "android", "android-app", "docs", "reports", "supabase",
-    "tools", "workers", "node_modules", "_site",
+    "tools", "tests", "workers", "node_modules", "_site", "previews",
 }
 
 # File extensions considered source code and excluded by default
@@ -29,12 +29,93 @@ EXPLICIT = {
     "build-info.json", "site.webmanifest",
 }
 
+# These synchronized JSON catalogues are public runtime data, not internal docs.
+PUBLIC_PDF_CATALOGUES = {
+    "docs/pdf-archive/manifests/archive-index.json",
+    "docs/pdf-archive/manifests/notes-2021.json",
+    "docs/pdf-archive/manifests/notes-2026.json",
+}
+
 # Critical files that must exist for a successful deployment
 REQUIRED = {
     "index.html", "revision-2026.html", "revision-2021.html", "ask-poly.html",
     "daily-quiz.html", "tools.html", "privacy.html", "sitemap.xml",
     "build-info.json", "site.webmanifest",
 }
+
+REQUIRED.update(PUBLIC_PDF_CATALOGUES)
+
+INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
+INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
+PRE_ONAM_CSS_TAG = '<link rel="stylesheet" href="/assets/css/pre-onam-theme.css?v=20260819-pre-onam-perf3">'
+PRE_ONAM_JS_TAG = '<script defer src="/assets/js/pre-onam-theme.js?v=20260819-pre-onam-perf3"></script>'
+LEARNING_SPRINT_CSS_TAG = '<link rel="stylesheet" href="/assets/css/learning-sprint-theme.css?v=20260827-learning-sprint-v2">'
+LEARNING_SPRINT_JS_TAG = '<script defer src="/assets/js/learning-sprint-theme.js?v=20260827-learning-sprint-v2"></script>'
+NEW_YEAR_CSS_TAG = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=20260819-new-year-v1">'
+NEW_YEAR_JS_TAG = '<script defer src="/assets/js/new-year-theme.js?v=20260819-new-year-v1"></script>'
+
+
+def inject_independence_assets(relative: str, content: str) -> str:
+    """Load the centralized annual theme on every public HTML page.
+
+    Cloudflare Pages may serve this repository as a static artifact without
+    executing the source-level Functions middleware. Build-time injection keeps
+    the same client-side date controller available in that deployment mode.
+    """
+    if Path(relative).suffix.lower() != ".html":
+        return content
+    if "independence-day-theme.css" in content or "independence-day-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {INDEPENDENCE_CSS_TAG}\n    {INDEPENDENCE_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+def inject_pre_onam_assets(relative: str, content: str) -> str:
+    """Load the date-driven pre-Onam controller in the public artifact."""
+    if Path(relative).suffix.lower() != ".html" or "pre-onam-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {PRE_ONAM_CSS_TAG}\n    {PRE_ONAM_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+def inject_learning_sprint_assets(relative: str, content: str) -> str:
+    """Load the recurring IST 10th-day Learning Sprint theme."""
+    if Path(relative).suffix.lower() != ".html" or "learning-sprint-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {LEARNING_SPRINT_CSS_TAG}\n    {LEARNING_SPRINT_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+def inject_new_year_assets(relative: str, content: str) -> str:
+    """Load the date-driven New Year controller in the public artifact."""
+    if Path(relative).suffix.lower() != ".html" or "new-year-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {NEW_YEAR_CSS_TAG}\n    {NEW_YEAR_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+
+def inject_public_runtime_assets(relative: str, content: str) -> str:
+    # Standalone previews own their theme state machines and must not receive
+    # autonomous production seasonal controllers during the public build.
+    if relative.startswith("previews/"):
+        return content
+    content = inject_independence_assets(relative, content)
+    content = inject_learning_sprint_assets(relative, content)
+    content = inject_pre_onam_assets(relative, content)
+    return inject_new_year_assets(relative, content)
 
 
 # Retrieves a list of all files currently tracked by Git
@@ -48,6 +129,8 @@ def should_copy(relative: str) -> bool:
     path = Path(relative)
     if not path.parts:
         return False
+    if relative in PUBLIC_PDF_CATALOGUES:
+        return True
     # Skip excluded directories and hidden files
     if path.parts[0] in EXCLUDED_ROOTS or path.name.startswith("."):
         return False
@@ -59,12 +142,11 @@ def should_copy(relative: str) -> bool:
 
 def build(target: Path, optimize: bool) -> None:
     target = target.resolve()
-    if target == ROOT or ROOT in target.parents and target.name not in {"_site", "public-build"}:
+    if target == ROOT or ROOT in target.parents and target.name not in {"_site", "_site_test", "public-build"}:
         raise ValueError(f"Refusing unsafe target directory: {target}")
     if target.exists():
         shutil.rmtree(target)
     target.mkdir(parents=True)
-
     copied = 0
     for relative in tracked_files():
         if not should_copy(relative):
@@ -74,21 +156,24 @@ def build(target: Path, optimize: bool) -> None:
             continue
         destination = target / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
+        if source.suffix.lower() == ".html":
+            html = source.read_text(encoding="utf-8")
+            destination.write_text(inject_public_runtime_assets(relative, html), encoding="utf-8")
+        else:
+            shutil.copy2(source, destination)
         copied += 1
-
+    from restore_archived_pdfs import restore
+    copied += restore(ROOT, target, should_copy)
     for relative in EXPLICIT:
         source = ROOT / relative
         if source.is_file():
             destination = target / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
-
     (target / ".nojekyll").write_text("", encoding="utf-8")
     missing = sorted(relative for relative in REQUIRED if not (target / relative).is_file())
     if missing:
         raise FileNotFoundError("Missing deployment files: " + ", ".join(missing))
-
     if optimize:
         subprocess.check_call(
             ["python", str(ROOT / "tools/optimize_public_build.py"), "--root", str(target)],

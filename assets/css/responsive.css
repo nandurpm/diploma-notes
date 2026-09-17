@@ -51,6 +51,8 @@
   .choice-card,
   .notice,
   .tool-panel { border-radius: 20px; }
+  .subject-card,
+  body.portal-page .subject-card { overflow: hidden !important; }
   .page-title { min-height: 220px; padding: 24px 16px; }
   .page-title::before { position: static; width: fit-content; margin-bottom: 12px; font-size: .62rem; }
   .page-title::after { width: 68px; height: 68px; right: 14px; bottom: 14px; border-radius: 22px; font-size: 2.2rem; opacity: .8; }
@@ -91,7 +93,11 @@
   .action-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
   .action,
   .availability-label { width: 100%; min-width: 0; min-height: 46px; padding: 10px 8px; font-size: .8rem; line-height: 1.15; }
+  /* Keep the lesson action’s decorative sweep from creating a hidden internal overflow area. */
+  .action.lessons::after { display: none; }
   .footer { width: calc(100% - 14px); margin-top: 24px; padding: 16px; border-radius: 18px; }
+  .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem 1rem; }
+  .footer-legal a { margin-right: 0; }
 }
 
 @media (max-width: 380px) {

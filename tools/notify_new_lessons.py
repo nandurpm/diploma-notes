@@ -8,7 +8,9 @@ import html
 import json
 import re
 import sys
+import time
 from pathlib import Path
+from urllib.parse import urlencode
 from typing import Any
 
 import requests
@@ -17,6 +19,7 @@ from google.oauth2 import service_account
 
 SITE = "https://polypmna.dpdns.org"
 FCM_SCOPE = "https://www.googleapis.com/auth/firebase.messaging"
+RETRYABLE_FCM_STATUS = {429, 500, 502, 503, 504}
 LESSON_RE = re.compile(r"lessons-([A-Za-z0-9]+)\.html$")
 TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
 H1_RE = re.compile(r"<h1[^>]*>(.*?)</h1>", re.I | re.S)
@@ -45,7 +48,14 @@ def subject_name(path: Path, code: str) -> str:
 def revision_and_url(path: Path) -> tuple[str, str]:
     relative = path.as_posix().lstrip("./")
     revision = "REV2026" if relative.startswith("revision-2026-content/") else "REV2021"
-    return revision, f"{SITE}/{relative}"
+    if revision == "REV2026":
+        return revision, f"{SITE}/{relative}"
+    # The legacy /lessons/ directory is not deployed publicly. Open the verified
+    # lessons browser and pass the revision/code so its client can select the card.
+    match = LESSON_RE.search(path.name)
+    code = match.group(1).upper() if match else ""
+    query = urlencode({"revision": "2021", "code": code})
+    return revision, f"{SITE}/lessons.html?{query}#subject-{code}"
 
 
 def load_log(path: Path) -> dict[str, Any]:
@@ -79,19 +89,42 @@ def credentials(service_account_path: Path):
 
 def send_message(creds, project_id: str, payload: dict[str, Any]) -> str:
     endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
-    response = requests.post(
-        endpoint,
-        headers={
-            "Authorization": f"Bearer {creds.token}",
-            "Content-Type": "application/json; charset=UTF-8",
-        },
-        json={"message": payload},
-        timeout=30,
-    )
-    if not response.ok:
-        raise RuntimeError(f"FCM HTTP {response.status_code}: {response.text[:500]}")
-    body = response.json()
-    return str(body.get("name") or "sent")
+    headers = {
+        "Authorization": f"Bearer {creds.token}",
+        "Content-Type": "application/json; charset=UTF-8",
+    }
+    last_error: Exception | None = None
+
+    # FCM can briefly return 429/5xx responses. Retry those transient failures
+    # with bounded exponential backoff, while failing immediately on permanent
+    # request errors such as an invalid topic or malformed payload.
+    for attempt in range(4):
+        try:
+            response = requests.post(
+                endpoint,
+                headers=headers,
+                json={"message": payload},
+                timeout=30,
+            )
+        except requests.RequestException as error:
+            last_error = error
+            if attempt == 3:
+                break
+            time.sleep(2**attempt)
+            continue
+
+        if response.ok:
+            body = response.json()
+            return str(body.get("name") or "sent")
+
+        last_error = RuntimeError(
+            f"FCM HTTP {response.status_code}: {response.text[:500]}"
+        )
+        if response.status_code not in RETRYABLE_FCM_STATUS or attempt == 3:
+            break
+        time.sleep(2**attempt)
+
+    raise RuntimeError(f"FCM send failed after retries: {last_error}") from last_error
 
 
 def main() -> int:

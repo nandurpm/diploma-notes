@@ -19,22 +19,32 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+          persist-credentials: false
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+      - name: Test PDF catalogue loading and packaging
+        run: |
+          node --test tests/pdf-catalogue.test.mjs
+          python -m unittest discover -s tests -p test_public_pdf_catalogues.py
       - name: Generate, validate and optimize public artifact
         run: |
           GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
           python tools/build_public_site.py --target _site
+          python tools/verify_public_build_consistency.py _site --expected-commit "$GITHUB_SHA"
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+          test ! -s <(grep -o 'id="queueBtn"' _site/ask-poly.html)
+          test ! -s <(grep -o 'class="ask-queue"' _site/ask-poly.html)
+          test ! -s <(grep -o 'id="contextDepartment"' _site/ask-poly.html)
+          test ! -s <(grep -o 'class="ask-context-bar"' _site/ask-poly.html)
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -47,4 +57,4 @@ jobs:
     steps:
       - name: Deploy GitHub Pages artifact
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

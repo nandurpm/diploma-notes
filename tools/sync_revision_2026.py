@@ -44,10 +44,12 @@ PROGRAMMES = [
     ("CR", "Civil & Rural Engineering", "civil-and-rural-engineering"),
     ("CE", "Civil Engineering", "civil-engineering"),
     ("CL", "Civil Engineering & Planning", "civil-engineering-and-planning"),
+    ("CO", "Civil Engineering (Construction Technology)", "civil-engineering-construction-technology"),
     ("CP", "Commercial Practice", "commercial-practice"),
     ("CB", "Computer Application & Business Management", "computer-application-and-business-management"),
     ("CT", "Computer Engineering", "computer-engineering"),
     ("CS", "Computer Science & Engineering", "computer-science-and-engineering"),
+    ("CZ", "Computer Science and Engineering (Artificial Intelligence & Machine Learning)", "computer-science-and-engineering-artificial-intelligence-and-machine-learning"),
     ("CG", "Computer Science and Technology", "computer-science-and-technology"),
     ("CF", "Cyber Forensics and Information Security", "cyber-forensics-and-information-security"),
     ("EE", "Electrical & Electronics Engineering", "electrical-and-electronics-engineering"),
@@ -56,6 +58,7 @@ PROGRAMMES = [
     ("EC", "Electronics and Communication", "electronics-and-communication"),
     ("ET", "Electronics and Computer Engineering", "electronics-and-computer-engineering"),
     ("EL", "Electronics Engineering", "electronics-engineering"),
+    ("ES", "Electronics Engineering (Embedded Systems)", "electronics-engineering-embedded-systems"),
     ("FS", "Fire Technology and Safety", "fire-technology-and-safety"),
     ("FT", "Food Processing Technology", "food-processing-technology"),
     ("IF", "Information Technology", "information-technology"),
@@ -63,6 +66,7 @@ PROGRAMMES = [
     ("IC", "Integrated Circuit Design & Fabrication", "integrated-circuit-design-and-fabrication"),
     ("ID", "Interior Design", "interior-design"),
     ("ME", "Mechanical Engineering", "mechanical-engineering"),
+    ("MA", "Mechanical Engineering (Automobile Engineering)", "mechanical-engineering-automobile-engineering"),
     ("MC", "Mechatronics", "mechatronics"),
     ("MI", "Micro Electronics", "micro-electronics"),
     ("PL", "Polymer Technology", "polymer-technology"),
@@ -159,7 +163,7 @@ def validate_official_index(session: requests.Session) -> requests.Response:
         missing = [item for item in expected if item not in official]
         extra = [item for item in official if item not in expected]
         raise RuntimeError(
-            "Official programme index does not match the expected 38-programme registry. "
+            "Official programme index does not match the expected 42-programme registry. "
             f"found={len(official)} missing={missing} extra={extra} order={official}"
         )
     return response
@@ -424,7 +428,7 @@ def main() -> int:
     if failures:
         print(json.dumps(failures, indent=2), file=sys.stderr)
         return 1
-    if len(counts) != 38 or len(subjects) < 1000:
+    if len(counts) != 42 or len(subjects) < 1000:
         print(
             f"Unsafe catalogue size: programmes={len(counts)} subjects={len(subjects)}",
             file=sys.stderr,
@@ -435,11 +439,11 @@ def main() -> int:
         "scheme": "REV2026",
         "source": INDEX,
         "sourceMethod": (
-            "Official REV2026 index plus 38 exact official programme URLs; "
+            "Official REV2026 index plus 42 exact official programme URLs; "
             "semester from official row/table section, with checked code-prefix fallback only."
         ),
         "generatedAt": verified_at.isoformat(),
-        "programmeCount": 38,
+        "programmeCount": 42,
         "subjectCount": len(subjects),
         "programmeSubjectCounts": counts,
         "programmeSemesterCounts": semester_counts,
@@ -456,7 +460,7 @@ def main() -> int:
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(
-        f"Verified programmes=38 subjects={len(subjects)} failures=0 "
+        f"Verified programmes=42 subjects={len(subjects)} failures=0 "
         f"sources={dict(sorted(source_counts.items()))}"
     )
     return 0

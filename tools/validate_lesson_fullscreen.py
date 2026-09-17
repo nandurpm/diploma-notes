@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "lesson-fullscreen-validation.json"
-LESSON_RUNTIME = "20260725-watermark1"
+LESSON_RUNTIME = "20260819-ask-context1"
 
 
 def read(path: Path) -> str:

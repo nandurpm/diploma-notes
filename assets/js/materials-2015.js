@@ -2,10 +2,17 @@
 (() => {
   "use strict";
 
-  const MODEL_QP_BASE = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses&prog=";
-  const SYLLABUS_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2015";
-  const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015";
-  const SUBJECT_DATA_URL = "/assets/data/revision-2015-subjects.json?v=20260720-rev2015-subjects1";
+  const SYLLABUS_INDEX = "";
+  const MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015";
+  const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  const PDF_LINKS_URLS = [
+    "/assets/data/revision-2015-pdf-links.json?v=20260823-rev2015-repo1",
+    "/assets/data/revision-2015-pdf-links.json"
+  ];
+  const SUBJECT_DATA_URLS = [
+    "/assets/data/revision-2015-subjects.json?v=20260822-rev2015-sitttr-fallback1",
+    "/assets/data/revision-2015-subjects.json"
+  ];
 
   const MATERIALS_2015 = {
     firstYear: [
@@ -34,10 +41,7 @@
       { label: "Workshop Materials Archive", url: "https://drive.google.com/drive/folders/18K8CJwFQU-iHH6z8Wc0hiPEba39sKRNl" }
     ],
 
-    questionPapers: [
-      { label: "Official REV2015 Model Question Paper Index", url: MODEL_QP_INDEX },
-      { label: "Official REV2015 Syllabus Index", url: SYLLABUS_INDEX }
-    ],
+    questionPapers: [],
 
     alternativeNotes: [
       { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },
@@ -85,15 +89,31 @@
     }
   }
 
-  function safeSitttrUrl(value) {
+  function safeArchivePdfUrl(value) {
     const href = safeExternalUrl(value);
     if (!href) return "";
     try {
-      const host = new URL(href).hostname.replace(/^www\./, "");
-      return host === "sitttrkerala.ac.in" ? href : "";
+      const url = new URL(href);
+      // Allow POLY PMNA PDF archive links
+      if (url.hostname === "github.com" && url.pathname.includes("poly-pmna-pdf-files")) return href;
+      // Allow official SITTTR links as fallbacks
+      if (url.hostname.includes("sitttrkerala.ac.in")) return href;
+      return "";
     } catch (_) {
       return "";
     }
+  }
+
+  function repositoryPdfUrl(subject, kind) {
+    const code = String(subject?.code || "").trim().toUpperCase();
+    const programme = String(subject?.programmeCode || "").trim().toUpperCase();
+    const entry = directory.pdfLinks?.[`${programme}|${code}`];
+    const path = entry?.[kind];
+    return path ? `${PDF_BASE}${path}` : "";
+  }
+
+  function pdfFilename(href) {
+    return String(href || "").split("/").pop() || "resource.pdf";
   }
 
   function renderGroup(container) {
@@ -130,6 +150,7 @@
 
   const directory = {
     data: null,
+    pdfLinks: {},
     department: "",
     semester: "all",
     query: ""
@@ -139,6 +160,7 @@
     return {
       department: document.getElementById("rev2015Department"),
       semester: document.getElementById("rev2015Semester"),
+      pdfAvailability: document.getElementById("pdfAvailabilityFilter"),
       search: document.getElementById("rev2015Search"),
       clear: document.getElementById("rev2015ClearFilters"),
       status: document.getElementById("rev2015DirectoryStatus"),
@@ -179,6 +201,22 @@
     directory.query = query;
   }
 
+  function primeControlsFromUrl() {
+    const { department, semester, search } = getDirectoryElements();
+    if (!department || !semester || !search) return;
+    const params = new URLSearchParams(location.search);
+    const requestedDepartment = String(params.get("department") || "").toUpperCase();
+    const requestedSemester = String(params.get("semester") || "all");
+    department.value = [...department.options].some(option => option.value === requestedDepartment) ? requestedDepartment : "";
+    semester.value = /^[1-6]$/.test(requestedSemester) ? requestedSemester : "all";
+    search.value = String(params.get("search") || "").trim();
+  }
+
+  function setResultsBusy(isBusy) {
+    const { results } = getDirectoryElements();
+    if (results) results.setAttribute("aria-busy", String(Boolean(isBusy)));
+  }
+
   function populateDirectoryControls() {
     const { department, semester, search } = getDirectoryElements();
     if (!department || !semester || !search) return;
@@ -194,10 +232,10 @@
   function renderDepartmentOverview() {
     const { results } = getDirectoryElements();
     if (!results) return;
-    const query = directory.query.toLocaleLowerCase();
+    const query = directory.query.toLowerCase();
     const programmes = directory.data.programmes.filter(item => {
       if (!query) return true;
-      return `${item.code} ${item.name}`.toLocaleLowerCase().includes(query);
+      return (item._searchText || "").includes(query);
     });
 
     if (!programmes.length) {
@@ -206,6 +244,7 @@
       return;
     }
 
+    setResultsBusy(false);
     results.innerHTML = `<div class="rev2015-department-grid">${programmes.map(item => (
       `<button class="rev2015-department-card" type="button" data-programme-code="${escapeHtml(item.code)}">` +
         `<span class="rev2015-department-code">${escapeHtml(item.code)}</span>` +
@@ -218,14 +257,20 @@
   }
 
   function subjectCard(subject, programme) {
-    const syllabusUrl = safeSitttrUrl(subject.syllabusUrl);
-    const modelUrl = subject.modelAvailable ? safeSitttrUrl(subject.modelQuestionPaperUrl) : "";
+    const syllabusUrl = repositoryPdfUrl(subject, "syllabus");
+    const modelUrl = subject.modelAvailable ? repositoryPdfUrl(subject, "modelQuestionPaper") : "";
+    const officialSyllabusUrl = safeExternalUrl(subject.syllabusUrl);
+    const officialModelUrl = subject.modelAvailable ? safeExternalUrl(subject.modelQuestionPaperUrl) : "";
     const syllabusAction = syllabusUrl
-      ? `<a class="rev2015-action rev2015-action-syllabus" href="${escapeHtml(syllabusUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Syllabus</a>`
-      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true">Syllabus unavailable</span>';
+      ? `<a class="rev2015-action rev2015-action-syllabus" href="${escapeHtml(syllabusUrl)}" download="${escapeHtml(pdfFilename(syllabusUrl))}" data-repository-pdf="true"><span aria-hidden="true">↓</span> Download Syllabus</a>`
+      : officialSyllabusUrl
+        ? `<a class="rev2015-action rev2015-action-syllabus external-fallback" href="${escapeHtml(officialSyllabusUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↗</span> Open SITTTR Syllabus</a>`
+        : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true">Syllabus unavailable</span>';
     const modelAction = modelUrl
-      ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Model Question Paper</a>`
-      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="SITTTR does not list a model question paper for this subject.">Model QP not listed</span>';
+      ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" download="${escapeHtml(pdfFilename(modelUrl))}" data-repository-pdf="true"><span aria-hidden="true">↓</span> Download Model Question Paper</a>`
+      : officialModelUrl
+        ? `<a class="rev2015-action rev2015-action-model external-fallback" href="${escapeHtml(officialModelUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Open SITTTR Model Question Paper</a>`
+        : `<a class="rev2015-action rev2015-action-model external-fallback" href="${escapeHtml(MODEL_QP_INDEX)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Open SITTTR Model Question Paper</a>`;
 
     return (
       `<article class="rev2015-subject-card" data-subject-code="${escapeHtml(subject.code)}">` +
@@ -246,23 +291,24 @@
       return;
     }
 
-    const query = directory.query.toLocaleLowerCase();
-    const subjects = directory.data.subjects.filter(item => {
+    const query = directory.query.toLowerCase();
+    const pdfAvailability = getDirectoryElements().pdfAvailability?.value || "all";
+    let subjects = directory.data.subjects.filter(item => {
       if (item.programmeCode !== programme.code) return false;
       if (directory.semester !== "all" && String(item.semester) !== directory.semester) return false;
       if (!query) return true;
-      return `${item.code} ${item.name}`.toLocaleLowerCase().includes(query);
+      return (item._searchText || "").includes(query);
     });
+    if (pdfAvailability === "downloadable") {
+      subjects = subjects.filter(subject => Boolean(repositoryPdfUrl(subject, "syllabus") || repositoryPdfUrl(subject, "modelQuestionPaper")));
+    }
 
-    const departmentSyllabusUrl = `${SYLLABUS_INDEX.replace("&scheme=REV2015", "")}-courses&prog=${encodeURIComponent(programme.code)}`;
-    const departmentModelUrl = MODEL_QP_BASE + encodeURIComponent(programme.code);
+    const departmentSyllabusUrl = "";
+    const departmentModelUrl = "";
     const intro = (
       `<div class="rev2015-selected-department">` +
         `<div><span>${escapeHtml(programme.code)}</span><h3>${escapeHtml(programme.name)}</h3><p>${Number(programme.subjectCount)} subject entries across Semester 1–6. ${Number(programme.modelPaperCount)} are listed in the official model-paper index.</p></div>` +
-        `<div class="rev2015-department-links">` +
-          `<a href="${escapeHtml(departmentSyllabusUrl)}" target="_blank" rel="noopener noreferrer">Department syllabus index ↗</a>` +
-          `<a href="${escapeHtml(departmentModelUrl)}" target="_blank" rel="noopener noreferrer">Department model-paper index ↗</a>` +
-        `</div>` +
+        `<div class="rev2015-department-links"><span class="rev2015-action-disabled">Available Revision 2015 PDFs download from the POLY PMNA archive; unavailable files open the official SITTTR page.</span></div>` +
       `</div>`
     );
 
@@ -286,6 +332,7 @@
       `</section>`
     )).join("");
 
+    setResultsBusy(false);
     results.innerHTML = intro + sections;
     setDirectoryStatus(`${subjects.length} subject${subjects.length === 1 ? "" : "s"} shown for ${programme.name}.`);
   }
@@ -309,14 +356,21 @@
       directory.semester = semester.value;
       renderDirectory();
     });
+    let searchTimer = 0;
     search.addEventListener("input", () => {
       directory.query = search.value.trim();
-      renderDirectory();
+      clearTimeout(searchTimer);
+      // PERFORMANCE OPTIMIZATION: Debounce input filtering (120ms) to prevent synchronous
+      // DOM re-renders on every keystroke during active typing on mobile devices.
+      searchTimer = setTimeout(renderDirectory, 120);
     });
+    getDirectoryElements().pdfAvailability?.addEventListener("change", renderDirectory);
     clear?.addEventListener("click", () => {
       directory.department = "";
       directory.semester = "all";
       directory.query = "";
+      const pdfAvailability = getDirectoryElements().pdfAvailability;
+      if (pdfAvailability) pdfAvailability.value = "all";
       populateDirectoryControls();
       renderDirectory();
       department.focus();
@@ -334,15 +388,47 @@
   async function initDirectory() {
     const { results } = getDirectoryElements();
     if (!results) return;
-    setDirectoryStatus("Loading the verified REV2015 subject registry…", "loading");
+    primeControlsFromUrl();
+    setDirectoryStatus("Preparing the verified REV2015 subject directory…", "loading");
+    setResultsBusy(true);
     try {
-      const response = await fetch(SUBJECT_DATA_URL, { headers: { Accept: "application/json" } });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
+      let data = null;
+      let lastError = null;
+      for (const source of SUBJECT_DATA_URLS) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          data = await response.json();
+          break;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+      if (!data) throw lastError || new Error("Subject data unavailable.");
       if (!Array.isArray(data.programmes) || !Array.isArray(data.subjects) || data.programmes.length !== 21) {
         throw new Error("The subject registry is incomplete.");
       }
       directory.data = data;
+      let pdfManifest = null;
+      for (const source of PDF_LINKS_URLS) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          pdfManifest = await response.json();
+          break;
+        } catch (_) {
+          // The official SITTTR fallback remains usable if the optional archive manifest is unavailable.
+        }
+      }
+      directory.pdfLinks = pdfManifest?.links || {};
+      // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for programmes and subjects
+      // once when data loads, avoiding repeated string joins and lowercase conversions on every keypress.
+      directory.data.programmes.forEach(p => {
+        p._searchText = `${p.code} ${p.name}`.toLowerCase();
+      });
+      directory.data.subjects.forEach(s => {
+        s._searchText = `${s.code} ${s.name}`.toLowerCase();
+      });
       readDirectoryUrl();
       populateDirectoryControls();
       bindDirectoryEvents();
@@ -350,18 +436,18 @@
       document.documentElement.classList.add("rev2015-directory-ready");
     } catch (error) {
       console.error("REV2015 subject registry failed to load:", error);
-      setDirectoryStatus("The subject registry could not be loaded.", "error");
+      setDirectoryStatus("The subject directory is unavailable right now.", "error");
+      setResultsBusy(false);
       results.innerHTML = (
-        '<div class="rev2015-empty rev2015-load-error"><strong>Subject list temporarily unavailable.</strong>' +
-        '<span>Use the official SITTTR indexes below while this page reloads.</span>' +
-        `<div class="rev2015-error-links"><a href="${escapeHtml(SYLLABUS_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 syllabus index ↗</a>` +
-        `<a href="${escapeHtml(MODEL_QP_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 model-paper index ↗</a></div></div>`
+        '<div class="rev2015-empty rev2015-load-error"><strong>Subject list could not be loaded.</strong>' +
+        '<span>The Drive archive links above remain available. Try refreshing once; available Revision 2015 syllabus and model-paper PDFs are served directly from the POLY PMNA GitHub archive.</span></div>'
       );
     }
   }
 
   function init() {
     renderArchiveGroups();
+    primeControlsFromUrl();
     initDirectory();
     document.documentElement.classList.add("materials-2015-ready");
   }

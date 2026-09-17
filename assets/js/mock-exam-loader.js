@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator5";
+  const MOCK_EXAM_ASSET_VERSION = "20260813-audit-fix1";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -41,7 +41,10 @@
     .then(() => {
       const subject = subjectFromPage();
       const paper = globalThis.PolyMockPapers?.[subject];
-      if (!paper) throw new Error("This mock exam paper is not available.");
+      if (!paper) {
+        if (!subject) throw new Error("no-exam-selected");
+        throw new Error("This mock exam paper is not available.");
+      }
       globalThis.PolyMock1004 = paper;
       applyPaperText(paper);
     })
@@ -54,9 +57,17 @@
       document.getElementById("loadingView")?.classList.add("hidden");
       const auth = document.getElementById("authRequired");
       if (auth) {
+        const heading = auth.querySelector("h2") || auth.querySelector("h1");
+        const body = auth.querySelector("p");
+        const list = auth.querySelector("ul, ol");
         auth.classList.remove("hidden");
-        auth.querySelector("h1").textContent = "Mock exam unavailable";
-        auth.querySelector("p").textContent = error.message || "This mock examination could not be loaded.";
+        if (heading) heading.textContent = error.message === "no-exam-selected"
+          ? "Choose a mock exam"
+          : "Mock exam unavailable";
+        if (body) body.textContent = error.message === "no-exam-selected"
+          ? "No exam paper was selected. Open this page with a subject parameter, use a dedicated paper link such as mock-exam-1004.html, or pick a quiz from the Mock Exams portal below."
+          : error.message || "This mock examination could not be loaded.";
+        if (error.message === "no-exam-selected" && list) list.remove();
       }
     });
 

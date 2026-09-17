@@ -8,7 +8,8 @@ import {
   isOriginAllowed,
   corsHeaders,
   jsonResponse,
-  createRateLimiter
+  createRateLimiter,
+  safeLogValue
 } from "../src/http.js";
 import secureIndex from "../src/secure-index.js";
 
@@ -38,6 +39,8 @@ test("allowedOrigins falls back to defaults when unset", () => {
   const origins = allowedOrigins({});
   assert.ok(origins instanceof Set);
   assert.ok(origins.has("https://polypmna.dpdns.org"));
+  assert.ok(origins.has("https://gptcperinthalmanna.vercel.app"));
+  assert.ok(origins.has("https://gptcperinthalmanna.dpdns.org"));
   assert.ok(origins.has("http://localhost:8000"));
 });
 
@@ -74,6 +77,12 @@ test("corsHeaders echoes allowed origin and defaults otherwise", () => {
   assert.equal(headers["Access-Control-Allow-Methods"], "GET, POST, OPTIONS");
   assert.equal(headers["Access-Control-Allow-Headers"], "Content-Type, Authorization");
   assert.equal(headers.Vary, "Origin");
+});
+
+test("default CORS headers allow the Vercel production site", () => {
+  const origin = "https://gptcperinthalmanna.vercel.app";
+  assert.equal(isOriginAllowed(origin, {}), true);
+  assert.equal(corsHeaders(origin, {})["Access-Control-Allow-Origin"], origin);
 });
 
 test("jsonResponse serialises body, status and hardening headers", async () => {
@@ -147,4 +156,45 @@ test("secureIndex fetch rejects oversized POST request early", async () => {
   assert.equal(response.status, 413);
   const data = await response.json();
   assert.equal(data.error, "The request is too large.");
+});
+
+test("secureIndex handles auth failure and validates HTTP status code within safe range", async () => {
+  const request = {
+    method: "POST",
+    url: "https://example.com/api/evaluate-mock-exam",
+    headers: {
+      get: (name) => {
+        if (name.toLowerCase() === "origin") return "https://polypmna.dpdns.org";
+        return null;
+      }
+    }
+  };
+  const env = {};
+  const response = await secureIndex.fetch(request, env, {});
+  assert.equal(response.status, 401);
+  const data = await response.json();
+  assert.ok(data.error);
+});
+
+test("safeLogValue redacts sensitive keys and embedded secret tokens", () => {
+  const sample = {
+    route: "mock_exam",
+    status: 401,
+    private_key: "secret-data",
+    auth: "token-data",
+    jwt: "jwt-data",
+    credential: "cred-data",
+    error: "Failed to authenticate Bearer eyJhbGciOiJIUzI1NiJ9 using sk_live_1234567890abc"
+  };
+  const sanitized = safeLogValue(sample);
+  assert.equal(sanitized.route, "mock_exam");
+  assert.equal(sanitized.status, 401);
+  assert.equal(sanitized.private_key, "[REDACTED]");
+  assert.equal(sanitized.auth, "[REDACTED]");
+  assert.equal(sanitized.jwt, "[REDACTED]");
+  assert.equal(sanitized.credential, "[REDACTED]");
+  assert.equal(
+    sanitized.error,
+    "Failed to authenticate Bearer [REDACTED] using [REDACTED_KEY]"
+  );
 });

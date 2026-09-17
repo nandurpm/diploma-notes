@@ -1,0 +1,86 @@
+name: Live site and SSL monitor
+
+on:
+  schedule:
+    # Run hourly at :17 UTC (22:47 IST), avoiding the top-of-hour queue.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-site-ssl-monitor-main
+  cancel-in-progress: true
+
+env:
+  SITE_URL: https://polypmna.dpdns.org/
+  BUILD_INFO_URL: https://polypmna.dpdns.org/build-info.json
+  SSL_HOST: polypmna.dpdns.org
+  MIN_SSL_DAYS: "30"
+
+jobs:
+  monitor:
+    name: Check live website and certificate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check HTTP response and security headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          status="$(curl --fail --silent --show-error --location --connect-timeout 15 --max-time 30 --dump-header "$headers" --output /dev/null --write-out '%{http_code}' "$SITE_URL")"
+          test "$status" = "200"
+          grep -iq '^strict-transport-security:' "$headers"
+          echo "HTTP status: $status"
+          echo "Security headers: HSTS present"
+          {
+            echo "## Live site"
+            echo "- URL: $SITE_URL"
+            echo "- HTTP status: $status"
+            echo "- HSTS: present"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify deployed build metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(curl --fail --silent --show-error --location --connect-timeout 15 --max-time 30 "$BUILD_INFO_URL")"
+          commit="$(printf '%s' "$body" | jq -r '.commit')"
+          built_at="$(printf '%s' "$body" | jq -r '.builtAt')"
+          branch="$(printf '%s' "$body" | jq -r '.branch')"
+          [[ "$commit" =~ ^[0-9a-f]{40}$ ]]
+          test "$branch" = "main"
+          test "$built_at" != "null"
+          echo "Published commit: $commit"
+          echo "Built at: $built_at"
+          echo "Branch: $branch"
+          {
+            echo "## Published build"
+            echo "- Commit: \\`$commit\\`"
+            echo "- Built at: $built_at"
+            echo "- Branch: $branch"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify SSL certificate validity
+        shell: bash
+        run: |
+          set -euo pipefail
+          cert="$(mktemp)"
+          echo | openssl s_client -connect "${SSL_HOST}:443" -servername "$SSL_HOST" -verify_return_error 2>/dev/null \
+            | openssl x509 -outform PEM > "$cert"
+          openssl x509 -checkend "$((MIN_SSL_DAYS * 86400))" -noout -in "$cert"
+          subject="$(openssl x509 -subject -noout -in "$cert" | sed 's/^subject=//')"
+          issuer="$(openssl x509 -issuer -noout -in "$cert" | sed 's/^issuer=//')"
+          expires="$(openssl x509 -enddate -noout -in "$cert" | cut -d= -f2-)"
+          echo "Certificate subject: $subject"
+          echo "Certificate issuer: $issuer"
+          echo "Certificate expiry: $expires"
+          {
+            echo "## SSL certificate"
+            echo "- Subject: $subject"
+            echo "- Issuer: $issuer"
+            echo "- Expiry: $expires"
+            echo "- Minimum remaining validity: ${MIN_SSL_DAYS} days"
+          } >> "$GITHUB_STEP_SUMMARY"

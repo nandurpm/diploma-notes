@@ -1,7 +1,10 @@
 /* Purpose: Result store - Descriptive comment added for clarity */
+import { securityLog } from "./http.js";
+
 const clean = (value, maximum = 500) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const JWT_REGEX = /^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$/i;
 
 /* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
 async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
@@ -38,6 +41,12 @@ export function canStoreVerifiedResults(env) {
 export async function authenticateStudent(request, env) {
   const token = bearerToken(request);
   if (!token) throw Object.assign(new Error("Sign in before submitting a mock examination."), { status: 401 });
+
+  /* Validate that the token strictly conforms to three-part base64url JWT structure before calling remote auth API */
+  if (!JWT_REGEX.test(token)) {
+    throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+  }
+
   const base = supabaseBase(env);
   const anonKey = clean(env?.SUPABASE_ANON_KEY, 4096);
   if (!base || !anonKey) throw Object.assign(new Error("Verified result storage is not configured."), { status: 503 });
@@ -55,11 +64,13 @@ export async function authenticateStudent(request, env) {
     if (!response.ok || !userId || !UUID_REGEX.test(userId)) {
       throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
     }
+    securityLog("authentication_succeeded", { route: "mock_exam", severity: "info" });
     return { id: userId, token };
   } catch (error) {
     if (error && typeof error === "object" && "status" in error) {
       throw error;
     }
+    securityLog("authentication_service_error", { route: "mock_exam", severity: "error", error: error?.message });
     console.error("Unexpected student authentication failure:", error);
     throw Object.assign(
       new Error("The authentication service is temporarily unavailable. Please try again."),
@@ -69,12 +80,18 @@ export async function authenticateStudent(request, env) {
 }
 
 export async function storeMockExamResult(user, body, result, env) {
+  const ownerId = clean(user?.id, 80);
+  if (!UUID_REGEX.test(ownerId)) {
+    throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+  }
   if (!canStoreVerifiedResults(env)) return { serverSaved: false, storageReason: "server-storage-not-configured" };
   const base = supabaseBase(env);
   const serviceKey = clean(env.SUPABASE_SERVICE_ROLE_KEY, 4096);
   const now = new Date().toISOString();
   const payload = {
-    user_id: user.id,
+    // Deliberately derive ownership from the authenticated token, never from
+    // body.user_id or any other client-controlled identifier.
+    user_id: ownerId,
     subject_code: result.subjectCode,
     paper_code: result.paperId,
     answers: {

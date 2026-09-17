@@ -1,4 +1,27 @@
-/* Purpose: Animations - Descriptive comment added for clarity */
-/* Reveal animations DISABLED globally to fix subject card visibility */
-.reveal { opacity: 1; transform: none; animation: none; }
-.subject-card, .choice-card, .info-card { opacity: 1; transform: none; animation: none; }
+/* Purpose: Non-blocking decorative motion only. Content reveal animations are disabled. */
+/* Subject cards and primary content must render immediately on mobile and Android WebView. */
+[data-reveal].reveal-ready,
+.reveal.reveal-ready,
+.page-title,
+.choice-card,
+.info-card,
+.subject-card,
+.tool-panel,
+.quick-pill {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Keep explicit reveal utility classes harmless if they remain in legacy markup. */
+.reveal,
+[data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+/* Decorative background motion may continue independently of content visibility. */

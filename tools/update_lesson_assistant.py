@@ -11,7 +11,7 @@ LESSON_DIRS = (
     ROOT / "revision-2026-content" / "lessons",
 )
 LESSON_CSS = ROOT / "assets" / "css" / "lesson-page-fix.css"
-LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>'
+LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260819-ask-context1" defer></script>'
 STANDARD_MARKER = "Shared full-screen lesson standard"
 CHROME_MARKER = "Full-screen lesson chrome suppression"
 CHROME_RULE = f"""
@@ -30,17 +30,14 @@ html.poly-lesson-page :is(.toolbar,.hb-toolbar,.lesson-toolbar,.lesson-actions,.
 }}
 """
 LESSON_STANDARD_TAG_RE = re.compile(r"<script\b[^>]*src=[\"'][^\"']*lesson-navigation-fix\.js[^\"']*[\"'][^>]*>\s*</script>", re.I)
+LESSON_STANDARD_MARKER_RE = re.compile(r"\s*<!--\s*Shared full-screen lesson standard\s*-->\s*", re.I)
 
 
 def update_page(path: Path) -> bool:
     source = path.read_text(encoding="utf-8")
-    updated = source
-    existing_standard = LESSON_STANDARD_TAG_RE.search(updated)
-
-    if existing_standard:
-        updated = updated[: existing_standard.start()] + LESSON_STANDARD_SCRIPT + updated[existing_standard.end() :]
-    elif "</body>" in updated:
-        snippet = f"\n  <!-- {STANDARD_MARKER} -->\n  {LESSON_STANDARD_SCRIPT}\n"
+    updated = LESSON_STANDARD_MARKER_RE.sub("\n", LESSON_STANDARD_TAG_RE.sub("", source))
+    snippet = f"\n  <!-- {STANDARD_MARKER} -->\n  {LESSON_STANDARD_SCRIPT}\n"
+    if "</body>" in updated:
         updated = updated.replace("</body>", f"{snippet}</body>", 1)
     else:
         updated = f"{updated.rstrip()}\n<!-- {STANDARD_MARKER} -->\n{LESSON_STANDARD_SCRIPT}\n"
@@ -91,7 +88,7 @@ def main() -> int:
             relative = str(path.relative_to(ROOT))
             if "lesson-navigation-fix.js" not in text:
                 missing.append(relative)
-            elif "20260725-watermark1" not in text:
+            elif "20260819-ask-context1" not in text:
                 stale.append(relative)
         errors: list[str] = []
         if missing:
