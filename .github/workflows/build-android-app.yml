@@ -261,7 +261,7 @@ jobs:
             echo "Android release metadata and homepage download button are already current."
             exit 0
           fi
-          git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"
+          git commit -m "Publish Android app v${VERSION_NAME} metadata"
           # The collision preflight may have changed the Gradle version only in
           # this runner. Do not carry that temporary build-only edit into the
           # metadata rebase or the push will fail on unstaged changes.
