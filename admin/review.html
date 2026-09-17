@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Review Blog Submissions | POLY PMNA Admin</title>
+  <link rel="canonical" href="https://polypmna.dpdns.org/admin/review.html">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <link rel="stylesheet" href="/assets/css/style.css?v=20260827-footer-consistency1">
   <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260827-footer-consistency1">
@@ -18,32 +19,14 @@
   <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
   <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
   <script src="/assets/js/blog-review.js?v=20260916-review1" defer></script>
+  <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"WebPage","name":"Review Blog Submissions | POLY PMNA Admin","url":"https://polypmna.dpdns.org/admin/review.html","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"]}</script>
 </head>
 <body class="portal-page blog-admin-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <header class="topbar" data-site-header>
-    <a class="brand" href="/" aria-label="POLY PMNA home"><img class="brand-logo" src="/assets/media/poly-pmna-logo.png" alt="POLY PMNA" width="42" height="42"><strong>POLY PMNA</strong></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
-    <nav class="navlinks" aria-label="Primary navigation"><a href="/">Home</a><a href="/blog.html">Blog &amp; GK</a><a href="/admin/blog.html" class="active">Blog Admin</a><a href="/contact.html">Help</a></nav>
-  </header>
-
+  <header class="topbar" data-site-header><a class="brand" href="/" aria-label="POLY PMNA home"><img class="brand-logo" src="/assets/media/poly-pmna-logo.png" alt="POLY PMNA" width="42" height="42"><strong>POLY PMNA</strong></a><button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation"><a href="/">Home</a><a href="/blog.html">Blog &amp; GK</a><a href="/admin/blog.html" class="active">Blog Admin</a><a href="/contact.html">Help</a></nav></header>
   <main id="main-content" class="review-main">
-    <section class="review-hero">
-      <div><p class="blog-eyebrow">POLY PMNA Owner Review</p><h1>Review submissions</h1><p>Only the site-owner account can approve a community suggestion. Review the article, edit anything needed, request changes, reject it, or approve and publish.</p></div>
-      <div class="review-toolbar-actions"><a class="review-btn outline" href="/admin/blog.html">Blog Publisher</a><a class="review-btn soft" href="/blog.html">View public blog</a></div>
-    </section>
-
-    <section id="review-login" class="review-card review-login" aria-labelledby="review-login-heading">
-      <h2 id="review-login-heading">Owner login</h2>
-      <p>This moderation area is restricted to the designated POLY PMNA owner account.</p>
-      <form id="review-login-form">
-        <label for="review-email">Email</label><input id="review-email" name="email" type="email" autocomplete="email" required maxlength="254">
-        <label for="review-password">Password</label><input id="review-password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128">
-        <button class="review-btn primary" type="submit">Login to review</button>
-      </form>
-      <p id="review-login-status" class="review-status" role="status" aria-live="polite"></p>
-    </section>
-
+    <section class="review-hero"><div><p class="blog-eyebrow">POLY PMNA Owner Review</p><h1>Review submissions</h1><p>Only the site-owner account can approve a community suggestion. Review the article, edit anything needed, request changes, reject it, or approve and publish.</p></div><div class="review-toolbar-actions"><a class="review-btn outline" href="/admin/blog.html">Blog Publisher</a><a class="review-btn soft" href="/blog.html">View public blog</a></div></section>
+    <section id="review-login" class="review-card review-login" aria-labelledby="review-login-heading"><h2 id="review-login-heading">Owner login</h2><p>This moderation area is restricted to the designated POLY PMNA owner account.</p><form id="review-login-form"><label for="review-email">Email</label><input id="review-email" name="email" type="email" autocomplete="email" required maxlength="254"><label for="review-password">Password</label><input id="review-password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128"><button class="review-btn primary" type="submit">Login to review</button></form><p id="review-login-status" class="review-status" role="status" aria-live="polite"></p></section>
     <section id="review-workspace" class="review-workspace" hidden>
       <div class="review-toolbar"><div><p class="blog-eyebrow">Owner account</p><strong id="review-identity"></strong><p class="owner-lock">Approval permission is enforced in Supabase, not only hidden in the page.</p></div><div class="review-toolbar-actions"><button id="review-refresh" class="review-btn soft" type="button">Refresh queue</button><button id="review-logout" class="review-btn outline" type="button">Logout</button></div></div>
 
@@ -86,14 +69,13 @@
           </form>
         </section>
       </div>
+      <section class="review-stats" aria-label="Moderation overview"><article><span>Waiting approval</span><strong id="review-stat-waiting">0</strong></article><article><span>Changes requested</span><strong id="review-stat-changes">0</strong></article><article><span>Not approved</span><strong id="review-stat-rejected">0</strong></article><article><span>Published</span><strong id="review-stat-published">0</strong></article></section>
+      <div class="review-layout"><aside class="review-card review-queue" aria-labelledby="review-queue-heading"><div class="review-toolbar"><div><h2 id="review-queue-heading">Waiting for you</h2><p id="review-queue-count">0 waiting</p></div></div><div id="review-queue-list" class="queue-list" aria-live="polite"></div></aside>
+      <section class="review-card review-editor" aria-labelledby="review-editor-heading"><div id="review-empty-editor" class="review-empty"><h2 id="review-editor-heading">Select a submission</h2><p>Choose a post from the queue to review it.</p></div><form id="review-editor-form" hidden><input id="review-post-id" type="hidden"><div class="review-note-box"><strong>Submitted by</strong> <span id="review-contributor"></span><br><strong>Submitted</strong> <span id="review-submitted"></span></div><div class="review-grid"><div><label for="review-title">Title</label><input id="review-title" maxlength="160" required></div><div><label for="review-slug">URL slug</label><input id="review-slug" maxlength="180" required></div></div><div class="review-grid"><div><label for="review-category">Category</label><select id="review-category"><option>Study Topics</option><option>General Knowledge</option><option>Daily Blogs</option><option>Exam Tips</option><option>Announcements</option></select></div><div><label for="review-tags">Tags</label><input id="review-tags" maxlength="240"></div></div><label for="review-summary">Short description</label><textarea id="review-summary" maxlength="500" rows="3" required></textarea><label for="review-content">Article</label><textarea id="review-content" rows="20" maxlength="60000" required></textarea><div class="review-grid"><div><label for="review-author">Author name</label><input id="review-author" maxlength="80"></div><div><label for="review-language">Language</label><select id="review-language"><option value="en">English</option><option value="ml">Malayalam</option><option value="mixed">English + Malayalam</option></select></div></div><div class="review-grid"><div><label for="review-seo-title">SEO title</label><input id="review-seo-title" maxlength="70"></div><div><label for="review-seo-description">SEO description</label><textarea id="review-seo-description" maxlength="180" rows="2"></textarea></div></div><div class="review-grid"><div><label for="review-source-label">Source label</label><input id="review-source-label" maxlength="120"></div><div><label for="review-source-url">Source URL</label><input id="review-source-url" type="url" maxlength="500"></div></div><div class="review-grid"><div><label for="review-cover">Replace cover image</label><input id="review-cover" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><label for="review-cover-alt">Cover image description</label><input id="review-cover-alt" maxlength="240"></div><div><img id="review-cover-preview" class="review-cover" alt="Cover preview" hidden></div></div><label><input id="review-featured" type="checkbox"> Make this the featured Blog &amp; GK post when approved</label><label for="review-note">Review note</label><textarea id="review-note" maxlength="2000" rows="4" placeholder="Optional when approving. Required when requesting changes or rejecting."></textarea><div class="review-actions"><button id="review-preview" class="review-btn soft" type="button">Preview</button><button id="review-save" class="review-btn outline" type="button">Save my edits</button><button id="review-changes" class="review-btn warning" type="button">Request changes</button><button id="review-reject" class="review-btn danger" type="button">Reject</button><button id="review-approve" class="review-btn primary" type="button">Approve &amp; publish</button></div><p id="review-editor-status" class="review-status" role="status" aria-live="polite"></p></form></section></div>
     </section>
-
     <dialog id="review-preview-dialog" class="review-dialog"><form method="dialog" class="review-dialog-head"><strong>Publication preview</strong><button class="review-btn outline" value="close">Close</button></form><div id="review-preview-body" class="review-dialog-body"></div></dialog>
   </main>
-
   <footer class="footer" data-site-footer><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/admin/blog.html">Blog Publisher</a><a href="/blog.html">Blog &amp; GK</a><a href="/contact.html">Help</a></nav></footer>
-  <script src="/assets/js/main.js?v=20260827-footer-consistency1" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260827-footer-consistency1" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/main.js?v=20260827-footer-consistency1" defer></script><script src="/assets/js/site-hardening.js?v=20260827-footer-consistency1" defer></script><script src="/assets/js/fixed-site-header.js?v=20260827-footer-consistency1" defer></script>
 </body>
 </html>
