@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/assets/css/blog-review.css?v=20260916-review1">
   <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
   <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
   <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
@@ -74,13 +75,7 @@
             <div class="review-grid"><div><label for="review-cover">Replace cover image</label><input id="review-cover" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><label for="review-cover-alt">Cover image description</label><input id="review-cover-alt" maxlength="240"></div><div><img id="review-cover-preview" class="review-cover" alt="Cover preview" hidden></div></div>
             <label><input id="review-featured" type="checkbox"> Make this the featured Blog &amp; GK post when approved</label>
             <label for="review-note">Review note</label><textarea id="review-note" maxlength="2000" rows="4" placeholder="Optional when approving. Required when requesting changes or rejecting."></textarea>
-            <div class="review-actions">
-              <button id="review-preview" class="review-btn soft" type="button">Preview</button>
-              <button id="review-save" class="review-btn outline" type="button">Save my edits</button>
-              <button id="review-changes" class="review-btn warning" type="button">Request changes</button>
-              <button id="review-reject" class="review-btn danger" type="button">Reject</button>
-              <button id="review-approve" class="review-btn primary" type="button">Approve &amp; publish</button>
-            </div>
+            <div class="review-actions"><button id="review-preview" class="review-btn soft" type="button">Preview</button><button id="review-save" class="review-btn outline" type="button">Save my edits</button><button id="review-changes" class="review-btn warning" type="button">Request changes</button><button id="review-reject" class="review-btn danger" type="button">Reject</button><button id="review-approve" class="review-btn primary" type="button">Approve &amp; publish</button></div>
             <p id="review-editor-status" class="review-status" role="status" aria-live="polite"></p>
           </form>
         </section>
