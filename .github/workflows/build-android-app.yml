@@ -70,24 +70,25 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "No existing release for $RELEASE_TAG; keeping version $VERSION_NAME ($VERSION_CODE)."
-            exit 0
-          fi
-
-          # GitHub Release assets are immutable. Bump before building rather
-          # than producing an APK that cannot be uploaded under this tag.
-          if [[ "$VERSION_NAME" =~ ^([0-9]+)\.([0-9]+)(\.([0-9]+))?$ ]]; then
-            major="${BASH_REMATCH[1]}"
-            minor="${BASH_REMATCH[2]}"
-            patch="${BASH_REMATCH[4]:-0}"
-            NEXT_VERSION="$major.$minor.$((patch + 1))"
-          else
+          if ! [[ "$VERSION_NAME" =~ ^([0-9]+)\.([0-9]+)(\.([0-9]+))?$ ]]; then
             echo "::error::VERSION_NAME '$VERSION_NAME' is not numeric; bump it manually before releasing."
             exit 1
           fi
-          NEXT_CODE=$((VERSION_CODE + 1))
-          python - "$NEXT_CODE" "$NEXT_VERSION" <<'PY'
+
+          # GitHub Release assets are immutable. Keep advancing the patch
+          # version until the candidate tag is unused, then build that version.
+          while gh release view "$RELEASE_TAG" >/dev/null 2>&1; do
+            if [[ "$VERSION_NAME" =~ ^([0-9]+)\.([0-9]+)(\.([0-9]+))?$ ]]; then
+              major="${BASH_REMATCH[1]}"
+              minor="${BASH_REMATCH[2]}"
+              patch="${BASH_REMATCH[4]:-0}"
+            else
+              echo "::error::Version '$VERSION_NAME' became invalid while resolving release collisions."
+              exit 1
+            fi
+            NEXT_VERSION="$major.$minor.$((patch + 1))"
+            NEXT_CODE=$((VERSION_CODE + 1))
+            python - "$NEXT_CODE" "$NEXT_VERSION" <<'PY'
           import re
           import sys
           from pathlib import Path
@@ -100,17 +101,20 @@ jobs:
               raise SystemExit("Could not update Android version fields safely")
           path.write_text(text)
           PY
-          VERSION_CODE="$NEXT_CODE"
-          VERSION_NAME="$NEXT_VERSION"
-          RELEASE_TAG="android-v$VERSION_NAME"
-          APK_NAME="POLY_PMNA_v$VERSION_NAME.apk"
+            VERSION_CODE="$NEXT_CODE"
+            VERSION_NAME="$NEXT_VERSION"
+            RELEASE_TAG="android-v$VERSION_NAME"
+            APK_NAME="POLY_PMNA_v$VERSION_NAME.apk"
+            export VERSION_CODE VERSION_NAME RELEASE_TAG APK_NAME
+            echo "Existing release detected; trying $RELEASE_TAG (versionCode $VERSION_CODE)."
+          done
           {
             echo "VERSION_CODE=$VERSION_CODE"
             echo "VERSION_NAME=$VERSION_NAME"
             echo "RELEASE_TAG=$RELEASE_TAG"
             echo "APK_NAME=$APK_NAME"
           } >> "$GITHUB_ENV"
-          echo "Existing release detected; bumped build to $RELEASE_TAG (versionCode $VERSION_CODE)."
+          echo "Publishing unused release $RELEASE_TAG (versionCode $VERSION_CODE)."
 
       - name: Validate release signing configuration
         id: signing
