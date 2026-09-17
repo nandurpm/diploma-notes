@@ -94,8 +94,8 @@ jobs:
           path = Path("android-app/app/build.gradle")
           text = path.read_text()
           next_code, next_version = sys.argv[1:]
-          text, code_count = re.subn(r"(^\\s*versionCode\\s+)\\d+", rf"\\g<1>{next_code}", text, count=1, flags=re.MULTILINE)
-          text, name_count = re.subn(r"(^\\s*versionName\\s+)'[^']+'", rf"\\g<1>'{next_version}'", text, count=1, flags=re.MULTILINE)
+          text, code_count = re.subn(r"(^\s*versionCode\s+)\d+", rf"\g<1>{next_code}", text, count=1, flags=re.MULTILINE)
+          text, name_count = re.subn(r"(^\s*versionName\s+)'[^']+'", rf"\g<1>'{next_version}'", text, count=1, flags=re.MULTILINE)
           if code_count != 1 or name_count != 1:
               raise SystemExit("Could not update Android version fields safely")
           path.write_text(text)
