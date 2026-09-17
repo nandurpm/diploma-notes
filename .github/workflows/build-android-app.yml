@@ -65,6 +65,53 @@ jobs:
           echo "RELEASE_TAG=android-v$VERSION_NAME" >> "$GITHUB_ENV"
           echo "APK_NAME=POLY_PMNA_v$VERSION_NAME.apk" >> "$GITHUB_ENV"
 
+      - name: Avoid immutable release collisions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "No existing release for $RELEASE_TAG; keeping version $VERSION_NAME ($VERSION_CODE)."
+            exit 0
+          fi
+
+          # GitHub Release assets are immutable. Bump before building rather
+          # than producing an APK that cannot be uploaded under this tag.
+          if [[ "$VERSION_NAME" =~ ^([0-9]+)\.([0-9]+)(\.([0-9]+))?$ ]]; then
+            major="${BASH_REMATCH[1]}"
+            minor="${BASH_REMATCH[2]}"
+            patch="${BASH_REMATCH[4]:-0}"
+            NEXT_VERSION="$major.$minor.$((patch + 1))"
+          else
+            echo "::error::VERSION_NAME '$VERSION_NAME' is not numeric; bump it manually before releasing."
+            exit 1
+          fi
+          NEXT_CODE=$((VERSION_CODE + 1))
+          python - "$NEXT_CODE" "$NEXT_VERSION" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+          path = Path("android-app/app/build.gradle")
+          text = path.read_text()
+          next_code, next_version = sys.argv[1:]
+          text, code_count = re.subn(r"(^\\s*versionCode\\s+)\\d+", rf"\\g<1>{next_code}", text, count=1, flags=re.MULTILINE)
+          text, name_count = re.subn(r"(^\\s*versionName\\s+)'[^']+'", rf"\\g<1>'{next_version}'", text, count=1, flags=re.MULTILINE)
+          if code_count != 1 or name_count != 1:
+              raise SystemExit("Could not update Android version fields safely")
+          path.write_text(text)
+          PY
+          VERSION_CODE="$NEXT_CODE"
+          VERSION_NAME="$NEXT_VERSION"
+          RELEASE_TAG="android-v$VERSION_NAME"
+          APK_NAME="POLY_PMNA_v$VERSION_NAME.apk"
+          {
+            echo "VERSION_CODE=$VERSION_CODE"
+            echo "VERSION_NAME=$VERSION_NAME"
+            echo "RELEASE_TAG=$RELEASE_TAG"
+            echo "APK_NAME=$APK_NAME"
+          } >> "$GITHUB_ENV"
+          echo "Existing release detected; bumped build to $RELEASE_TAG (versionCode $VERSION_CODE)."
+
       - name: Validate release signing configuration
         id: signing
         env:
