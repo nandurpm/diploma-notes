@@ -38,6 +38,10 @@ jobs:
               "/revision-2026.html": ["Choose your department", "programmeResultCount", "Revision 2026"],
               "/ask-poly.html": ["Ask POLY AI", "chatForm", "ask-poly-config.js"],
               "/daily-quiz.html": ["Daily Quiz", "supabase-url"],
+              "/blog.html": ["Blog & GK", "Suggest a post", "blog.js"],
+              "/blog/contribute.html": ["Suggest a post", "Submit for approval", "blog-contribute.js"],
+              "/admin/blog.html": ["Blog Publisher", "Review submissions", "blog-admin.js"],
+              "/admin/review.html": ["Review submissions", "Approve &amp; publish", "blog-review.js"],
           }
           last_error = ""
 
