@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Suggest a Post | POLY PMNA Blog & GK</title>
+  <meta name="description" content="Suggest a study, GK, exam-tip or daily-learning post for POLY PMNA. Suggestions are reviewed by the site owner before publication.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260827-footer-consistency1">
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20260916-blog1">
+  <link rel="stylesheet" href="/assets/css/blog-contribute.css?v=20260916-review1">
+  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <meta name="theme-color" content="#1d4ed8">
+  <script src="/assets/js/site-shell.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/blog-supabase-config.js?v=20260916-admin1" defer></script>
+  <script src="/assets/js/blog-contribute.js?v=20260916-review1" defer></script>
+</head>
+<body class="portal-page blog-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="topbar" data-site-header>
+    <a class="brand" href="/" aria-label="POLY PMNA home"><img class="brand-logo" src="/assets/media/poly-pmna-logo.png" alt="POLY PMNA" width="42" height="42"><strong>POLY PMNA</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation"><a href="/">Home</a><a href="/about.html">About</a><a href="/revision-2026.html">Revision 2026</a><a href="/revision-2021.html">Revision 2021</a><a href="/daily-quiz.html">Mock Exams</a><a href="/ask-poly.html">Ask POLY AI</a><a href="/materials-2015.html">2015 Materials</a><a href="/tools.html">Tools</a><a href="/blog.html" class="active">Blog &amp; GK</a><a href="/contact.html">Help</a></nav>
+  </header>
+
+  <main id="main-content" class="contribute-main">
+    <nav class="blog-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/blog.html">Blog &amp; GK</a></li><li><span aria-current="page">Suggest a post</span></li></ol></nav>
+
+    <section class="contribute-hero">
+      <div>
+        <p class="blog-kicker">Community contributions</p>
+        <h1>Suggest a post</h1>
+        <p>Create a study topic, GK note, daily-learning post, exam tip or announcement suggestion. You can save drafts, submit for review, receive change requests and resubmit.</p>
+      </div>
+      <div class="approval-note">Nothing you submit appears publicly until the POLY PMNA owner reviews and approves it.</div>
+    </section>
+
+    <section id="contributor-auth" class="contribute-card contribute-auth" aria-labelledby="contributor-auth-heading">
+      <h2 id="contributor-auth-heading">Contributor account</h2>
+      <p class="auth-help">Sign in to manage your suggestions, or create an account if this is your first contribution.</p>
+      <div class="auth-tabs" role="tablist" aria-label="Contributor account options">
+        <button type="button" class="active" data-auth-mode="signin">Sign in</button>
+        <button type="button" data-auth-mode="signup">Create account</button>
+      </div>
+      <form id="contributor-signin-form" class="auth-form">
+        <label for="contributor-signin-email">Email</label>
+        <input id="contributor-signin-email" name="email" type="email" autocomplete="email" required maxlength="254">
+        <label for="contributor-signin-password">Password</label>
+        <input id="contributor-signin-password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128">
+        <button class="contribute-btn primary" type="submit">Sign in</button>
+      </form>
+      <form id="contributor-signup-form" class="auth-form" hidden>
+        <label for="contributor-signup-email">Email</label>
+        <input id="contributor-signup-email" name="email" type="email" autocomplete="email" required maxlength="254">
+        <label for="contributor-signup-password">Create password</label>
+        <input id="contributor-signup-password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128">
+        <label for="contributor-signup-confirm">Confirm password</label>
+        <input id="contributor-signup-confirm" name="confirmPassword" type="password" autocomplete="new-password" required minlength="12" maxlength="128">
+        <button class="contribute-btn primary" type="submit">Create contributor account</button>
+        <p class="auth-help">You may need to confirm your email before signing in.</p>
+      </form>
+      <p id="contributor-auth-status" class="contribute-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="contributor-workspace" class="contribute-workspace" hidden>
+      <div class="contribute-topbar">
+        <div><p class="blog-eyebrow">Signed in as</p><strong id="contributor-identity"></strong></div>
+        <div class="contribute-topbar-actions"><button id="contributor-new" class="contribute-btn primary" type="button">+ New suggestion</button><button id="contributor-logout" class="contribute-btn outline" type="button">Logout</button></div>
+      </div>
+
+      <section class="contribute-stats" aria-label="Your contribution overview">
+        <article><span>Drafts</span><strong id="contributor-stat-drafts">0</strong></article>
+        <article><span>Waiting approval</span><strong id="contributor-stat-waiting">0</strong></article>
+        <article><span>Needs changes</span><strong id="contributor-stat-changes">0</strong></article>
+        <article><span>Published</span><strong id="contributor-stat-published">0</strong></article>
+      </section>
+
+      <div class="contribute-grid">
+        <aside class="contribute-card contribute-list" aria-labelledby="contributor-list-heading">
+          <div class="contribute-list-head"><div><h2 id="contributor-list-heading">My suggestions</h2><p id="contributor-count">0 suggestions</p></div></div>
+          <label class="sr-only" for="contributor-search">Search your suggestions</label>
+          <input id="contributor-search" type="search" placeholder="Search suggestions…" autocomplete="off">
+          <div id="contributor-post-list" class="contribute-post-list" aria-live="polite"></div>
+        </aside>
+
+        <section class="contribute-card contribute-editor" aria-labelledby="contributor-editor-heading">
+          <div class="editor-head"><div><p class="blog-eyebrow">Editor</p><h2 id="contributor-editor-heading">Create your suggestion</h2></div><span id="contributor-state" class="status-badge draft">Draft</span></div>
+          <div id="contributor-review-note" class="review-note" hidden><strong>Owner feedback</strong><p id="contributor-review-note-text"></p></div>
+          <div id="contributor-lock-message" class="locked-message" hidden></div>
+
+          <form id="contributor-form">
+            <input id="contributor-post-id" type="hidden">
+            <div class="field-grid">
+              <div><label for="contributor-title">Title</label><input id="contributor-title" required minlength="3" maxlength="160" placeholder="Example: Kerala GK - Important Facts"></div>
+              <div><label for="contributor-slug">URL slug</label><input id="contributor-slug" required maxlength="180" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="kerala-gk-important-facts"><p class="field-help">Created automatically from the title.</p></div>
+            </div>
+            <div class="field-grid">
+              <div><label for="contributor-category">Category</label><select id="contributor-category" required><option>Study Topics</option><option>General Knowledge</option><option>Daily Blogs</option><option>Exam Tips</option><option>Announcements</option></select></div>
+              <div><label for="contributor-tags">Tags</label><input id="contributor-tags" maxlength="240" placeholder="Kerala, GK, Exam Preparation"><p class="field-help">Separate tags with commas.</p></div>
+            </div>
+            <label for="contributor-summary">Short description</label>
+            <textarea id="contributor-summary" required minlength="10" maxlength="500" rows="3" placeholder="A short summary shown on the Blog & GK page."></textarea>
+
+            <div><label for="contributor-content">Article</label><p class="field-help">Write the full article in plain text. Leave a blank line between paragraphs; formatting is applied safely when saved.</p></div>
+            <textarea id="contributor-content" rows="18" maxlength="60000" placeholder="Start writing your article here…" required></textarea>
+            <div class="editor-metrics"><span><strong id="contributor-word-count">0</strong> words</span><span><strong id="contributor-read-time">0</strong> min read</span></div>
+
+            <div class="cover-row">
+              <div><label for="contributor-cover">Cover image</label><input id="contributor-cover" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><p class="field-help">Optional. JPEG, PNG, WebP or AVIF, maximum 5 MB.</p><label for="contributor-cover-alt">Image description</label><input id="contributor-cover-alt" maxlength="240" placeholder="Describe the cover image for accessibility"></div>
+              <img id="contributor-cover-preview" class="cover-preview" alt="Cover preview" hidden>
+            </div>
+
+            <details>
+              <summary><strong>Extra details</strong></summary>
+              <div class="field-grid" style="margin-top:12px">
+                <div><label for="contributor-author">Author name</label><input id="contributor-author" maxlength="80"></div>
+                <div><label for="contributor-language">Language</label><select id="contributor-language"><option value="en">English</option><option value="ml">Malayalam</option><option value="mixed">English + Malayalam</option></select></div>
+                <div><label for="contributor-source-label">Source label</label><input id="contributor-source-label" maxlength="120" placeholder="Example: SITTTR Kerala"></div>
+                <div><label for="contributor-source-url">Source URL</label><input id="contributor-source-url" type="url" maxlength="500" placeholder="https://..."></div>
+              </div>
+            </details>
+
+            <div class="contribute-actions">
+              <button id="contributor-preview" class="contribute-btn soft" type="button">Preview</button>
+              <button id="contributor-save" class="contribute-btn outline" type="button">Save draft</button>
+              <button id="contributor-submit" class="contribute-btn primary" type="button">Submit for approval</button>
+              <button id="contributor-delete" class="contribute-btn danger" type="button" hidden>Delete</button>
+            </div>
+            <p id="contributor-editor-status" class="contribute-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <dialog id="contributor-preview-dialog" class="contribute-dialog">
+      <form method="dialog" class="contribute-dialog-head"><strong>Suggestion preview</strong><button class="contribute-btn outline" value="close">Close</button></form>
+      <div id="contributor-preview-body" class="contribute-preview-body"></div>
+    </dialog>
+  </main>
+
+  <footer class="footer" data-site-footer><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/blog.html">Blog &amp; GK</a><a href="/contact.html">Help</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
+  <script src="/assets/js/main.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260827-footer-consistency1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260827-footer-consistency1" defer></script>
+</body>
+</html>
