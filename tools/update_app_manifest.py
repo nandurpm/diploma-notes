@@ -118,10 +118,12 @@ def current_published_release() -> tuple[dict[str, object] | None, bool]:
     manifest_version = str(manifest.get("versionName", "")).strip()
     manifest_url = trusted_apk_url(manifest.get("apkUrl"))
 
-    # GitHub Release assets are the preferred publication method. Keep a valid
-    # manifest when it matches the Android source version; never replace it with
-    # an older APK merely because that old binary still exists under downloads/.
-    if manifest_version and manifest_url and (not gradle_name or manifest_version == gradle_name):
+    # GitHub Release assets are the preferred publication method. Keep the last
+    # valid public release while a newer source version is being prepared. The
+    # signed-release workflow replaces this manifest only after its APK upload
+    # succeeds, so a source-version bump must not temporarily remove a working
+    # download button or downgrade it to an older local binary.
+    if manifest_version and manifest_url:
         manifest["apkUrl"] = manifest_url
         return manifest, False
 

@@ -1,3 +1,4 @@
+// POLY PMNA Android app v4.0 — reliable downloads on all supported Android versions
 // POLY PMNA Android app v3.13 — protected API client cache refresh
 plugins {
     id 'com.android.application'
@@ -24,6 +25,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
+        versionCode 15
+        versionName '4.0'
         versionCode 22
         versionName '3.13'
     }
