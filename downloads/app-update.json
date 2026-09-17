@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "versionCode": 19,
-  "versionName": "4.0.4",
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v4.0.4/POLY_PMNA_v4.0.4.apk",
-  "sha256": "046cc446405aa02a83a01f32c4626de5fea9004de1a6337a725619bf1cbb5a0c",
-  "publishedAt": "2026-09-17T04:37:12Z",
+  "versionCode": 20,
+  "versionName": "4.0.5",
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v4.0.5/POLY_PMNA_v4.0.5.apk",
+  "sha256": "3671dae3574aa4dd121b32dc277d8d789bffd9fbc751de1bccdb77516641999c",
+  "publishedAt": "2026-09-17T04:48:19Z",
   "forceUpdate": true,
-  "title": "POLY PMNA Android app 4.0.4",
+  "title": "POLY PMNA Android app 4.0.5",
   "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
   "releaseNotes": [
     "Signed public release APK for Android installs and upgrades.",
