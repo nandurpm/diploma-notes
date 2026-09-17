@@ -130,8 +130,6 @@ def public_pages() -> list[Path]:
         if path.name in EXCLUDED_NAMES:
             continue
         source = read_page(path)
-        # Only canonical, complete documents are public schema targets. HTML
-        # snippets/templates are intentionally excluded even when they use .html.
         if not DOCUMENT_RE.search(source) or not HEAD_END_RE.search(source):
             continue
         if not (CANONICAL_RE.search(source) or CANONICAL_RE_REVERSED.search(source)):
@@ -165,6 +163,19 @@ def validate(text: str, relative: str) -> None:
         raise ValueError(f"Invalid schema context in {relative}")
 
 
+def schema_is_current(path: Path) -> bool:
+    """Compare generated and existing JSON-LD by value, not HTML formatting."""
+    relative = path.relative_to(ROOT).as_posix()
+    current = read_page(path)
+    blocks = find_structured_data_blocks(current)
+    if len(blocks) != 1:
+        return False
+    actual = json.loads(blocks[0].payload)
+    source_without_schema = remove_structured_data_blocks(current)
+    expected = payload(relative, source_without_schema)
+    return actual == expected
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
@@ -175,16 +186,19 @@ def main() -> int:
     for path in pages:
         relative = path.relative_to(ROOT).as_posix()
         try:
-            updated = updated_text(path)
-            validate(updated, relative)
+            if args.check:
+                validate(read_page(path), relative)
+                if not schema_is_current(path):
+                    changed.append(relative)
+            else:
+                updated = updated_text(path)
+                validate(updated, relative)
+                current = read_page(path)
+                if current != updated:
+                    changed.append(relative)
+                    path.write_text(updated, encoding="utf-8")
         except (ValueError, json.JSONDecodeError) as error:
             failures.append(str(error))
-            continue
-        current = read_page(path)
-        if current != updated:
-            changed.append(relative)
-            if not args.check:
-                path.write_text(updated, encoding="utf-8")
     if failures:
         print("\n".join(f"ERROR: {item}" for item in failures))
         return 1
