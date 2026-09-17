@@ -57,6 +57,10 @@ jobs:
           node --check assets/js/ask-poly-v2.js
           node --check assets/js/mock-exam-service.js
           node --check assets/js/mock-exam-1004.js
+          node --check assets/js/blog.js
+          node --check assets/js/blog-admin.js
+          node --check assets/js/blog-contribute.js
+          node --check assets/js/blog-review.js
       - name: Prevent committed secrets
         run: |
           python - <<'PY'
