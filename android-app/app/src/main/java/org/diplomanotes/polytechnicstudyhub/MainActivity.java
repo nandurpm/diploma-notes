@@ -71,6 +71,7 @@ public class MainActivity extends ComponentActivity {
     private View launchOverlay;
     private TextView toolbarSubtitle;
     private ValueCallback<Uri[]> fileChooserCallback;
+    private DownloadRequest pendingDownload;
     private boolean launchOverlayDismissed;
     private String lastFailedUrl = HOME_URL;
 
@@ -95,6 +96,17 @@ public class MainActivity extends ComponentActivity {
                 callback.onReceiveValue(selectedFiles);
             }
     );
+
+    private final ActivityResultLauncher<String> legacyDownloadPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                DownloadRequest request = pendingDownload;
+                pendingDownload = null;
+                if (granted && request != null) {
+                    enqueueDownload(request);
+                } else if (request != null) {
+                    Toast.makeText(this, R.string.download_permission_required, Toast.LENGTH_LONG).show();
+                }
+            });
 
 
 
@@ -337,32 +349,69 @@ public class MainActivity extends ComponentActivity {
                 Toast.makeText(this, R.string.download_blocked, Toast.LENGTH_SHORT).show();
                 return;
             }
-            try {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                String guessedName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                String cookies = CookieManager.getInstance().getCookie(url);
-                if (cookies != null) {
-                    request.addRequestHeader("Cookie", cookies);
-                }
-                request.addRequestHeader("User-Agent", userAgent);
-                request.setTitle(guessedName);
-                request.setDescription(getString(R.string.downloading_file));
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, guessedName);
-                request.setMimeType(
-                        mimetype == null || mimetype.isEmpty()
-                                ? "application/octet-stream"
-                                : mimetype
-                );
-                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                if (manager != null) {
-                    manager.enqueue(request);
-                    Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception error) {
-                Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+            DownloadRequest request = new DownloadRequest(url, userAgent, contentDisposition, mimetype);
+            if (requiresLegacyDownloadPermission()
+                    && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                pendingDownload = request;
+                legacyDownloadPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                return;
             }
+            enqueueDownload(request);
         };
+    }
+
+    private boolean requiresLegacyDownloadPermission() {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P;
+    }
+
+    private void enqueueDownload(DownloadRequest download) {
+        try {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(download.url));
+            String guessedName = URLUtil.guessFileName(
+                    download.url,
+                    download.contentDisposition,
+                    download.mimeType
+            );
+            String cookies = CookieManager.getInstance().getCookie(download.url);
+            if (cookies != null) {
+                request.addRequestHeader("Cookie", cookies);
+            }
+            if (download.userAgent != null && !download.userAgent.isEmpty()) {
+                request.addRequestHeader("User-Agent", download.userAgent);
+            }
+            request.setTitle(guessedName);
+            request.setDescription(getString(R.string.downloading_file));
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, guessedName);
+            request.setMimeType(
+                    download.mimeType == null || download.mimeType.isEmpty()
+                            ? "application/octet-stream"
+                            : download.mimeType
+            );
+            DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            if (manager == null) {
+                Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            manager.enqueue(request);
+            Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
+        } catch (Exception error) {
+            Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private static final class DownloadRequest {
+        final String url;
+        final String userAgent;
+        final String contentDisposition;
+        final String mimeType;
+
+        DownloadRequest(String url, String userAgent, String contentDisposition, String mimeType) {
+            this.url = url;
+            this.userAgent = userAgent;
+            this.contentDisposition = contentDisposition;
+            this.mimeType = mimeType;
+        }
     }
 
     private boolean isTrustedUri(Uri uri) {

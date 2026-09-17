@@ -6,17 +6,17 @@ https://polypmna.dpdns.org/
 
 ## Current source release
 
-- Version: `3.4`
-- Version code: `13`
+- Version: `4.0`
+- Version code: `15`
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-## Version 3.4 signed release
+## Version 4.0 release preparation
 
-- Publishes the public APK only as a signed release build (`POLY_PMNA_v3.4.apk`).
-- Makes the homepage Android download/update button target the GitHub Release APK for version 3.4.
-- The internal `versionName`/`versionCode` in `build.gradle` match the release asset name and `downloads/app-update.json`.
+- Publishes the public APK only as a signed release build (`POLY_PMNA_v4.0.apk`).
+- The release workflow updates the homepage Android download/update button to the GitHub Release APK for version 4.0.
+- The release workflow generates `downloads/app-update.json` from the internal `versionName` and `versionCode` after the signed APK has been built.
 - Existing Android app users on an older version see an in-app update button on the homepage.
 - Adds **Revision 2026** as a dedicated native drawer destination.
 - Keeps **Revision 2021** as a separate destination for legacy batches.
@@ -25,6 +25,9 @@ https://polypmna.dpdns.org/
 - Revision 2026 notes PDFs load only from `/revision-2026-content/notes/`.
 - A matching Revision 2021 code cannot be used as a Revision 2026 handbook or PDF.
 - Adds trusted Android DownloadManager handling for Revision 2026 notes PDFs.
+- Requests the legacy storage permission only on Android 6–9 before saving a
+  study download, so notes and PDFs remain downloadable across the complete
+  supported Android range.
 - Improves active drawer highlighting for department and lesson pages.
 - Enables WebView database storage and normal cache mode while preserving the exact-page offline retry screen.
 - Opens approved SITTTR, Google Drive and GitHub links through the appropriate external app.

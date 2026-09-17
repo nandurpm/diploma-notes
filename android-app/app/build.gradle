@@ -1,4 +1,4 @@
-// POLY PMNA Android app v3.4 — lesson push notifications
+// POLY PMNA Android app v4.0 — reliable downloads on all supported Android versions
 plugins {
     id 'com.android.application'
 }
@@ -23,8 +23,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
-        versionCode 14
-        versionName '3.5'
+        versionCode 15
+        versionName '4.0'
     }
 
     buildFeatures {

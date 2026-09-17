@@ -41,6 +41,14 @@ test("allowedOrigins falls back to defaults when unset", () => {
   assert.ok(origins.has("http://localhost:8000"));
 });
 
+
+test("allowedOrigins handles a missing environment object", () => {
+  const origins = allowedOrigins();
+  assert.ok(origins.has("https://polypmna.dpdns.org"));
+  assert.equal(isOriginAllowed("https://polypmna.dpdns.org"), true);
+  assert.equal(corsHeaders("https://polypmna.dpdns.org")["Access-Control-Allow-Origin"], "https://polypmna.dpdns.org");
+});
+
 test("allowedOrigins parses a configured comma list", () => {
   const origins = allowedOrigins({ ALLOWED_ORIGINS: "https://a.com, https://b.com ," });
   assert.deepEqual([...origins], ["https://a.com", "https://b.com"]);
