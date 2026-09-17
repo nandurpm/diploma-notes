@@ -122,19 +122,62 @@ def render(source: str, posts: list[dict]) -> str:
     return source
 
 
+def check_prerender(source: str, posts: list[dict]) -> list[str]:
+    """Check observable prerender content, not insignificant formatting.
+
+    The source may be human-formatted differently from this generator. CI should
+    fail only when the initial HTML no longer contains the catalogue data users
+    and crawlers need before JavaScript executes.
+    """
+    failures: list[str] = []
+    count = len(posts)
+    count_match = re.search(r'<strong id="blog-post-count">([^<]*)</strong>', source)
+    if not count_match or count_match.group(1).strip() != str(count):
+        failures.append(f"blog-post-count must be {count}")
+    expected_newest = display_date(posts[0]["date"]) if posts else "No posts yet"
+    newest_match = re.search(r'<strong id="blog-newest-date">([^<]*)</strong>', source)
+    if not newest_match or html.unescape(newest_match.group(1).strip()) != expected_newest:
+        failures.append(f"blog-newest-date must be {expected_newest}")
+    for post in posts:
+        title = esc(post["title"])
+        url = esc(post["url"])
+        if title not in source:
+            failures.append(f"missing prerendered title: {post['title']}")
+        if f'href="{url}"' not in source:
+            failures.append(f"missing prerendered URL: {post['url']}")
+    payload_match = re.search(r'<script id="blog-prerender-data" type="application/json">(.*?)</script>', source, re.S)
+    if not payload_match:
+        failures.append("missing blog-prerender-data payload")
+    else:
+        try:
+            embedded = json.loads(payload_match.group(1).replace("<\\/", "</"))
+            expected_keys = {(str(p.get("slug") or ""), p["url"]) for p in posts}
+            actual_keys = {(str(p.get("slug") or ""), str(p.get("url") or "")) for p in embedded if isinstance(p, dict)}
+            if not expected_keys.issubset(actual_keys):
+                failures.append("embedded prerender data is missing one or more static posts")
+        except (ValueError, TypeError):
+            failures.append("blog-prerender-data is not valid JSON")
+    if "Loading posts" in source or "Loading the featured post" in source:
+        failures.append("blog.html still contains JS-only loading placeholders")
+    return failures
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     current = PAGE.read_text(encoding="utf-8")
-    generated = render(current, load_posts())
+    posts = load_posts()
     if args.check:
-        if generated != current:
-            print("blog.html prerender is stale. Run: python tools/render_blog_index.py")
+        failures = check_prerender(current, posts)
+        if failures:
+            print("blog.html prerender validation failed:")
+            for failure in failures:
+                print(f"- {failure}")
             return 1
-        print("blog.html prerender matches data/blog-index.json.")
+        print("blog.html contains a complete static prerender for data/blog-index.json.")
         return 0
-    PAGE.write_text(generated, encoding="utf-8")
+    PAGE.write_text(render(current, posts), encoding="utf-8")
     print("Updated blog.html prerender from data/blog-index.json.")
     return 0
 
