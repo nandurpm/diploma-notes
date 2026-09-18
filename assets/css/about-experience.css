@@ -18,6 +18,11 @@
 }
 
 /* Base experience wrappers */
+/* About uses decorative off-canvas artwork; contain it at the page viewport. */
+body.portal-page {
+  overflow-x: hidden;
+}
+
 .about-experience {
   position: relative;
   isolation: isolate;

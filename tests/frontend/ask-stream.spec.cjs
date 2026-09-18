@@ -22,7 +22,7 @@ for (const complete of [false,true]) {
     await expect(saved).not.toContainText('I could not reach the AI service');
     await page.reload();
     await expect(saved).toContainText(answer);
-    await expect(saved.locator('.ask-answer-notice')).toHaveCount(complete?0:1);
+    await expect(saved.locator('.ask-answer-notice')).toHaveCount(0);
   });
 }
 

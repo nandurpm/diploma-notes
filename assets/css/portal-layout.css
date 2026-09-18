@@ -405,3 +405,24 @@ body.portal-page .cards > .info-card p,
 body.portal-page .cards > .choice-card p {
   overflow-wrap: anywhere;
 }
+
+
+/* Portal mobile target floor: pages using portal-layout may not load responsive.css. */
+@media (max-width: 620px) {
+  body.portal-page main :is(
+    button,
+    [role="button"],
+    input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea,
+    .btn,
+    .action,
+    .hero-actions a
+  ) {
+    min-height: 44px !important;
+  }
+
+  body.portal-page main :is(button, [role="button"]) {
+    min-width: 44px !important;
+  }
+}
