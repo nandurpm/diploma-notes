@@ -638,3 +638,14 @@
 .html-toggle.active { background:#1d4ed8!important; color:#fff!important; }
 .contributor-editor-toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:8px 0; padding:10px 12px; border:1px solid #dbe4ef; border-radius:12px; background:#f8fafc; }
 .contributor-editor-toolbar .field-help { margin:0; }
+
+/* Rich editor typography and table presentation. */
+.rich-format-group { align-items:center; }
+.toolbar-select-label { display:inline-flex; align-items:center; }
+.rich-toolbar select { min-height:30px; max-width:116px; padding:4px 6px; border:1px solid #cbd5e1; border-radius:7px; background:#fff; color:#0f172a; font:inherit; font-size:.78rem; }
+.rich-toolbar input[type=color] { width:32px; height:30px; padding:2px; border:1px solid #cbd5e1; border-radius:7px; background:#fff; cursor:pointer; }
+.rich-editor table, .blog-article-content table { width:100%; border-collapse:collapse; margin:22px 0; font-size:.95rem; }
+.rich-editor th, .rich-editor td, .blog-article-content th, .blog-article-content td { padding:10px 12px; border:1px solid #cbd5e1; text-align:left; vertical-align:top; }
+.rich-editor th, .blog-article-content th { background:#eff6ff; color:#0f2f6d; font-weight:800; }
+.rich-editor tr:nth-child(even) td, .blog-article-content tr:nth-child(even) td { background:#f8fafc; }
+@media(max-width:560px) { .rich-format-group { width:100%; } .rich-toolbar select { flex:1; max-width:none; } .rich-editor table, .blog-article-content table { display:block; overflow-x:auto; white-space:nowrap; } }

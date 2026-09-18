@@ -17,7 +17,7 @@
     titleCount: $("title-count"), summaryCount: $("summary-count"), seoTitleCount: $("seo-title-count"), seoDescriptionCount: $("seo-description-count"),
     wordCount: $("word-count"), charCount: $("char-count"), readTime: $("read-time"), autosaveStatus: $("autosave-status"),
     preview: $("preview-post"), saveDraft: $("save-draft"), publish: $("publish-post"), unpublish: $("unpublish-post"), remove: $("delete-post"), editorStatus: $("editor-status"),
-    htmlToggle: $("toggle-html-source"), htmlSource: $("post-html-source"), previewDialog: $("preview-dialog"), previewContent: $("preview-content"), addLink: $("add-link"), highlightText: $("highlight-text"),
+    htmlToggle: $("toggle-html-source"), htmlSource: $("post-html-source"), fontName: $("font-name"), fontSize: $("font-size"), fontColor: $("font-color"), insertTable: $("insert-table"), previewDialog: $("preview-dialog"), previewContent: $("preview-content"), addLink: $("add-link"), highlightText: $("highlight-text"),
     recoveryPanel: $("recovery-panel"), restoreRecovery: $("restore-recovery"), discardRecovery: $("discard-recovery")
   };
 
@@ -33,7 +33,7 @@
 
   const RECOVERY_KEY = "poly_blog_admin_recovery_v2";
   const categories = new Set(["Study Topics", "General Knowledge", "Daily Blogs", "Exam Tips", "Announcements"]);
-  const allowedTags = new Set(["P", "H2", "H3", "H4", "UL", "OL", "LI", "STRONG", "B", "EM", "I", "U", "S", "BLOCKQUOTE", "A", "BR", "HR", "PRE", "CODE", "MARK"]);
+  const allowedTags = new Set(["P", "H2", "H3", "H4", "UL", "OL", "LI", "STRONG", "B", "EM", "I", "U", "S", "BLOCKQUOTE", "A", "BR", "HR", "PRE", "CODE", "MARK", "SPAN", "FONT", "TABLE", "THEAD", "TBODY", "TFOOT", "TR", "TH", "TD"]);
   const alignableTags = new Set(["P", "H2", "H3", "H4", "BLOCKQUOTE", "PRE"]);
 
   const setStatus = (el, message, type = "") => {
@@ -84,7 +84,27 @@
           copy(child, target);
           return;
         }
-        const clean = document.createElement(child.tagName.toLowerCase());
+        const clean = document.createElement(child.tagName === "FONT" ? "span" : child.tagName.toLowerCase());
+        if (child.tagName === "FONT") {
+          const face = (child.getAttribute("face") || "").replace(/[^a-zA-Z0-9 ,_-]/g, "").trim();
+          const color = (child.getAttribute("color") || "").trim();
+          const size = (child.getAttribute("size") || "").trim();
+          if (face) clean.style.fontFamily = face;
+          if (/^#[0-9a-f]{6}$/i.test(color)) clean.style.color = color;
+          if (/^[1-7]$/.test(size)) clean.style.fontSize = ({"1":".75rem","2":"1rem","3":"1.15rem","4":"1.35rem","5":"1.6rem","6":"2rem","7":"2.5rem"})[size];
+        }
+        if (child.tagName === "SPAN") {
+          const sourceStyle = child.getAttribute("style") || "";
+          const safeStyle = sourceStyle.split(";").map(part => part.trim()).filter(Boolean).map(part => {
+            const [property, ...rest] = part.split(":");
+            const value = rest.join(":").trim();
+            const key = property.trim().toLowerCase();
+            if (!["color", "background-color", "font-family", "font-size", "font-weight", "font-style", "text-decoration"].includes(key)) return "";
+            if (!value || /url\s*\(|expression\s*\(|javascript:/i.test(value)) return "";
+            return `${key}:${value.replace(/[<>]/g, "")}`;
+          }).filter(Boolean).join(";");
+          if (safeStyle) clean.setAttribute("style", safeStyle);
+        }
         if (child.tagName === "A") {
           const href = safeHref(child.getAttribute("href") || "");
           if (href) {
@@ -706,6 +726,20 @@
   });
 
   els.highlightText.addEventListener("click", () => wrapSelection("mark"));
+  function applyFont(command, value) {
+    els.content.focus();
+    document.execCommand("styleWithCSS", false, true);
+    document.execCommand(command, false, value);
+    markDirty();
+  }
+  els.fontName.addEventListener("change", () => applyFont("fontName", els.fontName.value));
+  els.fontSize.addEventListener("change", () => applyFont("fontSize", els.fontSize.value));
+  els.fontColor.addEventListener("input", () => applyFont("foreColor", els.fontColor.value));
+  els.insertTable.addEventListener("click", () => {
+    els.content.focus();
+    document.execCommand("insertHTML", false, "<table><thead><tr><th>Heading 1</th><th>Heading 2</th><th>Heading 3</th></tr></thead><tbody><tr><td>Cell</td><td>Cell</td><td>Cell</td></tr><tr><td>Cell</td><td>Cell</td><td>Cell</td></tr></tbody></table><p><br></p>");
+    markDirty();
+  });
   els.preview.addEventListener("click", preview);
   els.saveDraft.addEventListener("click", () => save("draft"));
   els.publish.addEventListener("click", () => save("published"));
