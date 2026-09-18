@@ -22,7 +22,6 @@ env:
   BUILD_INFO_URL: https://polypmna.dpdns.org/build-info.json
   SSL_HOST: polypmna.dpdns.org
   MIN_SSL_DAYS: "30"
-  MONITOR_USER_AGENT: POLY-PMNA-Live-Monitor/2.0
 
 jobs:
   monitor:
@@ -30,58 +29,73 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check HTTP response and security headers
+      - name: Check HTTP response, security headers, and build metadata
         shell: bash
         run: |
           set -euo pipefail
-          headers="$(mktemp)"
-          status="$(curl \
-            --fail --silent --show-error --location \
-            --retry 3 --retry-delay 2 --retry-all-errors \
-            --connect-timeout 15 --max-time 30 \
-            --user-agent "$MONITOR_USER_AGENT" \
-            --header 'Cache-Control: no-cache' \
-            --header 'Range: bytes=0-262143' \
-            --dump-header "$headers" --output /dev/null \
-            --write-out '%{http_code}' \
-            "$SITE_URL?monitor=${GITHUB_RUN_ID}")"
-          [[ "$status" = "200" || "$status" = "206" ]]
-          grep -iq '^strict-transport-security:' "$headers"
-          echo "HTTP status: $status"
-          echo "Security headers: HSTS present"
-          {
-            echo "## Live site"
-            echo "- URL: $SITE_URL"
-            echo "- HTTP status: $status"
-            echo "- HSTS: present"
-          } >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.error
+          import urllib.request
 
-      - name: Verify deployed build metadata
-        shell: bash
-        run: |
-          set -euo pipefail
-          body="$(curl \
-            --fail --silent --show-error --location \
-            --retry 3 --retry-delay 2 --retry-all-errors \
-            --connect-timeout 15 --max-time 30 \
-            --user-agent "$MONITOR_USER_AGENT" \
-            --header 'Cache-Control: no-cache' \
-            "$BUILD_INFO_URL?monitor=${GITHUB_RUN_ID}")"
-          commit="$(printf '%s' "$body" | jq -r '.commit')"
-          built_at="$(printf '%s' "$body" | jq -r '.builtAt')"
-          branch="$(printf '%s' "$body" | jq -r '.branch')"
-          [[ "$commit" =~ ^[0-9a-f]{40}$ ]]
-          test "$branch" = "main"
-          test "$built_at" != "null"
-          echo "Published commit: $commit"
-          echo "Built at: $built_at"
-          echo "Branch: $branch"
-          {
-            echo "## Published build"
-            echo "- Commit: \\`$commit\\`"
-            echo "- Built at: $built_at"
-            echo "- Branch: $branch"
-          } >> "$GITHUB_STEP_SUMMARY"
+          run_id = os.environ.get("GITHUB_RUN_ID", "monitor")
+          site_url = os.environ["SITE_URL"] + f"?monitor={run_id}"
+          build_url = os.environ["BUILD_INFO_URL"] + f"?monitor={run_id}"
+          headers = {
+              "User-Agent": "POLY-PMNA-Production-Audit/2.0",
+              "Cache-Control": "no-cache",
+              "Range": "bytes=0-262143",
+              "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+          }
+
+          def get(url):
+              last = None
+              for attempt in range(1, 4):
+                  try:
+                      request = urllib.request.Request(url, headers=headers, method="GET")
+                      with urllib.request.urlopen(request, timeout=25) as response:
+                          return response.status, dict(response.headers.items()), response.read(262144)
+                  except (urllib.error.URLError, TimeoutError) as exc:
+                      last = exc
+                      if attempt < 3:
+                          time.sleep(attempt)
+              raise last
+
+          status, response_headers, _ = get(site_url)
+          if status not in (200, 206):
+              raise SystemExit(f"Unexpected live-site HTTP status: {status}")
+          hsts = next((value for key, value in response_headers.items() if key.lower() == "strict-transport-security"), "")
+          if not hsts:
+              raise SystemExit("Live response is missing Strict-Transport-Security")
+
+          build_status, _, body = get(build_url)
+          if build_status not in (200, 206):
+              raise SystemExit(f"Unexpected build-info HTTP status: {build_status}")
+          payload = json.loads(body.decode("utf-8"))
+          commit = str(payload.get("commit") or "")
+          built_at = payload.get("builtAt")
+          branch = payload.get("branch")
+          if len(commit) != 40 or any(ch not in "0123456789abcdef" for ch in commit):
+              raise SystemExit("build-info.json contains an invalid commit SHA")
+          if branch != "main" or not built_at:
+              raise SystemExit("build-info.json is missing valid main-branch metadata")
+
+          print(f"HTTP status: {status}")
+          print("Security headers: HSTS present")
+          print(f"Published commit: {commit}")
+          print(f"Built at: {built_at}")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("## Live site\n")
+              summary.write(f"- URL: {os.environ['SITE_URL']}\n")
+              summary.write(f"- HTTP status: {status}\n")
+              summary.write("- HSTS: present\n\n")
+              summary.write("## Published build\n")
+              summary.write(f"- Commit: `{commit}`\n")
+              summary.write(f"- Built at: {built_at}\n")
+              summary.write(f"- Branch: {branch}\n")
+          PY
 
       - name: Verify SSL certificate validity
         shell: bash
