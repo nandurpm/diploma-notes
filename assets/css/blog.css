@@ -615,3 +615,26 @@
     transform: none;
   }
 }
+
+/* Blog article readability and responsive cover presentation. */
+.blog-post-cover { display:block; width:100%; max-width:100%; height:auto; max-height:520px; margin:24px 0 0; object-fit:cover; object-position:center; border-radius:18px; background:#eef4fb; box-shadow:0 12px 28px rgba(15,23,42,.10); }
+@media (max-width: 900px) {
+  .blog-main { width:min(100% - 24px, 760px); padding-top:18px; }
+  .blog-article-shell { display:block; margin-top:16px; }
+  .blog-article { padding:clamp(18px, 5vw, 30px); border-radius:16px; }
+  .blog-article-aside { position:static; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:16px; }
+}
+@media (max-width: 560px) {
+  .blog-main { width:calc(100% - 20px); }
+  .blog-article h1 { font-size:clamp(1.8rem, 9vw, 2.45rem); }
+  .blog-article-content { font-size:1rem; line-height:1.72; }
+  .blog-post-cover { max-height:300px; border-radius:12px; }
+  .blog-article-aside { grid-template-columns:1fr; }
+}
+
+/* Shared source-mode editor controls. */
+.html-source { width:100%; min-height:360px; box-sizing:border-box; padding:16px; border:1px solid #93c5fd; border-radius:12px; background:#0f172a; color:#e2e8f0; font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; resize:vertical; tab-size:2; }
+.html-source:focus { outline:3px solid rgba(37,99,235,.18); border-color:#2563eb; }
+.html-toggle.active { background:#1d4ed8!important; color:#fff!important; }
+.contributor-editor-toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:8px 0; padding:10px 12px; border:1px solid #dbe4ef; border-radius:12px; background:#f8fafc; }
+.contributor-editor-toolbar .field-help { margin:0; }

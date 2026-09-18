@@ -17,7 +17,7 @@
     titleCount: $("title-count"), summaryCount: $("summary-count"), seoTitleCount: $("seo-title-count"), seoDescriptionCount: $("seo-description-count"),
     wordCount: $("word-count"), charCount: $("char-count"), readTime: $("read-time"), autosaveStatus: $("autosave-status"),
     preview: $("preview-post"), saveDraft: $("save-draft"), publish: $("publish-post"), unpublish: $("unpublish-post"), remove: $("delete-post"), editorStatus: $("editor-status"),
-    previewDialog: $("preview-dialog"), previewContent: $("preview-content"), addLink: $("add-link"), highlightText: $("highlight-text"),
+    htmlToggle: $("toggle-html-source"), htmlSource: $("post-html-source"), previewDialog: $("preview-dialog"), previewContent: $("preview-content"), addLink: $("add-link"), highlightText: $("highlight-text"),
     recoveryPanel: $("recovery-panel"), restoreRecovery: $("restore-recovery"), discardRecovery: $("discard-recovery")
   };
 
@@ -29,6 +29,7 @@
   let previewObjectUrl = "";
   let dirty = false;
   let recoveryTimer = null;
+  let htmlMode = false;
 
   const RECOVERY_KEY = "poly_blog_admin_recovery_v2";
   const categories = new Set(["Study Topics", "General Knowledge", "Daily Blogs", "Exam Tips", "Announcements"]);
@@ -102,6 +103,30 @@
     }
     copy(parsed.body.firstElementChild, root);
     return root.innerHTML;
+  }
+
+  function syncHtmlSourceToVisual() {
+    if (!htmlMode) return;
+    els.content.innerHTML = sanitizeHtml(els.htmlSource.value);
+  }
+  function toggleHtmlMode() {
+    if (htmlMode) {
+      syncHtmlSourceToVisual();
+      els.htmlSource.hidden = true;
+      els.content.hidden = false;
+      els.htmlToggle.textContent = "HTML";
+      els.htmlToggle.classList.remove("active");
+      htmlMode = false;
+      markDirty();
+    } else {
+      els.htmlSource.value = sanitizeHtml(els.content.innerHTML);
+      els.content.hidden = true;
+      els.htmlSource.hidden = false;
+      els.htmlToggle.textContent = "Visual";
+      els.htmlToggle.classList.add("active");
+      htmlMode = true;
+      els.htmlSource.focus();
+    }
   }
 
   function markDirty() {
@@ -270,10 +295,12 @@
     currentPost = null;
     slugTouched = false;
     coverRemoved = false;
+    if (htmlMode) toggleHtmlMode();
     revokePreviewUrl();
     els.form.reset();
     els.id.value = "";
     els.content.innerHTML = "";
+    els.htmlSource.value = "";
     els.coverCurrent.textContent = "";
     els.author.value = "POLY PMNA";
     els.language.value = "en";
@@ -328,7 +355,7 @@
       copy.append(title, meta);
       const state = document.createElement("span");
       state.className = `status-dot ${post.status}`;
-      state.textContent = post.status === "published" ? "Published" : "Draft";
+      state.textContent = post.status === "published" ? "Published · Edit available" : "Draft";
       button.append(copy, state);
       button.addEventListener("click", () => openPost(post.id));
       els.list.append(button);
@@ -360,6 +387,8 @@
     els.tags.value = (post.tags || []).join(", ");
     els.summary.value = post.summary;
     els.content.innerHTML = sanitizeHtml(post.content_html);
+    els.htmlSource.value = els.content.innerHTML;
+    if (htmlMode) toggleHtmlMode();
     els.coverAlt.value = post.cover_alt || "";
     els.coverCurrent.textContent = post.cover_url ? "Current cover image is saved." : "No cover image.";
     els.featured.checked = !!post.featured;
@@ -383,6 +412,7 @@
   }
 
   function validateEditor() {
+    if (htmlMode) syncHtmlSourceToVisual();
     if (!els.form.reportValidity()) return false;
     const content = sanitizeHtml(els.content.innerHTML).trim();
     if (!content || !els.content.textContent.trim()) {
@@ -437,6 +467,7 @@
         });
       }
       const now = new Date().toISOString();
+      if (htmlMode) syncHtmlSourceToVisual();
       const payload = {
         title: els.title.value.trim(),
         slug,
@@ -690,7 +721,9 @@
     markDirty();
   });
 
-  els.content.addEventListener("input", markDirty);
+  els.content.addEventListener("input", () => { markDirty(); if (!htmlMode) els.htmlSource.value = sanitizeHtml(els.content.innerHTML); });
+  els.htmlSource.addEventListener("input", markDirty);
+  els.htmlToggle.addEventListener("click", toggleHtmlMode);
   els.content.addEventListener("paste", event => {
     event.preventDefault();
     const text = event.clipboardData.getData("text/plain");
