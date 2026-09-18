@@ -18,6 +18,7 @@ env:
   BUILD_INFO_URL: https://polypmna.dpdns.org/build-info.json
   SSL_HOST: polypmna.dpdns.org
   MIN_SSL_DAYS: "30"
+  MONITOR_USER_AGENT: POLY-PMNA-Live-Monitor/2.0
 
 jobs:
   monitor:
@@ -30,8 +31,17 @@ jobs:
         run: |
           set -euo pipefail
           headers="$(mktemp)"
-          status="$(curl --fail --silent --show-error --location --connect-timeout 15 --max-time 30 --dump-header "$headers" --output /dev/null --write-out '%{http_code}' "$SITE_URL")"
-          test "$status" = "200"
+          status="$(curl \
+            --fail --silent --show-error --location \
+            --retry 3 --retry-delay 2 --retry-all-errors \
+            --connect-timeout 15 --max-time 30 \
+            --user-agent "$MONITOR_USER_AGENT" \
+            --header 'Cache-Control: no-cache' \
+            --header 'Range: bytes=0-262143' \
+            --dump-header "$headers" --output /dev/null \
+            --write-out '%{http_code}' \
+            "$SITE_URL?monitor=${GITHUB_RUN_ID}")"
+          [[ "$status" = "200" || "$status" = "206" ]]
           grep -iq '^strict-transport-security:' "$headers"
           echo "HTTP status: $status"
           echo "Security headers: HSTS present"
@@ -46,7 +56,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          body="$(curl --fail --silent --show-error --location --connect-timeout 15 --max-time 30 "$BUILD_INFO_URL")"
+          body="$(curl \
+            --fail --silent --show-error --location \
+            --retry 3 --retry-delay 2 --retry-all-errors \
+            --connect-timeout 15 --max-time 30 \
+            --user-agent "$MONITOR_USER_AGENT" \
+            --header 'Cache-Control: no-cache' \
+            "$BUILD_INFO_URL?monitor=${GITHUB_RUN_ID}")"
           commit="$(printf '%s' "$body" | jq -r '.commit')"
           built_at="$(printf '%s' "$body" | jq -r '.builtAt')"
           branch="$(printf '%s' "$body" | jq -r '.branch')"
