@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: notify-new-blog-posts
+  group: notify-new-blog-posts-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Validate Firebase service-account secret
         env:
@@ -46,6 +48,8 @@ jobs:
             --topic "all-users"
 
       - name: Commit notification log
+        # Run even when the sender reported partial failures so successful
+        # notifications are recorded and are not sent a second time.
         if: ${{ !cancelled() }}
         run: |
           set -euo pipefail
@@ -57,5 +61,5 @@ jobs:
             exit 0
           fi
           git commit -m "Record sent blog notifications [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
