@@ -5,6 +5,10 @@ on:
     # Daily at 04:15 UTC (09:45 IST).
     - cron: "15 4 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/daily-actions-status-monitor.yml"
 
 permissions:
   actions: read
@@ -79,7 +83,7 @@ jobs:
               "repository": repo,
               "collected_at": datetime.now(timezone.utc).isoformat(),
               "lookback_hours": 24,
-              "policy": "latest completed/current run per workflow on main; monitor excludes itself",
+              "policy": "latest run per workflow on main; monitor excludes itself",
               "runs": recent,
           }
           with open("reports/daily-actions-status.json", "w", encoding="utf-8") as f:
