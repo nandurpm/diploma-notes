@@ -1,0 +1,65 @@
+/* POLY PMNA Blog & GK UI fixes — 2026-09-18 */
+
+/* HTML source mode should be a real code-editing workspace, not a one-line textarea. */
+.blog-admin-page #post-html-source {
+  width: 100%;
+  min-height: clamp(520px, 64vh, 820px);
+  height: clamp(520px, 64vh, 820px);
+  box-sizing: border-box;
+  padding: 16px;
+  resize: vertical;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  tab-size: 2;
+}
+
+/* Published article pages use the available viewport while retaining readable gutters. */
+.blog-post-main {
+  width: min(1680px, calc(100% - 32px));
+}
+
+.blog-post-main .blog-article-shell {
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  gap: clamp(18px, 2vw, 30px);
+}
+
+.blog-post-main .blog-article {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Covers are full-width hero images on article pages. */
+.blog-post-cover {
+  display: block;
+  width: 100%;
+  max-height: min(62vh, 720px);
+  margin-top: 24px;
+  border-radius: 18px;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+.blog-post-cover[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .blog-admin-page #post-html-source {
+    min-height: 55vh;
+    height: 55vh;
+  }
+
+  .blog-post-main {
+    width: min(100% - 20px, 1680px);
+  }
+
+  .blog-post-main .blog-article-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-post-main .blog-article-aside {
+    position: static;
+  }
+}
