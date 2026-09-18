@@ -38,7 +38,13 @@ test('idle timeout flushes the final short fragment for preservation',async()=>{
   await assert.rejects(c.run(text=>{shown=text;}),{name:'AbortError'});
   assert.equal(shown,'Hello'); assert.equal(c.cleanup().timers,0);
 });
-for(const [name,last] of [['network error',{error:true}],['premature EOF',null],['provider error',{text:'data: {"error":{"message":"unavailable"}}\n\n'}],['token limit',{text:'data: {"choices":[{"finish_reason":"length"}]}\n\n'}]]) {
+test('clean premature EOF preserves a non-empty SSE answer as complete',async()=>{
+  let shown=''; const c=client([{text:delta('Saved text')}]);
+  const r=await c.run(text=>{shown=text;});
+  assert.equal(r.answer,'Saved text'); assert.equal(shown,'Saved text');
+  assert.deepEqual(c.cleanup(),{timers:0,cancelled:true,released:true});
+});
+for(const [name,last] of [['network error',{error:true}],['provider error',{text:'data: {"error":{"message":"unavailable"}}\n\n'}],['token limit',{text:'data: {"choices":[{"finish_reason":"length"}]}\n\n'}]]) {
   test(`${name} keeps received text and reports an incomplete stream`,async()=>{
     let shown=''; const c=client([{text:delta('Saved text')},...(last?[last]:[])]);
     await assert.rejects(c.run(text=>{shown=text;})); assert.equal(shown,'Saved text');

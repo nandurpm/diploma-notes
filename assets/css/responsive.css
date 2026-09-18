@@ -284,3 +284,25 @@
     flex: 0 0 auto !important;
   }
 }
+
+
+/* Mobile interaction target baseline: keep primary controls at least 44px. */
+@media (max-width: 620px) {
+  body.portal-page :is(
+    button,
+    [role="button"],
+    input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea,
+    .btn,
+    .action,
+    .hero-actions a,
+    .navlinks a
+  ) {
+    min-height: 44px !important;
+  }
+
+  body.portal-page :is(button, [role="button"]) {
+    min-width: 44px !important;
+  }
+}

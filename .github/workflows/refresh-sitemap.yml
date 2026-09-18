@@ -12,8 +12,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: refresh-sitemap-main
-  cancel-in-progress: true
+  group: generated-content-main-writer
+  cancel-in-progress: false
 
 jobs:
   refresh:

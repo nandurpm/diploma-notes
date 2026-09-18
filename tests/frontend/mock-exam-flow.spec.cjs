@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const GUEST_RESULTS_KEY = 'polypmna_guest_mock_exam_results';
+let evaluatedPaperId = '';
 
 test('guest mock exam submits, renders feedback and saves score history', async ({ page }) => {
   await page.route('**/assets/vendor/supabase-js-2.110.7.js*', route => route.fulfill({
@@ -11,8 +12,9 @@ test('guest mock exam submits, renders feedback and saves score history', async 
   await page.route('https://api.polypmna.dpdns.org/api/evaluate-mock-exam', async route => {
     const request = route.request();
     const payload = JSON.parse(request.postData() || '{}');
+    evaluatedPaperId = payload.paperId;
     expect(payload.answers).toHaveLength(23);
-    expect(payload.subjectCode).toBe('1004');
+    expect(payload.subjectCode).toBe('1002');
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -39,7 +41,7 @@ test('guest mock exam submits, renders feedback and saves score history', async 
   });
 
   page.on('dialog', dialog => dialog.accept());
-  await page.goto('/mock-exam.html?subject=1004');
+  await page.goto('/mock-exam.html?subject=1002');
   await expect(page.locator('#examView')).toBeVisible();
   await expect(page.locator('#studentName')).toHaveText('Guest Student');
 
@@ -70,5 +72,5 @@ test('guest mock exam submits, renders feedback and saves score history', async 
 
   const saved = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]'), GUEST_RESULTS_KEY);
   expect(saved).toHaveLength(1);
-  expect(saved[0]).toMatchObject({ paperId: '1004', score: 51, totalMarks: 75, percentage: 68, status: 'published' });
+  expect(saved[0]).toMatchObject({ paperId: evaluatedPaperId, score: 51, totalMarks: 75, percentage: 68, status: 'published' });
 });

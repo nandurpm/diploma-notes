@@ -100,14 +100,16 @@
   z-index: -1;
 }
 .about-orb.one {
-  width: 380px;
+  width: 380px !important;
+  max-width: 380px !important;
   height: 380px;
   right: -100px;
   top: 15%;
   background: radial-gradient(circle, rgba(15, 159, 186, 0.15), transparent 70%);
 }
 .about-orb.two {
-  width: 480px;
+  width: 480px !important;
+  max-width: 480px !important;
   height: 480px;
   left: -200px;
   top: 45%;
@@ -952,17 +954,30 @@
 }
 
 .about-guide-dots button {
-  width: 9px;
-  height: 9px;
+  position: relative;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 99px;
-  background: #cbd5e1;
+  background: transparent;
   cursor: pointer;
+}
+
+.about-guide-dots button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: #cbd5e1;
+  transform: translate(-50%, -50%);
   transition: width 0.25s ease, background 0.25s ease;
 }
 
-.about-guide-dots button[aria-current="true"] {
+.about-guide-dots button[aria-current="true"]::after {
   width: 28px;
   background: var(--about-primary);
 }

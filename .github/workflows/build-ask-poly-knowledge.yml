@@ -23,8 +23,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: build-ask-poly-whole-site-knowledge
-  cancel-in-progress: true
+  group: generated-content-main-writer
+  cancel-in-progress: false
 
 jobs:
   build:
