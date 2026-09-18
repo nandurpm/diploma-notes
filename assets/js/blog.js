@@ -10,14 +10,13 @@
   const els = {
     search: document.getElementById("blog-search"),
     category: document.getElementById("blog-category"),
-    featured: document.getElementById("blog-featured"),
     list: document.getElementById("blog-list"),
     status: document.getElementById("blog-status"),
     count: document.getElementById("blog-post-count"),
     newest: document.getElementById("blog-newest-date"),
     prerender: document.getElementById("blog-prerender-data")
   };
-  if (!els.featured || !els.list || !els.status) return;
+  if (!els.list || !els.status) return;
 
   const safeText = value => typeof value === "string" ? value.trim() : "";
   let posts = [];
@@ -89,13 +88,13 @@
     return node;
   }
 
-  function createMedia(post, featured = false) {
-    const media = createElement("div", featured ? "blog-featured-media" : "blog-card-media");
+  function createMedia(post) {
+    const media = createElement("div", "blog-card-media");
     if (post.thumbnail) {
       const image = document.createElement("img");
       image.src = post.thumbnail;
       image.alt = post.thumbnailAlt;
-      image.loading = featured ? "eager" : "lazy";
+      image.loading = "lazy";
       image.decoding = "async";
       media.append(image);
     } else {
@@ -116,28 +115,14 @@
     return row;
   }
 
-  function createReadLink(post, label = "Read article") {
-    const link = createElement("a", "blog-read-link", `${label} `);
+  function createReadLink(post) {
+    const link = createElement("a", "blog-read-link", "Read article ");
     link.href = post.url;
-    link.setAttribute("aria-label", `${label}: ${post.title}`);
+    link.setAttribute("aria-label", `Read article: ${post.title}`);
     const arrow = createElement("span", "", "→");
     arrow.setAttribute("aria-hidden", "true");
     link.append(arrow);
     return link;
-  }
-
-  function renderFeatured(post) {
-    if (!post) {
-      els.featured.hidden = true;
-      els.featured.replaceChildren();
-      return;
-    }
-    const card = createElement("article", "blog-featured-card");
-    const copy = createElement("div", "blog-featured-copy");
-    copy.append(createMeta(post), createElement("h2", "", post.title), createElement("p", "", post.summary), createReadLink(post, "Read featured post"));
-    card.append(createMedia(post, true), copy);
-    els.featured.replaceChildren(card);
-    els.featured.hidden = false;
   }
 
   function renderCard(post) {
@@ -177,22 +162,20 @@
     const query = safeText(els.search?.value).toLocaleLowerCase("en");
     const category = safeText(els.category?.value);
     if (updateUrl) syncUrl(category);
+
     const filtered = posts.filter(post => {
       const haystack = [post.title, post.summary, post.category, ...post.tags].join(" ").toLocaleLowerCase("en");
       return (!query || haystack.includes(query)) && (!category || post.category === category);
     });
-    const featured = filtered.find(post => post.featured) || filtered[0] || null;
-    renderFeatured(featured);
-    const remaining = featured ? filtered.filter(post => post.id !== featured.id) : filtered;
-    if (remaining.length) {
-      els.list.replaceChildren(...remaining.map(renderCard));
-    } else if (filtered.length === 1) {
-      els.list.replaceChildren(renderCard(filtered[0]));
+
+    if (filtered.length) {
+      els.list.replaceChildren(...filtered.map(renderCard));
     } else {
       const empty = createElement("div", "blog-empty", "No posts match this search yet. Try another keyword or category.");
       empty.setAttribute("role", "status");
       els.list.replaceChildren(empty);
     }
+
     els.status.textContent = `${filtered.length} ${filtered.length === 1 ? "post" : "posts"} shown${category ? ` in ${category}` : ""}${query ? ` for “${safeText(els.search?.value)}”` : ""}.`;
   }
 
@@ -239,6 +222,7 @@
       ...(liveResult.status === "fulfilled" ? liveResult.value : [])
     ];
     const merged = mergePosts(raw);
+
     if (merged.length) {
       posts = merged;
       updateSummary();
@@ -249,6 +233,7 @@
       }
       return;
     }
+
     console.error("POLY PMNA blog sources failed:", staticResult.reason, liveResult.reason);
     renderRetry("The blog catalogue could not be refreshed. The pre-rendered page remains available.");
   }
