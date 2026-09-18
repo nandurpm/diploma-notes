@@ -146,7 +146,7 @@
 
 #subject-browser .filters.department-subject-filters input,
 #subject-browser .filters.department-subject-filters select {
-  min-height: 43px !important;
+  min-height: 44px !important;
   padding: 0 12px !important;
   border-radius: 11px !important;
   font-size: 0.9rem !important;
@@ -200,7 +200,7 @@
 
   #subject-browser .filters.department-subject-filters input,
   #subject-browser .filters.department-subject-filters select {
-    min-height: 42px !important;
+    min-height: 44px !important;
     font-size: 0.86rem !important;
   }
 }

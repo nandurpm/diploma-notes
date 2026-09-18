@@ -108,7 +108,7 @@ body.portal-page {
   width: 380px !important;
   max-width: 380px !important;
   height: 380px;
-  right: -100px;
+  right: 0;
   top: 15%;
   background: radial-gradient(circle, rgba(15, 159, 186, 0.15), transparent 70%);
 }
