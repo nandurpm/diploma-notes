@@ -4,8 +4,13 @@
   if (!cfg) return;
 
   const $ = id => document.getElementById(id);
-  const allowedTags = new Set(["P", "H2", "H3", "H4", "UL", "OL", "LI", "STRONG", "B", "EM", "I", "U", "S", "BLOCKQUOTE", "A", "BR", "HR", "PRE", "CODE", "MARK"]);
+  const allowedTags = new Set([
+    "P", "H2", "H3", "H4", "UL", "OL", "LI", "STRONG", "B", "EM", "I", "U", "S",
+    "BLOCKQUOTE", "A", "BR", "HR", "PRE", "CODE", "MARK", "SPAN", "FONT",
+    "TABLE", "THEAD", "TBODY", "TFOOT", "TR", "TH", "TD"
+  ]);
   const alignableTags = new Set(["P", "H2", "H3", "H4", "BLOCKQUOTE", "PRE"]);
+  const safeStyleProperties = new Set(["color", "background-color", "font-family", "font-size", "font-weight", "font-style", "text-decoration"]);
   const slug = new URLSearchParams(location.search).get("slug") || "";
 
   function safeHref(raw) {
@@ -15,6 +20,24 @@
     } catch (_) {
       return "";
     }
+  }
+
+  function copySafeSpanStyle(source, target) {
+    const safeStyle = (source.getAttribute("style") || "")
+      .split(";")
+      .map(part => part.trim())
+      .filter(Boolean)
+      .map(part => {
+        const [property, ...rest] = part.split(":");
+        const key = property.trim().toLowerCase();
+        const value = rest.join(":").trim();
+        if (!safeStyleProperties.has(key) || !value) return "";
+        if (/url\s*\(|expression\s*\(/i.test(value)) return "";
+        return `${key}:${value.replace(/[<>]/g, "")}`;
+      })
+      .filter(Boolean)
+      .join(";");
+    if (safeStyle) target.setAttribute("style", safeStyle);
   }
 
   function sanitizeHtml(input) {
@@ -31,7 +54,19 @@
           copy(child, target);
           return;
         }
-        const clean = document.createElement(child.tagName.toLowerCase());
+
+        const clean = document.createElement(child.tagName === "FONT" ? "span" : child.tagName.toLowerCase());
+        if (child.tagName === "FONT") {
+          const face = (child.getAttribute("face") || "").replace(/[^a-zA-Z0-9 ,_-]/g, "").trim();
+          const color = (child.getAttribute("color") || "").trim();
+          const size = (child.getAttribute("size") || "").trim();
+          if (face) clean.style.fontFamily = face;
+          if (/^#[0-9a-f]{6}$/i.test(color)) clean.style.color = color;
+          if (/^[1-7]$/.test(size)) clean.style.fontSize = ({
+            "1": ".75rem", "2": "1rem", "3": "1.15rem", "4": "1.35rem", "5": "1.6rem", "6": "2rem", "7": "2.5rem"
+          })[size];
+        }
+        if (child.tagName === "SPAN") copySafeSpanStyle(child, clean);
         if (child.tagName === "A") {
           const href = safeHref(child.getAttribute("href") || "");
           if (href) {
@@ -89,9 +124,9 @@
     setMeta("#post-twitter-title", "content", seoTitle);
     setMeta("#post-twitter-description", "content", seoDescription);
 
-    const image = safeHref(post.cover_url || "") || "https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png";
-    setMeta("#post-og-image", "content", image);
-    setMeta("#post-twitter-image", "content", image);
+    const socialImage = safeHref(post.cover_url || "") || "https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png";
+    setMeta("#post-og-image", "content", socialImage);
+    setMeta("#post-twitter-image", "content", socialImage);
 
     $("breadcrumb-title").textContent = post.title;
     $("post-category").textContent = post.category;
@@ -108,11 +143,12 @@
     $("aside-date").textContent = formatted;
     $("post-content").innerHTML = sanitizeHtml(post.content_html);
 
-    if (post.cover_url) {
+    const coverUrl = safeHref(post.cover_url || "");
+    if (coverUrl) {
       const cover = $("post-cover");
-      cover.src = safeHref(post.cover_url);
+      cover.src = coverUrl;
       cover.alt = post.cover_alt || post.title;
-      cover.hidden = !cover.src;
+      cover.hidden = false;
     }
 
     const source = safeHref(post.source_url || "");
