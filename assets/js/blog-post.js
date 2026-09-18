@@ -87,6 +87,21 @@
     return root.innerHTML;
   }
 
+  function loadCover(cover, url, alt) {
+    cover.hidden = true;
+    cover.alt = alt;
+    cover.decoding = "async";
+    cover.fetchPriority = "high";
+    cover.addEventListener("load", () => {
+      cover.hidden = false;
+    }, { once: true });
+    cover.addEventListener("error", () => {
+      cover.hidden = true;
+      cover.removeAttribute("src");
+    }, { once: true });
+    cover.src = url;
+  }
+
   const formatDate = iso => new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "long", year: "numeric" }).format(new Date(iso));
   const setMeta = (selector, attr, value) => {
     const el = document.querySelector(selector);
@@ -145,10 +160,7 @@
 
     const coverUrl = safeHref(post.cover_url || "");
     if (coverUrl) {
-      const cover = $("post-cover");
-      cover.src = coverUrl;
-      cover.alt = post.cover_alt || post.title;
-      cover.hidden = false;
+      loadCover($("post-cover"), coverUrl, post.cover_alt || post.title);
     }
 
     const source = safeHref(post.source_url || "");
