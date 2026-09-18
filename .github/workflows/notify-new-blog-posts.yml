@@ -1,0 +1,61 @@
+name: Notify users about new blog posts
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: notify-new-blog-posts
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Validate Firebase service-account secret
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON is not configured in repository secrets." >&2
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > /tmp/firebase-service-account.json
+          python -m json.tool /tmp/firebase-service-account.json >/dev/null
+
+      - name: Install notification sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send notifications for newly published blog posts
+        run: |
+          set -euo pipefail
+          python tools/notify_new_blog_posts.py \
+            --service-account /tmp/firebase-service-account.json \
+            --log notifications/new-blog-posts-log.json \
+            --supabase-url "https://hwobooljdvynsajtrvnk.supabase.co" \
+            --supabase-key "sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD" \
+            --topic "all-users"
+
+      - name: Commit notification log
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add notifications/new-blog-posts-log.json
+          if git diff --cached --quiet; then
+            echo "Notification log is already current."
+            exit 0
+          fi
+          git commit -m "Record sent blog notifications [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
