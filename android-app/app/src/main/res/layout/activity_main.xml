@@ -324,6 +324,12 @@
                     android:text="@string/nav_ask_poly_ai" />
 
                 <TextView
+                    android:id="@+id/navBlog"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_document"
+                    android:text="@string/nav_blog" />
+
+                <TextView
                     android:id="@+id/labelResources"
                     style="@style/DrawerSectionLabel"
                     android:text="@string/drawer_resources" />

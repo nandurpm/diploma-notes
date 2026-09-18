@@ -394,6 +394,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
         bindNavigation(R.id.navAskPoly, "/ask-poly.html");
+        bindNavigation(R.id.navBlog, "/blog.html");
         bindNavigation(R.id.navTools, "/tools.html");
         bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
