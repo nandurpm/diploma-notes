@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -19,6 +21,11 @@ ORIGIN = "https://polypmna.dpdns.org"
 REPORT_JSON = ROOT / "reports/production-url-audit.json"
 REPORT_MD = ROOT / "reports/production-url-audit.md"
 REV2026_CATALOGUE = ROOT / "assets/data/revision-2026-programmes.json"
+EXTRA_AUDIT_ROUTES = (
+    "/blog.html",
+    "/admin/blog.html",
+    "/admin/review.html",
+)
 
 
 def revision_2026_programme_count() -> int:
@@ -45,7 +52,69 @@ def required_signatures() -> dict[str, tuple[str, ...]]:
         "/daily-quiz.html": ("Mock Exams &amp; Daily Quiz", "supabase-url"),
         "/tools.html": ("Student Tools", "tools-catalog.html"),
         "/privacy.html": ("Ask POLY AI", "Supabase accounts", "Browser storage"),
+        "/blog.html": (
+            'id="blog-post-count"',
+            'id="blog-newest-date"',
+            'id="blog-featured"',
+            'id="blog-list"',
+            'id="blog-prerender-data"',
+            "Welcome to POLY PMNA Blog",
+        ),
+        "/admin/blog.html": (
+            "<h1>Blog Publisher</h1>",
+            'id="login-form"',
+            'id="publisher"',
+            'id="new-post"',
+            'id="logout"',
+        ),
+        "/admin/review.html": (
+            "<h1>Review submissions</h1>",
+            'id="review-login-form"',
+            'id="review-workspace"',
+            'id="review-approve"',
+        ),
     }
+
+
+def forbidden_signatures() -> dict[str, tuple[str, ...]]:
+    """Markup that must never return in the initial production response."""
+    return {
+        "/blog.html": (
+            "Loading posts",
+            "Loading the featured post",
+            '<strong id="blog-post-count">—</strong>',
+            '<strong id="blog-newest-date">Loading',
+        ),
+    }
+
+
+def exact_count_expectations() -> dict[str, dict[str, int]]:
+    """Critical markers whose duplication indicates pasted or double-rendered markup."""
+    return {
+        "/admin/blog.html": {
+            "<h1>Blog Publisher</h1>": 1,
+            'id="new-post"': 1,
+            'id="logout"': 1,
+            '<footer class="footer" data-site-footer>': 1,
+            'src="/assets/js/main.js': 1,
+            'src="/assets/js/site-hardening.js': 1,
+            'src="/assets/js/fixed-site-header.js': 1,
+        },
+        "/admin/review.html": {
+            "<h1>Review submissions</h1>": 1,
+            '<footer class="footer" data-site-footer>': 1,
+            'src="/assets/js/main.js': 1,
+            'src="/assets/js/site-hardening.js': 1,
+            'src="/assets/js/fixed-site-header.js': 1,
+        },
+    }
+
+
+def duplicate_ids(text: str) -> list[str]:
+    """Return duplicate HTML ids, preserving deterministic order for audit output."""
+    ids = re.findall(r'\bid=["\']([^"\']+)["\']', text, flags=re.IGNORECASE)
+    counts = Counter(ids)
+    return sorted(value for value, count in counts.items() if count > 1)
 
 
 def expected_commit() -> str:
@@ -139,20 +208,48 @@ def build_info(expected: str) -> dict[str, object]:
 def main() -> int:
     ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     urls = [(loc.text or "").strip() for loc in ET.parse(ROOT / "sitemap.xml").findall("sm:url/sm:loc", ns)]
+    for route in EXTRA_AUDIT_ROUTES:
+        url = f"{ORIGIN}{route}"
+        if url not in urls:
+            urls.append(url)
+
     resources: list[dict[str, object]] = []
     failures: list[str] = []
     signatures = required_signatures()
+    forbidden = forbidden_signatures()
+    count_expectations = exact_count_expectations()
+
     for url in urls:
         result = get_resource(url + ("&" if "?" in url else "?") + "audit=1")
         text = str(result.pop("text", ""))
         route = urlparse(url).path or "/"
         missing = [marker for marker in signatures.get(route, ()) if marker not in text]
-        item = {"url": url, **result, "missingSignatures": missing}
+        forbidden_present = [marker for marker in forbidden.get(route, ()) if marker in text]
+        bad_counts = {
+            marker: {"expected": expected_count, "actual": text.count(marker)}
+            for marker, expected_count in count_expectations.get(route, {}).items()
+            if text.count(marker) != expected_count
+        }
+        repeated_ids = duplicate_ids(text) if route in {"/admin/blog.html", "/admin/review.html"} else []
+        item = {
+            "url": url,
+            **result,
+            "missingSignatures": missing,
+            "forbiddenSignatures": forbidden_present,
+            "badMarkerCounts": bad_counts,
+            "duplicateIds": repeated_ids,
+        }
         resources.append(item)
         if result.get("status") not in (200, 206):
             failures.append(f"{url}: HTTP {result.get('status')}")
         if missing:
             failures.append(f"{url}: missing {missing}")
+        if forbidden_present:
+            failures.append(f"{url}: forbidden initial markup present {forbidden_present}")
+        if bad_counts:
+            failures.append(f"{url}: unexpected duplicate/missing marker counts {bad_counts}")
+        if repeated_ids:
+            failures.append(f"{url}: duplicate id attributes {repeated_ids}")
         if route.endswith(".html") or route == "/":
             if text and "<title" not in text.lower():
                 failures.append(f"{url}: missing HTML title in response")
@@ -169,7 +266,7 @@ def main() -> int:
         )
 
     payload = {
-        "schemaVersion": 3,
+        "schemaVersion": 4,
         "revision2026ProgrammeCount": revision_2026_programme_count(),
         "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "expectedCommit": expected,
