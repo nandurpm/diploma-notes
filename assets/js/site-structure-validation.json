@@ -1,0 +1,169 @@
+{
+  "summary": {
+    "passed": 32,
+    "failed": 0,
+    "total": 32
+  },
+  "checks": [
+    {
+      "name": "homepage has no floating Ask POLY duplicate",
+      "passed": true,
+      "detail": "Floating Ask POLY markup/style must be absent."
+    },
+    {
+      "name": "homepage revision cards are not repeated",
+      "passed": true,
+      "detail": "Revision destinations belong in the hero, not repeated feature cards."
+    },
+    {
+      "name": "about identifies current curriculum correctly",
+      "passed": true,
+      "detail": "Revision 2026 must be described as current; Revision 2021 as legacy."
+    },
+    {
+      "name": "shared shell uses canonical home route",
+      "passed": true,
+      "detail": "Header logo and Home must use '/'."
+    },
+    {
+      "name": "shared shell keeps the full direct header menu",
+      "passed": true,
+      "detail": "The fixed header must keep the nine direct menu choices shown on the public website."
+    },
+    {
+      "name": "main does not rewrite metadata",
+      "passed": true,
+      "detail": "Metadata belongs in source HTML."
+    },
+    {
+      "name": "main does not load consistency patch",
+      "passed": true,
+      "detail": "No circular repair-script loading."
+    },
+    {
+      "name": "fixed header has explicit native-app detection",
+      "passed": true,
+      "detail": "Normal Android WebViews must not be treated as the POLY PMNA app."
+    },
+    {
+      "name": "fixed header does not inject unrelated scripts",
+      "passed": true,
+      "detail": "Fixed header script must only manage header state and measurement."
+    },
+    {
+      "name": "consistency patch has no delayed rewrites",
+      "passed": true,
+      "detail": "Deprecated compatibility file must remain a no-op."
+    },
+    {
+      "name": "Ask POLY H1 is accessible",
+      "passed": true,
+      "detail": "The hero containing the H1 must not be hidden from assistive technology."
+    },
+    {
+      "name": "Ask POLY has a failed-index status",
+      "passed": true,
+      "detail": "Knowledge loading must not remain indefinitely in a loading state."
+    },
+    {
+      "name": "quiz auth contains no fake restart claim",
+      "passed": true,
+      "detail": "Browser code must not claim an administrator action occurred."
+    },
+    {
+      "name": "tools use one calculator implementation",
+      "passed": true,
+      "detail": "The duplicate calculator override must not be loaded."
+    },
+    {
+      "name": "generic converter excludes RPM",
+      "passed": true,
+      "detail": "RPM is angular speed and cannot be directly converted to linear speed."
+    },
+    {
+      "name": "RPM calculator requires diameter",
+      "passed": true,
+      "detail": "Linear speed must use v = pi*D*N/60."
+    },
+    {
+      "name": "scientific parser prohibits string code generation",
+      "passed": true,
+      "detail": "Scientific expressions must use one CSP-safe parser. Behaviour and token rejection are exercised by tests/frontend/audit.test.cjs."
+    },
+    {
+      "name": "Revision 2021 has 43 direct programme cards",
+      "passed": true,
+      "detail": "Found 43 cards; expected 43."
+    },
+    {
+      "name": "Revision 2021 directory avoids query routes",
+      "passed": true,
+      "detail": "Programme cards must link directly to stable static pages."
+    },
+    {
+      "name": "Revision 2026 retains 42 programme cards",
+      "passed": true,
+      "detail": "Found 42 cards; expected 42."
+    },
+    {
+      "name": "lesson inventory includes both revision families",
+      "passed": true,
+      "detail": "Found 172 REV2021 and 1222 REV2026 lesson files."
+    },
+    {
+      "name": "lesson files do not drop below the known baseline",
+      "passed": true,
+      "detail": "Found 172 REV2021 and 1222 REV2026 lesson files. Minimums: REV2021=91, REV2026=35."
+    },
+    {
+      "name": "all lesson files have an HTML doctype",
+      "passed": true,
+      "detail": "Missing: none"
+    },
+    {
+      "name": "all lesson files have responsive viewport metadata",
+      "passed": true,
+      "detail": "Missing: none"
+    },
+    {
+      "name": "all lesson files load the shared responsive shell",
+      "passed": true,
+      "detail": "Missing: none"
+    },
+    {
+      "name": "REV2026 lessons are standalone HTML",
+      "passed": true,
+      "detail": "Compressed browser-only lesson wrappers must not return."
+    },
+    {
+      "name": "lesson files do not load the public site header",
+      "passed": true,
+      "detail": "Lesson pages use only their compact internal course navigation."
+    },
+    {
+      "name": "lesson shell recognizes both revision route families",
+      "passed": true,
+      "detail": "REV2021 and REV2026 routes must share one shell."
+    },
+    {
+      "name": "lesson shell uses explicit APK detection",
+      "passed": true,
+      "detail": "Only the official APK user agents may enable native-app mode."
+    },
+    {
+      "name": "lesson CSS removes width limits",
+      "passed": true,
+      "detail": "Lessons must fill desktop, mobile and APK viewports."
+    },
+    {
+      "name": "Android WebView removes duplicate lesson chrome when APK source is present",
+      "passed": true,
+      "detail": "The APK must keep only its native app bar around lessons."
+    },
+    {
+      "name": "mandatory pages use canonical home links",
+      "passed": true,
+      "detail": "Stale pages: none"
+    }
+  ]
+}
