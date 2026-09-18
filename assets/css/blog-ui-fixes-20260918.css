@@ -15,9 +15,9 @@
   tab-size: 2;
 }
 
-/* Published article pages use the available viewport while retaining readable gutters. */
+/* Published article pages use the full available viewport width, minus a small gutter. */
 .blog-post-main {
-  width: min(1680px, calc(100% - 32px));
+  width: calc(100% - 32px);
 }
 
 .blog-post-main .blog-article-shell {
@@ -52,7 +52,7 @@
   }
 
   .blog-post-main {
-    width: min(100% - 20px, 1680px);
+    width: calc(100% - 20px);
   }
 
   .blog-post-main .blog-article-shell {
