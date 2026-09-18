@@ -21,13 +21,24 @@
 }
 
 .blog-post-main .blog-article-shell {
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
-  gap: clamp(18px, 2vw, 30px);
+  display: block; /* single column: no side rail reserving width */
+}
+
+.blog-post-main .blog-article-aside {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
 }
 
 .blog-post-main .blog-article {
   width: 100%;
   box-sizing: border-box;
+  padding: clamp(16px, 2.5vw, 32px);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Covers are full-width hero images on article pages. */
