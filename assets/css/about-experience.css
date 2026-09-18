@@ -296,6 +296,7 @@ body.portal-page {
 /* Hero Interactive Visual Bubble Layout */
 .about-visual-network {
   position: relative;
+  overflow: clip;
   display: grid;
   place-items: center;
   min-height: 460px;
@@ -393,10 +394,10 @@ body.portal-page {
   box-shadow: 0 0 10px var(--bubble-color, #1d4ed8);
 }
 
-.bubble-1 { --bubble-color: #0f9fba; left: -5%; top: 12%; animation-delay: -0.8s; }
-.bubble-2 { --bubble-color: #e11d48; right: -5%; top: 22%; animation-delay: -2.5s; }
+.bubble-1 { --bubble-color: #0f9fba; left: 0; top: 12%; animation-delay: -0.8s; }
+.bubble-2 { --bubble-color: #e11d48; right: 0; top: 22%; animation-delay: -2.5s; }
 .bubble-3 { --bubble-color: #059669; right: 0%; bottom: 12%; animation-delay: -3.8s; }
-.bubble-4 { --bubble-color: #7c3aed; left: -8%; bottom: 18%; animation-delay: -1.7s; }
+.bubble-4 { --bubble-color: #7c3aed; left: 0; bottom: 18%; animation-delay: -1.7s; }
 .bubble-5 { --bubble-color: #f59e0b; right: 18%; top: -3%; animation-delay: -4.3s; }
 .bubble-6 { --bubble-color: #1d4ed8; left: 16%; bottom: 0%; animation-delay: -0.3s; }
 
