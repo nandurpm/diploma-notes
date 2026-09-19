@@ -111,7 +111,8 @@ body.portal-page .home-compact-hero.page-title::after {
 .daily-special-card__glow {
   position: absolute;
   z-index: 0;
-  inset: auto -20% -38% 32%;
+  /* Kept inside the card so small screens never scroll sideways. */
+  inset: auto 0 -38% 32%;
   height: 46%;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(29, 78, 216, 0.14), rgba(15, 159, 186, 0.10) 42%, transparent 70%);

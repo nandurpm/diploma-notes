@@ -739,3 +739,56 @@ p { color: var(--muted); line-height: 1.68; }
 [hidden] {
   display: none !important;
 }
+
+/* === Mobile touch targets and motion safety (phase 1, 2026-09-19) ===
+   Comfortable tap areas for footer, breadcrumb, subject-card and quiz controls.
+   No markup, URL or layout-width changes; sizing only. */
+.subject-card details > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+  color: var(--blue);
+  font-weight: 800;
+  cursor: pointer;
+}
+.subject-card details > summary:focus-visible {
+  outline: 3px solid rgba(29, 78, 216, 0.28);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+@media (max-width: 860px) {
+  .footer-links a,
+  .footer-legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-right: 10px;
+    padding: 0 2px;
+  }
+  .site-breadcrumbs a,
+  .site-breadcrumbs [aria-current="page"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .academic-menu summary { min-height: 44px; }
+  .show-password-wrap input[type="checkbox"] {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  .show-password-wrap label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-special-card__glow,
+  .about-orb {
+    animation: none !important;
+    transition: none !important;
+  }
+}
