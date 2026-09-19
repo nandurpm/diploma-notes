@@ -27,7 +27,7 @@ POLY PMNA is a static-first educational platform for Kerala Polytechnic students
 | Database/auth integration | [`supabase/`](supabase/) |
 | Android app | [`android-app/`](android-app/) |
 | Build/maintenance tooling | [`tools/`](tools/) and [`scripts/`](scripts/) |
-| Automated tests | [`tests/`](tests/) and Worker-local tests |
+| Automated tests | [`tests/`](tests/) and [`workers/ask-poly-ai/test/`](workers/ask-poly-ai/test/) |
 | Developer documentation | [`docs/`](docs/) |
 | Generated QA evidence | [`reports/`](reports/) |
 | CI/CD | [`.github/workflows/`](.github/workflows/) |
@@ -72,7 +72,7 @@ python tools/full_site_static_audit.py
 python tools/build_public_site.py --target _site_test
 ```
 
-Run the relevant Playwright, Node, Worker, or backend tests when changing those areas. See [coding guidelines](docs/development/coding-guidelines.md), [contribution guide](CONTRIBUTING.md), and [release checklist](docs/RELEASE-CHECKLIST.md).
+Run the tests covering whatever you changed: [`tests/frontend/`](tests/frontend/) for browser behavior, [`worker` tests](workers/ask-poly-ai/test/) for the Ask POLY backend, and the Python suites under [`tests/`](tests/) for tooling. See the [coding guidelines](docs/development/coding-guidelines.md), [contribution guide](CONTRIBUTING.md), and [release checklist](docs/RELEASE-CHECKLIST.md).
 
 ## Architecture and deployment
 
@@ -92,7 +92,7 @@ Use [`docs/README.md`](docs/README.md) as the documentation index. Historical au
 
 ## Contributing
 
-Changes should be made on a branch, kept focused, and verified against the affected public routes. New one-off root files are discouraged; use the repository map to choose the owning directory.
+Changes should be made on a branch, kept focused, and verified against the affected public routes. New one-off root files are discouraged; use the [repository map](docs/REPOSITORY-MAP.md) to choose the owning directory.
 
 Bug reports and improvement requests can be filed through GitHub Issues. Security issues should follow the private reporting guidance in [SECURITY.md](SECURITY.md).
 
