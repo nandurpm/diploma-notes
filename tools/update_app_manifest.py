@@ -37,8 +37,8 @@ def gradle_version() -> tuple[int | None, str | None]:
     if not GRADLE_PATH.exists():
         return None, None
     source = GRADLE_PATH.read_text(encoding="utf-8")
-    code_match = re.search(r"\bversionCode\s+(\d+)", source)
-    name_match = re.search(r"\bversionName\s+['\"]([^'\"]+)['\"]", source)
+    code_match = re.search(r"\bversionCode\s*=?\s*(\d+)", source)
+    name_match = re.search(r"\bversionName\s*=?\s*['\"]([^'\"]+)['\"]", source)
     return (
         int(code_match.group(1)) if code_match else None,
         name_match.group(1) if name_match else None,
