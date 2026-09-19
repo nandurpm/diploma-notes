@@ -718,7 +718,7 @@ android-app/
 
 ### Fragments 📱
 
-ഈ repository-ൽ custom `Fragment` classes കാണുന്നില്ല. Dependency `androidx.fragment:fragment` exists, but app code currently uses Activities and layout directly.
+ഈ repository-ൽ custom `Fragment` classes കാണുന്നില്ല. App code Activities-ഉം layouts-ഉം നേരിട്ട് ഉപയോഗിക്കുന്നു, അതിനാൽ `androidx.fragment:fragment` dependency ഒഴിവാക്കിയിരിക്കുന്നു.
 
 ### Layout 📱
 
@@ -1414,7 +1414,7 @@ POLY_PMNA_v<versionName>.apk
 ### `build-android-app.yml` 📱⚙️
 
 **Trigger:** manual `workflow_dispatch` or push to `main` changing `android-app/**` or workflow file.  
-**Jobs:** checkout, Java 17, Gradle 8.10.2, configure Firebase, read version, validate signing, build signed release, upload/create GitHub Release, update metadata/homepage.  
+**Jobs:** checkout, Java 17, Gradle 9.7.1, configure Firebase, read version, validate signing, build signed release, upload/create GitHub Release, update metadata/homepage.  
 **Artifacts:** release APK uploaded and release asset created.
 
 ### `deploy-static-site.yml` 🌐⚙️

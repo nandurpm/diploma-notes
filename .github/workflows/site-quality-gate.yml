@@ -34,7 +34,7 @@ jobs:
       - name: Validate Blog & GK markup integrity
         run: python tools/check_blog_markup.py
       - name: Install catalogue verifier dependency
-        run: python -m pip install --disable-pip-version-check beautifulsoup4==4.13.4
+        run: python -m pip install --disable-pip-version-check beautifulsoup4==4.15.0
       - name: Validate generated source state
         run: |
           python tools/render_blog_index.py --check

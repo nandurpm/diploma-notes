@@ -38,7 +38,7 @@ jobs:
 
       - name: Install Playwright
         run: |
-          npm install --no-save --package-lock=false playwright@1.54.2
+          npm install --no-save --package-lock=false playwright@1.63.0
           npx playwright install --with-deps chromium
 
       - name: Start local site server

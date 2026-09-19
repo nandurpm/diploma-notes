@@ -34,7 +34,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: "8.10.2"
+          gradle-version: "9.7.1"
 
       - name: Configure Firebase Android app
         id: firebase
@@ -56,8 +56,8 @@ jobs:
 
       - name: Read app version
         run: |
-          VERSION_CODE=$(sed -n "s/^[[:space:]]*versionCode[[:space:]]\+\([0-9][0-9]*\).*$/\1/p" android-app/app/build.gradle | head -n 1)
-          VERSION_NAME=$(sed -n "s/^[[:space:]]*versionName[[:space:]]\+'\([^']*\)'.*$/\1/p" android-app/app/build.gradle | head -n 1)
+          VERSION_CODE=$(sed -n "s/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*\([0-9][0-9]*\).*$/\1/p" android-app/app/build.gradle | head -n 1)
+          VERSION_NAME=$(sed -n "s/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*'\([^']*\)'.*$/\1/p" android-app/app/build.gradle | head -n 1)
           test -n "$VERSION_CODE"
           test -n "$VERSION_NAME"
           echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
@@ -95,8 +95,8 @@ jobs:
           path = Path("android-app/app/build.gradle")
           text = path.read_text()
           next_code, next_version = sys.argv[1:]
-          text, code_count = re.subn(r"(^\s*versionCode\s+)\d+", rf"\g<1>{next_code}", text, count=1, flags=re.MULTILINE)
-          text, name_count = re.subn(r"(^\s*versionName\s+)'[^']+'", rf"\g<1>'{next_version}'", text, count=1, flags=re.MULTILINE)
+          text, code_count = re.subn(r"(^\s*versionCode\s*=\s*)\d+", rf"\g<1>{next_code}", text, count=1, flags=re.MULTILINE)
+          text, name_count = re.subn(r"(^\s*versionName\s*=\s*)'[^']+'", rf"\g<1>'{next_version}'", text, count=1, flags=re.MULTILINE)
           if code_count != 1 or name_count != 1:
               raise SystemExit("Could not update Android version fields safely")
           path.write_text(text)

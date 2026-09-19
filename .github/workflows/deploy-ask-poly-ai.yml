@@ -135,7 +135,7 @@ jobs:
           fi
 
       - name: Install Wrangler
-        run: npm install -g wrangler@4
+        run: npm install -g wrangler@4.135.0
 
       - name: Deploy secure Worker
         env:
