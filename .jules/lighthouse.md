@@ -13,3 +13,11 @@
 **Learning:** `loading="lazy"` without explicit width and height dimensions prevents browsers from reserving the correct aspect ratio box in the DOM before asset fetch, causing content reflow as images load asynchronously.
 
 **Prevention:** Always pair `loading="lazy"` image tags with exact intrinsic `width` and `height` attributes to enable aspect-ratio layout reservation and maintain zero Cumulative Layout Shift.
+
+## 2026-09-20 - Canonical Policy Enforcement for Utility vs. Document HTML Pages
+
+**Finding:** Adding a canonical URL to `offline.html` triggered a metadata policy violation in `tools/full_site_static_audit.py`.
+
+**Learning:** Static audit rules classify non-indexable utility/fallback pages (`404.html`, `offline.html`) separately from regular documents, explicitly requiring utility pages NOT to carry canonical tags while still supporting full Open Graph and Twitter Card social cards.
+
+**Prevention:** Check `classify()` in `tools/full_site_static_audit.py` before adding canonical tags to utility pages, ensuring social media preview metadata is present without violating canonical page classification rules.
