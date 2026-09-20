@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import html
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -107,11 +109,31 @@ def inject_new_year_assets(relative: str, content: str) -> str:
 
 
 
+def normalize_generated_revision_label(relative: str, content: str) -> str:
+    """Repair legacy TITLE_VAL substitutions that also replaced REV_TITLE_VAL.
+
+    Restrict migration to the known generated lesson template and its owning
+    curriculum folder; never infer a revision from the shared subject code.
+    """
+    if relative.startswith("revision-2026-content/lessons/"):
+        revision = "2026"
+    elif relative.startswith("lessons/"):
+        revision = "2021"
+    else:
+        return content
+    match = re.search(r"<title>[^<]*Kerala Polytechnic (REV_[^<]+?) Study Hub</title>", content)
+    if not match:
+        return content
+    label = match.group(1)
+    return content.replace(label, f"Revision {revision}").replace(html.unescape(label), f"Revision {revision}")
+
+
 def inject_public_runtime_assets(relative: str, content: str) -> str:
     # Standalone previews own their theme state machines and must not receive
     # autonomous production seasonal controllers during the public build.
     if relative.startswith("previews/"):
         return content
+    content = normalize_generated_revision_label(relative, content)
     content = inject_independence_assets(relative, content)
     content = inject_learning_sprint_assets(relative, content)
     content = inject_pre_onam_assets(relative, content)
