@@ -675,10 +675,19 @@
     }
   });
 
-  els.logout.addEventListener("click", () => {
-    sessionStorage.removeItem("poly_blog_admin_session");
-    session = null;
-    location.reload();
+  els.logout.addEventListener("click", async () => {
+    els.logout.disabled = true;
+    let message = "Signed out.";
+    try { await window.PolyBlogSession.signOut(cfg, session); }
+    catch (error) { message = error.message; }
+    finally {
+      session = null;
+      els.publisher.hidden = true;
+      els.loginPanel.hidden = false;
+      els.loginForm.reset();
+      els.logout.disabled = false;
+      setStatus(els.loginStatus, message);
+    }
   });
 
   els.newPost.addEventListener("click", () => resetEditor());
