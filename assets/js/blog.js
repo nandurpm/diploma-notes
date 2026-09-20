@@ -49,6 +49,7 @@
 
   function normalizePost(raw, index) {
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+    if (raw.status && raw.status !== "published") return null;
     const title = safeText(raw.title);
     const summary = safeText(raw.summary);
     const category = ALLOWED_CATEGORIES.has(raw.category) ? raw.category : "Announcements";
@@ -58,7 +59,7 @@
       ? `/blog/post.html?slug=${encodeURIComponent(slug)}`
       : safeSameOriginPath(raw.url);
     const date = dateInfo(raw.published_at || raw.date);
-    if (!title || !summary || !url || !date) return null;
+    if (!title || !summary || !url || !date || date.value > Date.now()) return null;
     return {
       id: safeText(raw.id) || `post-${index + 1}`,
       slug,
