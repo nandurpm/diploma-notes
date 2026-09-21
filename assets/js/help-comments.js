@@ -88,7 +88,7 @@ function validate(author, message, field, label) {
 async function requestJson(url, options = {}) {
   const response = await fetch(url, { ...options, headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) } });
   const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload.error?.message || `Request failed: ${response.status}`);
+  if (!response.ok) throw new Error((typeof payload.error === "string" ? payload.error : payload.error?.message) || `Request failed: ${response.status}`);
   return payload;
 }
 async function ensureAuthenticated() {
@@ -101,6 +101,19 @@ async function fetchComments() {
   const query = new URLSearchParams({ pageSize: String(PAGE_SIZE), orderBy: "createdAt desc" });
   const payload = await requestJson(`${FIRESTORE_REST_URL}?${query}`);
   comments = (payload.documents || []).map(parseComment).filter(item => item.pageId === "help");
+  // The newest 40 documents can contain replies to parents outside that page.
+  // Fetch those parents so recent replies do not disappear from the discussion.
+  const ids = new Set(comments.map(item => item.id));
+  const missing = [...new Set(comments.map(item => item.parentId).filter(id => id && !ids.has(id)))];
+  const parents = await Promise.all(missing.map(async id => {
+    try {
+      const parent = parseComment(await requestJson(`${FIRESTORE_REST_URL}/${encodeURIComponent(id)}`));
+      return parent.pageId === "help" ? parent : null;
+    } catch (_) {
+      return { id, author: "Unavailable", message: "The original comment could not be loaded.", unavailable: true, parentId: "", createdAt: "" };
+    }
+  }));
+  comments.push(...parents.filter(Boolean));
   render();
 }
 async function createComment(values) {
@@ -158,13 +171,14 @@ function cardFor(item, isReply = false) {
   const time = document.createElement("span"); time.className = "comment-time"; time.textContent = formatDate(item.createdAt); authorText.append(author, time); authorWrap.append(avatar, authorText); meta.append(authorWrap);
   const message = document.createElement("p"); message.className = "comment-message"; message.textContent = deleted ? "This comment was deleted." : (item.message || "");
   const actions = document.createElement("div"); actions.className = "comment-actions";
-  if (!isReply && !deleted) actions.append(actionButton("Reply", "comment-action", () => addReplyForm(item, card)));
+  if (!isReply && !deleted && !item.unavailable) actions.append(actionButton("Reply", "comment-action", () => addReplyForm(item, card)));
   if (currentUser?.uid === item.uid && !deleted) actions.append(actionButton("Delete", "comment-action delete", () => deleteComment(item, isReply)));
   card.append(meta, message, actions); return card;
 }
 function render() {
   list.replaceChildren();
-  const topLevel = comments.filter(item => !item.parentId && !item.deleted);
+  const parentIds = new Set(comments.filter(item => item.parentId && !item.deleted).map(item => item.parentId));
+  const topLevel = comments.filter(item => !item.parentId && (!item.deleted || parentIds.has(item.id)));
   const replies = new Map(); comments.filter(item => item.parentId && !item.deleted).forEach(item => replies.set(item.parentId, [...(replies.get(item.parentId) || []), item]));
   countBox.textContent = `${topLevel.length} loaded ${topLevel.length === 1 ? "comment" : "comments"}`;
   if (!topLevel.length) { const empty = document.createElement("div"); empty.className = "empty-comments"; empty.textContent = "No public comments yet."; list.append(empty); return; }

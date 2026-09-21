@@ -87,18 +87,18 @@ def generate_lesson_file(sub, revision_type):
     if revision_type == "2021":
         out_dir = rev2021_lessons_dir
         back_href = "../../index.html"
-        rev_title = "Revision 2021 Diploma Handbook"
+        rev_title = "Revision 2021"
         rev_slug = "revision-2021"
     else:
         out_dir = rev2026_lessons_dir
         back_href = "../../revision-2026.html"
-        rev_title = "Revision 2026 Diploma Handbook"
+        rev_title = "Revision 2026"
         rev_slug = "revision-2026"
         
-    html = template.replace("TITLE_VAL", title)\
+    html = template.replace("REV_TITLE_VAL", rev_title)\
+                   .replace("TITLE_VAL", title)\
                    .replace("CODE_VAL", code)\
                    .replace("DEPT_VAL", dept)\
-                   .replace("REV_TITLE_VAL", rev_title)\
                    .replace("REV_SLUG_VAL", rev_slug)\
                    .replace("BACK_HREF_VAL", back_href)
                    

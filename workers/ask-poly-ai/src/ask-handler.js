@@ -1214,7 +1214,7 @@ export async function askPolyStream(body, env) {
     // If it's a RAG request and we have a match
     if (pdfIntent.isRagRequest && results.length > 0) {
       const r = results[0];
-      const codeMatch = r.path.match(/(\d{4}[A-Z]?)/);
+      const codeMatch = r.path.split("/").pop().match(/(\d{4}[A-Z]?)/i);
       const code = codeMatch ? codeMatch[1].toUpperCase() : "";
       const key = `${r.revision}|${code}`;
       const text = pdfTextIndex[key];
@@ -1296,7 +1296,7 @@ export async function askPoly(body, env) {
     const results = searchPdfs(pdfIntent, pdfIndex);
     if (pdfIntent.isRagRequest && results.length > 0) {
       const r = results[0];
-      const codeMatch = r.path.match(/(\d{4}[A-Z]?)/);
+      const codeMatch = r.path.split("/").pop().match(/(\d{4}[A-Z]?)/i);
       const code = codeMatch ? codeMatch[1].toUpperCase() : "";
       const key = `${r.revision}|${code}`;
       const text = pdfTextIndex[key];
@@ -1355,7 +1355,7 @@ function formatPdfResponse(results, intent) {
     return `I found multiple revisions for ${results[0].title}:\n\n${list}\n\nWhich revision would you like?`;
   }
 
-  if (results.length === 1 || (intent.revision && revisions.length === 1)) {
+  if (results.length === 1) {
     const r = results[0];
     return `Found it:\n\n📄 **${r.title}**\nDepartment: ${r.department}\nSemester: ${r.semester}\nLanguage: English\nRevision: ${r.revision}\n\n[Open PDF](${r.url})`;
   }

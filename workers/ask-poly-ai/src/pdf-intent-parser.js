@@ -93,7 +93,7 @@ export function parsePdfIntent(message) {
     "cs": "Computer Science and Engineering",
     "civil": "Civil Engineering",
     "mechanical": "Mechanical Engineering",
-    "me": "Mechanical Engineering",
+    
     "automobile": "Automobile Engineering",
     "biomedical": "Biomedical Engineering",
     "chemical": "Chemical Engineering",
@@ -112,7 +112,11 @@ export function parsePdfIntent(message) {
 
   // 6. Subject Extraction (heuristics)
   // Check for 4-digit code (common in SITTTR)
-  const codeMatch = q.match(/\b(\d{4}[a-z]?)\b/i);
+  // Revision years are metadata, not subject codes. Prefer an explicitly
+  // labelled code when a real subject happens to share a revision year.
+  const explicitCode = q.match(/\b(?:subject|code)\s*[:#-]?\s*(\d{4}[a-z]?)\b/i);
+  const candidates = [...q.matchAll(/\b(\d{4}[a-z]?)\b/gi)];
+  const codeMatch = explicitCode || candidates.find(match => !["2015", "2021", "2026"].includes(match[1]));
   if (codeMatch) {
     intent.subject = codeMatch[1].toUpperCase();
   } else {

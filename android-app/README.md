@@ -91,3 +91,10 @@ Never commit the signing keystore or passwords. Replacing the original key preve
 ## Force-update rollout
 
 The gate blocks only when the live manifest contains both `forceUpdate: true` and a `versionCode` greater than the installed APK. To require an update from a previously released APK, publish a new signed APK whose native policy includes the desired minimum version or raise the remote policy after the new APK is available. The Android package installer still verifies the APK signature; the manifest SHA-256 is an additional integrity check and is not a replacement for Android signing.
+
+## 4.0.8 — audit release candidate (not yet published)
+
+- Native version advanced to code 23, above the published 4.0.7/code 22.
+- Release automation now commits the actual Gradle version alongside APK metadata.
+- Website fixes (AI PDF lookup, discussion threading and publisher logout) are delivered by the website/Worker deployments, not bundled into this WebView APK.
+- Signed rebuild and device launch/deep-link/notification checks are still required before publication. Keep `downloads/app-update.json` on the existing verified release until the new signed APK exists.

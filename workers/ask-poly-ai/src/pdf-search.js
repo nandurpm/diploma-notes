@@ -26,11 +26,14 @@ export function searchPdfs(intent, index) {
   const targetTypeIdx = targetType ? types.findIndex(t => t.toLowerCase().includes(targetType)) : -1;
   const targetRevIdx = targetRev ? revs.indexOf(targetRev) : -1;
 
+  // A requested but unavailable filter must not silently widen the search.
+  if ((targetDept && targetDeptIdx === -1) || (targetRev && targetRevIdx === -1)
+      || (targetType && targetTypeIdx === -1)) return [];
+
   for (const item of items) {
     const [title, deptIdx, semester, subject, revIdx, typeIdx, path] = item;
     
     let score = 0;
-    let matchCount = 0;
     let requiredMatches = 0;
     let actualMatches = 0;
 
@@ -79,8 +82,10 @@ export function searchPdfs(intent, index) {
 
     // 5. Material Type Match (Weight: 4)
     if (targetTypeIdx !== -1) {
+      requiredMatches++;
       if (typeIdx === targetTypeIdx) {
         score += 4;
+        actualMatches++;
       }
     }
 

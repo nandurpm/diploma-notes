@@ -31,6 +31,8 @@ def load_posts() -> list[dict]:
     for item in raw:
         if not isinstance(item, dict):
             continue
+        if item.get("status", "published") != "published":
+            continue
         title = str(item.get("title") or "").strip()
         summary = str(item.get("summary") or "").strip()
         url = str(item.get("url") or "").strip()
@@ -45,6 +47,8 @@ def load_posts() -> list[dict]:
             if stamp.tzinfo is None:
                 stamp = stamp.replace(tzinfo=timezone.utc)
         except ValueError:
+            continue
+        if stamp > datetime.now(timezone.utc):
             continue
         post = dict(item)
         post.update(title=title, summary=summary, url=url, date=date, category=category, _stamp=stamp.timestamp())
@@ -115,6 +119,7 @@ def render(source: str, posts: list[dict]) -> str:
     source = re.sub(r'(<strong id="blog-post-count">).*?(</strong>)', rf'\g<1>{count}\2', source, count=1, flags=re.S)
     source = re.sub(r'(<strong id="blog-newest-date">).*?(</strong>)', rf'\g<1>{esc(newest)}\2', source, count=1, flags=re.S)
     source = re.sub(r'(<p id="blog-status"[^>]*>).*?(</p>)', rf'\g<1>{count} {"post" if count == 1 else "posts"} shown.\2', source, count=1, flags=re.S)
+    source = re.sub(r'(<div id="blog-featured" class="blog-featured" aria-live="polite">).*?(</div></section>\s*<section class="blog-section" aria-labelledby="latest-heading">)', lambda m: m.group(1) + featured_block + m.group(2), source, count=1, flags=re.S)
     if '<div id="blog-featured" class="blog-featured"' in source:
         source = re.sub(r'(<div id="blog-featured" class="blog-featured" aria-live="polite">).*?(</div></section>\s*<section class="blog-section" aria-labelledby="latest-heading">)', lambda m: m.group(1) + featured_block + m.group(2), source, count=1, flags=re.S)
     source = re.sub(r'(<div id="blog-list" class="blog-grid">).*?(</div>\s*<noscript>)', lambda m: m.group(1) + list_block + m.group(2), source, count=1, flags=re.S)
@@ -142,7 +147,8 @@ def check_prerender(source: str, posts: list[dict]) -> list[str]:
     for post in posts:
         title = esc(post["title"])
         url = esc(post["url"])
-        if title not in source:
+        visible_source = re.sub(r"<script\b.*?</script>", "", source, flags=re.S | re.I)
+        if html.unescape(title) not in html.unescape(visible_source):
             failures.append(f"missing prerendered title: {post['title']}")
         if f'href="{url}"' not in source:
             failures.append(f"missing prerendered URL: {post['url']}")
@@ -154,8 +160,8 @@ def check_prerender(source: str, posts: list[dict]) -> list[str]:
             embedded = json.loads(payload_match.group(1).replace("<\\/", "</"))
             expected_keys = {(str(p.get("slug") or ""), p["url"]) for p in posts}
             actual_keys = {(str(p.get("slug") or ""), str(p.get("url") or "")) for p in embedded if isinstance(p, dict)}
-            if not expected_keys.issubset(actual_keys):
-                failures.append("embedded prerender data is missing one or more static posts")
+            if expected_keys != actual_keys:
+                failures.append("embedded prerender data must contain exactly the published static posts")
         except (ValueError, TypeError):
             failures.append("blog-prerender-data is not valid JSON")
     if "Loading posts" in source or "Loading the featured post" in source:
