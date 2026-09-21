@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const selectors = ["#subjectSearch", "#q", "#programmeSearch", "#rev2015Search", "#chatSearch"];
+  const selectors = ["#subjectSearch", "#q", "#programmeSearch", "#rev2015Search", "#chatSearch", "#search"];
 
   document.addEventListener("keydown", (event) => {
     const isSearchInput = event.target.matches?.(selectors.join(", ")) || (event.target.tagName === "INPUT" && event.target.type === "search");
