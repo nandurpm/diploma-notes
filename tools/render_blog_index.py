@@ -120,6 +120,8 @@ def render(source: str, posts: list[dict]) -> str:
     source = re.sub(r'(<strong id="blog-newest-date">).*?(</strong>)', rf'\g<1>{esc(newest)}\2', source, count=1, flags=re.S)
     source = re.sub(r'(<p id="blog-status"[^>]*>).*?(</p>)', rf'\g<1>{count} {"post" if count == 1 else "posts"} shown.\2', source, count=1, flags=re.S)
     source = re.sub(r'(<div id="blog-featured" class="blog-featured" aria-live="polite">).*?(</div></section>\s*<section class="blog-section" aria-labelledby="latest-heading">)', lambda m: m.group(1) + featured_block + m.group(2), source, count=1, flags=re.S)
+    if '<div id="blog-featured" class="blog-featured"' in source:
+        source = re.sub(r'(<div id="blog-featured" class="blog-featured" aria-live="polite">).*?(</div></section>\s*<section class="blog-section" aria-labelledby="latest-heading">)', lambda m: m.group(1) + featured_block + m.group(2), source, count=1, flags=re.S)
     source = re.sub(r'(<div id="blog-list" class="blog-grid">).*?(</div>\s*<noscript>)', lambda m: m.group(1) + list_block + m.group(2), source, count=1, flags=re.S)
     payload = public_payload(posts)
     source = re.sub(r'(<script id="blog-prerender-data" type="application/json">).*?(</script>)', lambda m: m.group(1) + payload + m.group(2), source, count=1, flags=re.S)
