@@ -61,6 +61,8 @@ export function safeLogValue(value, depth = 0) {
   if (typeof value === "object") {
     const output = {};
     for (const [key, item] of Object.entries(value).slice(0, 30)) {
+      if (!Object.prototype.hasOwnProperty.call(value, key)) continue;
+      if (key === "__proto__" || key === "constructor" || key === "prototype") continue;
       if (/(authorization|auth|token|jwt|bearer|password|passcode|secret|api.?key|private.?key|credential|cookie|email|body|prompt|session)/i.test(key)) {
         output[key] = "[REDACTED]";
       } else {

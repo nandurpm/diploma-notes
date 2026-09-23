@@ -198,3 +198,19 @@ test("safeLogValue redacts sensitive keys and embedded secret tokens", () => {
     "Failed to authenticate Bearer [REDACTED] using [REDACTED_KEY]"
   );
 });
+
+test("safeLogValue filters prototype properties and dangerous keys", () => {
+  const baseObj = { inheritedProp: "should_be_ignored" };
+  const testObj = Object.create(baseObj);
+  testObj.route = "ask";
+  testObj.constructor = "malicious_constructor";
+  testObj.__proto__ = "malicious_proto";
+  testObj.prototype = "malicious_prototype";
+
+  const sanitized = safeLogValue(testObj);
+  assert.equal(sanitized.route, "ask");
+  assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "inheritedProp"), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "constructor"), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "__proto__"), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "prototype"), false);
+});
