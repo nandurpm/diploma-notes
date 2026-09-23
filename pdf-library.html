@@ -60,14 +60,14 @@
     </section>
     <div class="pdf-archive-card">
       <label for="search">Search by course code, revision, folder or filename</label>
-      <input id="search" type="search" placeholder="For example: 1141, 2026, civil engineering" disabled>
+      <input id="search" type="search" placeholder="For example: 1141, 2026, civil engineering" aria-describedby="status" aria-controls="files" disabled>
       <p id="status" role="status" aria-live="polite">Loading the PDF archive…</p>
       <button id="retry" class="btn ghost" hidden>Try again</button>
       <ul id="files" aria-label="PDF files"></ul>
       <nav class="pdf-archive-nav" aria-label="Results pages">
-        <button id="previous" disabled>Previous</button>
+        <button id="previous" type="button" aria-label="Previous page of results" disabled>Previous</button>
         <span id="page"></span>
-        <button id="next" disabled>Next</button>
+        <button id="next" type="button" aria-label="Next page of results" disabled>Next</button>
       </nav>
       <p style="margin-top:16px;font-size:0.95rem;color:#64748b">
         New uploads appear after archive indexing succeeds. Refresh this page to check for updates. Older versions are included; course pages select the current published lesson version.
