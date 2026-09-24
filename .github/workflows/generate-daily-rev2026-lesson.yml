@@ -7,7 +7,7 @@ on:
     - cron: "30 14 * * *"
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
   models: read
 
@@ -17,13 +17,17 @@ concurrency:
 
 jobs:
   generate-next-missing-lesson:
+    permissions:
+      contents: write
+      pull-requests: write
+    models: read
     runs-on: ubuntu-latest
     timeout-minutes: 90
     environment: lesson-publication
 
     steps:
       - name: Check out main
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           ref: main
@@ -32,12 +36,12 @@ jobs:
         run: git pull --rebase origin main
 
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: "3.12"
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: "22"
 

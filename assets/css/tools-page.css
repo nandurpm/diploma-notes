@@ -523,6 +523,7 @@ body.tools-page {
 .tools-page .win {
   width: min(920px, 100%);
   max-height: min(860px, calc(100vh - 44px));
+  max-height: min(860px, calc(100dvh - 44px));
   overflow: auto;
   border: 1px solid rgba(255, 255, 255, .74);
   border-radius: 25px;

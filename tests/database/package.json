@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node protect-profile-role.mjs ../../supabase/migrations/20260924095323_allow_trusted_profile_role_updates.sql"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8"
+  }
+}

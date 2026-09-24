@@ -45,23 +45,19 @@ function json(data, status, origin, env, inherited) {
   return new Response(JSON.stringify(data), { status, headers: output });
 }
 
-async function allowed(binding, key) {
-  if (!binding || typeof binding.limit !== "function") return true;
+async function allowed(binding, key, env) {
+  if (!binding || typeof binding.limit !== "function") return env?.ENVIRONMENT !== "production";
   try {
     const result = await binding.limit({ key });
     return Boolean(result?.success);
   } catch (error) {
-    console.error("Distributed rate-limit binding failed; delegating to application fallback.", error);
-    return true;
+    securityLog("rate_limit_unavailable", { severity: "error" });
+    return env?.ENVIRONMENT !== "production";
   }
 }
 
 function anonymousKey(request) {
-  const rawIp = request.headers.get("CF-Connecting-IP")
-    || request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim()
-    || "unknown";
-  const ip = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
-  return `ask:${ip}`;
+  return abuseKey(request, "ask");
 }
 
 export default {
@@ -110,7 +106,7 @@ export default {
     }
 
     if (request.method === "POST" && url.pathname === "/api/help-comments") {
-      if (!(await allowed(env.COMMENT_RATE_LIMITER, abuseKey(request, "comments"))) || !allowComment(request)) {
+      if (!(await allowed(env.COMMENT_RATE_LIMITER, abuseKey(request, "comments"), env)) || !allowComment(request)) {
         securityLog("rate_limit_blocked", { ...logContext, route: "help_comments", severity: "warning" });
         return json({ error: "Too many comments. Please wait a minute." }, 429, origin, env);
       }
@@ -118,7 +114,7 @@ export default {
     }
 
     if (request.method === "POST" && (url.pathname === "/" || url.pathname === "/api/ask-poly")) {
-      if (!(await allowed(env.ASK_RATE_LIMITER, anonymousKey(request)))) {
+      if (!(await allowed(env.ASK_RATE_LIMITER, anonymousKey(request), env))) {
         securityLog("rate_limit_blocked", { ...logContext, route: "ask", severity: "warning" });
         return json({ error: "Too many questions. Please wait a minute and try again." }, 429, origin, env);
       }
@@ -130,7 +126,7 @@ export default {
           return json({ error: validationError }, 400, origin, env);
         }
       }
-      if (IMAGE_INTENT_PATTERN.test(String(askBody?.message || "")) && (!(await allowed(env.IMAGE_RATE_LIMITER, `image:${anonymousKey(request)}`)) || !allowImage(request))) {
+      if (IMAGE_INTENT_PATTERN.test(String(askBody?.message || "")) && (!(await allowed(env.IMAGE_RATE_LIMITER, `image:${anonymousKey(request)}`, env)) || !allowImage(request))) {
         securityLog("rate_limit_blocked", { ...logContext, route: "image_generation", severity: "warning" });
         return json({ error: "Image-generation limit reached. Please try again later." }, 429, origin, env);
       }
@@ -138,7 +134,7 @@ export default {
     }
 
     if (request.method === "POST" && url.pathname === "/api/grade-daily-quiz") {
-      if (!(await allowed(env.EXAM_RATE_LIMITER, `daily:${anonymousKey(request)}`))) {
+      if (!(await allowed(env.EXAM_RATE_LIMITER, `daily:${anonymousKey(request)}`, env))) {
         securityLog("rate_limit_blocked", { ...logContext, route: "daily_quiz", severity: "warning" });
         return json({ error: "Too many quiz submissions. Please wait a minute." }, 429, origin, env);
       }
@@ -164,7 +160,7 @@ export default {
       );
     }
 
-    if (!(await allowed(env.EXAM_RATE_LIMITER, `exam:${student.id}`))) {
+    if (!(await allowed(env.EXAM_RATE_LIMITER, `exam:${student.id}`, env))) {
       securityLog("rate_limit_blocked", { ...logContext, route: "mock_exam", userId: student.id, severity: "warning" });
       return json({ error: "Too many mock-exam evaluations. Please wait a minute." }, 429, origin, env);
     }

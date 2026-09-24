@@ -22,7 +22,7 @@ EXCLUDED_ROOTS = {
 # File extensions considered source code and excluded by default
 SOURCE_SUFFIXES = {
     ".py", ".pyc", ".cjs", ".mjs", ".ts", ".tsx", ".sql", ".yml",
-    ".yaml", ".md", ".lock", ".toml",
+    ".yaml", ".md", ".lock", ".toml", ".patch",
 }
 
 # Specific files that must be copied even if they match excluded patterns
@@ -134,10 +134,14 @@ def inject_public_runtime_assets(relative: str, content: str) -> str:
     if relative.startswith("previews/"):
         return content
     content = normalize_generated_revision_label(relative, content)
-    content = inject_independence_assets(relative, content)
-    content = inject_learning_sprint_assets(relative, content)
-    content = inject_pre_onam_assets(relative, content)
-    return inject_new_year_assets(relative, content)
+    content = re.sub(r"<meta\b[^>]*>", lambda match: match[0].replace("\uf0b7", "").replace("&#61623;", ""), content, flags=re.I)
+    # Strip old eager imports, including ones already embedded in source pages.
+    themes = r"(?:independence-day|learning-sprint|pre-onam|new-year)-theme"
+    content = re.sub(r'<link\b[^>]*href=["\'][^"\']*/' + themes + r'\.css[^"\']*["\'][^>]*>', '', content, flags=re.I)
+    content = re.sub(r'<script\b[^>]*src=["\'][^"\']*/' + themes + r'\.js[^"\']*["\'][^>]*>\s*</script>', '', content, flags=re.I)
+    tag = '<script defer src="/assets/js/seasonal-theme-loader.js?v=20260924"></script>\n'
+    return content.replace('</head>', tag + '</head>', 1)
+
 
 
 # Retrieves a list of all files currently tracked by Git
@@ -180,7 +184,9 @@ def build(target: Path, optimize: bool) -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix.lower() == ".html":
             html = source.read_text(encoding="utf-8")
-            destination.write_text(inject_public_runtime_assets(relative, html), encoding="utf-8")
+            from externalize_public_scripts import externalize_scripts
+            html = inject_public_runtime_assets(relative, html)
+            destination.write_text(externalize_scripts(html, target), encoding="utf-8")
         else:
             shutil.copy2(source, destination)
         copied += 1

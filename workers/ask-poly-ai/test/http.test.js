@@ -108,7 +108,7 @@ test("createRateLimiter allows up to the maximum then blocks", () => {
   assert.equal(limiter(request), false);
 });
 
-test("createRateLimiter tracks callers independently and reads X-Forwarded-For", () => {
+test("createRateLimiter tracks trusted callers and ignores spoofed X-Forwarded-For", () => {
   const limiter = createRateLimiter(1);
   const a = fakeRequest({ "CF-Connecting-IP": "1.1.1.1" });
   const b = fakeRequest({ "X-Forwarded-For": "2.2.2.2, 9.9.9.9" });
@@ -117,7 +117,7 @@ test("createRateLimiter tracks callers independently and reads X-Forwarded-For",
   assert.equal(limiter(a), false);
   assert.equal(limiter(b), true);
   assert.equal(limiter(b), false);
-  assert.equal(limiter(unknown), true);
+  assert.equal(limiter(unknown), false);
   assert.equal(limiter(unknown), false);
 });
 
@@ -213,4 +213,16 @@ test("safeLogValue filters prototype properties and dangerous keys", () => {
   assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "constructor"), false);
   assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "__proto__"), false);
   assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "prototype"), false);
+});
+ test("safeLogValue redacts OpenAI project keys", () => {
+  assert.equal(safeLogValue("failure sk-proj-1234567890abcdef"), "failure [REDACTED_KEY]");
+});
+
+test('production rejects provider requests when rate-limit binding is missing or unavailable', async () => {
+  for (const binding of [undefined, {limit: async () => {throw new Error('unavailable');}}]) {
+    const response = await secureIndex.fetch(new Request('https://api.example.test/api/ask-poly', {
+      method:'POST', headers:{'Content-Type':'application/json','CF-Connecting-IP':'1.2.3.4'}, body:JSON.stringify({message:'test'})
+    }), {ENVIRONMENT:'production',ASK_RATE_LIMITER:binding}, {});
+    assert.equal(response.status,429);
+  }
 });

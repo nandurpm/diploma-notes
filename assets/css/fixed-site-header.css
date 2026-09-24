@@ -230,3 +230,12 @@ body.portal-page .topbar .menu-toggle {
 @media (max-width:380px){
   body.portal-page .brand-logo{flex-basis:33px!important;width:33px!important;height:33px!important;min-width:33px!important;border-radius:9px!important;}
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

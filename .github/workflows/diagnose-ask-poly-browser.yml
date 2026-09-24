@@ -11,18 +11,19 @@ on:
       - "assets/js/ask-poly-client-recovery.js"
 
 permissions:
-  contents: write
-
+  contents: read
 concurrency:
   group: diagnose-ask-poly-browser
   cancel-in-progress: true
 
 jobs:
   probe:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 

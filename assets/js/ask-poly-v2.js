@@ -235,13 +235,21 @@
   }
 
   function renderInlineMarkdown(value) {
-    let html = escapeHtml(value);
-    html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
-    html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");
-    html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
-    html = html.replace(/_([^_\n]+)_/g, "<em>$1</em>");
+    // Protect generated tags and literal code from subsequent emphasis passes.
+    const stash = [];
+    const hold = (fragment) => `\u0000${stash.push(fragment) - 1}\u0000`;
+    let html = escapeHtml(String(value).replace(/\u0000/g, ""));
+    html = html.replace(/`([^`]+)`/g, (_, code) => hold(`<code>${code}</code>`));
+    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/(?!\/)[^\s)]+)\)/g,
+      (_, label, url) => hold(`<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`));
+    html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^\w])__([^_\n]+)__(?!\w)/g, "$1<strong>$2</strong>")
+      .replace(/\*([^*\n]+)\*/g, "<em>$1</em>")
+      .replace(/(^|[^\w])_([^_\n]+)_(?!\w)/g, "$1<em>$2</em>");
+    // Resolve nested placeholders (e.g. literal code inside a link label).
+    for (let i = stash.length - 1; i >= 0; i -= 1) {
+      html = html.split(`\u0000${i}\u0000`).join(stash[i]);
+    }
     return html;
   }
 

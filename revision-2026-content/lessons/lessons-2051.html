@@ -328,11 +328,11 @@
 <div class="calc-grid">
 <div>
 <label>Voltage (V):</label>
-<input id="calc-v" placeholder="Enter Volts" type="number"/>
+<input id="calc-v" placeholder="Enter Volts" type="number" aria-label="Calculator input: calc v"/>
 </div>
 <div>
 <label>Resistance (Ω):</label>
-<input id="calc-r" placeholder="Enter Ohms" type="number"/>
+<input id="calc-r" placeholder="Enter Ohms" type="number" aria-label="Calculator input: calc r"/>
 </div>
 </div>
 <button onclick="calculateOhmsLaw()" style="margin-top:10px; padding:8px 15px;">Calculate Current</button>
@@ -646,7 +646,7 @@
 </section>
 <section class="section no-print" id="handbook-search">
 <h2>Search Handbook</h2>
-<input class="search-bar" id="searchInput" placeholder="Search for topics (e.g., 'Transformer', 'Battery')..." type="text"/>
+<input class="search-bar" id="searchInput" placeholder="Search for topics (e.g., 'Transformer', 'Battery')..." type="text" aria-label="Search lessons"/>
 <div id="searchResults"></div>
 </section>
 </main>

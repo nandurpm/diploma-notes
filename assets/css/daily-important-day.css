@@ -183,7 +183,7 @@ body.portal-page .home-compact-hero.page-title::after {
   max-width: none;
   margin: 0;
   color: #40536f;
-  font-family: inherit, "Noto Sans Malayalam", "Manjari", "Kartika", sans-serif;
+  font-family: "Noto Sans Malayalam", "Manjari", "Kartika", sans-serif;
   display: -webkit-box;
   overflow: hidden;
   font-size: clamp(0.78rem, 0.8vw, 0.9rem);
