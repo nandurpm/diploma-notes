@@ -6,14 +6,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-
+  contents: read
 concurrency:
   group: pdf-archive-reference-main
   cancel-in-progress: false
 
 jobs:
   sync:
+    permissions:
+      contents: write
     name: Refresh canonical PDF archive reference
     runs-on: ubuntu-latest
     env:
@@ -21,7 +22,7 @@ jobs:
       PDF_CHANGED_FILES: ${{ join(github.event.client_payload.changed_files, '\n') }}
     steps:
       - name: Check out consumer repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: main
 

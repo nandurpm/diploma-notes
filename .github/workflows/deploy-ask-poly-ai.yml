@@ -8,7 +8,7 @@ on:
     paths:
       - "workers/ask-poly-ai/**"
       - "assets/js/ask-poly-config.js"
-      - "wrangler.toml"
+      - "workers/ask-poly-ai/wrangler.toml"
       - "package.json"
       - ".github/workflows/deploy-ask-poly-ai.yml"
 
@@ -37,7 +37,7 @@ jobs:
       SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       FIREBASE_SERVICE_ACCOUNT_JSON_VALUE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
@@ -187,19 +187,8 @@ jobs:
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
               json.dump(secrets, file)
           PY
-          # Use wrangler secret put for each secret to ensure they are correctly uploaded.
-          # We use a temporary script to avoid leaking secrets in the logs.
-          echo "Uploading secrets..."
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON_VALUE" | npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON
-          echo "${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}" | npx wrangler secret put CLOUDFLARE_AI_API_TOKEN
-          echo "${{ secrets.SUPABASE_URL }}" | npx wrangler secret put SUPABASE_URL
-          echo "${{ secrets.SUPABASE_ANON_KEY }}" | npx wrangler secret put SUPABASE_ANON_KEY
-          echo "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" | npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
-          echo "${{ secrets.OPENAI_API_KEY }}" | npx wrangler secret put OPENAI_API_KEY
-          echo "${{ secrets.NVIDIA_API_KEY }}" | npx wrangler secret put NVIDIA_API_KEY
-          echo "${{ secrets.OPENROUTER_API_KEY }}" | npx wrangler secret put OPENROUTER_API_KEY
-          echo "${{ secrets.GOOGLE_AI_STUDIO }}" | npx wrangler secret put GOOGLE_AI_STUDIO
-          echo "${{ secrets.FREE_API_KEY }}" | npx wrangler secret put FREE_API_KEY
+          # Upload only configured values from the protected JSON bundle above.
+          npx wrangler secret bulk ask-poly-secrets.json
 
       - name: Re-deploy secure Worker after credential synchronization
         env:

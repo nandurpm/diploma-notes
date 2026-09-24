@@ -53,6 +53,7 @@ export function safeLogValue(value, depth = 0) {
   if (typeof value === "boolean" || typeof value === "number") return value;
   if (typeof value === "string") {
     return cleanText(value, 240)
+      .replace(/\bsk-[A-Za-z0-9_-]{10,}/g, "[REDACTED_KEY]")
       .replace(/Bearer\s+[A-Za-z0-9._~+/-]+=*/gi, "Bearer [REDACTED]")
       .replace(/(?:sk|sb|pk)_(?:live|test|proj|publishable|service)?_[A-Za-z0-9_-]{10,}/gi, "[REDACTED_KEY]")
       .replace(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----/g, "[REDACTED_PEM]");
@@ -107,7 +108,6 @@ export function looksAutomated(request) {
 
 export function abuseKey(request, scope = "api") {
   const rawIp = request?.headers?.get("CF-Connecting-IP")
-    || request?.headers?.get("X-Forwarded-For")?.split(",")[0]?.trim()
     || "unknown";
   const normalized = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
   return `${scope}:${normalized}`;
@@ -191,7 +191,6 @@ export function createRateLimiter(maximum, windowMs = 10 * 60 * 1000) {
   const buckets = new Map();
   return (request) => {
     const rawIp = request.headers.get("CF-Connecting-IP")
-      || request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim()
       || "unknown";
     const key = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
     const now = Date.now();

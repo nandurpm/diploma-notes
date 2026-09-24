@@ -16,19 +16,20 @@ on:
         type: string
 
 permissions:
-  contents: write
-
+  contents: read
 concurrency:
   group: notify-new-lessons-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   notify:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 

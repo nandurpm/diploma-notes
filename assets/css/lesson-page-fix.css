@@ -536,3 +536,12 @@ html.poly-lesson-page :is(.shell,.lesson-shell,.page-shell,.main-content) {
 }
 html.revision-2026-lesson .poly-dynamic-source {display:block!important;visibility:visible!important;opacity:1!important}
 html.revision-2026-lesson .poly-expanded-dynamic-list {display:none!important}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

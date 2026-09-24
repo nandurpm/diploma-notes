@@ -52,3 +52,6 @@ tmp/
 # Frontend regression artifacts
 tests/frontend/test-results/
 tests/frontend/playwright-report/
+
+# Supabase CLI local metadata
+supabase/.temp/

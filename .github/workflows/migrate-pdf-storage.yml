@@ -2,28 +2,30 @@ name: Preserve public URLs and move PDF source storage
 on:
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: pdf-storage-migration
   cancel-in-progress: false
 jobs:
   migrate:
+    permissions:
+      contents: write
     if: github.ref == 'refs/heads/codex/pdf-storage-only-20260905'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           path: source
           fetch-depth: 1
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: '3.12'
       - name: Require existing archive write credential
         env:
           ARCHIVE_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
         run: test -n "$ARCHIVE_TOKEN"
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           repository: nandurpm/poly-pmna-pdf-files
           ref: main
@@ -72,7 +74,7 @@ jobs:
           test -z "$(git ls-files '*.pdf' '*.PDF')"
           git commit -m 'Store PDFs only in archive; retain identical public download URLs'
           git push origin HEAD:refs/heads/codex/pdf-storage-only-20260905
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: always()
         with:
           name: pdf-storage-migration-verification

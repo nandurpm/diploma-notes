@@ -13,14 +13,10 @@ html {
 }
 
 img, video, canvas, svg {
-  content-visibility: auto;
   max-width: 100%;
   height: auto;
 }
 
-img:not([loading]) {
-  loading: lazy;
-}
 
 /* Reduced Motion for Performance & Accessibility */
 @media (prefers-reduced-motion: reduce) {
