@@ -215,7 +215,7 @@ test("safeLogValue filters prototype properties and dangerous keys", () => {
   assert.equal(Object.prototype.hasOwnProperty.call(sanitized, "prototype"), false);
 });
  test("safeLogValue redacts OpenAI project keys", () => {
-  assert.equal(safeLogValue("failure sk-proj-1234567890abcdef"), "failure [REDACTED_KEY]");
+  assert.equal(safeLogValue("failure sk-proj-testkey"), "failure [REDACTED_KEY]");
 });
 
 test('production rejects provider requests when rate-limit binding is missing or unavailable', async () => {
