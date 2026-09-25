@@ -8,7 +8,13 @@ import html
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
+
+# Resolve sibling helpers for CLI execution and importlib-loaded build callers.
+TOOLS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
 
 # Root directory of the project
 ROOT = Path(__file__).resolve().parents[1]
