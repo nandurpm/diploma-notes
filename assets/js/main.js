@@ -147,7 +147,7 @@
     if (existing) return;
 
     const script = document.createElement("script");
-    script.src = `${popupPath}?v=20260910-audit1`;
+    script.src = `${popupPath}?v=20260925-direct-media1`;
     script.defer = true;
     script.dataset.polyVisitorPopupLoader = "true";
     script.addEventListener("error", () => {

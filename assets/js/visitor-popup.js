@@ -6,11 +6,8 @@
    Each visitor sees one popup per day, cycling through
    available popup files in order.
 
-   Popup files (in order of priority):
-   - /assets/popup/popup-1.png
-   - /assets/popup/popup-2.png
+   Popup files currently deployed:
    - /assets/popup/popup-1.mp4
-   - /assets/popup/popup-2.mp4
 
    If no popup files exist, a fallback HTML promotional card
    for Ask POLY AI is shown instead.
@@ -34,9 +31,10 @@
   readyFlag.content = "media-popup-v3";
   document.head.append(readyFlag);
 
+  // Keep this list limited to files that are actually tracked in the public
+  // repository. Probing missing files with HEAD/Range requests made the popup
+  // appear broken on static hosts and delayed the real video unnecessarily.
   const POPUPS = [
-    { id: "popup-1", type: "image", src: "/assets/popup/popup-1.png" },
-    { id: "popup-2", type: "image", src: "/assets/popup/popup-2.png" },
     { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
   ];
 
@@ -55,7 +53,7 @@
   const STORAGE_DATE = "polyVisitorPopupMediaDateV3";
   const STORAGE_INDEX = "polyVisitorPopupMediaIndexV3";
   const SESSION_CACHE_KEY = "polyVisitorPopupAvailableV3";
-  const WAIT_MS = 60000;
+  const WAIT_MS = 10000;
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
 
   const today = () => {
@@ -73,41 +71,8 @@
     }
   };
 
-  async function exists(item) {
-    try {
-      const response = await fetch(`${item.src}?v=20260723-popup-1min`, {
-        method: "HEAD",
-        cache: "no-store"
-      });
-      if (response.ok) {
-        const len = response.headers.get("content-length");
-        return !len || Number(len) > 0;
-      }
-      if (response.status !== 405) return false;
-    } catch (_) {
-      // Fall back to GET below.
-    }
-
-    try {
-      const response = await fetch(`${item.src}?v=20260723-popup-1min`, {
-        cache: "no-store",
-        headers: { Range: "bytes=0-0" }
-      });
-      const len = response.headers.get("content-length");
-      return (response.ok || response.status === 206) && (!len || Number(len) > 0);
-    } catch (_) {
-      return false;
-    }
-  }
-
   async function availablePopups() {
-    const checks = await Promise.allSettled(
-      POPUPS.map(async (item) => (await exists(item)) ? item : null)
-    );
-    const available = checks
-      .filter((result) => result.status === "fulfilled" && result.value)
-      .map((result) => result.value);
-    return available.length ? available : [FALLBACK_POPUP];
+    return POPUPS.length ? POPUPS : [FALLBACK_POPUP];
   }
 
   function installStyles() {
@@ -244,8 +209,8 @@
     setTimeout(async () => {
       if (window.POLY_DISABLE_ASSISTANT || document.getElementById("polyVisitorPopup")) return;
 
-      // PERFORMANCE OPTIMIZATION: Cache the resolved list of available popups in sessionStorage
-      // to avoid triggering redundant network HEAD/GET requests on subsequent page loads within the session.
+      // Cache the resolved list for this tab. The list is declared from tracked
+      // assets, so no network probe is needed before rendering the popup.
       let available = null;
       try {
         const cached = sessionStorage.getItem(SESSION_CACHE_KEY);
@@ -254,8 +219,6 @@
         }
       } catch (_) {}
 
-      // PERFORMANCE OPTIMIZATION: Defer network probing of popups from page load to inside the
-      // timeout. This ensures that users who navigate away quickly do not incur any network requests.
       if (!Array.isArray(available) || !available.length) {
         available = await availablePopups();
         try {

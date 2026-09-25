@@ -14,7 +14,7 @@ How it works:
 
 1. The website first checks which of the above popup files actually exist in this folder.
 2. Missing files are skipped automatically.
-3. Visitors will see one popup per day, 20 seconds after opening the website.
+3. Visitors will see one popup per day, 10 seconds after opening the website.
 4. The next visit/day shows the next existing popup in the sequence.
 5. After the last existing popup, it starts again from the first existing popup.
 6. The popup has a close button.
