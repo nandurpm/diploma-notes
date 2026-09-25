@@ -40,7 +40,7 @@ body.portal-page {
   box-sizing: border-box;
 }
 
-.about-experience a {
+.about-experience :where(a) {
   color: inherit;
   text-decoration: none;
 }
