@@ -1,0 +1,94 @@
+name: Build and publish signed Windows app
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "windows-app/**"
+      - ".github/workflows/build-windows-app.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: poly-pmna-windows-release
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: windows-app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: windows-app
+        run: npm ci
+
+      - name: Validate Windows signing certificate
+        shell: pwsh
+        env:
+          CSC_LINK: ${{ secrets.WINDOWS_CERTIFICATE_BASE64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:CSC_LINK) -or [string]::IsNullOrWhiteSpace($env:CSC_KEY_PASSWORD)) {
+            throw "Signed release blocked: configure WINDOWS_CERTIFICATE_BASE64 and WINDOWS_CERTIFICATE_PASSWORD repository secrets."
+          }
+          $bytes = [Convert]::FromBase64String(($env:CSC_LINK -replace '\s', ''))
+          if ($bytes.Length -lt 100) { throw "WINDOWS_CERTIFICATE_BASE64 is not a valid certificate payload." }
+
+      - name: Build signed portable executable
+        working-directory: windows-app
+        env:
+          CSC_LINK: ${{ secrets.WINDOWS_CERTIFICATE_BASE64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+        run: npm run dist
+
+      - name: Verify Authenticode signature
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem windows-app/dist -Filter '*.exe' | Select-Object -First 1
+          if ($null -eq $exe) { throw 'No portable EXE was produced.' }
+          $signature = Get-AuthenticodeSignature $exe.FullName
+          if ($signature.Status -ne 'Valid') { throw "Authenticode signature is $($signature.Status), refusing to publish." }
+          "SIGNED_EXE=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "EXE_SHA256=$((Get-FileHash $exe.FullName -Algorithm SHA256).Hash.ToLower())" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Read release version
+        shell: pwsh
+        run: |
+          $pkg = Get-Content windows-app/package.json | ConvertFrom-Json
+          "VERSION=$($pkg.version)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "RELEASE_TAG=windows-v$($pkg.version)" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Publish signed GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          if (gh release view "$env:RELEASE_TAG" 2>$null) {
+            throw "Release $env:RELEASE_TAG already exists. Bump windows-app/package.json version before rebuilding."
+          }
+          gh release create "$env:RELEASE_TAG" "$env:SIGNED_EXE" `
+            --title "POLY PMNA Windows $env:VERSION" `
+            --notes "Signed portable POLY PMNA Windows app. SHA-256: $env:EXE_SHA256"
+
+      - name: Upload signed executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: POLY_PMNA_Windows_${{ env.VERSION }}_signed_portable
+          path: windows-app/dist/*.exe
+          if-no-files-found: error
