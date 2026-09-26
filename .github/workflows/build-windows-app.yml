@@ -90,7 +90,7 @@ jobs:
           --notes "Cryptographically signed portable POLY PMNA Windows app. Signature status: $env:SIGNATURE_STATUS. Signer: $env:SIGNER. SHA-256: $env:EXE_SHA256. This release uses a CI-generated self-signed certificate and may show an untrusted-publisher warning on Windows."
 
       - name: Upload signed executable artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: POLY_PMNA_Windows_${{ env.VERSION }}_signed_portable
           path: windows-app/dist/*.exe
