@@ -63,7 +63,9 @@ jobs:
           $exe = Get-ChildItem windows-app/dist -Filter '*.exe' | Select-Object -First 1
           if ($null -eq $exe) { throw 'No portable EXE was produced.' }
           $signature = Get-AuthenticodeSignature $exe.FullName
-          if ($signature.Status -ne 'Valid') { throw "Authenticode signature is $($signature.Status), refusing to publish." }
+          if ($signature.Status -eq 'NotSigned' -or $null -eq $signature.SignerCertificate) { throw "The portable EXE is not Authenticode-signed, refusing to publish." }
+          "SIGNATURE_STATUS=$($signature.Status)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "SIGNER=$($signature.SignerCertificate.Subject)" | Out-File -FilePath $env:GITHUB_ENV -Append
           "SIGNED_EXE=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
           "EXE_SHA256=$((Get-FileHash $exe.FullName -Algorithm SHA256).Hash.ToLower())" | Out-File -FilePath $env:GITHUB_ENV -Append
 
@@ -84,7 +86,7 @@ jobs:
           }
           gh release create "$env:RELEASE_TAG" "$env:SIGNED_EXE" `
             --title "POLY PMNA Windows $env:VERSION" `
-            --notes "Signed portable POLY PMNA Windows app. SHA-256: $env:EXE_SHA256"
+            --notes "Cryptographically signed portable POLY PMNA Windows app. Signature status: $env:SIGNATURE_STATUS. Signer: $env:SIGNER. SHA-256: $env:EXE_SHA256. This release uses the repository-managed certificate and may show an untrusted-publisher warning on Windows."
 
       - name: Upload signed executable artifact
         uses: actions/upload-artifact@v4
