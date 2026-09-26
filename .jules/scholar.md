@@ -9,3 +9,9 @@
 **Finding:** Thermal process thresholds in manufacturing and materials lessons occasionally use ASCII text notation (`deg C`) instead of standard Unicode degree symbols (`°C`).
 **Learning:** Inconsistent symbol usage for temperatures (e.g. `450 deg C` vs `450 °C`) detracts from visual professionalism and consistency across technical diploma study materials.
 **Prevention:** Standardize temperature unit representations to Unicode degree symbols (`°C`, `°F`) across lesson topics, rule banks, and answer keys without modifying underlying numerical values or taught concepts.
+
+## 2026-09-04 - Standardizing Resistance Unit Notation
+
+**Finding:** Electrical engineering lesson solved problems and rule banks occasionally use plain ASCII text notation (`100 ohm`, `4 ohm`) alongside standard Unicode symbols (`100 Ω`, `4 Ω`).
+**Learning:** Inconsistent unit symbols within calculations and formula banks reduce visual clarity and professional quality on technical diploma lesson pages.
+**Prevention:** Standardize resistance numerical values to use standard Unicode ohm symbols (`Ω`) across electrical engineering lesson handbooks while preserving exact numerical values and formulas.
