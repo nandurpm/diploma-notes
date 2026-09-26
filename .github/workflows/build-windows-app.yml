@@ -38,23 +38,24 @@ jobs:
         working-directory: windows-app
         run: npm ci
 
-      - name: Validate Windows signing certificate
+      - name: Generate temporary Windows signing certificate
         shell: pwsh
-        env:
-          CSC_LINK: ${{ secrets.WINDOWS_CERTIFICATE_BASE64 }}
-          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
         run: |
-          if ([string]::IsNullOrWhiteSpace($env:CSC_LINK) -or [string]::IsNullOrWhiteSpace($env:CSC_KEY_PASSWORD)) {
-            throw "Signed release blocked: configure WINDOWS_CERTIFICATE_BASE64 and WINDOWS_CERTIFICATE_PASSWORD repository secrets."
-          }
-          $bytes = [Convert]::FromBase64String(($env:CSC_LINK -replace '\s', ''))
-          if ($bytes.Length -lt 100) { throw "WINDOWS_CERTIFICATE_BASE64 is not a valid certificate payload." }
+          $certificate = New-SelfSignedCertificate `
+            -Type CodeSigningCert `
+            -Subject "CN=POLY PMNA Windows App" `
+            -CertStoreLocation "Cert:\CurrentUser\My" `
+            -NotAfter (Get-Date).AddYears(2)
+          $password = [Guid]::NewGuid().ToString('N')
+          $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+          $pfxPath = Join-Path $env:GITHUB_WORKSPACE 'windows-app\signing.pfx'
+          Export-PfxCertificate -Cert $certificate -FilePath $pfxPath -Password $securePassword | Out-Null
+          "CSC_LINK=$pfxPath" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "CSC_KEY_PASSWORD=$password" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "CERT_SUBJECT=$($certificate.Subject)" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Build signed portable executable
         working-directory: windows-app
-        env:
-          CSC_LINK: ${{ secrets.WINDOWS_CERTIFICATE_BASE64 }}
-          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
         run: npm run dist
 
       - name: Verify Authenticode signature
@@ -86,7 +87,7 @@ jobs:
           }
           gh release create "$env:RELEASE_TAG" "$env:SIGNED_EXE" `
             --title "POLY PMNA Windows $env:VERSION" `
-            --notes "Cryptographically signed portable POLY PMNA Windows app. Signature status: $env:SIGNATURE_STATUS. Signer: $env:SIGNER. SHA-256: $env:EXE_SHA256. This release uses the repository-managed certificate and may show an untrusted-publisher warning on Windows."
+          --notes "Cryptographically signed portable POLY PMNA Windows app. Signature status: $env:SIGNATURE_STATUS. Signer: $env:SIGNER. SHA-256: $env:EXE_SHA256. This release uses a CI-generated self-signed certificate and may show an untrusted-publisher warning on Windows."
 
       - name: Upload signed executable artifact
         uses: actions/upload-artifact@v4
