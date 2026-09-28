@@ -2,38 +2,35 @@
   "name": "poly-pmna-windows",
   "version": "1.0.1",
   "description": "Portable Windows app for the POLY PMNA Kerala Polytechnic Study Hub.",
-  "manifest": "v2",
   "private": true,
   "main": "main.cjs",
   "author": "POLY PMNA",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "dist": "release-builds/POLY PMNA-win32-x64/POLY PMNA.exe"
+    "dist": "electron-builder --win portable"
   },
-  "release": {
-    "channel": "stable",
-    "feedUrl": "https://polypmna.dpdns.org/windows-app/latest.yml",
-    "autoUpdaterTarget": "nsis",
-    "notesBase": "https://polypmna.dpdns.org/windows-app/releases/"
-  "windows": {
-    "signAndEditExecutable": "true",
-    "icon": "release-builds/POLY PMNA-win32-x64/resources/app.asar.unpacked/resources/icon.ico"
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^39.8.10",
+    "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "org.diplomanotes.polypa.windows",
+    "appId": "org.diplomanotes.polypmna.windows",
     "productName": "POLY PMNA",
     "artifactName": "POLY_PMNA_Windows_${version}_portable.exe",
     "asar": true,
-    "compression": "minimum",
+    "compression": "maximum",
     "directories": {
       "output": "dist"
     },
     "files": [
-      "main.cjse",
+      "main.cjs",
       "package.json"
+    ],
     "publish": null,
-  },
     "win": {
       "target": [
         {
@@ -41,7 +38,7 @@
           "arch": ["x64"]
         }
       ],
-      "signAndEditExecutable: true
+      "signAndEditExecutable": true
     }
   }
 }
