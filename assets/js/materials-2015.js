@@ -364,6 +364,15 @@
       // DOM re-renders on every keystroke during active typing on mobile devices.
       searchTimer = setTimeout(renderDirectory, 120);
     });
+    search.addEventListener("keydown", event => {
+      if (event.key === "Escape" && search.value) {
+        search.value = "";
+        directory.query = "";
+        clearTimeout(searchTimer);
+        renderDirectory();
+        search.blur();
+      }
+    });
     getDirectoryElements().pdfAvailability?.addEventListener("change", renderDirectory);
     clear?.addEventListener("click", () => {
       directory.department = "";
