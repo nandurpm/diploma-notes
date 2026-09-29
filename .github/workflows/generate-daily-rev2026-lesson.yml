@@ -20,7 +20,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    models: read
     runs-on: ubuntu-latest
     timeout-minutes: 90
     environment: lesson-publication
