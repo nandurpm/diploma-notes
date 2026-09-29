@@ -1,5 +1,5 @@
 /* Purpose: Ask handler - Descriptive comment added for clarity */
-import { cleanText } from "./http.js";
+import { cleanText, isSafeExternalUrl } from "./http.js";
 import { languageInstruction, resolvePreferredLanguage } from "./language-policy.js";
 import { parsePdfIntent } from "./pdf-intent-parser.js";
 import { searchPdfs } from "./pdf-search.js";
@@ -867,6 +867,7 @@ async function askOpenRouter(input, env) {
 async function askFreeApi(input, env) {
   const url = cleanText(env.FREE_API_URL, 800);
   if (!url) throw new Error("FREE_API_URL is not configured.");
+  if (!isSafeExternalUrl(url)) throw new Error("FREE_API_URL is invalid or targets an unpermitted internal network resource.");
   const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
   const headers = { "Content-Type": "application/json" };
   if (cleanText(env.FREE_API_KEY, 800)) headers.Authorization = `Bearer ${env.FREE_API_KEY}`;
@@ -1071,6 +1072,7 @@ async function askExternalProviderStream(input, env, provider) {
   if (provider === "free" || provider === "free-api") {
     const url = cleanText(env.FREE_API_URL, 800);
     if (!url) throw new Error("FREE_API_URL is not configured.");
+    if (!isSafeExternalUrl(url)) throw new Error("FREE_API_URL is invalid or targets an unpermitted internal network resource.");
     const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
     return askOpenAiCompatibleStream(input, env, provider, url, cleanText(env.FREE_API_KEY, 800), model);
   }

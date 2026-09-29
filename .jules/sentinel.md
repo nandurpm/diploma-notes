@@ -14,3 +14,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/comments.js`, raw `fetch()` calls to Google OAuth and Firestore APIs lacked `AbortController` timeout handling, leaving worker threads vulnerable to connection hanging and resource exhaustion when external services stall.
 **Learning:** External API dependencies in edge workers without explicit request timeouts can hang indefinitely until worker runtime limits are reached, degrading performance and increasing DoS risks.
 **Prevention:** Wrap all outgoing worker `fetch` calls with an `AbortController` timeout (e.g. 7000ms) and convert timeout errors into standard 504/503 HTTP responses.
+
+## 2026-04-03 - SSRF Prevention on Dynamic External API Endpoints
+**Vulnerability:** In `workers/ask-poly-ai/src/ask-handler.js`, `FREE_API_URL` environment variables passed to `askFreeApi` / `askOpenAiCompatibleStream` lacked URL scheme and host validation, permitting SSRF attacks against internal network endpoints (e.g., `169.254.169.254`, `127.0.0.1`, private IP ranges).
+**Learning:** User-configured or dynamic API endpoint URLs in edge workers can be leveraged to scan internal ports or query internal/cloud metadata services if not validated prior to fetching.
+**Prevention:** Validate outbound target URLs using an explicit `isSafeExternalUrl` check that enforces `http:`/`https:` schemes and blocks loopback, private, link-local, CGNAT, and cloud metadata IP ranges.
