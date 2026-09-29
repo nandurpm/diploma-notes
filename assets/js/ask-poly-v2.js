@@ -539,7 +539,9 @@
 
   function updateQueueControl() {
     if (!els.queue) return;
-    els.queue.textContent = pendingMessages.length ? `Queued (${pendingMessages.length})` : "Queue empty";
+    const label = pendingMessages.length ? `Queued (${pendingMessages.length})` : "Queue empty";
+    els.queue.textContent = label;
+    els.queue.setAttribute("aria-label", pendingMessages.length ? `${label}. Clear queued messages` : label);
     els.queue.hidden = pendingMessages.length === 0;
   }
 
