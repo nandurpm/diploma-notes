@@ -1,6 +1,6 @@
 {
   "name": "poly-pmna-windows",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Portable Windows app for the POLY PMNA Kerala Polytechnic Study Hub.",
   "private": true,
   "main": "main.cjs",
