@@ -9,8 +9,10 @@ import {
   corsHeaders,
   jsonResponse,
   createRateLimiter,
-  safeLogValue
+  safeLogValue,
+  isSafeExternalUrl
 } from "../src/http.js";
+import { askPoly } from "../src/ask-handler.js";
 import secureIndex from "../src/secure-index.js";
 
 function fakeRequest(headers = {}) {
@@ -216,6 +218,52 @@ test("safeLogValue filters prototype properties and dangerous keys", () => {
 });
  test("safeLogValue redacts OpenAI project keys", () => {
   assert.equal(safeLogValue("failure sk-proj-testkey"), "failure [REDACTED_KEY]");
+});
+
+test("isSafeExternalUrl permits valid public http/https URLs and blocks SSRF targets", () => {
+  assert.equal(isSafeExternalUrl("https://api.openai.com/v1"), true);
+  assert.equal(isSafeExternalUrl("http://external-ai-provider.org/v1/chat"), true);
+
+  // Non-HTTP(S) schemes
+  assert.equal(isSafeExternalUrl("ftp://example.com"), false);
+  assert.equal(isSafeExternalUrl("file:///etc/passwd"), false);
+  assert.equal(isSafeExternalUrl("javascript:alert(1)"), false);
+
+  // Hostnames
+  assert.equal(isSafeExternalUrl("http://localhost"), false);
+  assert.equal(isSafeExternalUrl("http://localhost:8080"), false);
+  assert.equal(isSafeExternalUrl("https://app.local"), false);
+  assert.equal(isSafeExternalUrl("https://service.internal"), false);
+
+  // IPv4 Private & Loopback & Metadata
+  assert.equal(isSafeExternalUrl("http://127.0.0.1"), false);
+  assert.equal(isSafeExternalUrl("http://127.0.0.1:8000"), false);
+  assert.equal(isSafeExternalUrl("http://10.0.0.1"), false);
+  assert.equal(isSafeExternalUrl("http://172.16.0.1"), false);
+  assert.equal(isSafeExternalUrl("http://192.168.1.1"), false);
+  assert.equal(isSafeExternalUrl("http://169.254.169.254/latest/meta-data/"), false);
+  assert.equal(isSafeExternalUrl("http://100.64.0.1"), false);
+
+  // IPv6 Loopback & Private
+  assert.equal(isSafeExternalUrl("http://[::1]"), false);
+  assert.equal(isSafeExternalUrl("http://[fe80::1]"), false);
+  assert.equal(isSafeExternalUrl("http://[fc00::1]"), false);
+});
+
+test("askPoly with FREE_API_URL rejects SSRF targets", async () => {
+  const env = {
+    AI_PROVIDER_ORDER: "free-api",
+    FREE_API_URL: "http://169.254.169.254/latest/meta-data/"
+  };
+  await assert.rejects(
+    async () => {
+      await askPoly({ message: "Hello AI" }, env);
+    },
+    (err) => {
+      assert.match(err.message, /targets an unpermitted internal network resource/i);
+      return true;
+    }
+  );
 });
 
 test('production rejects provider requests when rate-limit binding is missing or unavailable', async () => {

@@ -187,6 +187,41 @@ export function streamResponse(stream, origin, env, metadata = {}) {
   });
 }
 
+/**
+ * SSRF Protection: Checks if an external HTTP/HTTPS URL target is safe to fetch.
+ * Rejects non-HTTP(S) schemes and private/loopback/link-local/metadata IP addresses or hostnames.
+ */
+export function isSafeExternalUrl(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== "string") return false;
+  try {
+    const parsed = new URL(rawUrl);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
+    const hostname = parsed.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+
+    if (hostname === "localhost" || hostname.endsWith(".localhost") || hostname.endsWith(".local") || hostname.endsWith(".internal")) {
+      return false;
+    }
+
+    const ipv4Match = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(hostname);
+    if (ipv4Match) {
+      const [_, a, b, c, d] = ipv4Match.map(Number);
+      if (a > 255 || b > 255 || c > 255 || d > 255) return false;
+      if (a === 0 || a === 127 || a === 10) return false;
+      if (a === 172 && b >= 16 && b <= 31) return false;
+      if (a === 192 && b === 168) return false;
+      if (a === 169 && b === 254) return false;
+      if (a === 100 && b >= 64 && b <= 127) return false;
+    }
+
+    if (hostname === "::1" || hostname === "0:0:0:0:0:0:0:1") return false;
+    if (hostname.startsWith("fe80:") || hostname.startsWith("fc00:") || hostname.startsWith("fd00:")) return false;
+
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 export function createRateLimiter(maximum, windowMs = 10 * 60 * 1000) {
   const buckets = new Map();
   return (request) => {
