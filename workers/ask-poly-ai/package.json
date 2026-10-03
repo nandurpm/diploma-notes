@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "build": "node --check src/secure-index.js && node --check src/index.js",
     "check": "node --check src/index.js",
     "test": "node --test test/*.test.js test/*.test.mjs",
     "coverage": "node --test --experimental-test-coverage test/*.test.js test/*.test.mjs",
