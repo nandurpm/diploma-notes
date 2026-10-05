@@ -36,11 +36,19 @@
   }
 
   if (search) {
+    let searchDebounceTimer = null;
     search.addEventListener('input', () => {
-      const words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
-      filtered = documents.filter(item => words.every(word => `${item.path} ${item.title}`.toLowerCase().includes(word)));
-      page = 0;
-      render();
+      clearTimeout(searchDebounceTimer);
+      // PERFORMANCE OPTIMIZATION: Debounce input filter events (100ms) and leverage pre-computed
+      // _searchText fields on document items to prevent excessive CPU spikes, string allocations, and DOM re-renders on mobile devices.
+      searchDebounceTimer = setTimeout(() => {
+        const words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+        filtered = words.length
+          ? documents.filter(item => words.every(word => item._searchText.includes(word)))
+          : documents;
+        page = 0;
+        render();
+      }, 100);
     });
   }
 
@@ -55,7 +63,14 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data.documents)) throw new Error('Invalid archive index');
-      documents = data.documents.filter(item => typeof item.path === 'string' && typeof item.pdfUrl === 'string' && item.pdfUrl.startsWith(base));
+      // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for document items once
+      // during catalog load to avoid repeated string template allocations and lowercase conversions in search loops.
+      documents = data.documents
+        .filter(item => typeof item.path === 'string' && typeof item.pdfUrl === 'string' && item.pdfUrl.startsWith(base))
+        .map(item => {
+          item._searchText = `${item.path} ${item.title || ''}`.toLowerCase();
+          return item;
+        });
       filtered = documents;
       page = 0;
       if (search) {
