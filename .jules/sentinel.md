@@ -19,3 +19,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/ask-handler.js`, `FREE_API_URL` environment variables passed to `askFreeApi` / `askOpenAiCompatibleStream` lacked URL scheme and host validation, permitting SSRF attacks against internal network endpoints (e.g., `169.254.169.254`, `127.0.0.1`, private IP ranges).
 **Learning:** User-configured or dynamic API endpoint URLs in edge workers can be leveraged to scan internal ports or query internal/cloud metadata services if not validated prior to fetching.
 **Prevention:** Validate outbound target URLs using an explicit `isSafeExternalUrl` check that enforces `http:`/`https:` schemes and blocks loopback, private, link-local, CGNAT, and cloud metadata IP ranges.
+
+## 2026-10-06 - Preventing SSRF Bypass via IPv4-Mapped IPv6 and Unspecified IPv6 Hostnames
+**Vulnerability:** In `workers/ask-poly-ai/src/http.js`, `isSafeExternalUrl` only evaluated IPv4 dotted-decimal patterns, allowing SSRF bypasses via IPv4-mapped IPv6 hostnames (such as `::ffff:127.0.0.1`, `::ffff:7f00:1`, `::ffff:a9fe:a9fe`) and unspecified IPv6 addresses (`::`, `0:0:0:0:0:0:0:0`).
+**Learning:** Standard URL parsers preserve IPv6 bracket notation and IPv4-mapped IPv6 prefix forms without converting them to standard IPv4 dotted quads, bypassing regex checks designed solely for IPv4 decimal strings.
+**Prevention:** Unwrap IPv4-mapped IPv6 hostnames (`::ffff:...`) to IPv4 dotted quads before private CIDR evaluation, and explicitly reject unspecified IPv6 targets (`::`, `0:0:0:0:0:0:0:0`).

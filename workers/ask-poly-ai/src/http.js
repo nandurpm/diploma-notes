@@ -196,10 +196,20 @@ export function isSafeExternalUrl(rawUrl) {
   try {
     const parsed = new URL(rawUrl);
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
-    const hostname = parsed.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+    let hostname = parsed.hostname.toLowerCase().replace(/^\[|\]$/g, "");
 
     if (hostname === "localhost" || hostname.endsWith(".localhost") || hostname.endsWith(".local") || hostname.endsWith(".internal")) {
       return false;
+    }
+
+    if (hostname.startsWith("::ffff:")) {
+      const mapped = hostname.slice(7);
+      if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(mapped)) {
+        hostname = mapped;
+      } else if (/^[0-9a-f]{1,4}:[0-9a-f]{1,4}$/.test(mapped)) {
+        const [h1, h2] = mapped.split(":").map((x) => parseInt(x, 16));
+        hostname = `${(h1 >> 8) & 255}.${h1 & 255}.${(h2 >> 8) & 255}.${h2 & 255}`;
+      }
     }
 
     const ipv4Match = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(hostname);
@@ -213,7 +223,7 @@ export function isSafeExternalUrl(rawUrl) {
       if (a === 100 && b >= 64 && b <= 127) return false;
     }
 
-    if (hostname === "::1" || hostname === "0:0:0:0:0:0:0:1") return false;
+    if (hostname === "::" || hostname === "::1" || /^0*(:0*)*(:1)?$/.test(hostname)) return false;
     if (hostname.startsWith("fe80:") || hostname.startsWith("fc00:") || hostname.startsWith("fd00:")) return false;
 
     return true;
