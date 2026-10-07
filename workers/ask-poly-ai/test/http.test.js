@@ -244,10 +244,17 @@ test("isSafeExternalUrl permits valid public http/https URLs and blocks SSRF tar
   assert.equal(isSafeExternalUrl("http://169.254.169.254/latest/meta-data/"), false);
   assert.equal(isSafeExternalUrl("http://100.64.0.1"), false);
 
-  // IPv6 Loopback & Private
+  // IPv6 Loopback & Private & IPv4-mapped IPv6
   assert.equal(isSafeExternalUrl("http://[::1]"), false);
+  assert.equal(isSafeExternalUrl("http://[::]"), false);
+  assert.equal(isSafeExternalUrl("http://[0:0:0:0:0:0:0:0]"), false);
   assert.equal(isSafeExternalUrl("http://[fe80::1]"), false);
   assert.equal(isSafeExternalUrl("http://[fc00::1]"), false);
+  assert.equal(isSafeExternalUrl("http://[::ffff:127.0.0.1]"), false);
+  assert.equal(isSafeExternalUrl("http://[::ffff:7f00:1]"), false);
+  assert.equal(isSafeExternalUrl("http://[::ffff:a9fe:a9fe]"), false);
+  assert.equal(isSafeExternalUrl("http://[::ffff:10.0.0.1]"), false);
+  assert.equal(isSafeExternalUrl("http://[::ffff:192.168.1.1]"), false);
 });
 
 test("askPoly with FREE_API_URL rejects SSRF targets", async () => {
