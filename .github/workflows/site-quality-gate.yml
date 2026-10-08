@@ -52,6 +52,9 @@ jobs:
         run: python tools/full_site_static_audit.py
       - name: Test frontend calculator regressions
         run: node --test tests/frontend/*.test.cjs
+      - name: Check deployment secret boundaries and HTTP header policy
+        run: python -m unittest discover -s tests/security -p 'test_*.py'
+
       - name: Test Worker including adaptive context
         run: npm test --prefix workers/ask-poly-ai
       - name: Validate critical JavaScript

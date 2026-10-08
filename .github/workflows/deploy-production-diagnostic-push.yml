@@ -17,12 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DOMAIN: diploma-notes.pages.dev
       CLOUDFLARE_PAGES_PROJECT: diploma-notes
       DEPLOY_DIAGNOSTIC_REPORT: /tmp/deploy-diagnostic.md
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -39,11 +36,16 @@ jobs:
       - name: Run safe production deployment diagnostic
         id: diagnostic
         continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python tools/deploy_production_diagnostic.py
 
       - name: Publish result as GitHub issue
         if: ${{ !cancelled() && steps.diagnostic.outcome != 'cancelled' }}
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           status="failed"
           [ "${{ steps.diagnostic.outcome }}" = "success" ] && status="passed"
