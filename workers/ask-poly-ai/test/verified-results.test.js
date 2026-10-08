@@ -73,3 +73,28 @@ test("authenticated quiz saves the server score with the authenticated owner", a
     globalThis.fetch = original;
   }
 });
+
+test("duplicate authenticated quiz submissions are not overwritten", async () => {
+  const questions = selectedQuestions("1001", todayIST(), "first");
+  const answers = Object.fromEntries(questions.map((q) => [q.id, q.correctAnswer]));
+  const request = new Request("https://example.test/api/grade-daily-quiz", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: "Bearer header.payload.signature" },
+    body: JSON.stringify({ subject: "1001", answers })
+  });
+  const original = globalThis.fetch;
+  globalThis.fetch = async (url) => String(url).includes("/auth/v1/user")
+    ? new Response(JSON.stringify({ id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" }), { status: 200 })
+    : new Response(JSON.stringify({ code: "23505" }), { status: 409 });
+  try {
+    const response = await handleDailyQuizGrading(request, {
+      SUPABASE_URL: "https://example.supabase.co",
+      SUPABASE_ANON_KEY: "public-test-key",
+      SUPABASE_SERVICE_ROLE_KEY: "server-test-key"
+    }, "");
+    assert.equal(response.status, 409);
+    assert.match((await response.json()).error, /already saved/i);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
