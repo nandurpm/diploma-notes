@@ -1,6 +1,6 @@
 /* Public offline resources only; never cache APIs, account pages or submissions. */
 const CACHE_PREFIX = 'poly-pmna-';
-const CACHE_NAME = `${CACHE_PREFIX}20260924-v2`;
+const CACHE_NAME = `${CACHE_PREFIX}20261008-verified-results-v1`;
 const ASSETS_TO_CACHE = ['/offline.html', '/assets/css/style.css', '/assets/js/main.js'];
 const PRIVATE_PATH = /^\/(?:admin(?:\/|$)|api(?:\/|$)|(?:ask-poly(?:-v2)?|daily-quiz|mock-exam|login|register|profile|dashboard|reset-password|auth|account)(?:[/.]|$))/i;
 
@@ -32,7 +32,8 @@ self.addEventListener('fetch', event => {
   const asset = /^\/assets\/(?:css|js|vendor|media)\//.test(url.pathname) && /\.(?:css|js|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(url.pathname)
     && [...url.searchParams.keys()].every(key => key === 'v');
   if (!navigation && !asset) return;
-  const key = asset ? url.pathname : request;
+  // Keep the asset version query in its cache key to avoid stale quiz code.
+  const key = request;
   const operation = (async () => {
     const cache = await caches.open(CACHE_NAME);
     const cached = await cache.match(key);
