@@ -23,19 +23,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_AI_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
-      OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
-      NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
-      OPENROUTER_API_KEY_VALUE: ${{ secrets.OPENROUTER_API_KEY }}
-      GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
-      FREE_API_KEY_VALUE: ${{ secrets.FREE_API_KEY }}
-      SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
-      SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-      FIREBASE_SERVICE_ACCOUNT_JSON_VALUE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -98,11 +85,30 @@ jobs:
 
       - name: Require deployment and verified-storage secrets
         shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_AI_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_AI_API_TOKEN }}
+          OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
+          NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY_VALUE: ${{ secrets.OPENROUTER_API_KEY }}
+          GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
+          FREE_API_KEY_VALUE: ${{ secrets.FREE_API_KEY }}
+          SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          FIREBASE_SERVICE_ACCOUNT_JSON_VALUE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
           missing=()
           [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_API_TOKEN)
           [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] || missing+=(CLOUDFLARE_ACCOUNT_ID)
-          [ -n "$CLOUDFLARE_AI_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_AI_API_TOKEN)
+          # Workers AI [ai] binding is available without a REST API token.
+          # A dedicated REST credential is optional but must never be the
+          # deployment credential.
+          if [ -n "$CLOUDFLARE_AI_API_TOKEN_VALUE" ] && [ "$CLOUDFLARE_AI_API_TOKEN_VALUE" = "$CLOUDFLARE_API_TOKEN_VALUE" ]; then
+            echo "CLOUDFLARE_AI_API_TOKEN must be distinct from CLOUDFLARE_API_TOKEN." >&2
+            exit 1
+          fi
           if [ "${#missing[@]}" -gt 0 ]; then
             printf 'Missing required repository secrets: %s\n' "${missing[*]}"
             exit 1
@@ -129,10 +135,8 @@ jobs:
               raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is missing valid fields: {', '.join(missing or ['private_key marker'])}")
           print("Firebase service-account JSON validated without printing secret contents.")
           PY
-          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$OPENROUTER_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$FREE_API_KEY_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
-            echo "At least one AI provider credential is required."
-            exit 1
-          fi
+          # The configured Workers AI binding provides a non-secret fallback
+          # if no external provider credentials are configured.
 
       - name: Install Wrangler
         run: npm install -g wrangler@4.135.0
@@ -151,7 +155,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_AI_API_TOKEN }}
           CLOUDFLARE_AI_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
@@ -182,6 +186,13 @@ jobs:
               value = os.environ.get(key, "")
               if value:
                   secrets[key] = value
+          # Null deletes any previously deployed REST token (including an
+          # accidentally uploaded deployment token); omission would preserve it.
+          # When dedicated REST AI credentials are not configured, [ai] binding
+          # remains available without these two secrets.
+          if not os.environ.get("CLOUDFLARE_AI_API_TOKEN", ""):
+              secrets["CLOUDFLARE_AI_API_TOKEN"] = None
+              secrets["CLOUDFLARE_AI_ACCOUNT_ID"] = None
           if os.environ.get("GOOGLE_AI_STUDIO", ""):
               secrets["GEMINI_API_KEY"] = os.environ["GOOGLE_AI_STUDIO"]
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
@@ -213,6 +224,8 @@ jobs:
 
       - name: Smoke-test live Worker and protected mock route
         shell: bash
+        env:
+          VERIFIED_STORAGE_SECRETS_SUPPLIED: ${{ secrets.SUPABASE_URL != '' && secrets.SUPABASE_ANON_KEY != '' && secrets.SUPABASE_SERVICE_ROLE_KEY != '' }}
         run: |
           python - <<'PY'
           import json
@@ -242,9 +255,8 @@ jobs:
                   # standard Ask POLY deployment may run without verified-result
                   # storage. Require the feature only when this repository supplied
                   # all three credentials in the current deployment.
-                  storage_credentials_supplied = all(
-                      __import__("os").environ.get(name)
-                      for name in ("SUPABASE_URL_VALUE", "SUPABASE_ANON_KEY_VALUE", "SUPABASE_SERVICE_ROLE_KEY_VALUE")
+                  storage_credentials_supplied = (
+                      __import__("os").environ.get("VERIFIED_STORAGE_SECRETS_SUPPLIED", "false") == "true"
                   )
                   if storage_credentials_supplied and not health.get("verifiedResultStorage"):
                       raise RuntimeError(f"Verified result storage is disabled despite supplied Supabase credentials: {health}")
