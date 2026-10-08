@@ -1,24 +1,28 @@
 # SEC-4: Verified Results Rollout
 
 This change separates **public practice grading** from **authenticated,
-server-authoritative result persistence**. Do not apply the SQL migration before
-the Worker and static quiz client are deployed and verified together.
+server-authoritative result persistence**. Apply the compatibility migration
+first; do not apply the final write-revocation migration until the Worker and
+updated static quiz client are deployed and verified together.
 
 ## Order of operations
 
 1. Run `npm test` from `workers/ask-poly-ai` and verify the updated daily quiz
    frontend in a browser with a test student account.
-2. Deploy the Worker code first. Confirm `/api/grade-daily-quiz` accepts a JWT
+2. Apply `supabase/migrations/20261008000000_prepare_server_graded_quiz.sql`
+   to accept `worker-graded` scores and current subject codes while retaining
+   existing client writes. Verify both updated constraints in staging.
+3. Deploy the Worker code next. Confirm `/api/grade-daily-quiz` accepts a JWT
    and returns `savedOnline: true` with a server-calculated result. Test a guest
    submission separately: it must return `savedOnline: false`.
-3. Deploy the static site including `quiz-results.js`, `quiz-engine.js`,
+4. Deploy the static site including `quiz-results.js`, `quiz-engine.js`,
    `daily-quiz.html` (new script version), and `sw.js` (version-aware caching).
    Verify with DevTools that refreshed users run the new quiz scripts.
-4. Apply `supabase/migrations/20261008000000_server_only_verified_results.sql`
+5. Apply `supabase/migrations/20261008010000_server_only_verified_results.sql`
    through the approved Supabase migration process. This prevents **all**
    authenticated direct writes, including to the earlier
    `daily_results_insert_own_once` policy found only in the live database.
-5. Check a real authenticated first submission, duplicate submission,
+6. Check a real authenticated first submission, duplicate submission,
    history retrieval, guest grading, and mock-exam result saving.
 
 ## Read-only post-migration SQL verification
