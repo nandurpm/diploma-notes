@@ -44,7 +44,7 @@ test("authenticated quiz saves the server score with the authenticated owner", a
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "public-test-key",
-    SUPABASE_SERVICE_ROLE_KEY: "server-test-key"
+    SUPABASE_SERVICE_ROLE_KEY: `server-test-key`
   };
   const original = globalThis.fetch;
   let stored;
@@ -90,7 +90,7 @@ test("duplicate authenticated quiz submissions are not overwritten", async () =>
     const response = await handleDailyQuizGrading(request, {
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "public-test-key",
-      SUPABASE_SERVICE_ROLE_KEY: "server-test-key"
+      SUPABASE_SERVICE_ROLE_KEY: `server-test-key`
     }, "");
     assert.equal(response.status, 409);
     assert.match((await response.json()).error, /already saved/i);
