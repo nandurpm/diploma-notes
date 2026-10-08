@@ -1,22 +1,23 @@
 # Secure Deployment and Security Monitoring
 
-This project is a static Cloudflare Pages site with a Cloudflare Worker API and Supabase Auth/PostgREST. The browser may contain only the Supabase project URL and publishable key. All service credentials, AI provider keys, database service-role keys, SMTP credentials, signing secrets, and deployment tokens must remain in GitHub Actions or Cloudflare secret storage.
+This project currently serves its production static site from GitHub Pages, with an optional Cloudflare Pages mirror, a Cloudflare Worker API, and Supabase Auth/PostgREST. The browser may contain only the Supabase project URL and publishable key. All service credentials, AI provider keys, database service-role keys, SMTP credentials, signing secrets, and deployment tokens must remain in GitHub Actions or Cloudflare secret storage.
 
 ## HTTPS enforcement
 
-Production domains must use Cloudflare SSL/TLS mode **Full (strict)**, with **Always Use HTTPS** enabled and HTTP/2 or HTTP/3 enabled as appropriate. The repository now includes explicit HTTP-to-HTTPS redirect rules, a two-year HSTS header with `includeSubDomains; preload`, `upgrade-insecure-requests` in the content security policy, and a scheduled certificate hostname/expiry check.
+Production domains must use Cloudflare SSL/TLS mode **Full (strict)**, with **Always Use HTTPS** enabled and HTTP/2 or HTTP/3 enabled as appropriate. The repository includes Cloudflare Pages `_headers` rules for HSTS, CSP, and other browser protections. **These rules are not applied by GitHub Pages**, the current production origin. SEC-1 is not resolved until the canonical hostname is served by Cloudflare Pages (or another header-capable proxy) and the live response passes `tools/verify_security_headers.py`. See [deployment remediation and DNS cutover](SEC1-SEC2-SEC3-ROLLOUT.md).
 
 Do not submit the production domain to the HSTS preload list until every subdomain is permanently HTTPS-capable. Localhost exceptions are limited to development and are not included in the production origin allowlist used by the deployed Worker.
 
 ## Secret storage
 
-Use GitHub Actions repository or environment secrets for deployment inputs and Cloudflare Worker secrets for runtime credentials. The Worker deployment workflow creates a temporary secret bundle with `umask 077`, verifies mode `0600`, uploads it with Wrangler, and deletes it with a shell trap on both success and failure. Never echo secret values, write them to workflow artifacts, commit generated bundles, or place them in `wrangler.toml`.
+Use GitHub Actions repository or environment secrets for deployment inputs and Cloudflare Worker secrets for runtime credentials. The Worker deployment workflow scopes secrets to the specific steps that use them; dependency installation, audit, and test steps receive no production secrets. The temporary secret bundle uses `umask 077`, uploads via pinned Wrangler, and is deleted with a shell trap. Never echo secret values, write them to workflow artifacts, commit generated bundles, or place them in `wrangler.toml`.
 
 Recommended secret separation is shown below:
 
 | Secret | Store in | Browser-visible? |
 |---|---|---:|
-| `CLOUDFLARE_API_TOKEN` | GitHub Actions secret | No |
+| `CLOUDFLARE_API_TOKEN` | GitHub Actions secret, deployment steps only | No |
+| `CLOUDFLARE_AI_API_TOKEN` | Optional distinct, minimally scoped Workers AI REST secret | No |
 | `CLOUDFLARE_ACCOUNT_ID` | GitHub Actions secret | No |
 | AI provider credentials | Cloudflare Worker secrets | No |
 | `SUPABASE_SERVICE_ROLE_KEY` | Cloudflare Worker secret only | No |
@@ -51,7 +52,7 @@ The first command is for live incident investigation and should be run only by a
 
 ## Release gates
 
-Before release, verify that the site responds with HTTPS and HSTS, HTTP redirects to HTTPS, the Worker rejects non-HTTPS production requests, no privileged secret names or values occur in frontend assets, RLS policies are applied, Worker secrets are present, and structured security events appear in the logging backend. The application should fail closed when required runtime credentials are absent instead of falling back to public or client-provided credentials.
+Before release, verify that the site responds with HTTPS and that **live** CSP and HSTS are present (not merely in `_headers`), HTTP redirects to HTTPS, the Worker rejects non-HTTPS production requests, no privileged secret names or values occur in frontend assets, RLS policies are applied, Worker secrets are present, and structured security events appear in the logging backend. The application should fail closed when required runtime credentials are absent instead of falling back to public or client-provided credentials.
 
 ## Abuse protection and automated traffic
 
