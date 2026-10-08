@@ -125,3 +125,62 @@ export async function storeMockExamResult(user, body, result, env) {
   }
   return { serverSaved: true, savedOnline: true };
 }
+
+/**
+ * Persist one trusted, server-graded daily quiz submission.
+ * Do not accept a user id, score, date, or grading metadata from the client.
+ * The unique (user_id, quiz_date, subject_code) constraint prevents retries
+ * from overwriting the first accepted result.
+ */
+export async function storeDailyQuizResult(user, graded, answers, env) {
+  const ownerId = clean(user?.id, 80);
+  if (!UUID_REGEX.test(ownerId)) {
+    throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+  }
+  if (!canStoreVerifiedResults(env)) {
+    throw Object.assign(new Error("Verified result storage is not configured."), { status: 503 });
+  }
+  const now = new Date().toISOString();
+  const payload = {
+    user_id: ownerId,
+    quiz_date: graded.quizDate,
+    subject_code: graded.subjectCode,
+    score: graded.score,
+    best_score: graded.score,
+    total_questions: graded.totalQuestions,
+    retry_used: false,
+    completed: true,
+    answers,
+    // The deployed schema stores numeric IDs, while bank IDs are strings.
+    question_ids: graded.review.map((_, index) => index + 1),
+    question_keys: graded.review.map((item) => `${graded.subjectCode}:${item.id}`),
+    attempt_count: 1,
+    first_score: graded.score,
+    retry_score: null,
+    submitted_at: now,
+    updated_at: now,
+    evaluation_source: "worker-graded"
+  };
+  const serviceKey = clean(env.SUPABASE_SERVICE_ROLE_KEY, 4096);
+  const response = await fetchWithTimeout(`${supabaseBase(env)}/rest/v1/daily_quiz_results`, {
+    method: "POST",
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      "Content-Type": "application/json",
+      Prefer: "return=representation"
+    },
+    body: JSON.stringify(payload)
+  });
+  if (response.status === 409) {
+    throw Object.assign(new Error("A result is already saved for this subject today."), { status: 409 });
+  }
+  if (!response.ok) {
+    throw Object.assign(new Error("Secure quiz result storage is temporarily unavailable."), { status: 502 });
+  }
+  const rows = await response.json().catch(() => []);
+  if (!Array.isArray(rows) || rows.length !== 1) {
+    throw Object.assign(new Error("Saved result confirmation was unavailable."), { status: 502 });
+  }
+  return rows[0];
+}
