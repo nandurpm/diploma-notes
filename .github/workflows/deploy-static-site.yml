@@ -67,6 +67,7 @@ jobs:
           grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
           test -f _site/assets/js/about-experience.js
           test -f _site/assets/css/about-experience.css
+          python tools/verify_security_headers.py --headers-file _site/_headers
 
       - name: Install pinned Wrangler without production credentials
         if: steps.credentials.outputs.mirror_available == 'true'
@@ -99,6 +100,11 @@ jobs:
             --branch=main \
             --commit-hash=${{ github.sha }} \
             --commit-message="Deploy ${{ github.sha }}"
+      - name: Verify Cloudflare Pages mirror serves configured security headers
+        if: steps.cloudflare_mirror.outcome == 'success'
+        continue-on-error: true
+        run: python tools/verify_security_headers.py --url https://diploma-notes.pages.dev/
+
       - name: Wait for production GitHub Pages deployment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -176,6 +182,19 @@ jobs:
                       time.sleep(8)
           raise SystemExit(last)
           PY
+
+      - name: Inspect live production security headers (SEC-1)
+        # GitHub Pages does not apply Cloudflare Pages _headers rules.
+        # Until DNS is cut over, report the vulnerability without preventing
+        # unrelated GitHub Pages content deployments.
+        env:
+          ENFORCE_PRODUCTION_SECURITY_HEADERS: ${{ vars.ENFORCE_PRODUCTION_SECURITY_HEADERS || 'false' }}
+        run: |
+          if [ "$ENFORCE_PRODUCTION_SECURITY_HEADERS" = 'true' ]; then
+            python tools/verify_security_headers.py --url "https://$PRODUCTION_DOMAIN/"
+          else
+            python tools/verify_security_headers.py --url "https://$PRODUCTION_DOMAIN/" --warn-only
+          fi
 
       - name: Report successful owner-triggered deployment
         if: success() && github.event_name == 'issues'
