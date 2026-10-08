@@ -1,5 +1,6 @@
 import { DAILY_QUIZ_BANK } from './daily-quiz-bank.js';
 import { isPlainObject, jsonResponse, rejectUnknownKeys, strictJsonObject, strictText } from './http.js';
+import { authenticateStudent, storeDailyQuizResult } from './result-store.js';
 
 const QUESTIONS_PER_DAY = 10;
 const MAX_BODY_BYTES = 40000;
@@ -104,14 +105,36 @@ export async function handleDailyQuizGrading(request, env, origin) {
     };
   });
 
-    return jsonResponse({
+    const graded = {
       quizDate: today,
       subjectCode: subject,
       mode,
       score,
       totalQuestions: QUESTIONS_PER_DAY,
       review
-    }, 200, origin, env);
+    };
+
+    // Anonymous practice remains available, but never creates a verified row.
+    if (!request.headers.get('Authorization')) {
+      return jsonResponse({ ...graded, savedOnline: false }, 200, origin, env);
+    }
+    // The current authenticated daily quiz allows one submitted attempt.
+    if (mode !== 'first') {
+      return jsonResponse({ error: 'Authenticated retries are not supported.' }, 400, origin, env);
+    }
+    try {
+      const student = await authenticateStudent(request, env);
+      const row = await storeDailyQuizResult(student, graded, answers, env);
+      return jsonResponse({ ...graded, savedOnline: true, row }, 200, origin, env);
+    } catch (error) {
+      const status = Number(error?.status) || 502;
+      return jsonResponse(
+        { error: status === 409 ? 'A result is already saved for this subject today.' : status === 401 ? 'Your login session is invalid or expired.' : 'Secure quiz result storage is temporarily unavailable.' },
+        status,
+        origin,
+        env
+      );
+    }
   } catch (error) {
     return jsonResponse({ error: /invalid|must be|contains/i.test(String(error?.message || '')) ? 'The request contains invalid input.' : 'The quiz request could not be processed.' }, 400, origin, env);
   }
