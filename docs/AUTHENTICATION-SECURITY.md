@@ -20,7 +20,7 @@ These settings must be verified in the Supabase dashboard for the project used b
 | Password recovery | Configure recovery links to `https://polypmna.dpdns.org/reset-password.html` and use a short recovery-token lifetime, such as 30–60 minutes | A used or expired recovery link cannot update a password. |
 | Login rate limiting | Configure Auth rate limits and, where available, CAPTCHA or abuse protection for password sign-in and signup | Repeated failures receive throttled responses at the service boundary, even when JavaScript is bypassed. |
 | Email abuse protection | Use production SMTP with sender/domain controls and rate limits | Verification and reset emails are not dependent on permissive test-email limits. |
-| Database authorization | Enable RLS on `profiles`, `daily_quiz_results`, and every authenticated result table; scope policies to `auth.uid()` | A user cannot read or modify another user’s records by changing a client-side ID. |
+| Database authorization | Enable RLS on `profiles` and result tables. Keep student-owned SELECT on results, but allow verified result writes only through the server using `service_role`. | A student cannot forge their own or another student's verified score using PostgREST. |
 | Secret handling | Store service-role and server-only credentials only in Cloudflare Worker/Supabase secrets | Repository search and deployed HTML contain no privileged key. |
 
 ## Deployment checks
@@ -42,8 +42,10 @@ The static frontend cannot provide authoritative password hashing, email-confirm
 
 ## Resource ownership and IDOR prevention
 
-All authenticated resource queries must enforce ownership twice: the application query should scope the result to the authenticated user, and the database must enforce the same invariant with RLS. The client’s `user_id` filters are therefore treated as query narrowing, not authorization. The migration `supabase/migrations/20260820_ownership_rls.sql` enables RLS and adds owner-only select, insert, update, and delete policies for `profiles`, `daily_quiz_results`, and `sample_paper_attempts`.
+All authenticated resource queries must enforce ownership twice: the application query should scope the result to the authenticated user, and the database must enforce the same invariant with RLS. The client’s `user_id` filters are therefore treated as query narrowing, not authorization. The original ownership migration grants owner-only operations, but the later `20261008000000_server_only_verified_results.sql` migration removes student INSERT, UPDATE and DELETE rights on `daily_quiz_results` and `sample_paper_attempts`. Result history remains readable only by its owner; the Worker authenticates the student and grades and saves authoritative scores with its server-side service-role credential.
 
 The verified mock-exam worker derives `user_id` from the Supabase `/auth/v1/user` response associated with the bearer token. It ignores any `body.user_id` value and rejects a missing or malformed authenticated owner UUID before writing. The client history queries also constrain results by the current authenticated user ID, subject code, and paper code; RLS remains the authoritative cross-account boundary.
 
 Apply and verify the migration against the production Supabase project before deployment. A policy migration that exists only in the repository does not protect a live database until it has been applied successfully.
+
+For migration sequence and verification, see [SEC-4 verified result rollout](SEC4-VERIFIED-RESULTS-ROLLOUT.md).
