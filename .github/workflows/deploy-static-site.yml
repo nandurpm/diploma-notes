@@ -22,11 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_PAGES_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DOMAIN: polypmna.dpdns.org
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -39,14 +35,25 @@ jobs:
 
       - name: Report deployment start
         if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: 'gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
 
       - name: Validate deployment credentials
+        id: credentials
+        env:
+          CLOUDFLARE_PAGES_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          if [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && { [ -n "$CLOUDFLARE_PAGES_TOKEN" ] || [ -n "$CLOUDFLARE_API_TOKEN" ]; }; then
+            echo "mirror_available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "mirror_available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Cloudflare Pages mirror credentials are missing; GitHub Pages stays the active production host."
+          fi
 
       - name: Generate and validate deployable source
         run: |
@@ -60,6 +67,10 @@ jobs:
           grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
           test -f _site/assets/js/about-experience.js
           test -f _site/assets/css/about-experience.css
+
+      - name: Install pinned Wrangler without production credentials
+        if: steps.credentials.outputs.mirror_available == 'true'
+        run: npm install --global --ignore-scripts wrangler@4.135.0
 
       - name: Set Cloudflare Pages project
         id: project
@@ -76,18 +87,21 @@ jobs:
       # CLOUDFLARE_PAGES_TOKEN; the existing account token is retained only as
       # a compatibility fallback for the already-working mirror deployment.
       - name: Deploy repository main to Cloudflare Pages mirror
-        if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' || env.CLOUDFLARE_API_TOKEN != '' }}
+        id: cloudflare_mirror
+        if: steps.credentials.outputs.mirror_available == 'true'
         continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          npx -y wrangler@4.135.0 pages deploy _site \
+          wrangler pages deploy _site \
             --project-name=${{ steps.project.outputs.name }} \
             --branch=main \
             --commit-hash=${{ github.sha }} \
-            --commit-message="Deploy ${{ github.sha }}" || echo "::warning::Cloudflare Pages mirror deploy failed; production on GitHub Pages is unaffected."
+            --commit-message="Deploy ${{ github.sha }}"
       - name: Wait for production GitHub Pages deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python - <<'PY'
           # Production is served by GitHub Pages. Wait until its deployment for
@@ -165,6 +179,8 @@ jobs:
 
       - name: Report successful owner-triggered deployment
         if: success() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment and live About-page verification passed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
@@ -173,6 +189,8 @@ jobs:
 
       - name: Report failed owner-triggered deployment
         if: failure() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: 'gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
