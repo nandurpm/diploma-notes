@@ -98,3 +98,15 @@ test("duplicate authenticated quiz submissions are not overwritten", async () =>
     globalThis.fetch = original;
   }
 });
+
+test("tampered score field is never accepted as a quiz request", async () => {
+  const questions = selectedQuestions("1001", todayIST(), "first");
+  const answers = Object.fromEntries(questions.map((q) => [q.id, q.correctAnswer]));
+  const request = new Request("https://example.test/api/grade-daily-quiz", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject: "1001", answers, score: 999 })
+  });
+  const response = await handleDailyQuizGrading(request, {}, "");
+  assert.equal(response.status, 400);
+});
