@@ -1,5 +1,10 @@
 # Repository Guardian Journal
 
+## 2026-10-08 - Misplaced Workflow Definitions in Data Directories and Stale Path Triggers
+**Finding:** An orphaned copy of `build-ask-poly-knowledge.yml` was sitting directly in `assets/data/`, alongside a non-existent path trigger `assets/data/ask-poly-extra-facts.json` in `.github/workflows/build-ask-poly-knowledge.yml`.
+**Learning:** Workflows placed outside `.github/workflows/` are ignored by GitHub Actions and act as unreferenced repository noise. Similarly, stale path triggers in `.github/workflows/` referencing deleted or non-existent files create confusion when auditing workflow triggers.
+**Prevention:** Regularly verify workflow files reside strictly in `.github/workflows/` and confirm all files listed under `paths:` triggers exist in the repository.
+
 ## 2026-10-01 - Absolute Paths and Unprotected Top-Level Execution in Tools
 **Finding:** `tools/test_highlight.py` failed during test discovery (`python -m unittest discover -s tools`) because it referenced a hardcoded `/home/ubuntu/...` path and ran script code at the module level rather than inside an `if __name__ == "__main__":` block.
 **Learning:** Utility scripts placed in testable directories like `tools/` will break automated test discovery if top-level code executes side-effects on module import or uses hardcoded environment paths.
