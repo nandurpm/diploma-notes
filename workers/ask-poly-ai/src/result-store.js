@@ -150,7 +150,8 @@ export async function storeDailyQuizResult(user, graded, answers, env) {
     total_questions: graded.totalQuestions,
     retry_used: false,
     completed: true,
-    answers,
+    // Keep the server-computed answer review for authenticated history views.
+    answers: { ...answers, __verified_review: graded.review },
     // The deployed schema stores numeric IDs, while bank IDs are strings.
     question_ids: graded.review.map((_, index) => index + 1),
     question_keys: graded.review.map((item) => `${graded.subjectCode}:${item.id}`),
