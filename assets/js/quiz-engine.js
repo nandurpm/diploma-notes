@@ -186,19 +186,21 @@
     hideQuizControls();
 
     const answers = row?.answers || {};
-    let score = 0;
+    const serverReview = new Map(
+      (Array.isArray(answers.__verified_review) ? answers.__verified_review : [])
+        .map((item) => [String(item.id), item])
+    );
     const html = current.map((q, index) => {
-      const right = q.options.find((option) => option.ok)?.text || '';
+      const right = serverReview.get(String(q.id))?.correctAnswer || '';
       const userAnswer = answers[q.id] || 'Not answered';
-      const ok = userAnswer === right;
-      if (ok) score += 1;
-      return `<div class="question ${ok ? 'correct' : 'wrong'}" id="q${esc(q.id)}">
+      const ok = right ? userAnswer === right : null;
+      return `<div class="question ${ok === null ? '' : ok ? 'correct' : 'wrong'}" id="q${esc(q.id)}">
         <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div><div><strong>Correct Answer:</strong> ${esc(right)}</div><div><strong>Status:</strong> ${ok ? 'Correct' : 'Wrong'}</div></div>
+        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div><div><strong>Correct Answer:</strong> ${esc(right || 'Not available for older results')}</div><div><strong>Status:</strong> ${ok === null ? 'Not available' : ok ? 'Correct' : 'Wrong'}</div></div>
       </div>`;
     }).join('');
 
-    const finalScore = Number(row?.score ?? row?.best_score ?? score);
+    const finalScore = Number(row?.score ?? row?.best_score ?? 0);
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Already submitted today. Your answer is locked and cannot be edited.</p><p class="status ok">Saved result: ${finalScore}/10</p>${html}`;
     $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online. Editing is disabled for today.';
     $('quizMsg').className = 'status ok';
@@ -279,12 +281,7 @@
       }
       const selected = q.options[Number(chosen.value)];
       answers[q.id] = selected.text;
-      if (selected.ok) {
-        score += 1;
-        card?.classList.add('correct');
-      } else {
-        card?.classList.add('wrong');
-      }
+      // Score and correctness are determined by the Worker, not browser data.
     });
 
     if (missing.length) {
@@ -322,7 +319,8 @@
     }
 
     renderReadOnly(subject, saved.row || row, R.dateKey());
-    $('quizMsg').textContent = `Score: ${score}/10. ${scoreFeedback(score)}`;
+    const confirmedScore = Number(saved.row?.score ?? 0);
+    $('quizMsg').textContent = `Score: ${confirmedScore}/10. ${scoreFeedback(confirmedScore)}`;
     submissionInFlight = false;
     stats();
     recent();

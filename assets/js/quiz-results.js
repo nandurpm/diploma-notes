@@ -88,66 +88,65 @@ window.PolyQuizResults = (() => {
   async function save(row) {
     const a = auth();
     const db = a?.getClient?.();
-
-    if (a?.guest || !a?.user || !db) {
-      saveLocal(row);
-      return { local: true, remote: false, guest: true, row };
-    }
-
+    const guest = Boolean(a?.guest || !a?.user || !db);
     try {
-      const existing = await db
-        .from('daily_quiz_results')
-        .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
-        .eq('user_id', a.user.id)
-        .eq('quiz_date', row.quiz_date)
-        .eq('subject_code', row.subject_code)
-        .maybeSingle();
-
-      if (existing.error) throw existing.error;
-      if (existing.data) {
-        saveLocal(existing.data);
-        return { local: true, remote: true, alreadySubmitted: true, row: existing.data };
-      }
-
-      const payload = {
-        user_id: a.user.id,
-        quiz_date: row.quiz_date,
-        subject_code: row.subject_code,
-        score: row.score,
-        best_score: row.score,
-        total_questions: row.total_questions || 10,
-        retry_used: false,
-        completed: true,
-        answers: row.answers,
-        question_ids: numericQuestionIds(row.question_ids),
-        question_keys: row.question_keys,
-        attempt_count: 1,
-        first_score: row.score,
-        retry_score: null,
-        submitted_at: row.submitted_at,
-        updated_at: new Date().toISOString()
-      };
-
-      const inserted = await db
-        .from('daily_quiz_results')
-        .insert(payload)
-        .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
-        .single();
-
-      if (inserted.error) {
-        if (inserted.error.code === '23505') {
-          const latest = await today(row.subject_code);
-          return { local: true, remote: true, alreadySubmitted: true, row: latest || row };
+      if (!guest) {
+        const existing = await db.from('daily_quiz_results')
+          .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
+          .eq('user_id', a.user.id)
+          .eq('quiz_date', row.quiz_date)
+          .eq('subject_code', row.subject_code)
+          .maybeSingle();
+        if (existing.error) throw existing.error;
+        if (existing.data) {
+          saveLocal(existing.data);
+          return { local: true, remote: true, alreadySubmitted: true, row: existing.data };
         }
-        throw inserted.error;
       }
 
-      saveLocal(inserted.data || row);
-      return { local: true, remote: true, row: inserted.data || row };
+      const headers = { 'Content-Type': 'application/json' };
+      if (!guest) {
+        const { data, error } = await db.auth.getSession();
+        if (error || !data?.session?.access_token) throw new Error('Sign in again to save your quiz result.');
+        headers.Authorization = `Bearer ${data.session.access_token}`;
+      }
+
+      // The browser submits only answers. A privileged Worker verifies the
+      // identity, recomputes the score and writes the authoritative row.
+      const response = await fetch('https://api.polypmna.dpdns.org/api/grade-daily-quiz', {
+        method: 'POST',
+        headers,
+        cache: 'no-store',
+        body: JSON.stringify({ subject: row.subject_code, answers: row.answers })
+      });
+      const graded = await response.json().catch(() => ({}));
+      if (response.status === 409 && !guest) {
+        const latest = (await remoteRows()).find((item) =>
+          item.quiz_date === row.quiz_date && item.subject_code === row.subject_code);
+        if (latest) {
+          saveLocal(latest);
+          return { local: true, remote: true, alreadySubmitted: true, row: latest };
+        }
+      }
+      if (!response.ok) throw new Error(graded.error || 'Secure quiz grading failed.');
+
+      const stored = guest
+        ? {
+            ...row,
+            score: graded.score,
+            best_score: graded.score,
+            answers: { ...row.answers, __verified_review: graded.review }
+          }
+        : graded.row;
+      if (!stored || typeof stored.score !== 'number' || (!guest && !graded.savedOnline)) {
+        throw new Error('The server could not confirm a verified quiz result.');
+      }
+      saveLocal(stored);
+      return { local: true, remote: !guest, guest, row: stored };
     } catch (error) {
-      console.error('Remote quiz save failed', error);
-      saveLocal(row);
-      return { local: true, remote: false, fallback: true, error, row };
+      // Never mark an unsaved authenticated score as submitted or verified.
+      console.error('Secure quiz save failed', error);
+      return { local: false, remote: false, guest: false, fallback: true, error, row };
     }
   }
 

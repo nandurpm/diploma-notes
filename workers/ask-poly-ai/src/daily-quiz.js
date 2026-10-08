@@ -1,5 +1,20 @@
 import { DAILY_QUIZ_BANK } from './daily-quiz-bank.js';
 import { isPlainObject, jsonResponse, rejectUnknownKeys, strictJsonObject, strictText } from './http.js';
+import { authenticateStudent, storeDailyQuizResult } from './result-store.js';
+
+// Keep General Knowledge questions in the server-only grading bank.
+const GENERAL_KNOWLEDGE_QUESTIONS = Object.freeze([
+        { id: 'GK-01', topic: 'India', en: 'What is the capital of India?', ml: 'ഇന്ത്യയുടെ തലസ്ഥാനം ഏത്?', options: ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai'], answer: 0 },
+        { id: 'GK-02', topic: 'Kerala', en: 'What is the capital of Kerala?', ml: 'കേരളത്തിന്റെ തലസ്ഥാനം ഏത്?', options: ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur'], answer: 0 },
+        { id: 'GK-03', topic: 'India', en: 'Which document is the supreme law of India?', ml: 'ഇന്ത്യയുടെ പരമോന്നത നിയമം ഏത് രേഖയാണ്?', options: ['The Constitution of India', 'The Union Budget', 'The Census', 'The Penal Code only'], answer: 0 },
+        { id: 'GK-04', topic: 'Kerala', en: 'Kerala was formed as a state on which date?', ml: 'കേരളം സംസ്ഥാനമായി രൂപീകരിച്ചത് ഏത് തീയതി?', options: ['1 November 1956', '15 August 1947', '26 January 1950', '1 May 1960'], answer: 0 },
+        { id: 'GK-05', topic: 'Science', en: 'What is the chemical symbol for oxygen?', ml: 'Oxygen-ന്റെ chemical symbol എന്ത്?', options: ['O', 'Ox', 'Og', 'On'], answer: 0 },
+        { id: 'GK-06', topic: 'Science', en: 'Water freezes at what temperature on the Celsius scale?', ml: 'Celsius scale-ൽ വെള്ളം ഏത് temperature-ൽ തണുത്തുറയും?', options: ['0°C', '100°C', '32°C', '-100°C'], answer: 0 },
+        { id: 'GK-07', topic: 'Technology', en: 'What does CPU stand for?', ml: 'CPU എന്നത് എന്തിന്റെ ചുരുക്കപ്പേരാണ്?', options: ['Central Processing Unit', 'Computer Primary Utility', 'Central Power Unit', 'Control Program User'], answer: 0 },
+        { id: 'GK-08', topic: 'Technology', en: 'Which protocol is normally used for secure web browsing?', ml: 'Secure web browsing-ന് സാധാരണ ഉപയോഗിക്കുന്ന protocol ഏത്?', options: ['HTTPS', 'FTP only', 'SMTP', 'Bluetooth'], answer: 0 },
+        { id: 'GK-09', topic: 'Environment', en: 'Which layer protects Earth from much harmful ultraviolet radiation?', ml: 'ഹാനികരമായ UV radiation-ൽ നിന്ന് ഭൂമിയെ സംരക്ഷിക്കുന്ന layer ഏത്?', options: ['Ozone layer', 'Troposphere only', 'Ocean layer', 'Core'], answer: 0 },
+        { id: 'GK-10', topic: 'Geography', en: 'Which is the largest continent by area?', ml: 'വിസ്തീർണ്ണത്തിൽ ഏറ്റവും വലിയ ഭൂഖണ്ഡം ഏത്?', options: ['Asia', 'Africa', 'Europe', 'Australia'], answer: 0 }
+      ]);
 
 const QUESTIONS_PER_DAY = 10;
 const MAX_BODY_BYTES = 40000;
@@ -41,15 +56,18 @@ function dateKeyIST(date = new Date()) {
 }
 
 function cleanSubject(value) {
+  if (String(value || '').toUpperCase() === 'GK') return 'GK';
   return strictText(value, 'subject', { min: 4, max: 5, pattern: /^\d{4}[A-Za-z]?$/ }).toUpperCase();
 }
 
 export function selectedQuestions(subjectCode, dateKey, mode) {
-  const source = DAILY_QUIZ_BANK.questions[subjectCode];
+  const source = subjectCode === 'GK' ? GENERAL_KNOWLEDGE_QUESTIONS : DAILY_QUIZ_BANK.questions[subjectCode];
   if (!Array.isArray(source) || source.length < QUESTIONS_PER_DAY) return null;
   const daily = shuffle(source, randomFrom(hash(`${dateKey}${subjectCode}`))).slice(0, QUESTIONS_PER_DAY);
   return daily.map((question) => ({
     ...question,
+    // Keep the correct answer tied to its original option before shuffling.
+    correctAnswer: question.options[question.answer],
     options: shuffle(question.options, randomFrom(hash(`${dateKey}${subjectCode}${question.id}:single`)))
   }));
 }
@@ -90,7 +108,7 @@ export async function handleDailyQuizGrading(request, env, origin) {
     let score = 0;
     const review = questions.map((question, index) => {
     const userAnswer = answers[String(question.id)] || 'Not answered';
-    const correctAnswer = question.options[question.answer];
+    const correctAnswer = question.correctAnswer;
     const correct = userAnswer === correctAnswer;
     if (correct) score += 1;
     return {
@@ -104,14 +122,36 @@ export async function handleDailyQuizGrading(request, env, origin) {
     };
   });
 
-    return jsonResponse({
+    const graded = {
       quizDate: today,
       subjectCode: subject,
       mode,
       score,
       totalQuestions: QUESTIONS_PER_DAY,
       review
-    }, 200, origin, env);
+    };
+
+    // Anonymous practice remains available, but never creates a verified row.
+    if (!request.headers.get('Authorization')) {
+      return jsonResponse({ ...graded, savedOnline: false }, 200, origin, env);
+    }
+    // The current authenticated daily quiz allows one submitted attempt.
+    if (mode !== 'first') {
+      return jsonResponse({ error: 'Authenticated retries are not supported.' }, 400, origin, env);
+    }
+    try {
+      const student = await authenticateStudent(request, env);
+      const row = await storeDailyQuizResult(student, graded, answers, env);
+      return jsonResponse({ ...graded, savedOnline: true, row }, 200, origin, env);
+    } catch (error) {
+      const status = Number(error?.status) || 502;
+      return jsonResponse(
+        { error: status === 409 ? 'A result is already saved for this subject today.' : status === 401 ? 'Your login session is invalid or expired.' : 'Secure quiz result storage is temporarily unavailable.' },
+        status,
+        origin,
+        env
+      );
+    }
   } catch (error) {
     return jsonResponse({ error: /invalid|must be|contains/i.test(String(error?.message || '')) ? 'The request contains invalid input.' : 'The quiz request could not be processed.' }, 400, origin, env);
   }
