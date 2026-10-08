@@ -66,6 +66,8 @@ export function selectedQuestions(subjectCode, dateKey, mode) {
   const daily = shuffle(source, randomFrom(hash(`${dateKey}${subjectCode}`))).slice(0, QUESTIONS_PER_DAY);
   return daily.map((question) => ({
     ...question,
+    // Keep the correct answer tied to its original option before shuffling.
+    correctAnswer: question.options[question.answer],
     options: shuffle(question.options, randomFrom(hash(`${dateKey}${subjectCode}${question.id}:single`)))
   }));
 }
@@ -106,7 +108,7 @@ export async function handleDailyQuizGrading(request, env, origin) {
     let score = 0;
     const review = questions.map((question, index) => {
     const userAnswer = answers[String(question.id)] || 'Not answered';
-    const correctAnswer = question.options[question.answer];
+    const correctAnswer = question.correctAnswer;
     const correct = userAnswer === correctAnswer;
     if (correct) score += 1;
     return {
