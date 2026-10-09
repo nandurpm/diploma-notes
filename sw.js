@@ -32,8 +32,8 @@ self.addEventListener('fetch', event => {
   const asset = /^\/assets\/(?:css|js|vendor|media)\//.test(url.pathname) && /\.(?:css|js|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(url.pathname)
     && [...url.searchParams.keys()].every(key => key === 'v');
   if (!navigation && !asset) return;
-  // Keep the asset version query in its cache key to avoid stale quiz code.
-  const key = request;
+  // Versioned assets reuse canonical pathname as cache key to avoid redundant cache entries.
+  const key = url.pathname;
   const operation = (async () => {
     const cache = await caches.open(CACHE_NAME);
     const cached = await cache.match(key);
