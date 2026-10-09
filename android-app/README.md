@@ -4,21 +4,25 @@ This folder contains the Android WebView application for:
 
 https://polypmna.dpdns.org/
 
-## Current source release
+## Release status
 
-- Version: `4.0`
-- Version code: `15`
-- Version: `3.13`
-- Version code: `22`
+- Published release: `4.0.7` (version code `22`)
+- Current source candidate: `4.0.8` (version code `23`)
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-## Version 4.0 release preparation
+## Published 4.0.7 release
 
-- Publishes the public APK only as a signed release build (`POLY_PMNA_v4.0.apk`).
-- The release workflow updates the homepage Android download/update button to the GitHub Release APK for version 4.0.
-- The release workflow generates `downloads/app-update.json` from the internal `versionName` and `versionCode` after the signed APK has been built.
+- The public APK is a signed release build (`POLY_PMNA_v4.0.7.apk`).
+- The homepage Android download/update button targets the immutable GitHub Release APK for version 4.0.7.
+- `downloads/app-update.json` records version code 22 and the published APK digest.
+
+## Version 4.0.8 fix candidate
+
+- Version code 23 is intentionally higher than 4.0.7/code 22 so Android can install it as an update; an already-published version 4.0.7 APK cannot be replaced in place.
+- Fixes the allowlisted developer portfolio link so it is accepted by the WebView navigation policy instead of being blocked as an unsafe external page.
+- Keep `downloads/app-update.json` on 4.0.7 until the signed 4.0.8 APK has been built, uploaded, and its SHA-256 verified.
 ## Version 3.13 signed release
 
 - Publishes the public APK only as a signed release build (`POLY_PMNA_v3.13.apk`).
