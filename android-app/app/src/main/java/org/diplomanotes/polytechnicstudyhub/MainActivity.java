@@ -1204,6 +1204,12 @@ public class MainActivity extends ComponentActivity {
         }
 
         private boolean handleNavigation(Uri uri) {
+            // The developer portfolio is an explicit in-app destination. It is
+            // intentionally not part of the trusted content host, so it must be
+            // accepted before the generic external-link policy rejects it.
+            if (uri != null && isAllowedDeveloperPage(uri.toString())) {
+                return false;
+            }
             if (isTrustedUri(uri)) {
                 return false;
             }
