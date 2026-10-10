@@ -33,6 +33,8 @@ self.addEventListener('fetch', event => {
     && [...url.searchParams.keys()].every(key => key === 'v');
   if (!navigation && !asset) return;
   const canonicalKey = asset ? url.pathname : request;
+  // Versioned assets reuse canonical pathname as cache key to avoid redundant cache entries.
+  const key = url.pathname;
   const operation = (async () => {
     const cache = await caches.open(CACHE_NAME);
     const cached = (await cache.match(request)) || (asset ? await cache.match(canonicalKey) : null);
