@@ -32,13 +32,14 @@ self.addEventListener('fetch', event => {
   const asset = /^\/assets\/(?:css|js|vendor|media)\//.test(url.pathname) && /\.(?:css|js|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(url.pathname)
     && [...url.searchParams.keys()].every(key => key === 'v');
   if (!navigation && !asset) return;
+  const canonicalKey = asset ? url.pathname : request;
   // Versioned assets reuse canonical pathname as cache key to avoid redundant cache entries.
   const key = url.pathname;
   const operation = (async () => {
     const cache = await caches.open(CACHE_NAME);
-    const cached = await cache.match(key);
+    const cached = (await cache.match(request)) || (asset ? await cache.match(canonicalKey) : null);
     const refresh = fetch(request).then(async response => {
-      await remember(cache, key, response);
+      await remember(cache, canonicalKey, response);
       return response;
     });
     if (navigation) {
@@ -53,7 +54,7 @@ self.addEventListener('fetch', event => {
   })();
   if (asset) {
     // Return cached assets immediately while the event keeps refresh alive.
-    event.respondWith(caches.open(CACHE_NAME).then(async cache => (await cache.match(key)) || operation));
+    event.respondWith(caches.open(CACHE_NAME).then(async cache => (await cache.match(request)) || (await cache.match(canonicalKey)) || operation));
     event.waitUntil(operation.then(() => {}, () => {}));
   } else {
     event.respondWith(operation);
