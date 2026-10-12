@@ -92,8 +92,8 @@
     const dept = grid.dataset.department || "";
     const all = await data();
 
-    // PERFORMANCE OPTIMIZATION: Precompute and cache the normalized/lowercase search text
-    // to avoid expensive array joins and case conversions on every keypress inside the render loop.
+    // PERFORMANCE OPTIMIZATION: Precompute and cache search text for all subject objects
+    // upfront to avoid redundant string joins and lowercase conversions inside the filter loop.
     all.forEach(s => {
       s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase();
     });
@@ -106,7 +106,17 @@
 
     fillSem($("semesterFilter"), filtered(all, dept));
     const rr = () => render(all, grid, dept);
-    $("subjectSearch")?.addEventListener("input", rr);
+
+    // PERFORMANCE OPTIMIZATION: Debounce input event handling (100ms) to avoid
+    // synchronous DOM re-rendering, layout recalculation, and CPU spikes on
+    // every keypress when filtering Revision 2021 subjects on mobile devices.
+    let searchDebounceTimer = 0;
+    const debouncedRender = () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(rr, 100);
+    };
+
+    $("subjectSearch")?.addEventListener("input", debouncedRender);
     $("semesterFilter")?.addEventListener("change", rr);
     rr();
   }
