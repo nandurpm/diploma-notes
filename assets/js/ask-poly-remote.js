@@ -380,9 +380,20 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
         const copy = document.createElement("button");
         copy.type = "button";
         copy.textContent = "Copy";
+        copy.setAttribute("aria-label", "Copy message text");
         copy.addEventListener("click", async () => {
-          try { await navigator.clipboard.writeText(text); copy.textContent = "Copied"; setTimeout(() => copy.textContent = "Copy", 1200); }
-          catch { copy.textContent = "Copy failed"; }
+          try {
+            await navigator.clipboard.writeText(text);
+            copy.textContent = "Copied";
+            copy.setAttribute("aria-label", "Message text copied to clipboard");
+            setTimeout(() => {
+              copy.textContent = "Copy";
+              copy.setAttribute("aria-label", "Copy message text");
+            }, 1200);
+          } catch {
+            copy.textContent = "Copy failed";
+            copy.setAttribute("aria-label", "Failed to copy message text");
+          }
         });
         actions.append(copy);
         wrap.append(actions);
