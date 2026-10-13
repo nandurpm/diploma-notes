@@ -124,13 +124,19 @@ function extractNvidiaContent(data) {
   return String(data?.choices?.[0]?.message?.content || "");
 }
 
+function mockExamTimeoutMs(env) {
+  const raw = Number(env?.MOCK_EXAM_TIMEOUT_MS || 30000);
+  const parsed = Number.isFinite(raw) ? raw : 30000;
+  return Math.max(5000, Math.min(60000, parsed));
+}
+
 /* Fallback path: NVIDIA chat completions (no structured-output schema support).
    The model is instructed to emit ONLY the evaluation JSON; we strip fences
    and parse the result, reusing the same normalizer so the response shape is
    identical to the OpenAI path. */
 async function requestNvidiaEvaluation(env, paper, instructions, questions) {
   const model = clean(env.NVIDIA_MODEL || "", 140) || DEFAULT_NVIDIA_MODEL;
-  const timeoutMs = Math.max(5000, Math.min(60000, Number(env.MOCK_EXAM_TIMEOUT_MS || 30000) || 30000));
+  const timeoutMs = mockExamTimeoutMs(env);
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -234,8 +240,7 @@ function normalize(parsed, paper, selectedQuestions, data, model, evaluationMode
 }
 
 async function requestEvaluation(payload, env) {
-  const parsedTimeout = Number(env.MOCK_EXAM_TIMEOUT_MS);
-  const timeoutMs = Math.max(5000, Math.min(60000, isNaN(parsedTimeout) ? 30000 : parsedTimeout));
+  const timeoutMs = mockExamTimeoutMs(env);
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
 
