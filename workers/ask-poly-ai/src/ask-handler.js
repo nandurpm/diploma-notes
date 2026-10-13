@@ -656,7 +656,9 @@ function buildUserContent(body) {
 }
 
 function providerTimeoutMs(env) {
-  return Math.max(4000, Math.min(20000, Number(env.PROVIDER_TIMEOUT_MS || env.AI_PROVIDER_TIMEOUT_MS || 7000)));
+  const raw = Number(env?.PROVIDER_TIMEOUT_MS || env?.AI_PROVIDER_TIMEOUT_MS || 7000);
+  const parsed = Number.isFinite(raw) ? raw : 7000;
+  return Math.max(4000, Math.min(20000, parsed));
 }
 
 async function fetchJsonWithTimeout(url, options, env, provider) {

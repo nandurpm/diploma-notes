@@ -95,10 +95,16 @@ function cloudflareMessages(body) {
   ];
 }
 
+function safeMaxTokens(env, defaultValue = 900) {
+  const raw = Number(env?.MAX_OUTPUT_TOKENS || defaultValue);
+  const parsed = Number.isFinite(raw) ? raw : defaultValue;
+  return Math.max(128, Math.min(1400, parsed));
+}
+
 function cloudflareInput(body, env) {
   return {
     messages: cloudflareMessages(body),
-    max_tokens: Math.max(128, Math.min(1400, Number(env.MAX_OUTPUT_TOKENS || 900))),
+    max_tokens: safeMaxTokens(env, 900),
     temperature: 0.25,
     top_p: 0.9
   };

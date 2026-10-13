@@ -24,3 +24,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/http.js`, `isSafeExternalUrl` only evaluated IPv4 dotted-decimal patterns, allowing SSRF bypasses via IPv4-mapped IPv6 hostnames (such as `::ffff:127.0.0.1`, `::ffff:7f00:1`, `::ffff:a9fe:a9fe`) and unspecified IPv6 addresses (`::`, `0:0:0:0:0:0:0:0`).
 **Learning:** Standard URL parsers preserve IPv6 bracket notation and IPv4-mapped IPv6 prefix forms without converting them to standard IPv4 dotted quads, bypassing regex checks designed solely for IPv4 decimal strings.
 **Prevention:** Unwrap IPv4-mapped IPv6 hostnames (`::ffff:...`) to IPv4 dotted quads before private CIDR evaluation, and explicitly reject unspecified IPv6 targets (`::`, `0:0:0:0:0:0:0:0`).
+
+## 2026-10-13 - Preventing DoS via NaN Timeout Coercion on Misconfigured Env Vars
+**Vulnerability:** In `workers/ask-poly-ai/src/ask-handler.js`, `mock-evaluator.js`, and `index.js`, environment variables like `PROVIDER_TIMEOUT_MS` parsed via `Number(env.VAR)` evaluated to `NaN` when misconfigured with non-numeric text. In Cloudflare Workers runtime, passing `NaN` to `setTimeout()` coerces the delay to `0ms`, causing instant request aborts and total service outage.
+**Learning:** Math bounds like `Math.max(4000, Math.min(20000, NaN))` produce `NaN` without throwing, masking configuration bugs until timer execution instantly aborts outgoing fetch calls.
+**Prevention:** Always check `Number.isFinite(...)` when parsing numeric configuration environment variables before calculating bounds or scheduling timer delays.

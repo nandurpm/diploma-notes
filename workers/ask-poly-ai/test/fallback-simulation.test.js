@@ -113,6 +113,15 @@ test("OpenRouter answers when NVIDIA is intentionally unavailable", async () => 
   assert.match(calls.at(-1).url, /openrouter\.ai/);
 });
 
+test("invalid non-numeric timeout env var safely falls back to default timeout", async () => {
+  const calls = [];
+  const invalidEnv = { ...baseEnv, PROVIDER_TIMEOUT_MS: "invalid-timeout-string" };
+  installFetch({ nvidia: "success", openrouter: "success", gemini: "success", calls });
+  const result = await askPoly({ message: "Explain Ohm's law", history: [] }, invalidEnv);
+  assert.equal(result.provider, "nvidia");
+  assert.equal(result.answer, "NVIDIA fallback answer");
+});
+
 test("Gemini answers when both OpenRouter and NVIDIA are unavailable", async () => {
   const calls = [];
   installFetch({ openrouter: "fail", nvidia: "fail", gemini: "success", calls });
