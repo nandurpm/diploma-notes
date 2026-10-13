@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-10-08T09:51:02Z",
+  "generatedAt": "2026-10-13T08:38:36Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -19,10 +19,9 @@
     "localMathFallback": true,
     "preloadedFaq": true,
     "workersAIFallback": true,
-    "workersAIRestFallback": true,
+    "workersAIRestFallback": false,
     "providers": [
       "cloudflare-workers-ai",
-      "cloudflare-workers-ai-rest",
       "nvidia",
       "openrouter"
     ],
