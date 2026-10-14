@@ -1,8 +1,8 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "npm run build",
-  "installCommand": "npm ci",
-  "outputDirectory": "workers/ask-poly-ai/public",
+  "installCommand": "true",
+  "buildCommand": "python3 tools/build_public_site.py --target _site",
+  "outputDirectory": "_site",
   "cleanUrls": true
 }
