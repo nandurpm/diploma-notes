@@ -123,15 +123,32 @@ def expected_commit() -> str:
     workflow_run events carry the SHA that actually triggered the deployment,
     while github.sha in the triggered workflow may already point at a newer
     default-branch commit. Manual and scheduled runs fall back to the checked
-    out HEAD.
+    out HEAD. Commits explicitly marked ``[skip ci]`` do not trigger the site
+    deployment workflows, so audits must compare the live site with the most
+    recent deployable ancestor instead of reporting harmless deployment drift.
     """
     configured = os.environ.get("POLY_AUDIT_EXPECTED_COMMIT", "").strip()
-    if configured:
-        return configured
+    candidate = configured
     try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        if not candidate:
+            candidate = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        while candidate:
+            subject = subprocess.check_output(
+                ["git", "show", "-s", "--format=%s", candidate], cwd=ROOT, text=True
+            ).strip()
+            if not re.search(r"\[(?:skip ci|ci skip)\]", subject, flags=re.IGNORECASE):
+                return candidate
+            parents = subprocess.check_output(
+                ["git", "show", "-s", "--format=%P", candidate], cwd=ROOT, text=True
+            ).strip().split()
+            if not parents:
+                break
+            # First-parent traversal keeps bookkeeping commits tied to the
+            # branch deployment that preceded them.
+            candidate = parents[0]
     except Exception:
-        return ""
+        return candidate
+    return ""
 
 
 def deployed_commit_matches(expected: str, live: str) -> bool:
