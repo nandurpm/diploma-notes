@@ -3,6 +3,6 @@
   "framework": null,
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
-  "outputDirectory": "public",
+  "outputDirectory": "workers/ask-poly-ai/public",
   "cleanUrls": true
 }
