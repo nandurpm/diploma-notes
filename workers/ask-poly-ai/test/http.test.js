@@ -281,3 +281,28 @@ test('production rejects provider requests when rate-limit binding is missing or
     assert.equal(response.status,429);
   }
 });
+
+test("createRateLimiter handles null or undefined request objects gracefully", () => {
+  const limiter = createRateLimiter(1);
+  assert.equal(limiter(null), true);
+  assert.equal(limiter(undefined), false);
+  assert.equal(limiter({}), false);
+});
+
+test("createRateLimiter prunes expired buckets when capacity threshold is exceeded during floods", () => {
+  const limiter = createRateLimiter(1, 100);
+  // Populate buckets with stale entries from multiple distinct IPs
+  for (let i = 0; i < 2005; i++) {
+    limiter(fakeRequest({ "CF-Connecting-IP": `10.0.${Math.floor(i / 255)}.${i % 255}` }));
+  }
+  // Fast forward time past windowMs so entries become expired
+  const futureRequest = fakeRequest({ "CF-Connecting-IP": "1.2.3.4" });
+  const originalNow = Date.now;
+  try {
+    Date.now = () => originalNow() + 200; // past 100ms window
+    // Calling the limiter when size > 2000 triggers eviction loop
+    assert.equal(limiter(futureRequest), true);
+  } finally {
+    Date.now = originalNow;
+  }
+});
