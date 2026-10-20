@@ -60,6 +60,11 @@
       : safeSameOriginPath(raw.url);
     const date = dateInfo(raw.published_at || raw.date);
     if (!title || !summary || !url || !date || date.value > Date.now()) return null;
+    const tags = Array.isArray(raw.tags) ? raw.tags.map(safeText).filter(Boolean).slice(0, 12) : [];
+    // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for post items once
+    // during post normalization to eliminate repeated array allocations, string joins,
+    // and lowercase conversions inside active input filter loops on mobile devices.
+    const _searchText = [title, summary, category, ...tags].join(" ").toLocaleLowerCase("en");
     return {
       id: safeText(raw.id) || `post-${index + 1}`,
       slug,
@@ -72,7 +77,8 @@
       thumbnail: safeMediaUrl(raw.cover_url || raw.thumbnail),
       thumbnailAlt: safeText(raw.cover_alt || raw.thumbnailAlt) || title,
       featured: raw.featured === true,
-      tags: Array.isArray(raw.tags) ? raw.tags.map(safeText).filter(Boolean).slice(0, 12) : []
+      tags,
+      _searchText
     };
   }
 
@@ -165,7 +171,7 @@
     if (updateUrl) syncUrl(category);
 
     const filtered = posts.filter(post => {
-      const haystack = [post.title, post.summary, post.category, ...post.tags].join(" ").toLocaleLowerCase("en");
+      const haystack = post._searchText || [post.title, post.summary, post.category, ...post.tags].join(" ").toLocaleLowerCase("en");
       return (!query || haystack.includes(query)) && (!category || post.category === category);
     });
 
@@ -247,7 +253,15 @@
     applyFilters({ updateUrl: false });
   }
 
-  els.search?.addEventListener("input", () => applyFilters());
+  if (els.search) {
+    let searchDebounceTimer = null;
+    els.search.addEventListener("input", () => {
+      clearTimeout(searchDebounceTimer);
+      // PERFORMANCE OPTIMIZATION: Debounce input filtering (100ms) to prevent unnecessary
+      // layout thrashing and DOM re-renders on every keystroke during fast typing on mobile devices.
+      searchDebounceTimer = setTimeout(() => applyFilters(), 100);
+    });
+  }
   els.category?.addEventListener("change", () => applyFilters());
   refreshPosts();
 })();
