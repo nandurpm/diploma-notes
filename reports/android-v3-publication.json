@@ -1,10 +1,10 @@
 {
   "status": "success",
-  "versionCode": 25,
-  "versionName": "4.0.10",
+  "versionCode": 26,
+  "versionName": "4.0.11",
   "firebaseMessaging": true,
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v4.0.10/POLY_PMNA_v4.0.10.apk",
-  "apkBytes": 935240,
-  "sha256": "b9b1a28099f542771f1e18fd113a85dd2f2b13b27b2b730044b9c8bad6402944",
-  "publishedAt": "2026-10-10T02:49:33Z"
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v4.0.11/POLY_PMNA_v4.0.11.apk",
+  "apkBytes": 935242,
+  "sha256": "4db8c1d69b8384aa751e6af6d579b9fa64ed1d29c45e60cf89c663d9e4c098b6",
+  "publishedAt": "2026-10-20T08:08:49Z"
 }
