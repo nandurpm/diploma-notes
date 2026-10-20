@@ -29,3 +29,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/ask-handler.js`, `mock-evaluator.js`, and `index.js`, environment variables like `PROVIDER_TIMEOUT_MS` parsed via `Number(env.VAR)` evaluated to `NaN` when misconfigured with non-numeric text. In Cloudflare Workers runtime, passing `NaN` to `setTimeout()` coerces the delay to `0ms`, causing instant request aborts and total service outage.
 **Learning:** Math bounds like `Math.max(4000, Math.min(20000, NaN))` produce `NaN` without throwing, masking configuration bugs until timer execution instantly aborts outgoing fetch calls.
 **Prevention:** Always check `Number.isFinite(...)` when parsing numeric configuration environment variables before calculating bounds or scheduling timer delays.
+
+## 2026-10-20 - Preventing DoS and Unbounded Memory Growth in Rate Limiters
+**Vulnerability:** In `workers/ask-poly-ai/src/http.js`, `createRateLimiter` placed Map capacity eviction logic *after* the rate-limit threshold check (`recent.length >= maximum`), returning `false` early on rate-limited calls and preventing stale bucket pruning under DoS floods.
+**Learning:** Early returns in rate limiters on blocked requests skip cleanup routines, causing unbounded `Map` memory growth when an endpoint receives floods from many IP keys.
+**Prevention:** Always run Map capacity eviction routines *before* evaluating rate-limit thresholds or returning early from limiter functions.

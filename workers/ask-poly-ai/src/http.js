@@ -235,23 +235,27 @@ export function isSafeExternalUrl(rawUrl) {
 export function createRateLimiter(maximum, windowMs = 10 * 60 * 1000) {
   const buckets = new Map();
   return (request) => {
-    const rawIp = request.headers.get("CF-Connecting-IP")
+    const rawIp = request?.headers?.get("CF-Connecting-IP")
       || "unknown";
     const key = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
     const now = Date.now();
     const recent = (buckets.get(key) || []).filter((timestamp) => now - timestamp < windowMs);
-    if (recent.length >= maximum) {
-      buckets.set(key, recent);
-      return false;
-    }
-    recent.push(now);
-    buckets.set(key, recent);
+
+    // Run bucket eviction when Map capacity exceeds threshold, regardless of rate-limit status,
+    // preventing unbounded memory growth during rate-limit floods.
     if (buckets.size > 2000) {
       for (const [bucketKey, timestamps] of buckets) {
         if (!timestamps.some((timestamp) => now - timestamp < windowMs)) buckets.delete(bucketKey);
         if (buckets.size <= 1500) break;
       }
     }
+
+    if (recent.length >= maximum) {
+      buckets.set(key, recent);
+      return false;
+    }
+    recent.push(now);
+    buckets.set(key, recent);
     return true;
   };
 }
