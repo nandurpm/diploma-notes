@@ -24,12 +24,15 @@
       row.append(link, detail);
       files.append(row);
     });
+    const totalPages = Math.ceil(filtered.length / 100);
     if (status) {
-      status.textContent = `${filtered.length.toLocaleString()} matching PDFs · ${documents.length.toLocaleString()} total`;
+      status.textContent = filtered.length
+        ? `Page ${page + 1} of ${totalPages} (${filtered.length.toLocaleString()} matching PDFs · ${documents.length.toLocaleString()} total)`
+        : `0 matching PDFs · ${documents.length.toLocaleString()} total`;
     }
     const pageSpan = document.getElementById('page');
     if (pageSpan) {
-      pageSpan.textContent = filtered.length ? `Page ${page + 1} of ${Math.ceil(filtered.length / 100)}` : 'No results';
+      pageSpan.textContent = filtered.length ? `Page ${page + 1} of ${totalPages}` : 'No results';
     }
     if (previous) previous.disabled = page === 0;
     if (next) next.disabled = (page + 1) * 100 >= filtered.length;
@@ -52,8 +55,14 @@
     });
   }
 
-  if (previous) previous.onclick = () => { page--; render(); };
-  if (next) next.onclick = () => { page++; render(); };
+  function changePage(delta) {
+    page += delta;
+    render();
+    files?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  if (previous) previous.onclick = () => changePage(-1);
+  if (next) next.onclick = () => changePage(1);
 
   async function load() {
     if (retry) retry.hidden = true;
