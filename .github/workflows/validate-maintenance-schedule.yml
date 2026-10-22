@@ -4,12 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "functions/_middleware.js"
       - "maintenance/**"
       - "assets/css/new-year-theme.css"
       - "assets/js/new-year-theme.js"
-      - "reports/maintenance-schedule-2026.md"
-      - "reports/new-year-theme.md"
       - ".github/workflows/validate-maintenance-schedule.yml"
   workflow_dispatch:
 
@@ -27,8 +24,10 @@ jobs:
       - name: Check JavaScript and theme assets
         shell: bash
         run: |
-          cp functions/_middleware.js /tmp/poly-middleware.mjs
-          node --check /tmp/poly-middleware.mjs
+          if [ -f "functions/_middleware.js" ]; then
+            cp functions/_middleware.js /tmp/poly-middleware.mjs
+            node --check /tmp/poly-middleware.mjs
+          fi
           node --check maintenance/runtime-guard.js
           node --check assets/js/new-year-theme.js
           grep -q "poly-new-year-theme" assets/css/new-year-theme.css
@@ -48,6 +47,10 @@ jobs:
       - name: Verify maintenance and annual theme boundaries
         shell: bash
         run: |
+          if [ ! -f "functions/_middleware.js" ]; then
+            echo "functions/_middleware.js not present; skipping Cloudflare Worker middleware tests."
+            exit 0
+          fi
           cp functions/_middleware.js /tmp/poly-middleware.mjs
           node --input-type=module <<'JS'
           import { onRequest } from "file:///tmp/poly-middleware.mjs";

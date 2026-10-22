@@ -1,5 +1,10 @@
 # Repository Guardian Journal
 
+## 2026-10-22 - Missing Middleware Dependencies and Unreferenced Path Triggers in Maintenance Workflow
+**Finding:** `.github/workflows/validate-maintenance-schedule.yml` contained deleted path triggers (`functions/_middleware.js`, `reports/*.md`) and unconditionally attempted to copy `functions/_middleware.js`, which caused runtime step failures when triggered without Cloudflare Pages middleware.
+**Learning:** Workflows verifying serverless middleware contracts fail abruptly if the target middleware file or reports are refactored out without corresponding file-existence guards or trigger cleanup in GitHub Actions definitions.
+**Prevention:** Always check if files referenced in `paths:` triggers or `cp` / `node --check` workflow steps exist on `main`, and add defensive existence guards (`if [ -f ... ]`) for optional or refactored components.
+
 ## 2026-10-08 - Misplaced Workflow Definitions in Data Directories and Stale Path Triggers
 **Finding:** An orphaned copy of `build-ask-poly-knowledge.yml` was sitting directly in `assets/data/`, alongside a non-existent path trigger `assets/data/ask-poly-extra-facts.json` in `.github/workflows/build-ask-poly-knowledge.yml`.
 **Learning:** Workflows placed outside `.github/workflows/` are ignored by GitHub Actions and act as unreferenced repository noise. Similarly, stale path triggers in `.github/workflows/` referencing deleted or non-existent files create confusion when auditing workflow triggers.
