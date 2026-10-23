@@ -88,13 +88,22 @@ function validate(author, message, field, label) {
 async function requestJson(url, options = {}) {
   const response = await fetch(url, { ...options, headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) } });
   const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error((typeof payload.error === "string" ? payload.error : payload.error?.message) || `Request failed: ${response.status}`);
+  if (!response.ok) {
+    const error = new Error((typeof payload.error === "string" ? payload.error : payload.error?.message) || `Request failed: ${response.status}`);
+    error.code = payload.code;
+    throw error;
+  }
   return payload;
 }
 async function ensureAuthenticated() {
   // Use the .workers.dev health endpoint to bypass custom domain WAF blocks.
   const health = await requestJson("https://ask-poly-ai.nandakumarkdpm.workers.dev/health/comments");
-  if (!health.configured || health.writes !== "enabled") throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
+  if (!health.configured || health.writes !== "enabled") {
+    writeEnabled = false;
+    const error = new Error("Comment posting is unavailable. Your message is kept here; please use email support.");
+    error.code = "COMMENTS_UNAVAILABLE";
+    throw error;
+  }
   return health;
 }
 async function fetchComments() {
@@ -142,7 +151,17 @@ function actionButton(label, className, handler) {
   const button = document.createElement("button");
   button.type = "button"; button.className = className; button.textContent = label; button.addEventListener("click", handler); return button;
 }
+function postingFailed(error, fallback) {
+  if (error?.code === "COMMENTS_UNAVAILABLE") {
+    writeEnabled = false;
+    submitButton.disabled = true;
+    form?.setAttribute("aria-disabled", "true");
+    list.querySelectorAll(".reply-form button[type=submit]").forEach(button => { button.disabled = true; });
+  }
+  setStatus(error?.message || fallback, "error");
+}
 function addReplyForm(parent, card) {
+  if (!writeEnabled) { setStatus("Comment posting is unavailable. Please use email support.", "error"); return; }
   const existing = card.querySelector(".reply-form");
   if (existing) { existing.remove(); return; }
   const replyForm = document.createElement("form"); replyForm.className = "reply-form";
@@ -157,7 +176,7 @@ function addReplyForm(parent, card) {
     try {
       await createComment({ pageId: "help", author, message, parentId: parent.id });
       localStorage.setItem("diplomaNotesCommentName", author); rememberPost(message); replyForm.remove(); setStatus("Reply posted.", "success"); await fetchComments();
-    } catch (error) { console.error("Could not post reply.", error); setStatus("Could not post the reply. Please try again.", "error"); submit.disabled = false; }
+    } catch (error) { console.error("Could not post reply.", error); postingFailed(error, "Could not post the reply. Your message is kept here."); submit.disabled = !writeEnabled; }
   });
   card.append(replyForm); textarea.focus();
 }
@@ -171,7 +190,7 @@ function cardFor(item, isReply = false) {
   const time = document.createElement("span"); time.className = "comment-time"; time.textContent = formatDate(item.createdAt); authorText.append(author, time); authorWrap.append(avatar, authorText); meta.append(authorWrap);
   const message = document.createElement("p"); message.className = "comment-message"; message.textContent = deleted ? "This comment was deleted." : (item.message || "");
   const actions = document.createElement("div"); actions.className = "comment-actions";
-  if (!isReply && !deleted && !item.unavailable) actions.append(actionButton("Reply", "comment-action", () => addReplyForm(item, card)));
+  if (writeEnabled && !isReply && !deleted && !item.unavailable) actions.append(actionButton("Reply", "comment-action", () => addReplyForm(item, card)));
   if (currentUser?.uid === item.uid && !deleted) actions.append(actionButton("Delete", "comment-action delete", () => deleteComment(item, isReply)));
   card.append(meta, message, actions); return card;
 }
@@ -199,11 +218,14 @@ async function initializeDiscussion() {
     try {
       await ensureAuthenticated();
       writeEnabled = true;
+      render();
       submitButton.disabled = false;
       form?.removeAttribute("aria-disabled");
       setStatus("Comments are open. Please keep posts public and study-related.", "success");
     } catch (error) {
       console.warn("Discussion write service unavailable.", error);
+      writeEnabled = false;
+      render();
       submitButton.disabled = true;
       form?.setAttribute("aria-disabled", "true");
       setStatus("Comment posting is temporarily unavailable. Email support is still available.", "error");
@@ -216,13 +238,17 @@ form?.addEventListener("submit", async event => {
   if (!validate(author, message, messageInput, "Comment")) return;
   submitButton.disabled = true; setStatus("Posting…");
   try { await createComment({ pageId: "help", author, message, parentId: "" }); localStorage.setItem("diplomaNotesCommentName", author); rememberPost(message); messageInput.value = ""; setStatus("Comment posted.", "success"); await fetchComments(); }
-  catch (error) { console.error("Could not post comment.", error); setStatus("Could not post. Please try again later.", "error"); }
-  finally { submitButton.disabled = false; }
+  catch (error) { console.error("Could not post comment.", error); postingFailed(error, "Could not post. Your message is kept here."); }
+  finally { submitButton.disabled = !writeEnabled; }
 });
 if (!form || !nameInput || !messageInput || !submitButton || !statusBox || !list || !countBox) console.error("Discussion initialization failed: required Help page elements are missing.");
 else initializeDiscussion();
 
 /* Purpose: Help comments - REST-only runtime avoids third-party module loading failures. */
-const refreshDiscussion = () => initializeDiscussion();
+const refreshDiscussion = () => {
+  // Returning to the tab must not erase an unsent comment or reply.
+  if (messageInput?.value.trim() || list?.querySelector(".reply-form")) return;
+  return initializeDiscussion();
+};
 window.addEventListener("focus", () => { if (document.visibilityState === "visible") refreshDiscussion(); });
 window.addEventListener("online", refreshDiscussion);

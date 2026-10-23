@@ -14,7 +14,7 @@
       const isReply = item.classList.contains("reply-card");
 
       if (isCard && !isReply) {
-        hiddenThread = item.classList.contains("deleted-comment");
+        hiddenThread = false;
         item.hidden = hiddenThread;
         return;
       }
@@ -26,6 +26,8 @@
 
       hiddenThread = false;
     });
+
+    if (!list.querySelector(".comment-card") && list.querySelector(".comment-error-box, .discussion-loading")) return;
 
     const visibleCount = [...list.querySelectorAll(":scope > .comment-card:not(.reply-card)")]
       .filter((item) => !item.hidden)

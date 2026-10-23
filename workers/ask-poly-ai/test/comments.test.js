@@ -11,7 +11,7 @@ function request(body, method = "POST") {
 }
 
 test("comments health reports writes disabled without a service credential", async () => {
-  const response = commentsHealth({}, "https://polypmna.dpdns.org");
+  const response = await commentsHealth({}, "https://polypmna.dpdns.org");
   assert.equal(response.status, 200);
   const health = await response.json();
   assert.strictEqual(health.ok, true);
@@ -55,4 +55,34 @@ test("comments endpoint rejects invalid or non-object payloads safely", async ()
   const protoPayload = JSON.parse('{"pageId":"help","author":"Student","message":"Test","__proto__":{"polluted":true}}');
   const protoResponse = await handleComments(request(protoPayload), {}, "https://polypmna.dpdns.org");
   assert.equal(protoResponse.status, 400);
+});
+
+
+test("comments health checks the database and disables writes for a denied service account", async () => {
+  const { generateKeyPairSync } = await import("node:crypto");
+  const { privateKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  const env = { FIREBASE_SERVICE_ACCOUNT_JSON: JSON.stringify({
+    project_id: "test-comments-project", client_email: "comments@test-comments-project.iam.gserviceaccount.com",
+    private_key: privateKey.export({ type: "pkcs8", format: "pem" })
+  }) };
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url, options = {}) => {
+    calls.push({ url: String(url), method: options.method || "GET" });
+    if (String(url).includes("oauth2.googleapis.com")) return Response.json({ access_token: "test-token", expires_in: 3600 });
+    return Response.json({ error: { status: "PERMISSION_DENIED" } }, { status: 403 });
+  };
+  try {
+    const health = await (await commentsHealth(env)).json();
+    assert.equal(health.configured, true);
+    assert.equal(health.writes, "disabled");
+    assert.equal(health.reason, "permission_denied");
+    assert.equal(calls.filter(call => call.url.includes("firestore.googleapis.com")).length, 1);
+    assert.equal(calls.find(call => call.url.includes("firestore.googleapis.com")).method, "GET");
+    const response = await handleComments(request({ pageId: "help", author: "Tester", message: "Reply", parentId: "existing-parent" }), env);
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).code, "COMMENTS_UNAVAILABLE");
+    const afterFailure = await (await commentsHealth(env)).json();
+    assert.equal(afterFailure.writes, "disabled");
+  } finally { globalThis.fetch = originalFetch; }
 });
