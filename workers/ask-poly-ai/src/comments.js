@@ -5,6 +5,7 @@ const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const FIRESTORE_BASE = "https://firestore.googleapis.com/v1/projects";
 const MAX_LINKS = 2;
 const TOKEN_SKEW_SECONDS = 60;
+let commentReadiness = { expiresAt: 0, ready: false, permissionDenied: false };
 let tokenCache = { accessToken: "", expiresAt: 0, projectId: "" };
 
 /* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
@@ -137,11 +138,18 @@ async function createFirestoreComment(payload, env) {
     })
   });
   const responseBody = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(`Firestore write failed with HTTP ${response.status}.`);
+  if (!response.ok) {
+    const error = new Error(`Firestore write failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    if (response.status === 401 || response.status === 403) {
+      commentReadiness = { expiresAt: Date.now() + 45000, ready: false, permissionDenied: true };
+    }
+    throw error;
+  }
   return responseBody;
 }
 
-export function commentsHealth(env, origin = "") {
+export async function commentsHealth(env, origin = "") {
   const raw = String(env?.FIREBASE_SERVICE_ACCOUNT_JSON || "").trim();
   const hasSecret = raw.length > 0;
   let parseError = false;
@@ -154,12 +162,28 @@ export function commentsHealth(env, origin = "") {
       parseError = true;
     }
   }
-  const configured = accountValid;
+  const configured = Boolean(serviceAccount(env));
+  // Parseable credentials do not prove access to the live comments database.
+  // Probe read access without creating public test comments; remember write
+  // permission failures as well so the UI cannot immediately re-enable posting.
+  if (configured && commentReadiness.expiresAt <= Date.now()) {
+    try {
+      const { account, token } = await accessToken(env);
+      const response = await fetchWithTimeout(`${baseUrl(account.projectId)}?pageSize=1`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      commentReadiness = { expiresAt: Date.now() + 45000, ready: response.ok, permissionDenied: response.status === 401 || response.status === 403 };
+    } catch {
+      commentReadiness = { expiresAt: Date.now() + 15000, ready: false, permissionDenied: false };
+    }
+  }
+  const ready = configured && commentReadiness.ready;
   return jsonResponse({
     ok: true,
     service: "public-help-comments",
     configured,
-    writes: configured ? "enabled" : "disabled",
+    writes: ready ? "enabled" : "disabled",
+    reason: !configured ? "not_configured" : ready ? "" : commentReadiness.permissionDenied ? "permission_denied" : "service_unavailable",
     diagnostics: { hasSecret, parseError, accountValid }
   }, 200, origin, env);
 }
@@ -181,6 +205,9 @@ export async function handleComments(request, env, origin = "") {
   } catch (error) {
     securityLog("comment_write_failed", { ...logContext, route: "help_comments", severity: "error", error: error?.message });
     console.error("Public help comment write failed.", error);
+    if (error?.status === 401 || error?.status === 403) {
+      return jsonResponse({ error: "Comment posting is unavailable. Your message has not been sent; please use email support.", code: "COMMENTS_UNAVAILABLE" }, 503, origin, env);
+    }
     return jsonResponse({ error: "The discussion service is temporarily unavailable. Please try again later." }, 503, origin, env);
   }
 }
