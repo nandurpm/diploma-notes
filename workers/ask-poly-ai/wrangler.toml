@@ -46,6 +46,7 @@ namespace_id = "202604"
 ENVIRONMENT = "production"
 SECURITY_LOGGING = "structured"
 ASK_POLY_RELEASE = "2026-09-16-vercel-cors1"
+FIRESTORE_PROJECT_ID = "diploma-notes-comments"
 # Try NVIDIA first, then OpenRouter if NVIDIA is unavailable or fails.
 # Credentials are supplied only as encrypted Cloudflare Worker secrets by the deploy workflow.
 AI_PROVIDER_ORDER = "nvidia,openrouter"

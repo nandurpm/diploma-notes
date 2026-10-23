@@ -3,6 +3,7 @@ import { cleanText, isPlainObject, jsonResponse, rejectUnknownKeys, requestLogCo
 const FIRESTORE_SCOPE = "https://www.googleapis.com/auth/datastore";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const FIRESTORE_BASE = "https://firestore.googleapis.com/v1/projects";
+const DEFAULT_FIRESTORE_PROJECT_ID = "diploma-notes-comments";
 const MAX_LINKS = 2;
 const TOKEN_SKEW_SECONDS = 60;
 let commentReadiness = { expiresAt: 0, ready: false, permissionDenied: false };
@@ -28,6 +29,10 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
 
 function baseUrl(projectId) {
   return `${FIRESTORE_BASE}/${encodeURIComponent(projectId)}/databases/(default)/documents/helpComments`;
+}
+
+function firestoreProjectId(env) {
+  return cleanText(env?.FIRESTORE_PROJECT_ID, 140) || DEFAULT_FIRESTORE_PROJECT_ID;
 }
 
 function base64Url(value) {
@@ -125,8 +130,8 @@ function firestoreFields(values) {
 }
 
 async function createFirestoreComment(payload, env) {
-  const { account, token } = await accessToken(env);
-  const response = await fetchWithTimeout(baseUrl(account.projectId), {
+  const { token } = await accessToken(env);
+  const response = await fetchWithTimeout(baseUrl(firestoreProjectId(env)), {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -168,8 +173,8 @@ export async function commentsHealth(env, origin = "") {
   // permission failures as well so the UI cannot immediately re-enable posting.
   if (configured && commentReadiness.expiresAt <= Date.now()) {
     try {
-      const { account, token } = await accessToken(env);
-      const response = await fetchWithTimeout(`${baseUrl(account.projectId)}?pageSize=1`, {
+      const { token } = await accessToken(env);
+      const response = await fetchWithTimeout(`${baseUrl(firestoreProjectId(env))}?pageSize=1`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       commentReadiness = { expiresAt: Date.now() + 45000, ready: response.ok, permissionDenied: response.status === 401 || response.status === 403 };

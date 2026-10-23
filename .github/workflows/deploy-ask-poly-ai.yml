@@ -21,6 +21,7 @@ concurrency:
 
 jobs:
   deploy:
+    environment: FIREBASE_SERVICE_ACCOUNT_JSON
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -121,6 +122,9 @@ jobs:
             echo "FIREBASE_SERVICE_ACCOUNT_JSON is required for the protected public-comments write path."
             exit 1
           fi
+          # This credential must be a server-only Google service account with
+          # Firestore write access to the diploma-notes-comments project. The
+          # FCM-only account used by notification workflows is not sufficient.
           python - <<'PY'
           import json
           import os
