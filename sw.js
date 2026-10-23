@@ -1,6 +1,6 @@
 /* Public offline resources only; never cache APIs, account pages or submissions. */
 const CACHE_PREFIX = 'poly-pmna-';
-const CACHE_NAME = `${CACHE_PREFIX}20261008-verified-results-v1`;
+const CACHE_NAME = `${CACHE_PREFIX}20261023-contact-email-v1`;
 const ASSETS_TO_CACHE = ['/offline.html', '/assets/css/style.css', '/assets/js/main.js'];
 const PRIVATE_PATH = /^\/(?:admin(?:\/|$)|api(?:\/|$)|(?:ask-poly(?:-v2)?|daily-quiz|mock-exam|login|register|profile|dashboard|reset-password|auth|account)(?:[/.]|$))/i;
 

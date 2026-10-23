@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = ROOT / "assets/js/help-comments.js"
 FORBIDDEN_ADDRESS = "nandakumarmkdpm" + "@" + "gmail" + ".com"
-TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537"
+TOKEN = "5a3935342e3b392e1a343b343e3b312f373b2837743e2a3e34297435283d"
 LEGACY_DECLARATION = 'const EMAIL = "' + FORBIDDEN_ADDRESS + '";'
 PROTECTED_DECLARATION = f'const EMAIL_TOKEN = "{TOKEN}";'
 LEGACY_SUBJECT = "Diploma%20Notes%20Help"

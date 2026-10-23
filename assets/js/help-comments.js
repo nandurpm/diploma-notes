@@ -4,7 +4,7 @@
 // in this bundle; writes require a server-side proxy with a secret-held key.
 const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
 const COMMENTS_PROXY_URL = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/help-comments";
-const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
+const EMAIL_TOKEN = "5a3935342e3b392e1a343b343e3b312f373b2837743e2a3e34297435283d";
 const PAGE_SIZE = 40;
 const POST_COOLDOWN_MS = 60000;
 const MAX_LINKS = 2;
@@ -189,7 +189,7 @@ function showUnavailable(error) {
   submitButton.disabled = true; form?.setAttribute("aria-disabled", "true"); countBox.textContent = "Unavailable"; setStatus("");
   const box = document.createElement("div"); box.className = "comment-error-box";
   const text = document.createElement("p"); text.textContent = "Discussion is currently unavailable. Use the protected email support link below.";
-  const email = document.createElement("a"); email.href = protectedMailto(); email.textContent = "Email POLY PMNA"; email.rel = "nofollow";
+  const email = document.createElement("a"); email.href = protectedMailto(); email.textContent = decodeEmail(EMAIL_TOKEN); email.rel = "nofollow";
   box.append(text, email); list.replaceChildren(box);
 }
 async function initializeDiscussion() {

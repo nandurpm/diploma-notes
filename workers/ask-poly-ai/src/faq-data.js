@@ -48,7 +48,7 @@ export const FAQ_ENTRIES = [
       "who developed this website",
       "who is the developer"
     ],
-    answer: "POLY PMNA is an initiative by SFI Perinthalmanna Poly Unit, built and maintained by its student developer team. For contact, corrections or support you can email nandakumarmkdpm@gmail.com or call 9746445461."
+    answer: "POLY PMNA is an initiative by SFI Perinthalmanna Poly Unit, built and maintained by its student developer team. For contact, corrections or support you can email contact@nandakumarm.dpdns.org or call 9746445461."
   },
   {
     id: "is-poly-pmna-free",
@@ -253,7 +253,7 @@ export const FAQ_ENTRIES = [
       "customer support",
       "need help"
     ],
-    answer: "Open the Help page from the top menu and describe the page URL, curriculum revision, department, semester, subject code, the affected button, and what you expected vs what happened (a screenshot helps). You can also email nandakumarmkdpm@gmail.com or call 9746445461 for direct support."
+    answer: "Open the Help page from the top menu and describe the page URL, curriculum revision, department, semester, subject code, the affected button, and what you expected vs what happened (a screenshot helps). You can also email contact@nandakumarm.dpdns.org or call 9746445461 for direct support."
   },
   {
     id: "contact-email",
@@ -264,7 +264,7 @@ export const FAQ_ENTRIES = [
       "support email",
       "email id"
     ],
-    answer: "You can reach POLY PMNA support by email at nandakumarmkdpm@gmail.com."
+    answer: "You can reach POLY PMNA support by email at contact@nandakumarm.dpdns.org."
   },
   {
     id: "contact-phone",

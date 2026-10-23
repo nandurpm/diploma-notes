@@ -118,7 +118,7 @@
     }
 
     const script = document.createElement("script");
-    script.src = "/assets/js/site-shell.js?v=20260717-fixed-header-restore1";
+    script.src = "/assets/js/site-shell.js?v=20261023-contact-email1";
     script.defer = true;
     script.addEventListener("load", () => window.PolySiteShell?.render(), { once: true });
     document.head.append(script);

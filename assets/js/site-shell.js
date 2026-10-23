@@ -39,7 +39,7 @@
 
   // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Blog & GK" label: "Help"
 
-  const VERSION = "20260916-blog-nav1";
+  const VERSION = "20261023-contact-email1";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
@@ -365,7 +365,7 @@
     const developerHref = nativeApp
       ? "polytechnic-study-hub://open-external?path=https%3A%2F%2Fnandakumarm.dpdns.org%2F"
       : "https://nandakumarm.dpdns.org/";
-    const desired = `<p>&copy; <span data-year>${new Date().getFullYear()}</span> ${SITE_NAME}.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="${developerHref}" target="_self">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>`;
+    const desired = `<p>&copy; <span data-year>${new Date().getFullYear()}</span> ${SITE_NAME}.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="mailto:contact@nandakumarm.dpdns.org">contact@nandakumarm.dpdns.org</a><a href="${developerHref}" target="_self">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>`;
     if (force || footer.dataset.siteShellVersion !== VERSION) {
       footer.className = "footer";
       footer.innerHTML = desired;
