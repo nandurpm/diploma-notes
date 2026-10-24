@@ -15,3 +15,9 @@
 **Finding:** Electrical engineering lesson solved problems and rule banks occasionally use plain ASCII text notation (`100 ohm`, `4 ohm`) alongside standard Unicode symbols (`100 Ω`, `4 Ω`).
 **Learning:** Inconsistent unit symbols within calculations and formula banks reduce visual clarity and professional quality on technical diploma lesson pages.
 **Prevention:** Standardize resistance numerical values to use standard Unicode ohm symbols (`Ω`) across electrical engineering lesson handbooks while preserving exact numerical values and formulas.
+
+## 2026-09-11 - Standardizing Trigonometric Greek Notation
+
+**Finding:** Lesson formula blocks and model answer keys occasionally use ASCII text (`cos phi`, `cos theta`, `sin theta`) instead of standard Unicode Greek symbols (`cosφ`, `cosθ`, `sinθ`).
+**Learning:** Mixing plain ASCII text and Unicode Greek symbols within formulas—sometimes even on the same page—reduces visual professionalism and consistency for students studying engineering calculations.
+**Prevention:** Standardize trigonometric functions and variable angles to use Unicode Greek characters (`φ`, `θ`) across all study materials while preserving exact formula structures and taught concepts.
