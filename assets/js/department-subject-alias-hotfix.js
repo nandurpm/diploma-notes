@@ -103,7 +103,13 @@
       if (items.length) renderGroups(grid, items);
     };
     render();
-    search?.addEventListener("input", render);
+    // PERFORMANCE OPTIMIZATION: Debounce input event handler (100ms) to avoid
+    // running DOM rendering and list filtering on every keypress on mobile devices.
+    let searchDebounceTimer = null;
+    search?.addEventListener("input", () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(render, 100);
+    });
     semester?.addEventListener("change", render);
   }
 
