@@ -47,8 +47,15 @@ def restore(root, target, should_copy, fetch=None):
         elif fetch:
             content = fetch(url)
         else:
-            with urllib.request.urlopen(url, timeout=120) as response:
-                content = response.read()
+            attempts = 3
+            for attempt in range(attempts):
+                try:
+                    with urllib.request.urlopen(url, timeout=120) as response:
+                        content = response.read()
+                    break
+                except (urllib.error.HTTPError, urllib.error.URLError) as err:
+                    if attempt == attempts - 1:
+                        raise
         if not verified(content, record):
             raise ValueError(f'Archive verification failed: {relative}')
         destination = target / relative
