@@ -15,3 +15,9 @@
 **Learning:** In paginated long lists (such as 100 items per page in the PDF Library browser), changing pages without adjusting the scroll position leaves mobile users stranded at the bottom of the page after clicking pagination controls. Programmatically scrolling the list top (`files.scrollIntoView({ behavior: 'smooth', block: 'start' })`) into view upon page change restores visual orientation, while including the page number in live status regions (`Page X of Y`) ensures screen readers announce navigation transitions clearly.
 
 **Action:** When implementing pagination on long data lists, combine smooth scroll resetting to the top of the list container with dynamic page-number updates in `aria-live` status elements.
+
+## 2026-05-18 - Parity of Icon-Only Search Clear Buttons Across Revision Directories
+
+**Learning:** When search inputs across similar pages (such as `revision-2021.html` and `revision-2026.html`) feature icon-only inline clear buttons (`×`), subtle omissions of `aria-label` in newer HTML templates leave screen reader users without explicit context on button action. Mirroring accessibility attributes like `aria-label="Clear department search"` ensures a unified and predictable accessibility experience across schemes.
+
+**Action:** Whenever adding or updating search component layouts, verify that inline clear buttons contain unambiguous `aria-label` descriptors across all directory versions.
