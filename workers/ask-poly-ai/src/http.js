@@ -216,7 +216,7 @@ export function isSafeExternalUrl(rawUrl) {
     if (ipv4Match) {
       const [_, a, b, c, d] = ipv4Match.map(Number);
       if (a > 255 || b > 255 || c > 255 || d > 255) return false;
-      if (a === 0 || a === 127 || a === 10) return false;
+      if (a === 0 || a === 127 || a === 10 || a >= 224) return false;
       if (a === 172 && b >= 16 && b <= 31) return false;
       if (a === 192 && b === 168) return false;
       if (a === 169 && b === 254) return false;
@@ -224,7 +224,7 @@ export function isSafeExternalUrl(rawUrl) {
     }
 
     if (hostname === "::" || hostname === "::1" || /^0*(:0*)*(:1)?$/.test(hostname)) return false;
-    if (hostname.startsWith("fe80:") || hostname.startsWith("fc00:") || hostname.startsWith("fd00:")) return false;
+    if (hostname.startsWith("fe80:") || hostname.startsWith("fc00:") || hostname.startsWith("fd00:") || (hostname.startsWith("ff") && hostname.includes(":"))) return false;
 
     return true;
   } catch (_) {

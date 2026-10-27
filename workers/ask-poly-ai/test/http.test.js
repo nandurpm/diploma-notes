@@ -223,6 +223,8 @@ test("safeLogValue filters prototype properties and dangerous keys", () => {
 test("isSafeExternalUrl permits valid public http/https URLs and blocks SSRF targets", () => {
   assert.equal(isSafeExternalUrl("https://api.openai.com/v1"), true);
   assert.equal(isSafeExternalUrl("http://external-ai-provider.org/v1/chat"), true);
+  assert.equal(isSafeExternalUrl("https://firefox.com"), true);
+  assert.equal(isSafeExternalUrl("https://ffmpeg.org"), true);
 
   // Non-HTTP(S) schemes
   assert.equal(isSafeExternalUrl("ftp://example.com"), false);
@@ -244,12 +246,18 @@ test("isSafeExternalUrl permits valid public http/https URLs and blocks SSRF tar
   assert.equal(isSafeExternalUrl("http://169.254.169.254/latest/meta-data/"), false);
   assert.equal(isSafeExternalUrl("http://100.64.0.1"), false);
 
-  // IPv6 Loopback & Private & IPv4-mapped IPv6
+  // IPv4 Multicast, Broadcast & Reserved
+  assert.equal(isSafeExternalUrl("http://224.0.0.1"), false);
+  assert.equal(isSafeExternalUrl("http://239.255.255.250"), false);
+  assert.equal(isSafeExternalUrl("http://255.255.255.255"), false);
+
+  // IPv6 Loopback & Private & Multicast & IPv4-mapped IPv6
   assert.equal(isSafeExternalUrl("http://[::1]"), false);
   assert.equal(isSafeExternalUrl("http://[::]"), false);
   assert.equal(isSafeExternalUrl("http://[0:0:0:0:0:0:0:0]"), false);
   assert.equal(isSafeExternalUrl("http://[fe80::1]"), false);
   assert.equal(isSafeExternalUrl("http://[fc00::1]"), false);
+  assert.equal(isSafeExternalUrl("http://[ff02::1]"), false);
   assert.equal(isSafeExternalUrl("http://[::ffff:127.0.0.1]"), false);
   assert.equal(isSafeExternalUrl("http://[::ffff:7f00:1]"), false);
   assert.equal(isSafeExternalUrl("http://[::ffff:a9fe:a9fe]"), false);
