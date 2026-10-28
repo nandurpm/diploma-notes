@@ -34,3 +34,8 @@
 **Vulnerability:** In `workers/ask-poly-ai/src/http.js`, `createRateLimiter` placed Map capacity eviction logic *after* the rate-limit threshold check (`recent.length >= maximum`), returning `false` early on rate-limited calls and preventing stale bucket pruning under DoS floods.
 **Learning:** Early returns in rate limiters on blocked requests skip cleanup routines, causing unbounded `Map` memory growth when an endpoint receives floods from many IP keys.
 **Prevention:** Always run Map capacity eviction routines *before* evaluating rate-limit thresholds or returning early from limiter functions.
+
+## 2026-10-27 - Blocking IPv4/IPv6 Multicast and Reserved Ranges in SSRF Protection
+**Vulnerability:** In `workers/ask-poly-ai/src/http.js`, `isSafeExternalUrl` checked IPv4 loopback/private/link-local/CGNAT and IPv6 loopback/private ranges, but permitted IPv4 multicast/reserved/broadcast addresses (`224.0.0.0/4`, `255.255.255.255`) and IPv6 multicast addresses (`ff00::/8`).
+**Learning:** Standard URL parsers accept multicast and broadcast IP targets as valid HTTP hostnames. Outbound requests to multicast/broadcast IPs in edge runtimes can trigger internal network noise or unexpected traffic routing.
+**Prevention:** SSRF URL validators must explicitly reject IPv4 multicast/reserved/broadcast ranges (`a >= 224`) and IPv6 multicast prefixes (`ff`).
