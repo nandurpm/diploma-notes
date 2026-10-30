@@ -1,5 +1,10 @@
 # Repository Guardian Journal
 
+## 2026-10-29 - Orphaned One-Time Publishing Workflows After Payload Cleanup
+**Finding:** `.github/workflows/publish-rev2026-detailed-handbooks-v2.yml` remained in `.github/workflows/` even though its path trigger `.rev2026-v2-trigger` and payload asset `tools/rev2026-detailed-v2-payload.xb64` were deleted after execution.
+**Learning:** One-time automated publishing or migration workflows designed to clean up their own payload/trigger files on completion become orphaned and break CI path-trigger validation if the workflow definition file itself is not removed along with the payloads.
+**Prevention:** When removing transient/one-time payload files or triggers, always delete or archive the associated workflow file under `.github/workflows/`.
+
 ## 2026-10-22 - Missing Middleware Dependencies and Unreferenced Path Triggers in Maintenance Workflow
 **Finding:** `.github/workflows/validate-maintenance-schedule.yml` contained deleted path triggers (`functions/_middleware.js`, `reports/*.md`) and unconditionally attempted to copy `functions/_middleware.js`, which caused runtime step failures when triggered without Cloudflare Pages middleware.
 **Learning:** Workflows verifying serverless middleware contracts fail abruptly if the target middleware file or reports are refactored out without corresponding file-existence guards or trigger cleanup in GitHub Actions definitions.
