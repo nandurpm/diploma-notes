@@ -39,11 +39,15 @@
   input.removeAttribute('oninput');
   input.setAttribute('aria-controls', 'searchResults');
   input.setAttribute('aria-describedby', status.id);
-  input.addEventListener('input', () => {
-    results.replaceChildren();
+
+  // PERFORMANCE OPTIMIZATION: Debounce search input (100ms) and batch DOM updates
+  // using DocumentFragment to prevent layout thrashing and keep mobile typing smooth.
+  let debounceTimer = null;
+  const updateResults = () => {
     const query = input.value.trim().toLowerCase();
     const matches = query ? entries.filter(entry => entry.searchText.includes(query)) : [];
     status.textContent = query ? `${matches.length} matching topics${matches.length > 25 ? '; showing the first 25' : ''}.` : '';
+    const fragment = document.createDocumentFragment();
     matches.slice(0, 25).forEach(entry => {
       const link = document.createElement('a');
       link.href = `#${entry.target.id}`;
@@ -51,7 +55,13 @@
       link.addEventListener('click', () => {
         if (entry.target.tagName === 'DETAILS') entry.target.open = true;
       });
-      results.append(link);
+      fragment.append(link);
     });
+    results.replaceChildren(fragment);
+  };
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(updateResults, 100);
   });
 })();
