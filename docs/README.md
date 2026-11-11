@@ -11,6 +11,7 @@ Developer documentation for POLY PMNA lives here. Public website routes remain o
 | Contribute | [Contribution guide](../CONTRIBUTING.md) |
 | Release safely | [Release checklist](RELEASE-CHECKLIST.md) |
 | Understand backend/security boundaries | [Architecture](architecture/) and [secure deployment](SECURE-DEPLOYMENT.md) |
+| Ask Poly AI specification | [Ask Poly AI master prompt](ask-poly-ai-master-prompt.md) |
 | Publish lesson PDFs | [PDF automation](lesson-pdf-automation.md) |
 | Review a historical audit | [Audit archive](audits/README.md) |
 | Investigate a past incident | [Diagnostics](diagnostics/README.md) |
