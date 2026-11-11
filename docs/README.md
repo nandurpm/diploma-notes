@@ -28,7 +28,7 @@ Developer documentation for POLY PMNA lives here. Public website routes remain o
 | [`pdf-archive/`](pdf-archive/) | Synchronized PDF catalogue manifests and archive documentation |
 | [`images/`](images/) | Documentation-only images |
 
-Feature-specific standards that are still current remain at the top of `docs/` when they are referenced broadly by workflows or contributors, including lesson standards, release instructions, authentication/security notes, and PDF automation.
+Feature-specific standards that are still current remain at the top of `docs/` when they are referenced broadly by workflows or contributors, including lesson standards, release instructions, authentication/security notes, Ask Poly AI master prompt specification ([Ask Poly AI Master Prompt](ask-poly-ai-master-prompt.md)), and PDF automation.
 
 ## Current health vs. historical evidence
 
