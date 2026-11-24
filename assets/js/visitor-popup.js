@@ -22,7 +22,7 @@
 (() => {
   "use strict";
 
-  if (/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
+  if (/\/ask-poly(?:-v2)?(?:\.html)?\/?$/i.test(location.pathname)) return;
   if (document.getElementById("polyVisitorPopupScriptReady")) return;
 
   const readyFlag = document.createElement("meta");
