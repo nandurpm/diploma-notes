@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-10-23T10:33:05Z",
+  "generatedAt": "2026-11-24T09:01:34Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -25,7 +25,7 @@
       "nvidia",
       "openrouter"
     ],
-    "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
+    "model": "@cf/google/gemma-4-26b-a4b-it",
     "mockExamEvaluation": true,
     "mockExamPattern": "1004-75-mark-official-model",
     "dailyQuizGrading": true
@@ -33,7 +33,7 @@
   "askTest": {
     "ok": true,
     "provider": "cloudflare-workers-ai",
-    "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
+    "model": "@cf/google/gemma-4-26b-a4b-it",
     "answerPreview": "Ask POLY is ready"
   },
   "relevanceTest": {
