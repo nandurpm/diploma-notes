@@ -39,7 +39,7 @@ jobs:
           node tools/api_security_probe.mjs
           cd workers/ask-poly-ai
           npm audit --audit-level=high --omit=dev
-          npm test -- --runInBand
+          npm test
 
       - name: Validate secure Worker source and public routes
         run: |

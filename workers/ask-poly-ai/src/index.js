@@ -17,7 +17,7 @@ import {
 const allowAsk = createRateLimiter(30);
 const allowExam = createRateLimiter(5);
 const KNOWLEDGE_MODE = "whole-site-revision-aware-v1";
-const DEFAULT_CLOUDFLARE_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
+const DEFAULT_CLOUDFLARE_AI_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 const WEBSITE_INTENT_PATTERN = /\b(?:poly\s*pmna|revision|rev\s*20(?:21|26)|sitttr|subject(?:\s+code)?|syllabus|lessons?|notes?|model\s+question(?:\s+paper)?|sample\s+(?:question\s+)?paper|question\s+papers?|mock\s+exams?|department|semester|programme|course|website|web\s*site|page|links?|downloads?|resources?|2015\s+materials?|materials?\s+2015|student\s+tools?)\b/i;
 
 async function readJson(request) {

@@ -1148,6 +1148,10 @@ function workersAiStream(stream) {
     if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
     try {
       const payload = JSON.parse(data);
+      const delta = payload?.choices?.[0]?.delta?.content;
+      if (typeof delta === "string") {
+        return { done: false, text: preserveStreamText(delta, 6000) };
+      }
       return { done: false, text: toDelta(preserveStreamText(payload?.response || payload?.text || "", 6000)) };
     } catch (_) {
       return { done: false, text: "" };
@@ -1190,7 +1194,7 @@ function workersAiStream(stream) {
 
 async function askWorkersAiStream(body, env) {
   if (!env?.AI || typeof env.AI.run !== "function") throw new Error("Cloudflare Workers AI binding is unavailable.");
-  const model = cleanText(env.WORKERS_AI_MODEL, 160) || "@cf/meta/llama-3.1-8b-instruct-fp8";
+  const model = cleanText(env.WORKERS_AI_MODEL || env.CLOUDFLARE_AI_MODEL, 160) || "@cf/google/gemma-4-26b-a4b-it";
   const result = await env.AI.run(model, {
     messages: sanitizeHistory(body.history).concat([{ role: "user", content: buildUserContent(body) }]),
     stream: true,

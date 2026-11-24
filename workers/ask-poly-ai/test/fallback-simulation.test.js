@@ -158,7 +158,7 @@ test("streaming prefers Workers AI binding and normalizes native response SSE", 
   installFetch({ nvidia: "fail", openrouter: "fail", calls });
   const result = await askPolyStream({ message: "Explain voltage", history: [] }, env);
   assert.equal(result.provider, "cloudflare-workers-ai");
-  assert.equal(runModel, "@cf/meta/llama-3.1-8b-instruct-fp8");
+  assert.equal(runModel, "@cf/google/gemma-4-26b-a4b-it");
   assert.equal(runInput.stream, true);
   const text = await new Response(result.stream).text();
   assert.match(text, /"content":"Workers"/);
