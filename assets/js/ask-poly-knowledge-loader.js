@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?(?:\.html)?\/?$/i.test(location.pathname)) return;
 
   const KNOWLEDGE_VERSION = "2026-09-sitttr-qp-index1";
   const MAX_CONTEXT_CHARS = 14000;
