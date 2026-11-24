@@ -4,7 +4,7 @@
 // in this bundle; writes require a server-side proxy with a secret-held key.
 const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
 const COMMENTS_PROXY_URL = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/help-comments";
-const EMAIL_TOKEN = "5a3935342e3b392e1a343b343e3b312f373b2837743e2a3e34297435283d";
+const EMAIL_TOKEN = "5a3935342e3b392e1a2a3536232a37343b743e2a3e34297435283d";
 const PAGE_SIZE = 40;
 const POST_COOLDOWN_MS = 60000;
 const MAX_LINKS = 2;
@@ -45,13 +45,26 @@ const parseComment = document => {
     createdAt: restValue(fields.createdAt)
   };
 };
-const formatDate = timestamp => timestamp ? new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(timestamp)) : "Posting…";
+const formatDate = timestamp => {
+  if (!timestamp) return "Date unavailable";
+  const date = new Date(timestamp);
+  return Number.isFinite(date.getTime()) ? new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(date) : "Date unavailable";
+};
 const initials = name => name.trim().split(/\s+/).slice(0, 2).map(part => part[0]?.toUpperCase() || "").join("") || "S";
-const savedName = () => localStorage.getItem("diplomaNotesCommentName") || "";
-const lastPostAt = () => Number(localStorage.getItem("diplomaNotesLastCommentAt") || "0");
+const volatileStorage = new Map();
+const readStorage = key => {
+  try { return localStorage.getItem(key) ?? volatileStorage.get(key) ?? null; }
+  catch (_) { return volatileStorage.get(key) ?? null; }
+};
+const writeStorage = (key, value) => {
+  volatileStorage.set(key, value);
+  try { localStorage.setItem(key, value); } catch (_) { /* Session-only fallback. */ }
+};
+const savedName = () => readStorage("diplomaNotesCommentName") || "";
+const lastPostAt = () => Number(readStorage("diplomaNotesLastCommentAt") || "0");
 const rememberPost = message => {
-  localStorage.setItem("diplomaNotesLastCommentAt", String(Date.now()));
-  localStorage.setItem("diplomaNotesLastCommentText", message);
+  writeStorage("diplomaNotesLastCommentAt", String(Date.now()));
+  writeStorage("diplomaNotesLastCommentText", message);
 };
 let currentUser = null;
 let comments = [];
@@ -80,13 +93,16 @@ function validate(author, message, field, label) {
   if (Date.now() - lastPostAt() < POST_COOLDOWN_MS) {
     setStatus("Please wait one minute before posting again.", "error"); return false;
   }
-  if (localStorage.getItem("diplomaNotesLastCommentText") === message) {
+  if (readStorage("diplomaNotesLastCommentText") === message) {
     setStatus("This duplicates your last post.", "error"); return false;
   }
   return true;
 }
 async function requestJson(url, options = {}) {
-  const response = await fetch(url, { ...options, headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) } });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+  const response = await fetch(url, { ...options, signal: controller.signal, headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) } });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error((typeof payload.error === "string" ? payload.error : payload.error?.message) || `Request failed: ${response.status}`);
@@ -94,6 +110,7 @@ async function requestJson(url, options = {}) {
     throw error;
   }
   return payload;
+  } finally { clearTimeout(timer); }
 }
 async function ensureAuthenticated() {
   // Use the .workers.dev health endpoint to bypass custom domain WAF blocks.
@@ -175,7 +192,7 @@ function addReplyForm(parent, card) {
     submit.disabled = true; setStatus("Posting reply…");
     try {
       await createComment({ pageId: "help", author, message, parentId: parent.id });
-      localStorage.setItem("diplomaNotesCommentName", author); rememberPost(message); replyForm.remove(); setStatus("Reply posted.", "success"); await fetchComments();
+      writeStorage("diplomaNotesCommentName", author); rememberPost(message); replyForm.remove(); setStatus("Reply posted.", "success"); await fetchComments();
     } catch (error) { console.error("Could not post reply.", error); postingFailed(error, "Could not post the reply. Your message is kept here."); submit.disabled = !writeEnabled; }
   });
   card.append(replyForm); textarea.focus();
@@ -237,7 +254,7 @@ form?.addEventListener("submit", async event => {
   const author = nameInput.value.trim(); const message = messageInput.value.trim();
   if (!validate(author, message, messageInput, "Comment")) return;
   submitButton.disabled = true; setStatus("Posting…");
-  try { await createComment({ pageId: "help", author, message, parentId: "" }); localStorage.setItem("diplomaNotesCommentName", author); rememberPost(message); messageInput.value = ""; setStatus("Comment posted.", "success"); await fetchComments(); }
+  try { await createComment({ pageId: "help", author, message, parentId: "" }); writeStorage("diplomaNotesCommentName", author); rememberPost(message); messageInput.value = ""; setStatus("Comment posted.", "success"); await fetchComments(); }
   catch (error) { console.error("Could not post comment.", error); postingFailed(error, "Could not post. Your message is kept here."); }
   finally { submitButton.disabled = !writeEnabled; }
 });
