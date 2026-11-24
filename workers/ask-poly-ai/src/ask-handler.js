@@ -1160,26 +1160,35 @@ function workersAiStream(stream) {
   return new ReadableStream({
     async pull(controller) {
       try {
-        const { value, done } = await reader.read();
-        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
-        const events = buffer.split(/\r?\n\r?\n/);
-        buffer = events.pop() || "";
-        for (const event of events) {
-          const parsed = parseEvent(event);
-          if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
-          if (parsed.done) {
+        // A partial event or metadata-only chunk may not enqueue anything.
+        // Keep reading so this pull can satisfy the pending consumer read.
+        while (true) {
+          const { value, done } = await reader.read();
+          buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+          const events = buffer.split(/\r?\n\r?\n/);
+          buffer = events.pop() || "";
+          let emittedText = false;
+          for (const event of events) {
+            const parsed = parseEvent(event);
+            if (parsed.text) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+              emittedText = true;
+            }
+            if (parsed.done) {
+              controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+              controller.close();
+              return;
+            }
+          }
+          if (done) {
+            if (buffer.trim()) {
+              const parsed = parseEvent(buffer);
+              if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+            }
             controller.enqueue(encoder.encode("data: [DONE]\n\n"));
             controller.close();
-            return;
           }
-        }
-        if (done) {
-          if (buffer.trim()) {
-            const parsed = parseEvent(buffer);
-            if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
-          }
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-          controller.close();
+          if (done || emittedText) return;
         }
       } catch (error) {
         controller.error(error);

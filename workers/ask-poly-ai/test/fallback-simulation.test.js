@@ -189,6 +189,26 @@ test("cumulative Workers AI snapshots become suffix deltas", async () => {
   assert.doesNotMatch(text, /"content":"It seems"/);
   assert.doesNotMatch(text, /"content":"It seems like"/);
 });
+test("Workers AI stream continues after metadata and split events", async () => {
+  const encoder = new TextEncoder();
+  const chunks = [
+    'data: {"choices":[{"delta":{"role":"assistant"}}]}\n\n',
+    'data: {"choices":[{"delta":',
+    '{"content":"Relay contacts move."}}]}\n\n',
+    'data: [DONE]\n\n'
+  ];
+  const stream = new ReadableStream({
+    pull(controller) {
+      if (chunks.length) controller.enqueue(encoder.encode(chunks.shift()));
+      else controller.close();
+    }
+  });
+  const result = await askPolyStream({ message: "Explain a relay" }, {
+    AI: { run: async () => stream }
+  });
+  assert.match(await new Response(result.stream).text(), /Relay contacts move/);
+});
+
 test("streaming fallback reaches OpenRouter after NVIDIA fails", async () => {
   const calls = [];
   installFetch({ nvidia: "fail", openrouter: "success", gemini: "success", calls });
