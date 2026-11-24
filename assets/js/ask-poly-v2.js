@@ -856,9 +856,10 @@
         }
       }
     } finally {
-      setWaiting(false);
       stopRequested = false;
-      await renderAll();
+      // Keep the chat locked until the final message and sidebar are rendered.
+      try { await renderAll(); }
+      finally { setWaiting(false); }
       els.input.focus();
       const nextText = pendingMessages.shift();
       updateQueueControl();
