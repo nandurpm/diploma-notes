@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T09:00:35Z",
+  "generatedAt": "2026-11-24T09:03:04Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://api.polypmna.dpdns.org/health",
   "askUrl": "https://api.polypmna.dpdns.org/api/ask-poly",
@@ -8,11 +8,11 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Tue, 24 Nov 2026 09:00:29 GMT",
+      "date": "Tue, 24 Nov 2026 09:02:57 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "491",
       "connection": "close",
-      "server-timing": "cfEdge;dur=65,cfOrigin;dur=0,cfWorker;dur=1",
+      "server-timing": "cfEdge;dur=58,cfOrigin;dur=0,cfWorker;dur=2",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
       "vary": "Origin",
@@ -24,10 +24,10 @@
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
       "speculation-rules": "\"/cdn-cgi/speculation\"",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sC8UD1TI78Vx0f5PqVXfhekMv%2FOghUr0xgNs2jWLiwuLBj6tmGa0%2Fu9PfsU4zylLQ0BUSLfDSmIxSGqAgUSgZXNZdW0vKfvQtmDQ3aC2OCoVTbGb%2FiukmAGp3AnHAAmgCFdh5nVwiU%2B0\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CjN5O4UbPzHZmXXQuvF9%2F3wSTNpx1%2FIiFSXKylwZVEjTuIqx7gPI%2FUUCMdTgxjH4jN50JdXHjCbah8wtXtOiurcPQVatw3ktsG6hw1C60D5RJckMMgvuea4U7So20nPoVhv39J21RzMT\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a5f739393868acdf-SEA",
+      "cf-ray": "a5f73cdabdcc5fb8-LAX",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":false,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":false,\"providers\":[\"cloudflare-workers-ai\",\"nvidia\",\"openrouter\"],\"model\":\"@cf/google/gemma-4-26b-a4b-it\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\",\"dailyQuizGrading\":true}",
@@ -38,18 +38,18 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Tue, 24 Nov 2026 09:00:29 GMT",
+      "date": "Tue, 24 Nov 2026 09:02:57 GMT",
       "connection": "close",
-      "server-timing": "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=0",
+      "server-timing": "cfEdge;dur=47,cfOrigin;dur=0,cfWorker;dur=3",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5Jo8mSy2C7%2Fyf2wfqTIqYsLpIOP9xm5fl0dMAHQOJuHQdj5YQxkNMwTqpGbDCEGsblS0rb4Mww4HMiVNFkn8aw9VXn%2FiJrlUIOY97OU7srTrEUBObnFjT5BisThUbDmbAFiLu%2F%2FCwLco\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gOqhG9o72RZyb4sD%2FAQEIz5TnvlGIa6iMH5ZognZkrGUoNMpfbjlDfq71D2Hj6ozrQ5VTrn1GSf5APDfeDMLWqwbRmt8KpV6iRqD9wfAaHJI85dCwBfaBWIUF9SV8FpY9zHh35HXaNyt\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a5f73939da12af49-SEA",
+      "cf-ray": "a5f73cdb5d002b96-LAX",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,12 +57,12 @@
   },
   "post": {
     "name": "post",
-    "ok": false,
-    "status": 502,
+    "ok": true,
+    "status": 200,
     "headers": {
-      "date": "Tue, 24 Nov 2026 09:00:35 GMT",
+      "date": "Tue, 24 Nov 2026 09:03:04 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "112",
+      "content-length": "241",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -74,14 +74,14 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wX0%2FHbxZoPHWvTmvp6qIqWRGz3%2B0JJUncM%2FklJGntWl5yTNetXxulOftW7Bx2yb6x9Qns%2BdBkWVYuFj8ze5kdoEI6hHGVCPWpP1669lTc1OCeie7xHNv0SWrUxv7aeptE38AZkI0OTJY\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=XdT%2BbdAtSRccKi%2BD6%2FN7nb8YtxvAcSKGIYRo4IfWiiZOxNixHfEcaAVOW5mjZ7sEwDZDhhxg9vFT7Lies82ITV%2BaX8tWv6hHpHogKldtyoSlwijqv4cyejuU53TFolPa%2F2nvBCfkSd0u\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a5f7393a1839a60c-SEA",
+      "cf-ray": "a5f73cdbef05f552-LAX",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"error\":\"The AI assistant is temporarily unavailable. Your chat is saved; please retry once.\",\"retryable\":true}",
-    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+    "body": "{\"answer\":\"Ask POLY browser path works\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai\",\"model\":\"@cf/google/gemma-4-26b-a4b-it\",\"responseId\":\"94f98a31b70149e294865daa463ee065\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "error": ""
   },
-  "browserPathOk": false
+  "browserPathOk": true
 }
