@@ -2,13 +2,12 @@
 (() => {
   "use strict";
 
-  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?(?:\.html)?\/?$/i.test(location.pathname)) return;
 
-  const RETRYABLE_STATUS = new Set([400, 401, 403, 408, 425, 429, 500, 502, 503, 504]);
+  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
   const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
-  let lastQuestion = "";
   let activeEndpoint = "";
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -35,6 +34,8 @@
       try {
         const url = new URL(endpoint, location.href);
         if (url.hostname.endsWith("workers.dev")) url.pathname = "/health";
+        else if (url.pathname.endsWith("/api/ask-poly")) url.pathname = url.pathname.replace(/\/api\/ask-poly$/, "/health");
+        else return "";
         url.search = "";
         url.hash = "";
         return url.href;
@@ -61,16 +62,6 @@
     }
   }
 
-  function rememberQuestion(options = {}) {
-    try {
-      if (typeof options.body !== "string") return;
-      const payload = JSON.parse(options.body);
-      const question = String(payload?.message || "").trim();
-      if (question) lastQuestion = question;
-    } catch (_) {
-      // Ignore non-JSON request bodies.
-    }
-  }
 
   function authHeadersFor(url) {
     try {
@@ -102,7 +93,6 @@
   }
 
   async function fetchAskWithFailover(input, options) {
-    rememberQuestion(options);
     const candidates = endpointCandidates();
     if (!candidates.length) throw new Error("Ask POLY endpoint is missing.");
 
@@ -145,18 +135,17 @@
     return fetchAskWithFailover(input, options);
   };
 
-  function questionFromLastUserBubble() {
-    if (lastQuestion) return lastQuestion;
-    const bubbles = [...document.querySelectorAll("#chatMessages .ask-bubble.user")];
-    const latest = bubbles.at(-1);
+  function questionFromLastUserBubble(bubble) {
+    let latest = bubble?.previousElementSibling;
+    while (latest && !latest.matches(".ask-bubble.user")) latest = latest.previousElementSibling;
     if (!latest) return "";
     const clone = latest.cloneNode(true);
     clone.querySelectorAll("time, button").forEach(node => node.remove());
     return String(clone.textContent || "").trim();
   }
 
-  function retryQuestion() {
-    const question = questionFromLastUserBubble();
+  function retryQuestion(bubble) {
+    const question = questionFromLastUserBubble(bubble || document.querySelector("#chatMessages .ask-bubble.ai:last-child"));
     const input = document.getElementById("chatInput");
     const form = document.getElementById("chatForm");
     if (!question || !input || !form) {
@@ -178,7 +167,7 @@
       button.type = "button";
       button.className = "ask-copy ask-retry";
       button.textContent = "Retry question";
-      button.addEventListener("click", retryQuestion);
+      button.addEventListener("click", () => retryQuestion(bubble));
       bubble.append(button);
     });
   }
@@ -210,9 +199,12 @@
     let lastError = null;
 
     for (const url of candidates) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 5000);
       try {
         const response = await originalFetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, {
           method: "GET",
+          signal: controller.signal,
           mode: "cors",
           credentials: "omit",
           cache: "no-store",
@@ -233,6 +225,8 @@
         return payload;
       } catch (error) {
         lastError = error;
+      } finally {
+        clearTimeout(timer);
       }
     }
 
