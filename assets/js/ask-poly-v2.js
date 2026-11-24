@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?(?:\.html)?\/?$/i.test(location.pathname)) return;
 
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
@@ -493,14 +493,16 @@
       btn.className = `ask-item ${chat.id === activeChatId ? "active" : ""}`;
       btn.type = "button";
       btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
-      btn.addEventListener("click", async () => { activeChatId = chat.id; await renderAll(); });
+      btn.disabled = waiting;
+      btn.addEventListener("click", async () => { if (waiting) return; activeChatId = chat.id; await renderAll(); });
 
       const del = document.createElement("button");
       del.className = "ask-delete";
       del.type = "button";
       del.setAttribute("aria-label", `Delete ${chat.title || "saved chat"}`);
       del.textContent = "×";
-      del.addEventListener("click", async (event) => { event.stopPropagation(); await deleteSavedChat(chat); });
+      del.disabled = waiting;
+      del.addEventListener("click", async (event) => { event.stopPropagation(); if (!waiting) await deleteSavedChat(chat); });
 
       container.append(btn, del);
       els.list.append(container);
@@ -531,6 +533,8 @@
   async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); }
   function setWaiting(value, mode = "thinking") {
     waiting = value;
+    els.newChat.disabled = value;
+    els.list.querySelectorAll("button").forEach(button => { button.disabled = value; });
     els.status.textContent = !value ? "Ready" : mode === "website" ? "Checking POLY website…" : "POLY is thinking…";
     els.input.disabled = false;
     els.send.disabled = false;
@@ -722,7 +726,8 @@
         };
       }
       const data = await response.json().catch(() => ({}));
-      const answer = data.answer || data.message || data.reply || "No answer received.";
+      const answer = data.answer || data.message || data.reply;
+      if (typeof answer !== "string" || !answer.trim()) throw new Error("The AI returned an empty or invalid answer.");
       await onDelta(answer);
       return { answer, provider: data.provider || "ai", model: data.model || "" };
     } finally {
@@ -742,15 +747,25 @@
       return;
     }
     const clean = text.trim();
-    els.input.value = "";
-    autoResize();
-    await addMessage("user", clean);
-    await updateChatTitleFromMessage(activeChatId, clean);
-    await renderMessages();
-    await renderChats();
     const usesWebsite = shouldSearchWebsite(clean);
     setWaiting(true, usesWebsite ? "website" : "thinking");
-    addTyping(usesWebsite ? "website" : "thinking");
+    els.input.value = "";
+    autoResize();
+    try {
+      await addMessage("user", clean);
+      await updateChatTitleFromMessage(activeChatId, clean);
+      await renderMessages();
+      await renderChats();
+      addTyping(usesWebsite ? "website" : "thinking");
+    } catch (error) {
+      console.error(error);
+      setWaiting(false);
+      stopRequested = false;
+      els.input.value = clean;
+      autoResize();
+      els.status.textContent = "Could not save message. Please try again.";
+      return;
+    }
 
     let retrieval = null;
     let streamedAnswer = "";
@@ -774,6 +789,7 @@
         }))
         .filter((m) => m.content.trim());
       retrieval = usesWebsite ? await knowledgeSearch(clean) : null;
+      if (stopRequested) throw new Error("Generation stopped.");
       const result = await callAI(clean, history, retrieval?.context || "", (answer) => {
         streamedAnswer = answer;
         updateStreamingAnswer(answer);
@@ -881,7 +897,7 @@
     });
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
-    els.newChat.addEventListener("click", () => createChat());
+    els.newChat.addEventListener("click", () => { if (!waiting) createChat(); });
     els.stop?.addEventListener("click", () => {
       stopRequested = true;
       activeController?.abort();
