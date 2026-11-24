@@ -11,8 +11,7 @@ const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
 const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
-const DEFAULT_OPENROUTER_MODEL = "google/gemma-2-9b-it:free";
-const OPENROUTER_FALLBACK_MODELS = ["huggingfaceh4/zephyr-7b-beta:free", "mistralai/mistral-7b-instruct:free"];
+const DEFAULT_OPENROUTER_MODEL = "openrouter/free";
 const DEFAULT_FREE_API_MODEL = "";
 
 const EPSILON = 1e-9;
@@ -707,7 +706,7 @@ function extractOpenAIAnswer(data) {
 }
 
 function uniqueModels(primary, defaults) {
-  return [...new Set([cleanText(primary, 120), ...defaults].filter(Boolean))];
+  return [...new Set([...String(primary || "").split(",").map((model) => cleanText(model, 120)), ...defaults].filter(Boolean))];
 }
 
 function providerOrder(env) {
@@ -825,7 +824,7 @@ async function askNvidia(input, env) {
 
 async function askOpenRouter(input, env) {
   let lastError;
-  const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL, ...OPENROUTER_FALLBACK_MODELS]);
+  const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL]);
   for (const model of models) {
     try {
       const { response, data } = await fetchJsonWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
@@ -859,7 +858,7 @@ async function askOpenRouter(input, env) {
     } catch (error) {
       lastError = error;
       console.error(`Ask POLY OpenRouter model ${model} failed`, error);
-      const isRetryable = error.status !== 400 && error.status !== 401 && error.status !== 403 && error.status !== 404;
+      const isRetryable = error.status !== 401 && error.status !== 403;
       if (!isRetryable) throw error;
     }
   }
@@ -1049,7 +1048,7 @@ async function askExternalProviderStream(input, env, provider) {
   }
   if (provider === "openrouter") {
     let lastError;
-    const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL, ...OPENROUTER_FALLBACK_MODELS]);
+    const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL]);
     for (const model of models) {
       try {
         return await askOpenAiCompatibleStream(input, env, provider, "https://openrouter.ai/api/v1/chat/completions", env.OPENROUTER_API_KEY, model, {
@@ -1059,7 +1058,7 @@ async function askExternalProviderStream(input, env, provider) {
       } catch (error) {
         lastError = error;
         console.error(`Ask POLY OpenRouter streaming model ${model} failed`, error);
-        const isRetryable = error.status !== 400 && error.status !== 401 && error.status !== 403 && error.status !== 404;
+        const isRetryable = error.status !== 401 && error.status !== 403;
         if (!isRetryable) throw error;
       }
     }
@@ -1253,7 +1252,7 @@ export async function askPolyStream(body, env) {
       return await askWorkersAiStream(body, env);
     } catch (error) {
       errors.push(`cloudflare-workers-ai: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
-      console.error("Ask POLY Cloudflare Workers AI streaming provider failed", error);
+      console.error("Ask POLY Cloudflare Workers AI streaming provider failed", { code: error?.code, status: error?.status, message: cleanText(error?.message, 180) });
     }
   }
 

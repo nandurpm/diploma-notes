@@ -116,6 +116,8 @@ function extractCloudflareAnswer(result) {
       || result?.answer
       || result?.result?.response
       || result?.result?.answer
+      || result?.choices?.[0]?.message?.content
+      || result?.result?.choices?.[0]?.message?.content
       || result?.output_text,
     7000
   );
@@ -327,7 +329,7 @@ export default {
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai: ${cleanText(error?.message, 240)}`);
-        console.error("Ask POLY Cloudflare Workers AI binding failed", error);
+        console.error("Ask POLY Cloudflare Workers AI binding failed", { code: error?.code, status: error?.status, message: cleanText(error?.message, 180) });
       }
     }
 
