@@ -1,6 +1,6 @@
 /* Public offline resources only; never cache APIs, account pages or submissions. */
 const CACHE_PREFIX = 'poly-pmna-';
-const CACHE_NAME = `${CACHE_PREFIX}20261023-contact-email-v1`;
+const CACHE_NAME = `${CACHE_PREFIX}20261124-exact-assets-v1`;
 const ASSETS_TO_CACHE = ['/offline.html', '/assets/css/style.css', '/assets/js/main.js'];
 const PRIVATE_PATH = /^\/(?:admin(?:\/|$)|api(?:\/|$)|(?:ask-poly(?:-v2)?|daily-quiz|mock-exam|login|register|profile|dashboard|reset-password|auth|account)(?:[/.]|$))/i;
 
@@ -32,14 +32,13 @@ self.addEventListener('fetch', event => {
   const asset = /^\/assets\/(?:css|js|vendor|media)\//.test(url.pathname) && /\.(?:css|js|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(url.pathname)
     && [...url.searchParams.keys()].every(key => key === 'v');
   if (!navigation && !asset) return;
-  const canonicalKey = asset ? url.pathname : request;
-  // Versioned assets reuse canonical pathname as cache key to avoid redundant cache entries.
-  const key = url.pathname;
+  // Keep the complete versioned request as the cache key.
+  const canonicalKey = request;
   const operation = (async () => {
     const cache = await caches.open(CACHE_NAME);
-    const cached = (await cache.match(request)) || (asset ? await cache.match(canonicalKey) : null);
+    const cached = await cache.match(request);
     const refresh = fetch(request).then(async response => {
-      await remember(cache, canonicalKey, response);
+      await remember(cache, canonicalKey, response).catch(() => {});
       return response;
     });
     if (navigation) {
@@ -54,7 +53,7 @@ self.addEventListener('fetch', event => {
   })();
   if (asset) {
     // Return cached assets immediately while the event keeps refresh alive.
-    event.respondWith(caches.open(CACHE_NAME).then(async cache => (await cache.match(request)) || (await cache.match(canonicalKey)) || operation));
+    event.respondWith(caches.open(CACHE_NAME).then(async cache => (await cache.match(request)) || operation));
     event.waitUntil(operation.then(() => {}, () => {}));
   } else {
     event.respondWith(operation);
