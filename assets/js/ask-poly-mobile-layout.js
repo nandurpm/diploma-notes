@@ -1,7 +1,7 @@
 /* Purpose: Ask poly mobile layout - Descriptive comment added for clarity */
 (() => {
   "use strict";
-  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?(?:\.html)?\/?$/i.test(location.pathname)) return;
   window.addEventListener("DOMContentLoaded", () => {
     const panel = document.getElementById("savedChatsPanel");
     const toggle = document.getElementById("mobileChatsToggle");

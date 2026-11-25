@@ -14,11 +14,20 @@ function worker(fetcher) {
   }
   return {events,records,deleted,request};
 }
-test('versioned assets reuse canonical cached entries and refresh',async()=>{
+test('versioned assets do not reuse older versions',async()=>{
   const w=worker(async()=>new Response('fresh'));
-  w.records.set('/assets/js/main.js',new Response('cached'));
-  assert.equal(await (await w.request('/assets/js/main.js?v=123','cors')).text(),'cached');
-  assert.equal(await w.records.get('/assets/js/main.js').text(),'fresh');
+  w.records.set('https://site.test/assets/js/main.js?v=old',new Response('old'));
+  w.records.set('/assets/js/main.js',new Response('old canonical'));
+  assert.equal(await (await w.request('/assets/js/main.js?v=123','cors')).text(),'fresh');
+  assert.equal(await w.records.get('https://site.test/assets/js/main.js?v=123').text(),'fresh');
+});
+test('exact version is available offline',async()=>{
+  let online=true;
+  const w=worker(async()=>{if(!online)throw Error('offline');return new Response('v123');});
+  await w.request('/assets/js/main.js?v=123','cors');
+  online=false;
+  assert.equal(await (await w.request('/assets/js/main.js?v=123','cors')).text(),'v123');
+  await assert.rejects(w.request('/assets/js/main.js?v=456','cors'),/offline/);
 });
 test('public pages work offline after a visit',async()=>{
   let online=true; const w=worker(async()=>{if(!online)throw Error('offline');return new Response('lesson');});
