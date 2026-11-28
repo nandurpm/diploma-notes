@@ -220,7 +220,7 @@ jobs:
                 test -f "$expected"
                 test "$(head -c 5 "$expected")" = "%PDF-"
                 test "$pdf_url" = "$PDF_BASE_URL/$expected"
-              done < <(jq -r '.subjects[] | [.code, .pdfUrl] | @tsv' "$manifest")
+              done < <(jq -r '.subjects[] | select(.status != "missing") | [.code, .pdfUrl] | @tsv' "$manifest")
             fi
           done
           git config user.name "github-actions[bot]"
